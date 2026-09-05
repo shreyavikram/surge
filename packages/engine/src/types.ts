@@ -172,6 +172,7 @@ export interface LeverConfig {
   stock?: number;                 // stockpile total units, or cap on units a regulatory lever can enable
   rationingShare?: number;        // demand_side: fraction of gap removed by rationing
   requires?: string;              // lever id that must be active first
+  activeMonths?: number;          // months the lever stays available after its lead (dependents inherit the requirement's window)
   enabledByDefault: boolean;
   precedent: { name: string; url: string; note: string };
   source: string;
@@ -231,12 +232,13 @@ export interface LeverResult {
   id: string; name: string; type: LeverConfig['type'];
   unitsPath: number[];
   cumulative: number;
-  share: number;                  // of cumulative gap
+  share: number;                  // of cumulative gap: how much of the problem the lever solved
+  reliefShare: number;            // of all relief delivered (supply + rationing): how much of the response it was
   enabledUnits: number;           // regulatory unlocks: units delivered by levers that required it
   cost: number;
   leadMonths: number;
   precedent: LeverConfig['precedent'];
-  classification: 'does the work' | 'marginal' | 'unused';
+  classification: 'does the work' | 'contributes' | 'marginal' | 'unused';
 }
 
 export interface MitigationPlan {

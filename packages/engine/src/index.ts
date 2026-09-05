@@ -6,3 +6,7 @@ export { symmetricEigenvalues } from './linalg.js';
 export * from './welfare.js';
 export * from './biology.js';
 export * from './price.js';
+export * from './months.js';
+export * from './shock.js';
+export * from './impact.js';
+export * from './mitigation.js';
