@@ -41,6 +41,8 @@ export interface FeedAdapter {
   ttlMs: number;
   /** env key required for live data; without it the registry serves the snapshot */
   requiresKey?: keyof Env;
+  /** false for feeds that only supply series/context, not map threats (e.g. FRED). Default true. */
+  producesThreats?: boolean;
   snapshotName: string;
   /** Network fetch + normalize. Throws on failure (registry falls back to snapshot). */
   fetch(env: Env): Promise<FeedResult>;

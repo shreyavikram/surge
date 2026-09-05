@@ -37,6 +37,7 @@ export const fred: FeedAdapter = {
   label: 'FRED retail prices',
   kind: 'live',
   ttlMs: 24 * 60 * 60 * 1000,
+  producesThreats: false,
   snapshotName: 'fred',
 
   async fetch(): Promise<FeedResult> {
