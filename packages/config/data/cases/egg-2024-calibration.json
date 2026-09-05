@@ -1,0 +1,11 @@
+{
+  "id": "egg-2024-calibration", "name": "2024 HPAI egg shock (calibration)", "description": "Reproduces Mitchell, Thompson, Malone (2025) with their published inputs.",
+  "threats": [ { "id": "hpai-2024", "name": "HPAI layer losses, 2024", "category": "disease", "kind": "natural",
+    "location": { "lat": 41.9, "lng": -93.1, "admin": "United States", "iso3": "USA", "regionId": "us-midwest-corn-belt" },
+    "commodities": [ { "id": "eggs", "relevance": 1 } ], "severity": 1,
+    "physical": { "kind": "animals_affected", "value": 38400000 }, "start": "2024-01", "months": 12,
+    "source": { "feed": "APHIS via Fryar FC-2025-001", "kind": "archive" } } ],
+  "observed": { "commodity": "eggs", "months": ["2024-01"], "retailPrice": [2.9757], "counterfactualPrice": [2.73], "attributionShare": 1.0, "source": "Fryar FC-2025-001 Table 1: +9% on $2.73" },
+  "expected": { "consumerSurplusLossUSD": 1414280000, "retailPriceChangePct": 0.09, "quantityChangePct": -0.02, "ownPriceElasticity": -0.228 },
+  "source": "Fryar Center FC-2025-001"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "formula-2022", "name": "2022 infant formula shortage (Sturgis)", "description": "Abbott Sturgis shutdown Feb 17 2022; FDA enforcement discretion May 16; Operation Fly Formula from May 22; restart Jun 4.",
+  "threats": [ { "id": "sturgis-2022", "name": "Abbott Sturgis plant closure and recall", "category": "facility", "kind": "geopolitical",
+    "location": { "lat": 41.80, "lng": -85.42, "admin": "Sturgis, Michigan", "iso3": "USA" },
+    "commodities": [ { "id": "infant-formula", "relevance": 1 } ], "severity": 1,
+    "physical": { "kind": "capacity_out_fraction", "value": 0.2 }, "start": "2022-02", "months": 9,
+    "source": { "feed": "FDA recall notice Feb 17 2022; CNBC Jul 9 2022 restart", "kind": "archive", "note": "share of national supply approximate" } } ],
+  "expected": { "outOfStockRateFDAMay": 0.21, "outOfStockRateDatasemblyMay": 0.43, "enforcementDiscretionBottles": 395600000, "airliftBottlesBySep2": 83000000 },
+  "source": "FDA; White House Operation Fly Formula releases; Datasembly (widely reported)"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "@surge/config",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "test": "vitest run", "typecheck": "tsc --noEmit -p tsconfig.json", "extract": "python3 tools/extract-err139.py" },
+  "dependencies": { "@surge/engine": "*" },
+  "devDependencies": { "@types/node": "^24.0.0", "typescript": "^5.6.0", "vitest": "^3.0.0" }
+}

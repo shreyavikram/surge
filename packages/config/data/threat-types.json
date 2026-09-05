@@ -1,0 +1,18 @@
+{
+  "disease":           { "category": "disease", "kind": "natural", "rule": "livestock_disease", "defaultMonths": 24, "source": "APHIS detections; biology from commodity config" },
+  "pest":              { "category": "pest", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.3, "defaultMonths": 12, "source": "USWBSI Fusarium risk; FAO locust; yield-loss cap 30% at severity 1 (modeled)" },
+  "drought":           { "category": "drought", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.35, "defaultMonths": 12, "source": "US Drought Monitor classes D0-D4 → severity 0.2-1.0; 2012 corn yield -26% at D3/D4 coverage (NASS) (modeled cap)" },
+  "heat":              { "category": "heat", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.15, "defaultMonths": 6, "source": "Open-Meteo anomaly; Schlenker-Roberts nonlinear heat damage (modeled cap)" },
+  "flood":             { "category": "flood", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.25, "defaultMonths": 12, "source": "GDACS alert level → severity (Green 0.2, Orange 0.5, Red 1.0) (modeled cap)" },
+  "storm":             { "category": "storm", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.2, "defaultMonths": 6, "source": "GDACS tropical cyclone alert (modeled cap)" },
+  "wildfire":          { "category": "wildfire", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.1, "defaultMonths": 6, "source": "NASA FIRMS hotspot density (modeled cap)" },
+  "export_ban":        { "category": "export_ban", "kind": "geopolitical", "rule": "trade_block", "defaultMonths": 6, "source": "GTA / IFPRI tracker" },
+  "embargo":           { "category": "embargo", "kind": "geopolitical", "rule": "trade_block", "defaultMonths": 12, "source": "GTA" },
+  "tariff":            { "category": "tariff", "kind": "geopolitical", "rule": "tariff", "defaultMonths": 12, "source": "GTA" },
+  "war":               { "category": "war", "kind": "geopolitical", "rule": "world_price", "defaultMonths": 6, "source": "ACLED intensity; world-price transmission 0.5 (modeled)" },
+  "instability":       { "category": "instability", "kind": "geopolitical", "rule": "world_price", "defaultMonths": 3, "source": "ACLED; transmission 0.5 (modeled)" },
+  "chokepoint":        { "category": "chokepoint", "kind": "geopolitical", "rule": "chokepoint", "defaultMonths": 3, "source": "IMF PortWatch transit vs 2019-23 baseline" },
+  "import_dependence": { "category": "import_dependence", "kind": "geopolitical", "rule": "vulnerability_only", "defaultMonths": 0, "source": "FAOSTAT/Comtrade structural" },
+  "input_cost":        { "category": "input_cost", "kind": "geopolitical", "rule": "input_cost", "defaultMonths": 6, "source": "EIA; FRED PPI" },
+  "facility":          { "category": "facility", "kind": "geopolitical", "rule": "facility", "defaultMonths": 6, "source": "FDA/USDA recall and closure notices" }
+}
