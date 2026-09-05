@@ -152,9 +152,11 @@ Severity slider in the Simulator scales the physical quantity; dialing to zero y
 
 ### 4.3 Price stage (`price.ts`)
 
-Per month with s = shortfall/baseline, demand elasticity ε (<0), export share x, export demand
-elasticity εₓ, import response m(π) from the mitigation plan when applied:
-solve ε·π = −s + x·(−εₓ)·π/… (closed form for the linear case) → wholesale π_w.
+Per month with s = shortfall as a fraction of baseline supply, domestic demand elasticity ε (<0),
+export share x, export demand elasticity εₓ (<0), and short-run supply fixed by biology, market
+clearing in log changes is (1−x)·ε·π + x·εₓ·π = −s, so the wholesale price change is
+π_w = −s / ((1−x)·ε + x·εₓ). Exports absorb part of the shock when εₓ is large in magnitude
+(eggs: x ≈ 0.04, εₓ = −5). Mitigation deliveries reduce s in the months they arrive.
 Retail π_r(t) = θ·π_w(t − L). Defaults θ 0.7, L 1 for eggs; per commodity in config.
 Observed path (replays only): FRED series minus counterfactual (pre-shock trend or WASDE
 forecast) × attribution share (default to published econometric estimate; user adjustable).
