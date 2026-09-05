@@ -10,3 +10,4 @@ export * from './months.js';
 export * from './shock.js';
 export * from './impact.js';
 export * from './mitigation.js';
+export * from './scenario.js';

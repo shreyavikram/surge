@@ -47,7 +47,15 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
   // baseline monthly expenditure per demand item: commodity baselines where mapped, else CEX share × total
   const commoditiesByItem = new Map<string, CommodityConfig[]>();
   for (const c of Object.values(ctx.commodities)) commoditiesByItem.set(c.group, [...(commoditiesByItem.get(c.group) ?? []), c]);
-  const Xc = (c: CommodityConfig): number => (c.baseline.annualQuantity * c.baseline.retailPrice) / 12;
+  // baseline price: a replay values the shock at its own counterfactual price, not the config year's
+  const priceOf = (c: CommodityConfig): number => {
+    const o = opts?.observed;
+    if (usePath === 'observed' && o && o.commodity === c.id && o.counterfactualPrice.length > 0) {
+      return o.counterfactualPrice.reduce((a, b) => a + b, 0) / o.counterfactualPrice.length;
+    }
+    return c.baseline.retailPrice;
+  };
+  const Xc = (c: CommodityConfig): number => (c.baseline.annualQuantity * priceOf(c)) / 12;
   const Xitem: number[] = ds.ids.map((id) => {
     const cs = commoditiesByItem.get(id);
     return cs && cs.length > 0 ? cs.reduce((a, c) => a + Xc(c), 0) : (ds.w[ds.index[id]!]! * ctx.totalExpenditure.value) / 12;
@@ -84,7 +92,7 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
       { key: `elasticity.${id}`, label: `Own-price elasticity, ${c.name}`, value: epsOwn, source: c.demand.source, kind: 'modeled' },
       { key: `passThrough.${id}`, label: `Retail pass-through, ${c.name}`, value: theta, source: c.transmission.source, kind: 'modeled' },
       { key: `baseline.${id}`, label: `Baseline consumption, ${c.name}`, value: c.baseline.annualQuantity, unit: `${c.unit}/yr`, source: c.baseline.source, kind: 'measured' },
-      { key: `price.${id}`, label: `Baseline retail price, ${c.name}`, value: c.baseline.retailPrice, unit: `USD/${c.unit}`, source: c.baseline.source, kind: 'measured' },
+      { key: `price.${id}`, label: `Baseline retail price, ${c.name}`, value: priceOf(c), unit: `USD/${c.unit}`, source: priceOf(c) === c.baseline.retailPrice ? c.baseline.source : `${opts?.observed?.source ?? ''} (counterfactual mean)`, kind: 'measured' },
       { key: `trade.${id}`, label: `Export share / export elasticity, ${c.name}`, value: `${c.trade.exportShare} / ${c.trade.exportElasticity}`, source: c.trade.source, kind: 'modeled' },
     );
     if (c.supply.model === 'livestock') {
