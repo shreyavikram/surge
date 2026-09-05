@@ -1,0 +1,1183 @@
+ 
+2022–2023 HIGHLY PATHOGENIC AVIAN INFLUENZA 
+OUTBREAK 
+Summary of Depopulation Methods and the Impact on Lateral Spread  
+Key Points: 
+• Reported observations are subject to biases due to data availability and quality. 
+Associations reported are based on descriptive evaluation of the data available from a 
+subset of infected commercial premises (69 percent; 221/325) and are not supported 
+by any statistical analyses. Available anecdotal reports have been incorporated where 
+applicable.  
+• The median time to complete premises depopulation following a confirmed diagnosis 
+has been substantially shorter during the 2022–2023 outbreak when compared to the 
+2014–2015 outbreak. 
+• The use of ventilation shutdown plus heat (VSD+) in the 2022–2023 outbreak has 
+reduced the percentage of commercial turkey premises depopulated using foam and 
+changed the primary depopulation method for commercial table egg premises from 
+carbon dioxide (CO2) to VSD+. VSD+ has been used in the 2022-2023 outbreak under 
+constrained circumstances to meet the 24–48-hour depopulation goal established after 
+the 2014-2015 outbreak. 
+• During the 2022–2023 outbreak, VSD+ was used alone, or in combination with other 
+methods, on 49 percent of commercial turkey, 85 percent of commercial table egg, 44 
+percent of commercial broiler, and 29 percent of commercial duck premises. 
+• The choice of depopulation method was heavily associated with the States of the 
+infected premises. State-level, production-system influences, and depopulation 
+resource availability (i.e., people, supplies, equipment) should be considered when 
+drawing conclusions about depopulation methods and lateral spread. 
+• House-level factors including bird age, infection status and/or observation of clinical 
+signs were associated with the use of VSD+. 
+• A subset of States that initially used VSD+ in the depopulation response transitioned to 
+other methods as the number of detections increased. This may reflect a change in 
+resource availability. 
+• The percentage of premises that completed depopulation within 24 hours of starting 
+were 83 percent (134/161) of commercial turkey, 86 percent (6/7) of commercial 
+broiler, 79 percent (11/14) of commercial duck, and 38 percent (3/8) of commercial 
+gamebird premises. Commercial table egg premises took substantially longer to 
+depopulate (range: 1–17 days).  
+• For commercial turkey, broiler, and duck houses, the median time to complete 
+depopulation using VSD+ was longer than foam. For commercial table egg houses, 
+depopulation by CO2 took substantially longer than depopulation by VSD+. These 
+differences are attributable to the differences in logistics and requirements for 
+implementing depopulation methods. 
+• None of the primary depopulation methods consistently achieved 100 percent
+mortality. Secondary depopulation methods were used for 38 percent (273/724) of
+commercial turkey, 59 percent (168/281) of commercial table egg, 35 percent (12/34)
+of commercial broiler, 29 percent (19/66) of commercial duck, and 14 percent (3/21) of
+commercial gamebird houses.
+OVERVIEW 
+The current 2022–2023 outbreak of highly pathogenic avian influenza (HPAI) is the largest 
+and longest outbreak in the history of the United States. The previous record-breaking 
+outbreak occurred in 2014–2015, with 225 poultry premises containing more than 50.5 
+million infected birds. The outbreak lasted over six months, with the first and last infections 
+confirmed on 11 December 2014 and 22 June 2015, respectively. The first detection of HPAI 
+in the current 2022–2023 outbreak occurred on 8 February 2022, and as of 31 August 2023, 
+the National Veterinary Services Laboratory (NVSL) confirmed 839 cases impacting nearly 
+58.8 million birds. Among the 850 HPAI cases, 325 cases occurred on commercial poultry 
+premises and included 227 commercial turkey, 37 commercial table egg, 27 commercial 
+broiler, 17 commercial duck, 16 commercial gamebird, and 1 commercial goose breeder 
+premises. One critical component of the outbreak response is the rapid identification and 
+depopulation of infected premises to prevent lateral spread. During the 2015 outbreak, 
+various factors related to the methods used caused multiple delays in the depopulation of 
+premises. Concern that delayed depopulation may have contributed to the lateral spread of 
+HPAI in 2015 led to the United States Department of Agriculture (USDA) implementing a 24- 
+to 48-hour goal for depopulation following a confirmed detection.1 
+While multiple methods exist to depopulate commercial poultry premises, the 2022–2023 
+outbreak response used ventilation shutdown plus heat (VSD+) to help achieve the 24- to 
+48-hour depopulation goal. As implied, VSD+ involves shutting down barn ventilation
+systems, adding heat, and allowing heat, humidity, and CO2 to accumulate, ultimately
+leading to the deaths of the animals. Available data for this depopulation method suggests
+barns should reach a temperature of 104° F to 110° F within 30 minutes and maintain this
+temperature range for a minimum of 3 hours. While VSD+ is permitted by the American
+Veterinary Medical Association (AVMA) under constrained circumstances,2 use of the
+method has received scrutiny. Since VSD+ has been a critical tool in the 2022–2023
+outbreak response, the purpose of this analysis is to look at the impact of VSD+ on the
+current outbreak, including the factors contributing to the use of VSD+ and the impact on
+response timelines, animal welfare, and lateral spread.
+1htps://www.aphis.usda.gov/animal_health/emergency_management/downloads/hpai/ventilationshutdownpol icy.pdf 
+2htps://www.avma.org/sites/default/ﬁles/resources/AVMA-Guidelines-for-the-Depopulation-of-Animals.pdf 
+APPROACH 
+The USDA uses the Emergency Management Response System (EMRS)as the official 
+system of record for recording foreign animal disease investigations, surveillance and 
+control programs, State-specific disease outbreaks, and national animal health emergency 
+responses. In an HPAI outbreak event, data can be entered and maintained during the 
+active response and then archived. While EMRS existed in 2015, the amount of data 
+recorded and maintained in EMRS has substantially improved during the 2022–2023 
+outbreak. Data in EMRS used for this analysis includes premises investigation and disease 
+statuses, laboratory testing submissions, monitoring depopulation reports, and appraisal 
+data. Data can be reported at the premises and house levels, with premises-level 
+information capable of being queried, and house-level data uploaded in the form of PDFs. 
+Field responders and analysts can query and view data of interest using default or 
+customized data views and the data in these views can then be downloaded for analysis. 
+Regarding depopulation and disposal, customized view creation is available to report 
+premises-level details, including the depopulation start and stop times, depopulation 
+methods used, the number of animals depopulated, and associated comments.  
+Analysts at the USDA Center for Epidemiology and Animal Health (CEAH) used the house-
+level HPAI Monitoring Depopulation Report forms uploaded into EMRS for each poultry 
+house depopulated on an infected premises to assess the rationale behind method 
+selection, the impact on depopulation timelines, and potential lateral spread. Each report 
+included the setup and preparation activity information and time, the primary depopulation 
+method, and if secondary depopulation was required. The forms also contained several 
+comment sections for responders to provide additional information. It is important to note 
+that these forms were developed at the start of the 2022–2023 HPAI outbreak to assist field 
+responders in their oversight of premises depopulation. These forms were not originally 
+intended to be used for a technical analysis of depopulation methods and were not formally 
+monitored for data quality; because of this, the quality of these forms varied substantially. 
+When available, report PDFs were downloaded for each premises, and the available 
+information was extracted. Additionally, other data in EMRS, including lab submissions, 
+epidemiological interviews, and appraisal forms, were manually obtained to identify house-
+level variables of interest. 
+DATA 
+This report includes commercial premises confirmed infected by the NVSL on or before 31 
+August 2023. Premises considered backyard producers or non-poultry premises3 by the 
+World Organisation for Animal Health were excluded from the analysis since VSD+ was only 
+used on commercial premises. As of 31 August 2023, individual house-level HPAI monitoring 
+depopulation reports were available for 69 percent (221/325) of commercial detections. For 
+the remaining 104 detections, reports were not available, were not in a standard format, or 
+were combined. Combined reports included single-page summary reports that outlined 
+dates and methods used per house, and single house-level HPAI monitoring depopulation 
+reports describing multiple houses. Commercial detections included a total of 17 commercial 
+ 
+3 htps://www.woah.org/en/what-we-do/standards/codes-and-manuals/terrestrial-code-online-
+access/?id=169&L=1&htmﬁle=glossaire.htm#terme_volailles 
+production types. For analysis, production types were grouped by their production species 
+(e.g., turkey, egg layer, broiler, duck, and gamebird).For example, commercial table egg 
+layer, table egg breeder, and table egg pullet farms were all grouped together into the table 
+egg species. By production group, individual house reports were available for 77 percent 
+(174/227) of commercial turkey, 62 percent (23/37) commercial table egg, 26 percent (7/27) 
+commercial broiler, 76 percent (13/17) commercial duck, and 19 percent (3/16) commercial 
+gamebird premises. When possible, data was extracted from non-standard or combined 
+reports and included in the analysis. Analysts transcribed data from the reports to produce a 
+dataset for the analysis of the depopulation conducted during the 2022–2023 HPAI outbreak 
+response. For ease of analysis, house-level primary depopulation methods were grouped 
+into four categories: foam, VSD+, CO2, and individual. The CO2 category included CO2 carts 
+and CO2 tenting. The individual category included cervical dislocation, captive bolt, turkey 
+euthanasia device (TED), Koechner Euthanizing Device (KED), and gunshot. 
+RESULTS 
+The following results are based on patterns observed in the descriptive data. These 
+observations are not currently supported by formal statistical analysis. All inferences made 
+are subjective and do not necessarily reflect the full rationale behind depopulation method 
+choices. Analysis was conducted on the available data, and the quality of data from house-
+level reports varied significantly. In most cases, analysts did not further verify the data on the 
+forms. Additionally, the exclusion of premises without individual house-level depopulation 
+reports may bias the analysis. Analysts made efforts to clean data and verify outlier 
+observations when reports were transcribed into a working dataset and analyzed.  
+A. Overview of Depopulation Methods Used 
+House-level depopulation reports included responses for both primary and secondary 
+depopulation methods. The primary method refers to the main method of depopulation, 
+while the secondary method refers to the method used to depopulate birds that did not 
+succumb to the primary method. The primary depopulation methods used in the 2022–
+2023 outbreak included water-based foam, VSD+, CO2, and individual depopulation via 
+cervical dislocation, captive bolt, and KEDS and/or TEDS (Table 1). Combinations of 
+multiple primary depopulation methods were frequently used to achieve depopulation of 
+all houses on infected premises. At the premises-level, foam alone was the most 
+frequently used method for the depopulation of commercial turkey, broiler, and duck 
+premises; only VSD+ was the most frequent method for commercial table egg premises; 
+and CO2 and individual depopulation were used for commercial gamebird premises. 
+Foam was used to some extent on 80 percent and VSD+ was used on 49 percent of 
+commercial turkey premises. For commercial table egg premises, VSD+ was used on 85 
+percent while CO2 was used on 33 percent of premises. Among the other production 
+species, which contributed fewer observations to the dataset, foam was used in some 
+capacity on 67 percent of commercial broiler, 47 percent of commercial duck, and 25 
+percent of commercial gamebird premises, while VSD+ was used to some degree for 44 
+percent of commercial broiler and 29 percent of commercial duck premises.  
+  
+Table 1. Reported primary depopulation methods by commercial production species at the premises and hous
+levels. 
+Premises-level Primary Depopulation Methods 
+Depopulation Method(s) Turkey Table Egg Broiler Duck Gamebird 
+Foam 43.6% 0.0% 55.6% 35.3% 12.5% 
+(79/181) (0/27) (5/9) (6/17) (1/8) 
+VSD+ 17.7% 63.0% 22.2% 17.6% 0.0% 
+(32/181) (17/27) (2/9) (3/17) (0/8) 
+CO2 0.6% 14.8% 0.0% 11.8% 37.5% 
+(1/181) (4/27) (0/9) (2/17) (3/8) 
+Individual 2.2% 0.0% 0.0% 17.6% 37.5% 
+(4/181) (0/27) (0/9) (3/17) (3/8) 
+Foam, VSD+ 24.9% 0.0% 11.1% 5.9% 0.0% 
+(45/181) (0/27) (1/9) (1/17) (0/8) 
+Foam, CO2 0.6% 0.0% 0.0% 0.0% 12.5% 
+(1/181) (0/27) (0/9) (0/17) (1/8) 
+Foam, Individual 3.9% 0.0% 0.0% 5.9% 0.0% 
+(7/181) (0/26) (0/9) (1/17) (0/8) 
+VSD+, CO2 0.0% 18.5% 0.0% 0.0% 0.0% 
+(0/181) (5/27) (0/9) (0/17) (0/8) 
+VSD+, Individual 0.0% 3.7% 11.1% 5.9% 0.0% 
+(0/181) (1/27) (1/9) (1/17) (0/8) 
+Foam, VSD+, Individual 6.6% 0.0% 0.0% 0.0% 0.0% 
+(12/181) (0/27) (0/9) (0/17) (0/8) 
+Total 100% 100% 100% 100% 100% 
+(181/181) ( 27/27) (9/9) ( 17/17) (8/8) 
+House-level Primary Depopulation Methods 
+Depopulation Method Turkey Table Egg Broiler Duck Gamebird 
+Foam 60.1% 0% 61.8% 45.5% 28.66% 
+(435/724) (0/281) (21/34) (30/66) (6/21) 
+VSD+ 34.1% 71.2% 35.3% 16.7% 0% 
+(247/724) (200/281) (12/34) (11/66) (0/21) 
+CO2 1.2% 28.5% 0% 28.8% 52.4% 
+(9/724) (80/281) (0/34) (19/66) (11/21) 
+4.6% 0.4% 2.9% 9.1% 19.0% 
+(33/724) (1/281) (1/34) (6/66) (4/21) 
+Total 100% 100% 100% 100% 100% 
+(724/724) (281/281) (34/34) (66/66) (21/21) 
+e 
+Individual 
+B. Factors Influencing Method Selection 
+The selection of depopulation methods can be complex and influenced by State-level 
+response, resource availability and constraints, disease burden, and company structures 
+or management systems. Acknowledging that nuances are not always reflected in static 
+data, CEAH analysts were interested in identifying any factors or patterns associated 
+with depopulation method selection. Premises-level factors of interest included the State 
+of premises location, the number of previous detections in the State, the number of 
+premises pending depopulation, and the number of commercial poultry premises located 
+within the control area (10-km radius) at the time of detection. House-level factors of 
+interest were the number of birds in the house, the age of the birds, and the house 
+infection status. All house-level factors were manually matched to house-level 
+depopulation reports using data available in the USDA EMRS database. To determine 
+the house infection status, laboratory accession data was matched to house-level 
+depopulation reports. Matched houses that tested positive for HPAI were considered 
+“confirmed infected” for analysis; all other houses were not. Frequently, only the index 
+house on each premises was tested, leaving the infection status of other houses 
+unknown. It is possible some houses were misclassified as “not infected.” 
+The premises State may influence the depopulation method choice since the outbreak 
+response is managed at the State level, and outbreak response preparedness and 
+resources may vary across States. Figure 1 depicts the premises-level depopulation 
+method(s) by commercial production species and State. The premises-level method(s) 
+was obtained by combining methods reported within individual house-level reports for 
+each premises. 
+For commercial turkey premises, depopulation method(s) appears to be influenced by 
+the State. For example, Minnesota typically used a single primary depopulation method, 
+with foam being the most common. In contrast, South Dakota frequently used a 
+combination of foam and VSD+ to depopulate infected turkey premises. Iowa and Utah 
+also frequently used a single primary depopulation method, with VSD+ followed by foam 
+being the most common. With the exception of North Dakota, which mirrored the 
+methods of South Dakota, the remaining States that contributed commercial turkey 
+observations to the dataset predominantly used foam as the primary method of 
+depopulation.  
+For commercial table egg premises, VSD+ was the primary depopulation method for 
+analyzed premises in Iowa, Maryland, Nebraska, and Pennsylvania. Colorado, South 
+Dakota, Utah, and Wisconsin used CO2 in some capacity.  
+The remaining production species contributed fewer premises to the analyzed dataset. 
+Four States contributed commercial broiler premises; Arkansas used foam, whereas 
+California, Pennsylvania, and Tennessee used both foam and VSD+. The methods used 
+for depopulation of commercial duck premises varied across the four States that 
+contributed observations to the analysis: Pennsylvania depopulated commercial duck 
+premises using various combinations of foam, VSD+, and individual methods; California 
+used either CO2 or foam; Indiana only used individual depopulation methods; and 
+Wisconsin used a combination of foam and individual methods. For depopulation of 
+commercial gamebirds, California, Colorado, and Idaho used CO2. South Dakota used 
+either foam or individual depopulation methods, while Wisconsin used a combination of 
+foam and individual methods. 
+ 
+Figure 1. Premises-level depopulation methods for analyzed premises by commercial production species and State. 
+Commercial production species reflect production types grouped by commodity. For example, table egg premises 
+include table egg layer, table egg breeder, and table egg pullet premises.  
+Examining premises-level depopulation methods by the number of previous detections in 
+the State or relative order of detection can potentially provide insight to resource 
+availability. Figure 2 uses color to indicate premise-level depopulation methods and 
+reflects a relative detection timeline for States contributing four or more premises to the 
+dataset. Various patterns can be observed for each State, and for some States, such as 
+Iowa, Minnesota, North Dakota, and South Dakota, method choice does not seem to be 
+impacted by the relative time of detection. Each of these States appear to have had a 
+predominate response method, with deviations from this method occurring randomly 
+across the relative detection timeline. Other States, such as Colorado, Pennsylvania, 
+and Utah, appear to have initially used VSD+ in some capacity and then transitioned to 
+other methods of depopulation as the relative number of detections increased. This may 
+reflect changes in resource availability. 
+ 
+Figure 2. Premises-level depopulation methods by State and relative order of detection.  
+CEAH analysts also examined the premises-level depopulation method by the number of 
+premises pending depopulation (Figure 3). An increase in the number of premises 
+awaiting depopulation may reflect a rapid increase in a State’s detections and could 
+represent a burden on their depopulation resources, which could influence depopulation 
+method choice. When analysts examined States that contributed five or more premises 
+to the dataset, no apparent trends were observed across the States. 
+ 
+Figure 3. Primary depopulation method(s) used by State and number of premises pending depopulation (includes 
+States with 5 or more detections). 
+ 
+Analysts were also interested in whether the local density of commercial poultry 
+premises influenced the choice of depopulation method(s). In high-density areas, the 
+desire to rapidly depopulate infected premises to prevent virus amplification and local 
+spread may have influenced method choice. To analyze the potential association of 
+commercial poultry premises density and depopulation method(s) choice, the number of 
+commercial poultry premises within the infected premises control area (10-km radius) 
+was examined. Figure 4 provides distribution summaries of the number of premises in 
+the control area by commercial production species and depopulation method(s). For 
+commercial turkey premises, the top three depopulation methods were foam, VSD+, and 
+a combination of foam and VSD+. Within these categories, the median number of 
+premises in the control area was the greatest for foam depopulation (median: 15, range: 
+1–201 premises) followed by VSD+ (median: 6.5, range: 1–49 premises), and foam and 
+VSD+ (median: 2, range: 1–57 premises). When evaluating this comparison, it is 
+important to consider how the observed associations are influenced by the State-level 
+depopulation response and how commercial poultry density varies by State. For 
+example, Minnesota, the top commercial turkey-producing State, predominantly used 
+foam in their depopulation response and accounted for a substantial portion of premises 
+analyzed. For commercial table egg premises, VSD+ was the predominant method of 
+depopulation and had the greatest number of commercial poultry premises in the control 
+area when used (median: 8, range: 1–75 premises). Associations for the remaining 
+commercial production species can be observed in Figure 4. 
+ 
+Figure 4. Distributions of the number of commercial poultry premises in the control area (10-km radius) of infected 
+premises by commercial production species and premises-level depopulation method(s) (n = number of houses 
+contributing to the summary boxplot distribution, shown here as individual points). Commercial production species 
+reflect production types grouped by commodity. For example, table egg premises include table egg layer, table egg 
+breeder, and table egg pullet premises.
+House-level factors examined included the number of birds in the house, the age of the birds, 
+and whether the house was confirmed infected. Table 2 provides house-size summary 
+distributions by commercial production species and the house-level depopulation method. 
+Discrepancies between house numbers in Table 1 and Table 2 reflect data availability. For 
+commercial turkey premises, the number of birds per house had little variation across house-
+level depopulation methods. Further investigation of the houses on commercial turkey premises 
+depopulated using individual methods indicated that most of these houses either contained 
+laying chickens for personal use, breeder flocks, or were houses in which the majority of the 
+birds succumbed to disease prior to depopulation. Some variation in house size by method was 
+observed for commercial table egg, commercial broiler, and commercial duck houses. For these 
+production species, the median sizes of houses depopulated using VSD+ was greater than 
+other depopulation methods. The one commercial table egg house depopulated using individual 
+depopulation methods reported greater than 90 percent disease-associated mortality prior to 
+depopulation. Use of VSD+ over CO2 can reflect resource availability or method feasibility since 
+CO2 may be a more time- and resource-intensive method on large table egg layer houses.  
+  
+Table 2. Distribution of house number of birds by commercial production species and house-level primary 
+depopulation method. 
+Commercial Turkey Houses 
+Depopulation Method # Houses Min. p25 Median p75 Max. 
+Foam 430 240 6,498 10,127 14,667 52,262 
+VSD+ 229 1,091 8,734 10,275 14,264 27,556 
+CO2 9 6,403 7,729 7,773 7,818 24,724 
+Individual 33 27 250 500 2,864 13,680 
+Commercial Table Egg Houses 
+Depopulation Method # Houses Min. p25 Median p75 Max. 
+VSD+ 151 1,357 78,292 94,352 186,393 425,000 
+CO2 70 14,444  20,569  26,696  52,640  204,165  
+Individual 1   228,715    
+Commercial Broiler Houses 
+Depopulation Method # Houses Min. p25 Median p75 Max. 
+Foam 21 893  10,929  11,667  27,800  40,744  
+VSD+ 12 9,958  25,000  33,226  33,865  34,224  
+Individual 1   11,000    
+Commercial Duck Houses 
+Depopulation Method # Houses Min. p25 Median p75 Max. 
+Foam 25 636  2,966  5,229  6,882  26,211  
+VSD+ 11 5,531  9,090  14,300  18,708  39,600  
+CO2 19 39  1,431  1,722  2,544  6,768  
+Individual 6 501  3,119  4,061  6,042  8,749  
+Commercial Gamebird Houses 
+Depopulation Method # Houses Min. p25 Median p75 Max. 
+Foam 4 13,100   45,475   59,350  
+CO2 4 3,500   5,000   14,700  
+Individual 4 174   512   800  
+Min. = minimum; p25 = 25th percentile; p75= 75th percentile; Max. = maximum 
+ 
+  
+Figure 5 presents summary distributions of house-level bird age by commercial 
+production species and primary depopulation method. The age of birds in commercial 
+turkey houses depopulated by VSD+ (median: 109, range: 4–350 days) appears to be 
+slightly older than in houses depopulated by foam (median: 76, range: 1–385 days). Age 
+distributions by depopulation method appear similar for commercial table egg premises. 
+For commercial broiler houses, the age of birds in houses depopulated by foam (median: 
+112, range: 24–427 days) is greater than in houses depopulated by VSD+ (median: 35, 
+range: 26–273 days). A similar pattern was observed for commercial duck houses where 
+the median age for foam was 273 days (range: 7–609 days), compared to 39 days 
+(range: 11–51 days) for VSD+. Further investigation of these differences in age 
+distribution identified the use of foam on breeder premises, compared to VSD+ on 
+commercial meat bird premises. This suggests specific premises types within 
+commercial production categories may have influenced method choice. 
+ 
+  
+Figure 5. Distributions of house age by commercial production species and house-level primary depopulation method 
+(n = number of houses contributing to the summary boxplot distribution, shown here as individual points). Commercial 
+production species reflect production types grouped by commodity. For example, table egg premises include table 
+egg layer, table egg breeder, and table egg pullet premises. 
+Confirmation of HPAI in at least one house on a commercial premises resulted in 
+depopulation of the entire premises. CEAH analysts were interested in whether the 
+house-level infection status influenced the depopulation method, specifically on 
+premises that used a combination of depopulation methods. Analysts reviewed 
+laboratory accession data and manually matched test results to house-level 
+depopulation data, when available. In many cases, when a premises was located 
+outside of an outbreak response zone, laboratory testing was only performed for the 
+index house that initially exhibited clinical signs. For the analysis of house infection 
+status, the absence of matched test results was assumed to be a null response, 
+meaning the house was assumed not infected. Table 3 shows the proportion of houses 
+confirmed infected by house-level depopulation method on premises that used a 
+combination of depopulation methods. For commercial turkey premises that used foam 
+in combination with other depopulation methods, the proportion of houses confirmed 
+infected was greater for the non-foam methods than the foam methods. This could 
+indicate that known-infected houses were more likely to be depopulated using VSD+, 
+CO2, or individual depopulation methods. Input from the National Incident Coordinators 
+(NICs) confirmed this observation and further indicated that additional barns exhibiting 
+clinical signs were prioritized for depopulation.4  
+For floor-raised birds, several States implemented a method wherein only the clinically-
+affected barns on a premises were depopulated by VSD+, and all remaining barns were 
+depopulated via foaming. This provided a swift depopulation method for clinically-
+impacted barns, thus limiting further spread to other barns on the same premises or to 
+other premises in close geographic proximity. This method also limited VSD+ to a 
+smaller number of birds and used an AVMA-preferred method for all other birds on the 
+same premises. Additionally, there were instances where VSD+ was only used in a 
+subset of barns on a floor-raised or cage-housed premises that met barn structure 
+requirements for its effective implementation; additional depopulation methods were then 
+used on the remaining barns that did not meet this requirement (e.g., older, damaged, or 
+open-sided barns). 
+4 National Incident Coordinators , personal communications, September 18, 2023, and September 21, 2023. 
+Table 3. Percentage of houses confirmed infected* by house-level depopulation method for only premises using a 
+combination of primary depopulation methods. 
+ House-level Primary Depopulation Method 
+Production Species Foam VSD+ CO2 Individual 
+Turkey 12% 51.50% 100% 61.50% 
+(19/158) (51/99) (1/1) (8/13) 
+Table Egg  7.40% 5.5% 0 
+ (4/54) (3/55) (0/1) 
+Broiler 33.30% 100%  0.00% 
+(1/3) (2/2)  (0/1) 
+Duck 0% 12.50%  100.00% 
+(0/7) (1/7)  (1/1) 
+*House-level infection status was determined by manually matching lab accession data to 
+house-level depopulation reports. A house was only considered to be “confirmed infected” 
+when laboratory data could be matched to the depopulation data. Frequently, only the initial 
+house on a premises exhibiting clinical signs was tested, and the infection status of other 
+houses was unknown. Therefore, there is a data bias toward a “no” response. 
+ 
+     
+    
+ 
+  
+C. Time to Start Depopulation of an Infected Premises 
+Figure 6 depicts the distribution of time in hours from a presumptive diagnosis to the 
+start of premises-level depopulation by commercial production species and State. 
+Presumptive diagnosis indicates the first detection of HPAI by a State’s National Animal 
+Health Laboratory Network (NALHN) lab. Following a presumptive diagnosis, samples 
+were sent to the NVSL, which conducted additional tests and provided a confirmed 
+diagnosis. The color of each datapoint reflects the depopulation method(s) used. Some 
+variation is noted in the State-level response times and was situation dependent: once 
+the outbreak was declared, response may be triggered with a presumptive diagnosis 
+state by state; however, there are times when an NVSL-confirmed diagnosis is required 
+first, and in compliance with USDA Authorization for Response and Associated Activities 
+Policy5.  Most States had a median time to start depopulation of less than 48 hours, 
+reflecting a rapid response following the initial detection of disease. 
+Figure 7 shows the time from presumptive diagnosis to the start of premises-level 
+depopulation by premises-level depopulation method(s). The number of contributing 
+observations should be considered when comparing two or more depopulation 
+method(s). It is important to acknowledge that these timelines are also impacted by the 
+State-level response (see Figure 1 and Figure 6). For commercial turkey premises, 
+median times from presumptive diagnosis to the start of depopulation were similar for 
+premises that used only foam (median: 22.75, range: 0.62–48.92 hours) or VSD+ 
+(median: 19.93, range: -16.22–51.87 hours). Negative time intervals resulted from a 
+premises starting depopulation before a presumptive diagnosis, which occurred when a 
+premises was identified as a dangerous contact––dangerous contacts being contact 
+premises depopulated because of an epidemiological link to a known infected premises. 
+For commercial table egg premises, the two premises depopulated using only CO2 had 
+the shortest median time (range: 15–16.5 hours) to start depopulation, followed by 
+premises that used only VSD+ (median: 28.33, range: 13.17–72.5 hours), and then 
+premises using a combination of VSD+ and CO2 (median: 91, range: 52.5–127.5 hours). 
+The other commercial production species had relatively small numbers of observations 
+contributing to method categories; however, the use of only VSD+ resulted in a more 
+rapid start to depopulation than foam for both commercial broiler and commercial duck 
+premises. Individual depopulation of commercial gamebird premises had the most rapid 
+start. 
+Table 4 presents summary distributions for the time, in hours, from presumptive 
+diagnosis to the start of house-level depopulation by method; this is only for the 
+premises that used a combination of primary depopulation methods. These distributions 
+may provide further insight into the rationale for method choice. For commercial turkey 
+premises, houses depopulated using CO2, VSD+, or individual methods had a shorter 
+median time to start depopulation than foam. When considered with the results 
+presented in Table 3, it could be inferred that non-foam methods were used to rapidly 
+depopulate known-infected or clinical houses before depopulation of other houses with 
+foam or other AVMA-preferred methods; NICs anecdotally confirmed this input. Across 
+the other commercial production species, the median time to start house-level 
+ 
+5 https://www.aphis.usda.gov/animal_health/emergency_management/downloads/hpai/authorization-
+response.pdf 
+depopulation on premises using a combination of methods was shorter when VSD+ was 
+the primary depopulation method. 
+  
+ 
+Figure 6. Time from presumptive diagnosis to the start of depopulation of a premises by commercial production 
+species and State, with a color indicator used for the premises-level depopulation method(s) (n = number of premises 
+contributing to the summary boxplot distribution as individual points). Commercial production species reflect 
+production types grouped by commodity. For example, table egg premises include table egg layer, table egg breeder, 
+and table egg pullet premises. 
+ 
+ 
+Figure 7. Time from presumptive diagnosis to the start of depopulation of a premises by commercial production type 
+and premises-level depopulation method(s) (n = number of premises contributing to the summary boxplot distribution 
+as individual points). Commercial production species reflect production types grouped by commodity. For example, 
+table egg premises include table egg layer, table egg breeder, and table egg pullet premises.  
+Table 4. Hours from presumptive diagnosis to the start of house-level primary depopulation for premises using a 
+combination of depopulation methods by commercial production species and house-level depopulation method. 
+Commercial Turkey Houses 
+Premises 
+Depopulation Methods 
+House 
+Method 
+# 
+Houses Min. p25 Median p75 Max. 
+Foam, VSD+ Foam 95 17 29.21 47.25 56.125 95 
+Foam, VSD+ VSD+ 78 14 26.02 33 48.125 77.25 
+Foam, CO2 Foam 6 37.75 38.875 40.71 42.23 44 
+Foam, CO2 CO2 1   16.5   
+Foam, Individual Foam 25 8.75 18.25 25.25 45.25 76 
+Foam, Individual Individual 11 8.5 18 18.08 20.04 80 
+Foam, VSD+, Individual Foam 28 23 48.8775 52.21 71 130.58 
+Foam, VSD+, Individual VSD+ 21 23.5 42.5 50.5 53.75 80 
+Foam, VSD+, Individual Individual 13 23 49 50.5 70 96 
+Commercial Table Egg Houses 
+Premises 
+Depopulation Methods 
+House 
+Method 
+# 
+Houses Min. p25 Median p75 Max. 
+VSD+, CO2 VSD+ 28 52.5 160.38 238.88 298.5 480.5 
+VSD+, CO2 CO2 23 87 171.5 312 351 432 
+VSD+, Individual VSD+ 16 31.00 153.06 196.17 219.59 249.23 
+VSD+, Individual Individual 1   240    
+Commercial Broiler Houses 
+Premises 
+Depopulation Methods 
+House 
+Method 
+# 
+Houses Min. p25 Median p75 Max. 
+Foam, VSD+ Foam 3 147  150  152 
+Foam, VSD+ VSD+ 1   32   
+VSD+, Individual VSD+ 1   57.17   
+VSD+, Individual Individual 1   55.17   
+Commercial Duck Houses 
+Premises 
+Depopulation Methods 
+House 
+Method 
+# 
+Houses Min. p25 Median p75 Max. 
+Foam, VSD+ Foam 2 43 .78    44.5 
+Foam, VSD+ VSD+ 4 22 .67  31.8  45.17 
+Foam, Individual Foam 5 45.67 47.00 65.33 68.75 70.03 
+Foam, Individual Individual 1   47.5   
+Commercial Gamebird Houses 
+Premises 
+Depopulation Methods 
+House 
+Method 
+# 
+Houses Min. p25 Median p75 Max. 
+Foam, CO2 Foam 4 151.00  182.50  218.50 
+Foam, CO2 CO2 4 127.50  197.00  266.50 
+ Min. = minimum; p25 = 25th percentile; p75= 75th percentile; Max. = maximum 
+ 
+  
+D. Time to Complete Primary Depopulation of an Infected Premises 
+The time to complete primary depopulation of premises was calculated as the difference 
+(in hours) from when the first house on a premises started primary depopulation and the 
+last house on the premises completed primary depopulation. Overall, the median time to 
+complete depopulation was 6.5 hours (range: 0.42–103.75 hours) for commercial turkey, 
+51.3 hours (range: 3.67–407.5 hours) for commercial table egg, 4.5 hours (range: 1.25–
+121 hours) for commercial broiler, 4.3 hours (range: 0.58–28.67 hours) for commercial 
+duck, and 31.25 hours (range: 1.4–143.5 hours) for commercial gamebird premises. The 
+percentage of premises that completed depopulation of the entire premises in 24 hours 
+or less was 83 percent (134/161) of commercial turkey, 86 percent (6/7) of commercial 
+broiler, 79 percent (11/14) of commercial duck, and 38 percent (3/8) of commercial 
+gamebird premises. Commercial table egg premises were frequently larger in scale and 
+took substantially longer to complete depopulation. Only 25 percent (5/20) of analyzed 
+commercial table egg premises completed depopulation within 24 hours; 65 percent 
+(13/20) completed depopulation within 72 hours and 15 percent (3/20) took more than 
+one week to complete depopulation. Within commercial production species, some 
+variation by State- and premises-level depopulation method(s) was observed. Figure 8 
+and Figure 9 present the hours to complete primary depopulation of a premises by 
+State- and premises-level depopulation method(s), respectively, for each commercial 
+production species. Given the large differences in the timescale to complete 
+depopulation, distributions for table egg premises are provided separately in Figure 8B 
+and Figure 9B.  
+Evaluating commercial turkey premises, the median time to complete primary 
+depopulation of the entire premises was eight hours or less for most States (Figure 8). 
+California, South Dakota, North Dakota, and Virginia had slightly higher medians than 
+the other States. By method type, the commercial turkey premises that used CO2 or 
+VSD+ in combination with foam or CO2 took longer to complete premises depopulation. 
+Input from NICs indicated this delay to complete depopulation may reflect the need to 
+source materials for AVMA-preferred depopulation methods. Nationwide impacts to 
+supply chains and employment due to the COVID-19 pandemic impacted the 
+coordination of depopulation activities. Two significant challenges that impacted 
+depopulation were the sourcing of carbon dioxide and foam and the hiring of truck 
+drivers to deliver resources. When faced with these challenges, it was not uncommon for 
+VSD+ to be used on clinical barns to allow for additional time to coordinate supplies and 
+for AVMA-preferred depopulation equipment to arrive onsite. 
+This may also explain that premises depopulated using a combination of foam and 
+VSD+ had a higher median time to complete depopulation (median: 17.5, range: 3–50.5 
+hours) when compared to the other premises-level depopulation method(s) seen in 
+Figure 9. Among the other premises-level methods, the time to complete depopulation 
+using foam (median: 3.5, range: 0.42–53.6 hours) was slightly shorter than using VSD+ 
+(median: 6.28, range: 2.56–73.67 hours). 
+Included in the analysis, the two commercial table egg premises depopulated using CO2 
+had the shortest time (range: 32–33 hours) to complete depopulation. However, these 
+premises may be outliers in comparison to the other data available. One premises was a 
+table egg pullet farm and only had one barn stocked. The other was a table egg layer 
+premises that had 4 barns, and in the dataset used, the median number of barns per 
+table egg premises was 10 (range: 1–41 barns). According to data reported in EMRS at 
+the premises level, two additional table egg layer premises were depopulated using only 
+CO2. These premises recorded total depopulation times of 11 and 16 days, which fall 
+within the range for depopulation times reported for premises depopulated using a 
+combination of VSD+ and CO2 (median: 319.88, range: 120.5–407.5 hours). 
+Unfortunately, these premises did not have individual house-level reports available for 
+inclusion in this analysis. The extended time needed to complete depopulation using 
+CO2 may reflect limitations in CO2 sourcing, as anecdotally reported by the NICs, and 
+the time needed to utilize CO2 delivery carts. The median time for premises depopulation 
+by only VSD+ was 48.5 hours (range: 3.67–145.75 hours). 
+The remaining commercial production species had fewer observations contributing to 
+their summary distributions. For broiler premises, the hours to complete depopulation 
+across depopulation method(s) was highly similar (range: 1.25–6.74 hours), apart from 
+one premises that used a combination of foam and VSD+ and took 121 hours to 
+complete depopulation. This premises depopulated the confirmed-infected barn using 
+VSD+, and then five days later depopulated the remaining houses using foam. This may 
+reflect a delay in resource acquisition. For commercial duck premises, median 
+depopulation time was shorter for Indiana (median: 4, range: 3.42–4.75 hours) and 
+Pennsylvania (median: 4.17, range: 0.58–25.5 hours), when compared to Wisconsin 
+(25.08 hours) and California (28.67 hours). There was some variation in time to 
+depopulate commercial gamebird premise by State and depopulation method(s). Further 
+investigation suggests this may be influenced by the flock size. The three premises in 
+South Dakota that depopulated their flocks in less than 12 hours using individual 
+methods ranged from 200 to almost 1400 birds. Two gamebird premises appear to be 
+outliers: the first premises took 77.5 hours using foam and completed depopulation on 
+two separate days that were two days apart, while the other outlier premises took 145.4 
+hours to depopulate using foam and CO2. The second premises was substantially larger, 
+with approximately 188,000 birds. The next largest gamebird premises contained 32,000 
+birds. 
+  
+ 
+B 
+A 
+ 
+ 
+Figure 8. Time to complete primary depopulation of all houses on a premises by commercial production species and 
+State (n = number of premises contributing to the summary boxplot distribution as individual points). Panel A presents 
+commercial turkey, broiler, duck, and gamebird premises. Panel B presents commercial table egg premises. 
+Commercial production species reflect production types grouped by commodity. For example, table egg premises 
+include table egg layer, table egg breeder, and table egg pullet premises. 
+ 
+ 
+Figure 9. Time to complete primary depopulation of all houses on a premises by commercial production species and 
+premises-level depopulation method(s) (n = number of premises contributing to the summary boxplot distribution as 
+individual points). Panel A presents commercial turkey, broiler, duck, and gamebird premises. Panel B presents 
+commercial table egg premises. Commercial production species reflect production types grouped by commodity. For 
+example, table egg premises include table egg layer, table egg breeder, and table egg pullet premises. 
+  
+B 
+A
+ 
+E. Time to Complete House-level Depopulation 
+In addition to depopulation at the premises level, the time to depopulate individual 
+houses was analyzed. At the house level, the median time to depopulate was 1.42 hours 
+(range: 0.08–67.47 hours) for commercial turkeys, 4.05 hours (range: 0.75–226 hours) 
+for commercial table egg, 2.33 hours (range: 0.5–5.5 hours) for commercial broiler, 0.94 
+hours (range: 0–4.75 hours) for commercial ducks, and 4.5 hours (range: 1.4–10 hours) 
+for commercial gamebird. Across commercial production species, slight variations were 
+observed by State (Figure 10) and primary depopulation methods (Figure 11). For 
+commercial turkey, broiler, and duck houses, the median time for depopulation by VSD+ 
+was longer than foam. This may reflect the recommendation of heat application for a 
+minimum of three hours at 104°F to 110°F when using VSD+. For commercial table egg 
+houses, house-level depopulation by CO2 (median: 33, range: 11–226 hours) was 
+substantially longer than depopulation by VSD+ (median: 3.75, range: 0.75–9.0 hours). 
+This may reflect the size of commercial table egg houses and the need to manually 
+move birds from within-house structures to CO2 containers. 
+For commercial turkey houses, the median time to depopulate was 0.67 hours (range: 
+0.08–13.75 hours) for foam, 0.75 hours (range: 0.15–4 hours) for individual, 1.5 hours 
+(range: 1–1.5 hours) for CO2, and 4 hours (range: 1.25–67.47 hours) for VSD+ primary 
+depopulation methods. Outliers were observed for houses depopulated using VSD+ 
+within the commercial turkey house data distributions. These observations could be 
+partially explained by how the time to complete VSD+ was reported. Some reports 
+appear to have recorded the end of VSD+ as the time the heat application ceased, while 
+other reports record the end of VSD+ as the time the barn could be entered safely by 
+responders. 
+  
+ 
+ 
+ 
+Figure 10. Time to complete house-level primary depopulation by commercial production species and State (n = 
+number of houses contributing to the summary boxplot distribution as individual points). Panel A presents commercial 
+turkey, broiler, duck, and gamebird premises. Panel B presents commercial table egg premises. Commercial 
+production species reflect production types grouped by commodity. For example, table egg premises include table 
+egg layer, table egg breeder, and table egg pullet premises. 
+A 
+B 
+A 
+B 
+ 
+ 
+Figure 11. Time to complete house-level primary depopulation by commercial production species and house-level 
+depopulation method (n = number of houses contributing to the summary boxplot distribution as individual points). 
+Panel A presents commercial turkey, broiler, duck, and gamebird premises. Panel B presents commercial table egg 
+premises. Commercial production species reflect production types grouped by commodity. For example, table egg 
+premises include table egg layer, table egg breeder, and table egg pullet premises. 
+ 
+  
+F. Animal Welfare 
+Every effort is taken in the planning and response phases of an emergency to ensure 
+depopulation occurs rapidly and that animals designated for depopulation are handled in 
+a humane manner before and during their depopulation. Given the extenuating 
+circumstances during an emergency response, the welfare of animals is prioritized as 
+much as possible, and birds continued to receive standard care (e.g., feed, water, and 
+monitoring) while awaiting primary depopulation. 
+Two quantitative measurements available from the house-level depopulation reports for 
+assessing animal welfare impacts of primary depopulation methods were as follows: 1) 
+whether a secondary depopulation method was required (Table 5); and 2) the time 
+interval between completion of primary depopulation and completion of secondary 
+depopulation (Figure 12). The need for a secondary depopulation method indicates 100 
+percent of the birds did not succumb to the primary method. The time from the 
+completion of primary depopulation to completion of secondary depopulation may reflect 
+a period of increased stress for the birds that did not succumb to the primary 
+depopulation method. Birds in caged-house systems that did not succumb to primary 
+depopulation had access to residual feed and water while awaiting secondary 
+depopulation methods. While house-level reports had a data field for reporting the need 
+for a secondary depopulation method, this field was frequently left blank. If needed, 
+analysts manually entered or corrected this field based on other data available in the 
+report, such as notes in the comment sections. If no response was provided on the form, 
+and no comments inferred a secondary depopulation method was used, it was assumed 
+a secondary depopulation method was not required; this may bias the analysis. Within 
+the data available, secondary depopulation methods were needed for 38 percent 
+(273/724) of commercial turkey, 59 percent (168/281) of commercial table egg, 35 
+percent (12/34) of commercial broiler, 29 percent (19/66) of commercial duck, and 14 
+percent (3/21) of commercial gamebird houses included in the analysis. The need for a 
+secondary depopulation method varied by primary depopulation method within 
+commercial production species (Table 5). None of the primary methods, AVMA-preferred 
+or those preferred under constrained circumstances, consistently achieved 100 percent 
+mortality. Across production species, a secondary depopulation method was required 
+more frequently when VSD+ was the primary depopulation method; however, it is 
+possible that the need for a secondary method of depopulation was under reported when 
+CO2 was the primary method because secondary depopulation (i.e., cervical dislocation) 
+was conducted immediately when birds were removed from the cart.  
+The time to complete secondary depopulation was calculated as the difference between 
+the reported end of primary depopulation and the reported end of secondary 
+depopulation. This value could not be calculated if the house-level report did not record 
+the completion time for secondary depopulation; 100 house-level reports indicated a 
+secondary method was required but did not indicate a time of completion. Within the 
+data available, secondary depopulation was completed the same day for 70 percent 
+(144/205) of commercial turkey, 44 percent (59/135) of commercial table egg, 83 percent 
+(10/12) of commercial broiler, 80 percent (20/25) of commercial duck, and 100 percent 
+(1/1) of commercial gamebird houses (Figure 12). Secondary depopulation was 
+completed within one day of primary depopulation for all commercial broiler houses and 
+all but one duck house. One commercial turkey house, depopulated using VSD+, took 
+two days to complete secondary depopulation. The distribution for table egg premises 
+was right-skewed, ranging from zero to five days following primary depopulation (Figure 
+12), and 17 percent (23/135) of commercial table egg houses took two or more days to 
+complete secondary depopulation. 
+Because of concerns raised over delayed secondary depopulation of table egg 
+premises, analysts initiated further inquiry into observations where secondary 
+depopulation was reported two or more days after primary depopulation. This inquiry 
+indicated the time to complete secondary depopulation may have been impacted by 
+several factors, including the disease status of other houses on a premises, the time of 
+day at which primary depopulation occurred, the need for barns to return to safe heat 
+and CO2 levels for responders to enter, the need to source and conduct secondary 
+depopulation methods, and how the timelines were reported.  
+On premises where multiple clinical houses were identified, follow-up conversations with 
+responders indicated the priority was to conduct primary depopulation for all houses 
+before following up with secondary depopulation methods within individual houses. This 
+may explain some of the delays to complete secondary depopulation. Furthermore, 
+review of house-level depopulation reports suggests that in some instances, primary 
+depopulation using VSD+ was performed in the evening and responders entered the 
+barns the subsequent morning when heat and CO2 levels returned to safe conditions to 
+complete secondary depopulation. Based on how this time interval was calculated, these 
+situations reflect that secondary depopulation occurred one day later. Additionally, 
+conversations with responders indicated depopulation was frequently documented to 
+end when responders could walk the barn and verify all birds were deceased. This could 
+be one to two days after the actual depopulation of the birds. This could explain the 
+delay observed in Figure 12 and could also explain why the data field was frequently 
+reported as a date with no associated time, requiring this outcome to be reported as a 
+difference of days instead of hours, as seen in other sections of this report. 
+For table egg premises, time to complete secondary depopulation may be influenced by 
+the secondary depopulation method choice, which was typically either CO2 carts or 
+individual depopulation methods. As previously indicated, CO2 proved difficult to source 
+during the outbreak and house-level depopulation using CO2 carts was time intensive 
+(see Figure 11). Field responders were limited to 12-hour operational periods, and the 
+process of capturing birds or removing them from cages, placing them in CO2 carts, 
+conducting depopulation, and removing the deceased birds was laborious. Additionally, 
+field responders indicated that there were several instances where CO2 carts would have 
+to be emptied prior to being moved between floors of a single house or between houses. 
+This occasionally required CO2 company personnel to come back to the site, further 
+delaying depopulation.  
+The house structure on commercial table egg premises may also impact the success of 
+depopulation and the date reported. Field responders indicated that on some 
+commercial table egg premises, house structure (cage-free houses, manure pits, etc.) 
+provided areas for birds to hide. These birds may be identified on a final walk-through 
+and subsequently depopulated, which may also impact the date reported for the end of 
+secondary depopulation. Unfortunately, the total number of birds depopulated per day 
+was not recorded, and therefore, the proportion of delay attributed to reporting practices 
+versus a true delay in achieving 100 percent depopulation cannot be objectively 
+assessed.  
+Table 5. Percentage of houses requiring a secondary depopulation method by commercial production species and 
+house-level primary depopulation method. 
+ House-level Primary Depopulation Method 
+Production Species Foam VSD+ CO2 Individual 
+Commercial Turkey Houses 32% 51% 0% 15% 
+ (141/435) (127/247) (0/9) (5/33) 
+Commercial Table Egg Houses  74% 21% 100% 
+  (147/200) (17/80) (1/1) 
+Commercial Broiler Houses 0% 100%  0% 
+ (0/21) (12/12)  (0/1) 
+Commercial Duck Houses 13% 73% 37% 0% 
+ (4/30) (8/11) (7/19) (0/6) 
+Commercial Gamebird Houses 0%  27% 0% 
+ (0/6)  (3/11) (0/4) 
+ 
+  
+ 
+Figure 12. Days to complete secondary depopulation following the end of primary depopulation by commercial 
+production species and primary depopulation method. Commercial production species reflect production types 
+grouped by commodity. For example, table egg premises include table egg layer, table egg breeder, and table egg 
+pullet premises. 
+  
+G. Lateral Spread 
+Substantial lateral spread observed during the 2014–2015 HPAI outbreak led to the 
+establishment of the 24–48 hour depopulation goal for HPAI infected premises6. This 
+goal is intended to prevent the suffering of infected birds, prevent further disease spread 
+between birds on an infected premises, and prevent lateral spread from an infected 
+premises. An infected premises awaiting depopulation raises concern for lateral spread 
+due to viral amplification and spread among the birds leading to greater environmental 
+contamination and increased likelihood of transmission off the premises via vectors and 
+fomites. 
+Throughout the course of the outbreak, the NVSL has conducted whole genome 
+sequencing and performed phylogenetic analysis in support of epidemiological outbreak 
+investigations and to monitor viral evolution. It is important to note that the outcomes of 
+phylogenetic analysis were interpreted in context of the available virus and 
+epidemiologic information.  Using the available data, virus from infected premises were 
+categorized by introduction type (independent point source introduction (IND) or 
+common source or lateral transmission (CSLT)). As of 31 August 2023, approximately 17 
+percent (142/822) of all infected premises were the result of CSLT; however, when 
+assessing only commercial premises, 31 percent (100/323) could be categorized as 
+CSLT. Of the 48 distinct phylogenetic clusters identified among the CSLT category 
+across all infected premises, the majority of the clusters were limited to 2 premises (63 
+percent; 30/48), whereas only 15 percent of clusters (7/48) had 5 or more linked 
+premises. This data supports that lateral spread has been limited in most instances for 
+the 2022-2023 event. The two largest clusters were associated with transmission among 
+the live bird marketing system in the Northeast region of the United States, and involved 
+a total of 16 and 27 premises, respectively. These cases are briefly described in the 
+June 2023 interim report for Epidemiologic and Other Analyses of HPAI Affected Poultry 
+Flocks.7 
+While one intent of the 24–48 hour depopulation goal is to prevent lateral spread, it is 
+difficult to objectively define and measure the extent to which depopulation methods or 
+timing prevent or contribute to lateral spread. Phylogenetic data helps identify premises 
+where lateral spread likely occurred, and may provide insight into directionality; however, 
+the epidemiological and production data is needed to better understand the timing and 
+mechanisms of virus movement. Conclusive evidence indicating the exact day of 
+transmission is rare, and this makes it challenging to confidently separate cases of 
+lateral spread that occurred before detection from cases of lateral spread that occurred 
+after detection due to the timing of depopulation. 
+Specifically regarding the subset of commercial premises in this report, 32 percent 
+(75/238) were categorized as CSLT (breakdown by commercial production species: 
+turkey 27 percent (49/179), table egg 39 percent (10/26), broiler 56 percent (5/9), duck 
+63 percent (10/16), and gamebird 13 percent (1/8)). The proportion of premises in the 
+CSLT category by production species and State is presented in Table 6. Differences in 
+ 
+6.https://www.aphis.usda.gov/animal_health/emergency_management/downloads/hpai/depopulationpolicy.pdf 
+7 https://www.aphis.usda.gov/animal_health/downloads/animal_diseases/ai/epi-analyses-avian-flu-poultry-2nd-
+interim-rpt.pdf 
+the proportion of premises categorized as CSLT were observed and were not 
+unexpected as both climate and production systems vary within and between states; 
+additionally, it is important to consider the number of observations per State and 
+production species. The proportion of premises categorized as CSLT by premises-level 
+depopulation method(s) is presented in Table 7.  
+As indicated above, definitive associations between depopulation method and lateral 
+spread cannot be drawn because the timing of lateral transmission relative to detection 
+and depopulation is unknown. Furthermore, associations are also confounded by the 
+State-level response since the occurrence of lateral spread (Table 6) and depopulation 
+method choice (Figure 1) varied by State. For instance, this report suggests that a 
+premises categorized as CSLT was less likely to have been depopulated by a 
+combination of foam and VSD+, when compared to using only one or the other 
+independently. Other factors not available in our working dataset, such as integrated 
+company structures, may have also influenced the occurrence of lateral spread and 
+depopulation method choice.  
+  
+Table 6. Proportion of premises categorized as common source or lateral transmission (CSLT) by production speci
+and State. 
+Location Turkey 
+Table 
+Egg Broiler Duck Gamebird Overall 
+Arkansas 
+  
+0% 
+  
+0%   
+(0/1) 
+  
+(0/1) 
+California 50% 
+ 
+100% 0% 0% 45% 
+(3/6) 
+ 
+(2/2) (0/2) (0/1) (5/11) 
+Colorado 
+ 
+40% 
+  
+0% 33%  
+(2/5) 
+  
+(0/1) (2/6) 
+Illinois 0% 
+  
+ 
+ 
+0% 
+(0/1) 
+  
+ 
+ 
+(0/1) 
+Idaho     0% 0% 
+    (0/1) (0/1) 
+Indiana 0% 
+  
+67%  50% 
+(0/1) 
+  
+(2/3)  (2/4) 
+Iowa 36% 29% 
+   
+33% 
+(5/14) (2/7) 
+   
+(7/21) 
+Kansas 0% 
+    
+0% 
+(0/1) 
+    
+(0/1) 
+Maryland 
+ 
+0% 
+   
+0%  
+(0/1) 
+   
+(0/1) 
+Michigan 0% 
+    
+0% 
+(0/1) 
+    
+(0/1) 
+Minnesota 27% 
+    
+27% 
+(17/62) 
+    
+(17/62) 
+Missouri 50% 
+    
+50% 
+(1/2) 
+    
+(1/2) 
+Nebraska 
+ 
+0% 
+   
+0%  
+(0/1) 
+   
+(0/1) 
+North Dakota 0% 
+    
+0% 
+(0/6) 
+    
+(0/6) 
+Ohio 
+ 
+0% 
+   
+0%  
+(0/1) 
+   
+(0/1) 
+Pennsylvania 78% 86% 50% 80% 
+ 
+79% 
+(7/9) (6/7) (1/2) (8/10) 
+ 
+(22/28) 
+South Dakota 6% 0% 
+  
+25% 7% 
+(3/53) (0/2) 
+  
+(1/4) (4/59) 
+Tennessee 
+  
+50% 
+  
+50%   
+(2/4) 
+  
+(2/4) 
+Utah 65% 0% 
+   
+61% 
+(11/17) (0/1) 
+   
+(11/18) 
+Virginia 0% 
+    
+0% 
+(0/2) 
+    
+(0/2) 
+Wisconsin 50% 0% 
+ 
+0% 0 29% 
+(2/4) (0/1)  (0/1) (0/1) (2/7) 
+Total 27% 39% 56% 63% 13% 32% 
+(49/179) (10/26) (5/9) (10/16) (1/8) (75/238) 
+  
+es 
+Table 7. Proportion of premises categorized as common source or lateral transmission (CSLT) by production species 
+and premises-level depopulation method(s). 
+Depopulation Method(s) Turkey 
+Table 
+Egg Broiler Duck Gamebird Overall 
+Foam 36%  60% 100% 0% 40% 
+(28/78)  (3/5) (5/5) (0/1) (36/89) 
+VSD+ 34% 47% 50% 100%  43% 
+(11/32) (8 /17) (1/2) (3/3)  (23/54) 
+CO2 0% 25%  0% 0% 10% 
+(0/1) (1/4)  (0/2) (0/3) (1/10) 
+Individual 100%   67% 33% 70% 
+(4/4)   (2/3) (1/3) (7/10) 
+Foam, VSD+ 4%  100% 0%  6% 
+(2/45)  (1/1) (0/1)  (3/47) 
+Foam, CO2 100%    0% 50% 
+(1/1)    (0/1) (1/2) 
+Foam, Individual 33%   0%  29% 
+(2/6)   (0/1)  (2/7) 
+VSD+, CO2 
+ 25%    25% 
+ (1/4)    (1/4) 
+VSD+, Individual  0% 0% 0%  33% 
+ (0/1) (0/1) (0/1)  (1/3) 
+Foam, VSD+, Individual 8%     8% 
+(1/12)     (1/12) 
+ 
+As seen in Figure 13, CEAH analysts assessed if a delayed start to depopulation was 
+associated with potential lateral spread and examined the time from presumptive 
+diagnosis to house-level depopulation by production species and whether a premises 
+was categorized as CSLT. For commercial turkey and duck premises, this report 
+suggests that premises involved in a CSLT cluster started depopulation sooner than 
+premises categorized as IND. However, similar median times were observed for 
+commercial table egg and commercial broiler premises. This association is 
+counterintuitive to what CEAH analysts expected and is likely due to State-level 
+influence, given that the time to start depopulation for premises categorized as CSLT 
+varied by State. More rapid depopulation of premises categorized as CSLT may also 
+reflect a higher level of disease awareness; it is possible that knowledge of contact with 
+infected premises, which resulted in lateral spread, led to testing and ultimately the rapid 
+depopulation of linked premises. 
+  
+ 
+Figure 13. Time from presumptive diagnosis to the start of depopulation of a premises by commercial production 
+species and source of infection (n = number of premises contributing to the summary boxplot distribution as individual 
+points). Commercial production species reflect production types grouped by commodity. For example, table egg 
+premises include table egg layer, table egg breeder, and table egg pullet premises. 
+  
+H. Comparison to 2014–2015 HPAI Outbreak 
+There was a significant improvement in the data recorded in EMRS during the 2022–
+2023 outbreak as compared to the 2014–2015 outbreak. Using the 2014–2015 data 
+available in EMRS, it is possible to calculate the days from when a premises received a 
+confirmed diagnosis until it completed depopulation. Data reported in EMRS at the 
+premises level for the 2022–2023 outbreak and the 2014–2015 outbreak were used to 
+compare the depopulation timelines for the two outbreaks. Depopulated premises in 
+2014–2015 included 148 commercial turkey, 44 commercial table egg, and 3 commercial 
+broiler premises. Premises-level depopulation methods by commercial production 
+species in 2014–2015 are reported in Table 8. Methods were reported as foam, CO2, 
+individual, or other. Details defining “other” methods and house-level depopulation 
+reports were not available. 
+ 
+Table 8. Reported depopulation methods by commercial production species at the premises for the 2014–2015 
+outbreak. 
+Depopulation Method Turkey Table Egg Broiler 
+Foam 93.9% 2.3% 33.3% 
+(138/147) (1/43) (1/3) 
+CO2 1.4% 97.7% 67.7% 
+(2/147) (42/43) (2/3) 
+Individual 2.0% 0% 0% 
+(3/147) (0/0) (0/0) 
+Other 2.7% 0% 0% 
+(4/147) (0/0) (0/0) 
+Total 100% 100% 100% 
+(147/147) (43/43) (3/3) 
+ 
+Comparing this interval to the 2022–2023 outbreak, the median time to complete 
+depopulation is substantially shorter than the 2014–2015 outbreak (Figure 14). The 
+median time from confirmed diagnosis to completion of depopulation for commercial 
+turkeys was 0 days (range: -5–3 days) in 2022–2023, compared to 3 days (range: -3–10 
+days) in 2014–2015. The median time for commercial table egg premises was 4 days 
+(range: -1–19 days) in 2022–2023, compared to 15.5 days (range: 4–38 days) in 2014–
+2015. The median time for commercial broiler premises was 0 days (range: -1–4 days) in 
+2022–2023, compared to 6 days (range: 3–10 days) in 2014–2015. Shorter time 
+intervals observed during the 2022–2023 outbreak can be attributed to some States 
+starting premises depopulation following a presumptive diagnosis and to depopulation 
+method choice. As an example, Minnesota contributed a significant portion of 
+commercial turkey premises to the dataset and frequently started depopulation following 
+a presumptive diagnosis, per USDA policy on authorizing response activities. For table 
+egg premises, the use of VSD+ in 2022–2023 reduced the time to completed 
+depopulation when compared to the use of CO2 in 2014–2015. 
+ 
+ 
+ 
+Figure 14. Comparison of the time from confirmed diagnosis to completion of depopulation between the 2014–2015 
+outbreak and the 2022–2023 outbreak (n = number of premises contributing to the summary boxplot distribution as 
+individual points). 
+  
+CONCLUSION 
+The 2022–2023 HPAI outbreak is the largest and longest HPAI outbreak in the history of the 
+United States. The number and the geographic distribution of HPAI cases has placed an 
+intense demand on outbreak response resources. Throughout the outbreak, there were 
+multiple competing requests for AVMA-preferred depopulation resources (e.g., people, 
+supplies, and equipment) at the same time from different States and poultry companies. 
+From February 8, 2022, to August 31, 2023, there were 169 distinct days in which there was 
+an HPAI detection in more than one State on the same day. In terms of numbers of new 
+detections, during the spring and fall 2022 outbreak peaks, there were nine (on April 1, 
+2022) and eight (on September 29, 2022) States reporting new cases on the same day. 
+Consecutive days of new detections in the same and different States also occurred 
+regularly. This required constant prioritization for the use of limited resources from USDA–
+APHIS–VS, State, and poultry company stockpiles for AVMA-preferred depopulation 
+methods. 
+Even though resource constraints existed, the USDA maintained a goal of depopulation 
+within 48 hours of presumptive diagnosis to thwart the extensive lateral spread seen during 
+the 2014–2015 outbreak. To help achieve this goal, VSD+ has been used during the 2022–
+2023 outbreak in constrained circumstances. Although this report could not definitively 
+demonstrate that the use of VSD+ in the 2022–2023 outbreak prevented lateral 
+transmission, this report does show that a) depopulation was completed more rapidly, and b) 
+that lateral transmission was significantly decreased when compared to 2014–2015 (and 
+when occurred was limited); both of which can be partially attributed to the use of VSD+ to 
+meet the 24–48 hour depopulation goal for HPAI.  
+Compared to the 2014–2015 outbreak, the use of VSD+ in the 2022–2023 outbreak has 
+become the primary method of depopulation for commercial table egg premises (replacing 
+CO2), and significantly reduced the use of foam for depopulation on commercial turkey 
+premises. The primary depopulation method selected and the timing to start and finish 
+depopulation was substantially influenced by the State where the infected premises was 
+located, resource constraints, and other factors of this outbreak as previously discussed. 
+The impact of the State on response decisions limits the ability to conduct a formal analysis 
+due to predictor variables being highly correlated with each State.  
+Aside from the need to rapidly depopulate infected premises, descriptive analysis could not 
+fully describe the complete rationale for using VSD+ since use varied by State and 
+production species. When VSD+ was used in combination with other methods for premises 
+in this report, it was frequently used to depopulate infected houses or houses with older 
+birds. In many instances, the use of VSD+ also allowed for a more rapid start to 
+depopulation. This report suggests a secondary depopulation method was required more 
+frequently when VSD+ was the primary depopulation method, which may reflect welfare 
+concerns. However, looking at relative depopulation timelines, it appears some States that 
+used VSD+ in their early depopulation efforts shifted to using other depopulation methods 
+with increasing numbers of detections. This may reflect a change in resource availability, or 
+efforts to move away from the use of VSD+. 
+Post-analysis insight from the NICs supports several of the observations stated in the 
+descriptive analysis. Incident commander input indicated additional methods of depopulation 
+were intentionally used on some premises where VSD+ was implemented. While this did not 
+occur on all premises using VSD+ for depopulation, use of a combination of depopulation 
+methods was a relatively common strategy to promote animal welfare, prevent animal 
+suffering, and to effect complete depopulation as expeditiously as possible while facing 
+resource availability constraints.  
+REFERENCES 
+ 
+American Veterinary Medical Association. (2019). AVMA Guidelines for the Depopulation of 
+Animals: 2019 Addition. 
+https://www.avma.org/sites/default/files/resources/AVMA-Guidelines-for-the-
+Depopulation-of-Animals.pdf 
+ 
+Animal and Plant Health Inspection Service. (2022). HPA Response Goals & Depopulation 
+Policy. U.S. Department of Agriculture. 
+https://www.aphis.usda.gov/animal_health/emergency_management/downloads/hpai
+/depopulationpolicy.pdf 
+ 
+Animal and Plant Health Inspection Service. (2022). HPAI Response USDA Authorization for 
+Response and Associated Activities. U.S. Department of Agriculture. 
+https://www.aphis.usda.gov/animal_health/emergency_management/downloads/hpai
+/authorization-response.pdf 
+  
+Animal and Plant Health Inspection Service. (2022). HPAI Response Ventilation Shutdown 
+Plus (+) Policy. U.S. Department of Agriculture. 
+https://www.aphis.usda.gov/animal_health/emergency_management/downloads/hpai
+/ventilationshutdownpolicy.pdf 
+ 
+Center for Epidemiology and Animal Health. (2023). Epidemiologic and other analyses of 
+HPAI-affected poultry flocks: 1 June 2023 Interim Report. U.S. Department of 
+Agriculture, Animal and Plant Health Inspection Service. 
+https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-
+diseaseinformation/avian/avian-influenza/hpai-home/hpai 

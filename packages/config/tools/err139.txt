@@ -1,0 +1,3731 @@
+United States 
+Department of 
+Agriculture
+Economic 
+Research 
+Service
+Abigail M. Okrent and Julian M. Alston
+The Demand for Disaggregated Food-
+Away-From-Home and Food-at-Home 
+Products in the United States
+Economic  
+Research  
+Report  
+Number 139
+August 2012
+
+www.ers.usda.gov 
+Visit Our Website To Learn More!
+The U.S. Department of Agriculture (USDA) prohibits discrimination in all its 
+programs and activities on the basis of race, color, national origin, age, 
+disability, and, where applicable, sex, marital status, familial status, parental 
+status, religion, sexual orientation, genetic information, political beliefs, reprisal, 
+or because all or a part of an individual’s income is derived from any public 
+assistance program. (Not all prohibited bases apply to all programs.) Persons 
+with disabilities who require alternative means for communication of program 
+information (Braille, large print, audiotape, etc.) should contact USDA’s 
+TARGET Center at (202) 720-2600 (voice and TDD). 
+To file a complaint of discrimination write to USDA, Director, Office of Civil 
+Rights, 1400 Independence Avenue, S.W., Washington, D.C. 20250-9410 or 
+call (800) 795-3272 (voice) or (202) 720-6382 (TDD). USDA is an equal 
+opportunity provider and employer.
+Cover photo credit: Shutterstock.
+    
+http://www.ers.usda.gov
+Find additional information on this topic: 
+Use of commercial and trade names does not imply approval or constitute 
+endorsement by USDA.
+Recommended citation format for this publication:
+Okrent, Abigail M., and Julian M. Alston. The Demand for Disaggregated 
+Food-Away-From-Home and Food-at-Home Products in the United States, 
+ERR-139, U.S. Department of Agriculture, Economic Research Service, 
+August 2012.   
+United States
+Department
+of Agriculture
+www.ers.usda.gov
+A Report from the Economic Research Service
+Abstract
+Food away from home (FAFH) comprises nearly half of all U.S. consumer food expendi-
+tures. Hence, policies designed to influence nutritional outcomes would be incomplete if 
+they did not address the role of FAFH. However, because of data limitations, most studies 
+of the response of food demand to policy changes have ignored the role of FAFH, and 
+those studies that have included FAFH have treated it as a single good. We, therefore, 
+estimate demand for 43 disaggregated FAFH and food-at-home (FAH) products, using a 
+2-stage budgeting framework. We find that the demands for disaggregated FAFH products 
+differ in price responsiveness and tend to be more sensitive to changes in food spending 
+patterns than FAH products. Many foods are found to have statistically significant substitu-
+tion and complementary relationships within and among food groups. Predicted changes 
+in quantities based on our estimates that include all goods and services and those estimates 
+that include only a subset of foods differ substantially, implying that evaluations of health 
+and nutrition policy based on elasticities of demand for only a subset of goods may be 
+misleading.
+Keywords: Food demand, food away from home (FAFH), demand systems, elasticities.
+Acknowledgments
+The authors are grateful for comments and suggestions made by Sharon Shewmake from 
+Vanderbilt University,  colleagues from the Economic Research Service of USDA including 
+Abebayehu Tegene, Ephraim Leibtag and Laurian Unnevehr, participants at an Agricultural 
+Economics Workshop at North Carolina State University, and three anonymous reviewers, 
+which substantially improved this manuscript.  We also are thankful to Dale Simms for 
+editing the manuscript and Curtia Taylor for design and layout.
+Abigail M. Okrent, aokrent@ers.usda.gov
+Julian M. Alston
+The Demand for Disaggregated Food-
+Away-From-Home and Food-at-Home 
+Products in the United States
+Economic  
+Research  
+Report 
+Number 139
+August 2012
+ii 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Contents
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . iii
+Introduction  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+Previous Research on Modeling Demand  
+for Food Away From Home  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+Data  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+Estimation Approach . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+New Estimates of Demand for Disaggregated  
+Food-Away-From-Home and Food-At-Home Products . . . . . . . . . . . . . 13
+ First-Stage Estimates of Demand Elasticities  
+ for Composite Goods ....................................... 16
+ Conditional Elasticities of Demand for Disaggregated  
+ Food Products ............................................. 18
+ Unconditional Elasticities of Demand for  
+ Disaggregated Food Products ................................. 19
+Potential Policy Implications  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+Conclusion  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+Appendix Tables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+Technical Appendix of Derivations of the Generalized  
+Ordinary Differential Demand System (GODDS)  . . . . . . . . . . . . . . . . . 61
+iii 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Summary
+What Is the Issue?
+Food away from home (FAFH, including limited-service and full-service 
+restaurants) constitutes a large and growing portion of the food budget: in 
+2009, the annual average household expenditure on FAFH was $2,619, or 
+approximately 41 percent of the food budget for an average U.S. house -
+hold, compared with $1,320, or approximately 29 percent of the food 
+budget in 1984. Because FAFH comprises a sizable share of total food 
+expenditures and nutritional intake for an average American, disregarding 
+the relationships between FAFH and any other subset of foods may produce 
+misleading results for formulating nutrition and health policy. Many studies 
+have excluded or inadequately represented FAFH, such that the estimates 
+only partially capture the effects of policy-induced food price changes on 
+consumer demand and nutrition.
+Those analyses that included all goods and services treated FAFH as a 
+composite good, but disaggregated products in FAFH might differ from 
+one another in terms of responsiveness to price- and income-led expendi-
+ture changes, nutritional characteristics, or both. Little is known about how 
+demands for different types of FAFH respond to price changes, but a handful 
+of studies have found that demand responds to changes in income differently 
+for full-service food than it does for limited-service food. 
+What Did the Study Find?
+Statistically significant cross-price relationships exist between and within 
+groups of foods. Evidence suggests that demands for FAFH products differ 
+from demands for food-at-home (FAH) products. Further, FAFH products 
+differ among one another in their nutritional characteristics, quality, and 
+responsiveness to changes in prices and expenditure. Specific findings related 
+to cross-price relationships and consumer demand for FAFH include: 
+•	 The	demands	for	disaggregated	FAFH	products	tend	to	be	more	sensitive	
+to income-induced changes in total expenditures than are FAH prod-
+ucts. This finding may explain why the budget share for FAFH products 
+dipped during the recent recession, while the budget shares for many 
+FAH products increased. During December 2007-June 2009, monthly 
+total expenditures fell 0.51 percent for the average American. In addition, 
+the prices of most FAH products, which are mostly gross substitutes for 
+FAFH products, fell relative to the prices of the FAFH products. Hence, 
+income-induced changes in total expenditures and the relative afford-
+ability of FAH versus FAFH products caused demand for FAFH to fall.
+•	 The	demand	for	full-service	FAFH	responds	much	more	readily	to	price	
+changes than does the demand for limited-service FAFH and other FAFH 
+(including vending machines, mobile food vendors, and school and 
+employee sites). 
+iv 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+•	 Compared	with	the	demands	for	foods	commonly	deemed	“unhealthy”	
+(e.g., cheese, white bread, cakes and cookies, frozen foods), the demands 
+for	many	products	commonly	deemed	“healthy”	(fruits	and	vegetables,	
+nonwhite bread, fish, and seafood) tend to be much less responsive to 
+price changes. For example, the demand for nonwhite bread is much 
+less price-elastic than the demand for white bread, and the demand for 
+cookies and cakes is one of the most price-elastic. 
+•	 Many	of	these	“healthy”	and	“unhealthy”	foods	show	statistically	signifi-
+cant substitution and complementary relationships within and among 
+food groups—a finding that complicates any analysis trying to predict the 
+effects of policy-induced price changes on food demands and nutritional 
+outcomes. 
+•	 Using	forecasts	of	price	and	total	expenditure	changes	between	2011	and	
+2012 to predict food consumption changes over the same span, we found 
+that predictions based on estimates of (conditional) demand elasticities 
+that ignore the total effects of substitutions and complementarities differ 
+substantially—sometimes even taking opposite signs—from predictions 
+based on estimates of (unconditional) demand elasticities that include 
+all goods and services. For example, consumption of each disaggregated 
+dairy product was predicted to increase approximately 0.5-1 percent in 
+2012 when using unconditional demand elasticities, but to decrease a 
+similar amount according to conditional elasticities. Similar contradic-
+tions in forecast changes in consumption between the two sets of demand 
+elasticities are found for pork, poultry, eggs, sugar and sweets, and frozen 
+foods.
+•	 The	substantial	cross-price	relationships	between	products	in	different	
+groups suggest that nutrition policy analysis based on demand elasticities 
+for small groups of products is likely to be misleading. 
+How Was the Study Conducted?
+Using the 1998–2010 Consumer Expenditure Survey diary section, we 
+constructed a monthly time series of household expenditures by aggregating 
+detailed weekly expenditure data into 43 products (i.e., 3 FAFH products, 
+38 FAH products, alcoholic beverages, and a nonfood composite), and then 
+averaged these data over households for a given month. We then matched the 
+average monthly expenditures to monthly consumer price indices. 
+We estimated demand for the 43 products using 2-stage budgeting, where the 
+representative consumer allocates expenditures for market goods and services 
+to groups of goods in the first stage, and then chooses products within each 
+group of goods in the second stage. First, we estimated demand for eight 
+food groups (cereals and bakery products, dairy, meat and eggs, fruits and 
+vegetables, nonalcoholic beverages, other FAH, and FAFH/alcoholic bever-
+ages), and a nonfood composite good. Second, we modeled the second-stage 
+allocation of expenditures on the eight food groups as weakly separable 
+groups—a structure that allowed us to estimate demand for goods in a given 
+group without considering demand for goods in other groups. 
+v 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Using demand elasticity estimates from the first- and second-stage alloca-
+tions,	we	approximated	“unconditional”	demand	elasticities,	which	consider	
+the total expenditure for all goods and services. We then computed the 
+changes in food quantities implied by forecasted changes in prices and 
+personal consumption expenditures between 2011 and 2012. The computa-
+tion used the two sets of demand elasticities and compared the simulated 
+changes to show the influence of intergroup substitution on measures of 
+changes in total nutritional intake.
+1 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Introduction
+Food away from home (FAFH) is a sizable component of total food 
+consumption and the nutritional intake of U.S. adults and children. FAFH 
+also, therefore, constitutes a large and growing portion of the food budget: 
+in 2009, the annual average household expenditure on FAFH was $2,619, or 
+approximately 41 percent of the food budget for an average U.S. household, 
+compared with $1,320, or approximately 29 percent of the food budget in 
+1984 (U.S. Department of Labor, Bureau of Labor Statistics, 2010a).
+Recent findings suggest that FAFH may contribute significantly to obesity 
+and poor dietary quality in the United States. Several studies have found 
+that the nutritional content of FAFH is poor compared with food consumed 
+at home (FAH) (Lin, Guthrie, and Frazao, 1999; Jeffrey et al., 2006; Todd, 
+Mancino, and Lin, 2010). In addition, some types of FAFH (e.g., limited-
+service FAFH, vending machines, and lunch trucks) may be nutritionally 
+worse than others.1 Consumer proximity to limited-service restaurants—
+especially proximity to dense concentrations of limited-service restau-
+rants—has been found to contribute to obesity (Chou, Grossman, and Saffer, 
+2004; Davis and Carpenter, 2009; Currie et al., 2010). Conversely, Binkley 
+(2008) found that—although food from limited-service restaurants tended 
+to be more energy-dense and nutritionally inferior to food from full-service 
+restaurants—meals from limited-service restaurants tended to be smaller. On 
+the whole, the evidence suggests that consuming FAFH may have dramatic 
+effects on dietary quality and body weight and that different types of FAFH 
+may affect dietary quality and individual body weight differently. 
+Given the potential significance of FAFH for dietary quality and nutrition, 
+policies designed to influence nutritional outcomes should address the role 
+of FAFH. However, because most studies of the response of food demand 
+to policy changes have disregarded the role of FAFH, the estimates from 
+these studies incompletely reflect changes in food consumption and nutrition 
+resulting from the policy changes. Those studies that included FAFH treated 
+it as a single good, but evidence suggests that FAFH products are heteroge-
+neous in their nutritional characteristics and quality and in how they respond 
+to changes in prices and expenditures. 
+Some studies have analyzed the relationships between the demands for disag-
+gregated FAFH products and total expenditure or income (i.e., Engel curve 
+analysis), but little is known about the effects of either prices or total expen-
+diture on the demand for disaggregated FAFH products. Only a handful of 
+studies have estimated the effect of price and total expenditure on demand 
+for FAFH as a composite group; to our knowledge, estimates of the effects 
+of prices and total expenditure on demand for disaggregated FAFH have not 
+been published before now. In addition, demand studies that included FAFH 
+as a composite also included fairly aggregated groups of FAH products, 
+whereas some economists have argued that more disaggregated products in 
+terms	of	“healthy”	and	“unhealthy”	foods	would	be	more	useful	for	policy	
+analysis (Andreyeva, Long, and Brownell, 2009). 
+1 Throughout this study, the different 
+types of FAFH are defined by estab-
+lishment type.  Full-service FAFH 
+are establishments that provide food 
+services to patrons who order and 
+are served while seated (i.e., waiter/
+waitress service) and pay after eating.  
+Limited-service FAFH are establish-
+ments primarily engaged in providing 
+food services (except snack and nonal-
+coholic beverage bars) where patrons 
+generally order or select items and pay 
+before eating.
+2 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+In this study, we estimate the demand for disaggregated FAFH and FAH 
+products— including 38 FAH products, 3 FAFH products, alcoholic bever-
+ages, and nonfood—as elements of an unconditional system of demand 
+equations in a two-stage budgeting process. We find statistically significant 
+cross-price relationships, between and within groups of foods, using the 
+first- and second-stage estimates—a finding that underscores the potential 
+usefulness of considering all foods, not just a subset of foods, in evaluating 
+policies targeting nutrition and health outcomes. Using estimates of demand 
+elasticities from the first and second stages, we approximate unconditional 
+elasticities of demand. In particular, we find that demand for full-service 
+FAFH differs from its first-stage aggregate: FAFH and alcoholic beverages. 
+Also, demands within the group comprising FAFH and alcoholic beverages 
+differ	from	each	other.	Likewise,	compared	with	demand	for	“healthy”	foods,	
+demand	for	foods	commonly	deemed	“unhealthy”	respond	differently	to	
+own-price changes. Using the unconditional and conditional sets of demand 
+elasticities, we compute predicted changes in consumption of foods implied 
+by forecasts of price changes between 2011 in 2012, compare the results, and 
+discuss the policy implications of basing analysis on estimates derived from 
+conditional versus unconditional demand systems.
+3 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Previous Research on Modeling Demand for Food 
+Away From Home
+In a recent review of the economic literature on the demand for food, Okrent 
+and Alston (2011) found that—in the handful of studies that have estimated 
+the demand for FAFH—FAFH was always treated as a composite food. 
+The earliest studies of food demand that included FAFH as composite good 
+included fairly aggregated foods in other categories as well (Barnes and 
+Gillingham, 1984; Craven and Haidacher, 1987; Nayga and Capps, 1992). 
+Later studies that included disaggregated FAH products and FAFH used 
+fairly restrictive demand systems, which may poorly approximate the actual 
+process that generated the data (Park et al., 1996; Raper et al., 2002).2 
+Piggott (2003); Reed, Levedahl, and Hallahan (2005); and Okrent and Alston 
+(2011) used flexible demand systems with time-series data to estimate 
+demand for FAFH and FAH products in complete demand systems. Piggott 
+(2003) estimated demand for FAH, FAFH, and alcoholic beverages using the 
+nested price independent generalized logarithmic (PIGLOG) demand system 
+and annual data from 1969 to 1999 (i.e., USDA expenditures matched to the 
+Consumer Price Index (CPI)). The nested PIGLOG is very flexible, nesting 
+popular models of demand such as the almost ideal demand system (Deaton 
+and Muellbauer, 1980a) and the indirect translog (Christensen, Jorgenson, 
+and Lau, 1975), as well as globally flexible versions of these models. But 
+again, the estimates of demand elasticities for these three food and beverage 
+groups may be too aggregated to be useful in studies of nutrition policy. 
+Reed, Levedahl, and Hallahan (2005) presented estimates of demand elastici-
+ties for an FAFH composite, six FAH products, and a nonfood composite 
+using the semiflexible almost ideal demand system (Moschini, 1998) and 
+the Consumer Expenditure Survey (CEX) aggregated into a quarterly time 
+series matched to the CPI. However, the demands for all of the goods were 
+found to have quite large income elasticities (all in the elastic range), which 
+violates Engel’s law. Okrent and Alston (2011) argued that—because unit 
+roots were detected in the logarithmic transformations of the price indexes 
+and budget shares used in their analysis—a differential-demand systems 
+model would be appropriate for modeling demand using those data. They 
+modeled demand for FAFH, alcoholic beverages, eight FAH products, and 
+a nonfood composite using Barten’s synthetic model (Barten, 1993; Brown, 
+Lee, and Seale, 1994), which nests four differential-demand systems (i.e., the 
+Rotterdam, National Bureau of Research (NBR), Central Bureau of Statistics 
+(CBS), and differenced linear almost ideal demand system). All of these 
+studies treat FAFH as a single composite good, although the effects of prices 
+and expenditure may differ among individual FAFH products.
+A few studies analyzed the relationship between demand for disaggregated 
+FAFH products and income or total expenditure, assuming that the price of 
+food from limited-service restaurants relative to food from full-service restau-
+rants would be the same across households. Using different data sets, Byrne, 
+Capps, and Saha (1998) and Stewart et al. (2004) found that income, house-
+hold size, and labor force participation were statistically significant determi-
+nants of expenditure on FAFH for various establishment types. However, to 
+our knowledge, no study before this one has evaluated the effects of changes 
+in prices and total expenditure on demands for disaggregated FAFH products.
+2For the compensated law of demand 
+to hold using the LES, all goods must 
+be normal and substitutes for each 
+other. The linear expenditure system 
+(LES) also implies that Engel curves 
+are linear. Last, the own-price elasticity 
+of demand for each food is approxi-
+mately proportional to its demand elas-
+ticity with respect to total expenditure 
+(Deaton and Muellbauer, 1980b, p. 66).
+4 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Data
+Like Reed, Levedahl, and Hallahan (2005) and Okrent and Alston (2011), we 
+use the Consumer Expenditure Survey (CEX) paired with CPIs to estimate 
+the demands for disaggregated FAFH and FAH products, alcoholic bever-
+ages, and nonfood. The CEX is a nationwide household survey administered 
+every year since 1984 and designed to represent the total U.S. civilian nonin-
+stitutionalized population. The CEX consists of two surveys: a diary survey 
+and a quarterly interview survey. The diary survey collects detailed data on 
+expenditures for frequently purchased items, such as food and apparel, while 
+the interview survey obtains detailed data on expenditures for infrequently 
+purchased items, such as property, automobiles, and major appliances, and on 
+recurring expenses, such as rent, utilities, and insurance premiums. The diary 
+survey collects detailed data on FAH and FAFH expenditures for a 2-week 
+period. The interview survey contains data on expenditures on aggregate 
+food categories, such as FAH and FAFH (U.S. Department of Labor, Bureau 
+of Labor Statistics, 2010b). 
+The CEX diary data are from cross-sections of households and can be aggre-
+gated to construct a weekly, monthly, quarterly, or annual time series of 
+average expenditures per consuming unit. Because the CPIs are available 
+monthly and annually, we aggregated the CEX diary data to create a monthly 
+series. When consuming units reported expenditures for a week that straddled 
+2 months, those expenditures were assigned to the month that included 4 or 
+more of the days in question. Households that did not report purchasing a 
+particular food were assigned a zero. To extrapolate the sample observations 
+to the population, we applied the sample weights calculated by the Bureau of 
+Labor Statistics (BLS). The CEX public microdata are available from 1980 
+through 2010, but we used a subset of the data since it was only in 1998 that 
+the CEX began publishing detailed data on FAFH (specifically, food from 
+limited-service restaurants, full-service restaurants, vending machines and 
+lunch trucks, employee and school sites, and catered affairs).3 
+We constructed the budget shares as expenditure for each food group divided 
+by total expenditures on all goods and services for the first stage, and as 
+expenditure for each disaggregated food product divided by expenditures for 
+its group for the second stage (table 1). On average, for 1998-2010, nonfood 
+constituted the largest share of the budget for all goods and services at 81 
+percent, followed by FAFH and alcoholic beverages (8 percent), meat and 
+eggs (3 percent), and other FAH (3 percent). Within the FAFH and alcohol 
+category, food from limited-service and full-service restaurants constituted 
+about 41 percent and 37 percent, respectively, although the average monthly 
+share of limited-service FAFH, within FAFH and alcohol, declined over the 
+entire period (a linear trend of -0.09 percent per month), while the share of 
+full-service FAFH increased (a linear trend of 0.14 percent per month). Other 
+FAFH—which includes food from vending machines and mobile vendors, as 
+well as employee and school sites—constitutes about 7 percent of the expen-
+diture on FAFH and alcohol, and this share has declined by 0.24 percent 
+per month, on average. Expenditure on all of the disaggregated FAFH and 
+alcohol products declined relative to expenditure on total goods and services 
+during the most recent recession (December 2007-June 2009). This finding 
+contrasts starkly with the data on most FAH products, for which expenditure 
+3Expenditures on food from catered 
+affairs are inconsistent between 1998 
+and 2009 in that between 2005 and 
+2009, no expenditures on food from 
+catered affairs were reported. Hence, 
+we exclude catered food from our 
+analysis.
+5 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Table 1 
+Summary statistics and trends for budget shares and prices
+Budget shares (%) Consumer price indexes (Jan. 1999=100)
+Meana
+Std. 
+dev.
+Avg. monthly growth (%)b
+Meana
+Std. 
+dev.
+Avg. monthly real growth (%)c
+Jan. 98 - 
+Dec. 10
+Dec. 07 - 
+June 09
+Jan. 98 - 
+Dec. 10
+Dec. 07 - 
+June 09
+Cereals/bakery 1.66 0.21 -0.12 0.51 114.71 12.90 0.23 0.02
+Flour, flour mixes 4.40 0.77 -0.23 1.56 113.84 15.68 0.27 0.05
+Breakfast cereals 19.01 1.51 -0.20 0.43 105.40 4.05 0.07 -0.14
+Rice, pasta 10.18 1.24 -0.09 1.30 115.89 18.92 0.30 0.09
+Non-white bread 11.26 1.01 0.04 0.20 123.93 20.96 0.35 0.14
+White bread 7.69 0.73 -0.23 -0.38 122.75 19.73 0.33 0.12
+Biscuits, rolls, muffins 9.15 0.87 -0.02 0.52 120.15 17.28 0.30 0.09
+Cakes, cookies 17.91 1.62 -0.17 -0.18 113.74 12.60 0.23 0.02
+Other bakery products 20.41 1.86 -0.04 -0.02 114.29 10.91 0.20 -0.01
+Dairy 1.21 0.11 -0.01 0.03 110.68 11.02 0.28 0.07
+Cheese 31.66 2.20 0.07 0.20 111.71 11.53 0.38 0.16
+Frozen dairy desserts 17.35 3.00 -0.17 0.32 107.68 7.55 0.18 -0.04
+Milk 36.74 2.32 -0.08 -0.94 110.70 13.04 0.22 0.00
+Other dairy 14.25 2.15 0.24 0.21 112.11 11.09 0.21 -0.01
+Meat and eggs 2.88 0.38 -0.16 0.41 126.17 16.18 0.21 -0.01
+Beef 29.09 2.37 -0.22 0.00 135.30 22.95 0.33 0.12
+Pork 20.23 1.53 -0.21 0.44 119.61 9.97 0.21 -0.01
+Other red meat 13.03 1.19 -0.09 0.00 116.34 11.56 0.21 0.00
+Poultry 18.11 1.62 -0.17 0.21 112.85 10.78 0.14 -0.07
+Fish 14.75 1.50 -0.07 0.35 111.67 11.51 0.22 0.01
+Eggs 4.80 0.77 0.06 0.07 116.70 22.64 0.21 0.00
+Fruits and vegetables 1.69 0.19 0.06 0.40 113.57 13.54 0.26 0.04
+Apples 6.99 1.14 0.01 -0.29 131.99 22.25 0.33 0.12
+Bananas 6.57 0.86 -0.11 0.52 110.56 10.99 0.17 -0.04
+Citrus 7.84 1.27 0.13 0.34 128.36 25.40 0.36 0.15
+Other fresh fruit 17.59 4.90 0.21 -0.29 95.53 11.49 0.18 -0.04
+Potatoes 6.64 0.78 0.00 0.61 134.29 26.39 0.40 0.19
+Lettuce 4.88 0.39 0.07 0.30 122.06 16.24 0.21 0.00
+Tomatoes 6.95 0.75 0.05 -0.37 93.78 15.53 0.27 0.06
+Other fresh vegetables 19.43 1.28 0.08 0.14 118.92 15.52 0.28 0.06
+Proc. fruits, vegetables 23.10 2.93 0.06 0.69 115.85 14.63 0.26 0.05
+--continued
+6 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Table 1 
+Summary statistics and trends for budget shares and prices--continued
+Budget shares (%) Consumer price indexes (Jan. 1999=100)
+Meana
+Std. 
+dev.
+Avg. monthly growth (%)b
+Meana
+Std. 
+dev.
+Avg. monthly real growth (%)c
+Jan. 98 - 
+Dec. 10
+Dec. 07 - 
+June 09
+Jan. 98 - 
+Dec. 10
+Dec. 07 - 
+June 09
+Nonalcoholic beverages 0.75 0.09 -0.10 0.53 109.10 7.63 0.14 -0.07
+Coffee, tea 17.44 2.42 -0.19 0.18 104.68 10.56 0.19 -0.02
+Carbonated beverages 35.07 3.85 -0.88 0.11 113.09 10.40 0.27 0.06
+Noncarbonated 
+beverages 45.20 3.66 0.15 -0.63 106.09 5.53 0.11 -0.11
+Frozen beverages 2.29 1.10 0.20 0.53 115.02 15.95 0.16 -0.06
+Other FAH 2.76 0.34 0.14 0.53 109.81 8.57 0.16 -0.05
+Sugar, sweets 18.75 3.28 -0.05 0.44 111.27 10.79 0.20 -0.01
+Fats, oils 16.81 1.86 -0.03 0.53 111.73 12.90 0.23 0.02
+Soups 5.93 1.16 0.02 0.72 110.46 6.99 0.13 -0.09
+Frozen meals 17.15 1.80 0.26 0.23 104.86 4.74 0.09 -0.12
+Snacks 3.73 0.39 0.11 0.44 113.16 11.63 0.21 0.00
+Condiments, sauces, 
+season. 15.26 1.14 0.15 0.69 108.56 7.76 0.15 -0.07
+Miscellaneous FAH 22.37 3.54 0.41 0.16 107.74 5.84 0.11 -0.10
+FAFH and alcohol 8.38 0.75 0.00 0.00 116.41 12.92 0.24 0.03
+Alcohol 15.55 2.06 0.05 -0.05 110.90 11.44 0.22 0.01
+Full service 37.34 2.71 0.14 -0.22 116.29 12.68 0.24 0.02
+Limited FAFH 40.61 3.13 -0.09 -0.24 115.55 11.51 0.25 0.04
+Other FAFH 6.51 1.67 -0.24 -0.23 109.71 10.29 0.17 -0.05
+Nonfood 80.67 1.58 0.00 -0.06 116.43 11.14 0.21 0.00
+Sources: U.S. Department of Labor, BLS, Consumer Expenditure Survey (2010a/b).  
+Notes: Foods in the first stage are highlighted.  
+FAFH = Food away from home, including limited-service and full-service restaurants.
+FAH = Food-at-home. 
+a The mean expenditure shares for the disaggregated products are conditional on the group expenditure.  
+b The average monthly growth rate in the expenditures for the food as a share of total expenditures on goods and services (price) is the coef-
+ficient on a linear trend in the ordinary least squares (OLS) regression of the logarithmic transformation of the budget share (price) on the linear 
+trend and a constant.  
+c The real price is the price index for a particular food divided by the consumer price index for all items.
+increased as a share of total goods and services during the recession, with the 
+exception of some fruits and vegetables (i.e., bananas, other fresh fruit, and 
+tomatoes), some cereals and bakery products (i.e., white bread, cakes and 
+cookies, and other bakery products), and milk.
+The budget shares for all foods exhibit considerable month-to-month varia-
+tion. Expenditure on limited-service FAFH decreased from about 4 percent 
+to 3 percent of the total budget for all goods and services of an average 
+household between 1998 and 2010 (fig. 1). Conversely, the share of the 
+total expenditures for goods and services spent on full-service FAFH grew 
+7 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+between 1998 and 2007, but fell thereafter. Expenditures on the FAH prod-
+ucts with the largest budget shares likewise seemed to reflect the recession’s 
+influence, declining as a share of the total budget on goods and services until 
+2006, and then increasing thereafter (fig. 2). In contrast, the share of total 
+expenditure on other FAH—which consists of sugar and sweets; fats and oils; 
+soups; frozen foods; and condiments, sauces, and gravies—was unaffected 
+by the recession, remaining flat until 2004 and then growing, unabated.
+Most of the food groups in our analysis correspond directly to one of the 
+CPIs. However, two of the food groups—other FAFH and FAFH/alcoholic 
+beverages—correspond to more than one CPI (U.S. Department of Labor, 
+Bureau of Labor Statistics, 2010c). We constructed a composite price index 
+for each of these food groups as a harmonic mean of disaggregated price 
+indexes, each weighted by its first- or second-stage expenditure share. All 
+price indexes are scaled to be equal to 100 in January 1999. 
+The price indexes for limited-service and full-service FAFH deflated by 
+the CPI for all items seem to track each other, although the commodity 
+price shocks in 2007 and 2008 had a much bigger impact on limited-service 
+FAFH than on full-service FAFH (fig. 3). The growth in both of these real 
+price series is fairly flat until 2008. On the other hand, the real price of other 
+FAFH generally declined until 2008. Of the four products, the real price for 
+alcoholic beverages exhibits the most price variation from month to month, 
+but does not seem to trend up or down over the sample period. Compared to 
+the deflated prices of FAFH, the deflated FAH prices decreased dramatically 
+after the commodity price shocks in 2008 (fig. 4).
+Note: FAFH = Food away from home, including limited-service and full-service restaurants
+Source: Authors’ calculations using the Consumer Expenditure Survey (Department of Labor, Bureau of Labor Statistics, 2010a) 
+and the Consumer Price Indexes (Department of Labor, Bureau of Labor Statistics, 2010c).
+Figure 1
+Monthly household budget expenditures for FAFH and alcohol products as a share of total expenditures 
+on goods and services, 1998-2010
+Budget shares (percentages)
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+3.5
+4.0
+4.5
+5.0
+1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010
+Limited service Full service Other FAFH Alcoholic beverages
+8 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+3.5
+4.0
+1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010
+Note: FAH = Food at home
+Source: Authors’ calculations using the Consumer Expenditure Survey (U.S. Department of Labor, BLS, 2010a) and the Consumer 
+Price Indexes (U.S. Department of Labor, BLS, 2010c).
+Figure 2
+Monthly household budget expenditures for selected FAH products as a share of total expenditures 
+on goods and services, 1998-2010
+Budget shares (percentages)
+Cereals and bakery products Dairy Meat and eggs Fruits and vegetables Other FAH
+Note: FAFH = Food away from home, including limited-service and full-service restaurants
+Source: Authors’ calculations using the Consumer Expenditure Survey (U.S. Department of Labor, BLS, 2010a) and the Consumer 
+Price Indexes (U.S. Department of Labor, BLS, 2010c).
+Figure 3
+Real prices for disaggregated FAFH and alcohol products, 1998-2010
+Price index (100=Jan1999)
+85
+90
+95
+100
+105
+110
+1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010
+Limited service Full service Other FAFH Alcoholic beverages
+9 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Note: FAH = Food at home
+Source:  Authors’ calculations using the Consumer Expenditure Survey (U.S. Department of Labor, BLS, 2010a) and the 
+Consumer Price Indexes (U.S. Department of Labor, BLS, 2010c).
+Figure 4
+Real prices for selected FAH products, 1998-2010
+Price index (100=Jan1999)
+80
+85
+90
+95
+100
+105
+110
+115
+1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010
+Cereals and 
+bakery products
+Meat and eggs Dairy Fruits and 
+vegetables
+Other FAH
+10 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Figure 5
+Food products within the two-stage budgeting framework
+Notes: FAFH = Food away from home, including limited-service and full-service restaurants
+FAH = Food-at-home 
+Demand for market goods and services assumed to be separable from demand decisions about leisure and savings.
+Cereals and  
+bakery
+Flour, flour 
+mixes
+Breakfast 
+cereals
+Rice, pasta
+Nonwhite
+bread
+White bread
+Biscuits, 
+rolls, 
+muffins
+Cakes, 
+cookies
+Other 
+bakery
+Meat and 
+eggs
+Beef
+Pork
+Other red 
+meat
+Poultry
+Fish
+Eggs
+Dairy
+Cheese
+Milk
+Ice cream, 
+frozen 
+desserts
+Other
+dairy
+Fruits and 
+vegetables
+Apples
+Bananas
+Citrus
+Other fresh 
+fruits
+Lettuce
+Tomatoes
+Potatoes
+Other fresh 
+vegetables
+Processed 
+fruits and 
+vegetables
+Nonalcoholic 
+beverages
+Coffee and 
+tea
+Carbonated 
+beverages
+Non-
+carbonated 
+beverages
+Frozen 
+beverages
+Other FAH
+Sugar and 
+sweets
+Fats and 
+oils
+Soups
+Snacks
+Frozen 
+foods
+Condiments, 
+sauces, 
+seasonings
+Misc. FAH
+FAFH and 
+alcohol
+Limited 
+service
+Full service
+Other 
+FAFH
+Alcoholic 
+beverages
+Nonfood
+Total goods and services
+Estimation Approach
+Given that we have a limited number of observations and a large number of 
+parameters to estimate, we assume that a representative household purchases 
+goods in a two-stage budgeting process (Strotz 1957, 1959; Gorman, 1959; 
+Barten, 1977), as follows. First, consumers allocate their budget for all goods 
+and services among composite groups, including six FAH groups, FAFH and 
+alcoholic beverages, and nonfood (fig. 5). Second, assuming that the seven 
+food groups are weakly separable, consumers then choose disaggregated food 
+products within each of the groups, conditional on expenditure for that group. 
+We estimate the first- and second-stage demands for nonfood and disag-
+gregated food products. We then use the first- and second-stage estimates to 
+approximate	“unconditional”	elasticities	of	demand	for	disaggregated	food	
+products.4 
+4“Unconditional”	in	this	context	
+means conditional on total expendi-
+ture on food, alcoholic beverages, and 
+nonfood. 
+11 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Estimation of First- and Second-Stage Demand
+Since unit roots are often detected in time-series data, Gao and Shonkwiler 
+(1993) suggested working with difference models rather than level-data 
+models because the consequences of differencing when it is not needed are 
+much less serious than those of failing to difference when it is appropriate. 
+Hence, we opted to use the Generalized Ordinary Differential Demand 
+System (GODDS) (Barten, 1993; Eales, Durham, and Wessells, 1997) to 
+estimate demands in both the first and second stages. 
+The GODDS nests several commonly used differential demand systems, 
+including the Rotterdam model (Theil, 1965; Barten, 1966); the Central 
+Bureau of Statistics (CBS) model (Keller and van Driel, 1985); the 
+differenced linear almost ideal demand system (DLAIDS) (Deaton and 
+Muellbauer, 1980a); and the National Bureau of Research (NBR) model 
+(Neves, 1987). The GODDS is
+(1) dwn = (cn + φ1wn)d ln Q + ∑ N
+k = 1[dnk + φ2wn(δnk – wk)]d ln pk ,
+where cn and dnk are expenditure and price coefficients to be estimated, 
+respectively; φ1 and φ2 are nesting coefficients; δnk is the Kronecker delta; wn 
+is a t × 1 vector of expenditure shares for good n; pk is a t × 1 vector of prices 
+of good k; and Q is a t × 1 vector of Divisia volume indexes (see appendix 
+for more details on this model). The values of φ1 and φ2 that generate the 
+various nested models in GODDS are
+(2) φ1 = –1, φ2 = 1 Rotterdam model
+(3) φ1 = 0, φ2 = 0 DLAIDS
+(4) φ1 = 0, φ2 = 1 CBS model
+(5) φ1 = –1, φ2 = 0 NBR model.
+Restrictions from demand theory can also be imposed a priori or tested,
+(6) ∑N
+n = 1din = 0,
+(7) ∑N
+n = 1dni = 0, ∑N
+n = 1cn = –φ1,
+(8) dik = dki,
+(i.e., homogeneity, adding-up, and symmetry, respectively). The formulas for 
+the price and expenditure elasticities of demand for the GODDS are
+(9) ηik = 
+dik – ciwk
+wi  
+ + (φ2 – 1)δik – (φ1 + φ2 )wk,
+(10) ηiM = 
+ci – φ1wi + wi 
+wi  
+.
+12 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Approximating Unconditional Elasticities of Demand 
+Many studies model only the second stage of the two-stage budgeting 
+process, and some have argued that the resulting conditional elasticities of 
+demand are a useful approximation to the unconditional elasticities (Capps 
+and Havlicek, 1984; Heien and Pompelli, 1988; Gao and Spreen, 1994). 
+However, the conditions that allow conditional elasticities of demand to 
+approximate unconditional elasticities do not hold empirically.5 Hence, we 
+approximate the unconditional elasticities of demand by assuming consumers 
+purchase goods in a two-stage budgeting process, and use the first- and 
+second-stage elasticities of demand to approximate the unconditional elastici-
+ties of demand.
+Carpentier and Guyomard (2001) approximated unconditional elasticities 
+of demand using an approximation to the Slutsky substitution terms that are 
+assumed to be weakly separable. Denoting the superscript as representing the 
+composite group and the subscript as representing the elementary good, they 
+approximated the unconditional Marshallian expenditure (η
+iM
+) and price (η
+ij
+) 
+elasticities of demand as
+(11)  η
+iM
+ ≈ ηI
+iM
+ ηIM,
+(12)  η
+ij
+ ≈ δIJ ηI
+ij
+ + wJ
+j 
+ηI
+iM 
+ηJ
+jM 
+(δIJ / ηJ
+jM + ηIJ) + wJ
+j 
+wJ ηIM ηI
+iM
+(ηJ
+jM
+ – 1),
+where 
+ηI
+iM = expenditure elasticity for good i ∈ I conditional on expenditure for 
+group I,
+ηIM = expenditure elasticity for composite group I with respect to total 
+expenditure, M,
+ηI
+ij = Marshallian elasticity of demand for good i ∈ I with respect to price j ∈ 
+J conditional on I = J,
+ηIJ = Marshallian elasticity of demand for composite group I with respect to 
+composite price J,
+wJ
+j = budget share for good j ∈ J conditional on J,
+wJ = budget share for composite group J,
+δIJ = 
+
+
+ =
+otherwise ,0
+ if ,1 JI
+ 
+1, if I = J 
+0, otherwise .
+We use the formulas in (11) and (12) and our first- and second-stage esti-
+mates of elasticities of demand to approximate unconditional elasticities of 
+demand for disaggregated food products. The approximate unconditional 
+elasticities of demand satisfy the restrictions implied by homogeneity, 
+symmetry, and Cournot and Engel aggregation.
+5Gao and Spreen (1994) and Heien 
+and Pompelli (1998) argued that condi-
+tional elasticities of demand for meat 
+are appropriate when the aggregate 
+price elasticity of demand for meat is 
+close to one in magnitude. However, 
+Okrent and Alston (2011) found that 
+the aggregate own-price elasticity of 
+demand for meat is considerably less 
+than one. 
+13 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+New Estimates of Demand for 
+Disaggregated Food-Away-From-Home  
+and Food-at-Home Products 
+To estimate the GODDS, we augmented equation (1) in two ways. First, 
+because our data are discrete, we approximated the infinitesimal changes 
+with their discrete counterparts:
+(13)  dwn ≈ Δwn = wn,t – wn,t–12, ∀n = 1,...,N,
+(14)  dpn ≈ Δln pn = ln pn,t – ln pn,t–12, ∀n = 1,...,N,
+(15)  d ln Q ≈ Δ ln M – ∑N
+n = 1Δln pn, where = (wn,t + wn,t–12), ∀n = 1,...,N.
+Seale, Marchant, and Basso (2003) recommended twelfth-differencing rather 
+than first-differencing the data when monthly data are used in estimation. In 
+addition, we detected unit roots at seasonal frequencies for many of the loga-
+rithmic transformations of the prices and expenditure shares (see appendix 
+tables A.1. and A.2).6 Second, we included a constant in each equation that 
+acts as a linear trend term when modeling differenced data. To avoid singu-
+larity of the variance-covariance matrix, we left out the nonfood equation for 
+the first-stage estimation, and used Engel and Cournot aggregation conditions 
+(i.e., equation (7)) to recover the parameter estimates of nonfood demand; 
+likewise, we left out equations for other bakery products, other dairy, eggs, 
+processed fruits and vegetables, frozen beverages, and miscellaneous FAH in 
+the estimation of the respective second-stage allocations. The GODDS was 
+estimated for the first- and second-stage allocations using iterated feasible 
+generalized least squares, which yield maximum-likelihood estimates of 
+the demand parameters and imply that the system estimates are invariant to 
+which of the equations is deleted (Kmenta and Gilbert, 1968; Barten, 1969).7 
+We first tested whether the data support restrictions associated with any of 
+the nested models (i.e., equations (2)-(5)) using the likelihood ratio statistic. 
+The restrictions associated with the DLAIDS model cannot be rejected for 
+most of the estimated models of second-stage allocations; the model for fruits 
+and vegetables is an exception (table 2). This model implies that the Engel 
+curves of products within these second-stage allocations are of the form used 
+by Working (1943) and Leser (1963) (i.e., wn = αn + βnlnM, where M is total 
+expenditure and wn is the budget share for product n), and both the Slutsky 
+substitution and marginal budget terms vary over time. All of the nesting 
+restrictions on parameters are rejected in the second-stage model of demand 
+for fruits and vegetables, while none of the nesting parameter restrictions is 
+rejected in the second-stage model of demand for dairy. 
+In the first-stage allocations, the restrictions associated with the NBR and 
+Rotterdam models cannot be rejected; the NBR and Rotterdam models 
+assume constant marginal budget shares. The model restrictions associated 
+with the CBS model, which has price coefficients similar to the Rotterdam 
+model (i.e., constant Slutsky substitution terms) and an income coefficient 
+similar to the DLAIDS, cannot be rejected for the second-stage models of 
+demand for meat and eggs, dairy, and FAFH/alcohol. Hence, because the 
+restrictions associated with multiple nested models cannot be rejected in 
+6Unlike annual data, monthly data 
+could have a unit root at the zero 
+frequency (i.e., standard longrun unit 
+root where first-differencing would 
+have to be applied to render the series 
+stationary) or at seasonal frequencies 
+corresponding to the number of cycles 
+per year. For example, the data-gener-
+ating process may cycle every 6 months 
+and be nonstationary, which implies 
+that a unit root occurs at that frequency. 
+The goal of the procedure developed 
+by Hylleberg et al. (1990) is to test 
+hypotheses about a particular unit root 
+without taking a stand on whether other 
+seasonal or zero frequency (longrun) 
+unit roots are present. The estimation 
+equations included a constant, a time 
+trend, and lagged dependent variables, 
+and the set of lags was determined 
+using the Bayesian Information 
+Criterion (BIC) and inspection of the 
+partial autocorrelation for each series.
+7We checked that our estimates were 
+indeed invariant to the equation omitted 
+by arbitrarily leaving out different 
+equations in the first- and second-stage 
+estimation, re-estimating the parame-
+ters and standard errors, and recovering 
+the parameters and standard errors of 
+the excluded equation using adding-up. 
+We found our estimates to be invariant 
+to any choice of equation omitted in 
+estimation.
+14 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Table 2 
+Likelihood ratio statistics for nested models
+Model Expenditure group Likelihood ratio statistic
+Rotterdam 
+(φ1 = -1, φ2 = 1)
+Total goods and services 3.37 [0.19]
+Cereals and bakery 19.65 [0.00]
+Meat and eggs 6.57 [0.04]
+Dairy 3.86 [0.14]
+Fruits and vegetables 56.69 [0.00]
+Nonalcoholic beverages 13.38 [0.00]
+Other FAH 17.24 [0.00]
+FAFH and alcohol 12.56 [0.00]
+DLAIDS 
+(Differenced 
+linear almost ideal 
+demand system)
+(φ1 = φ2 = 0)
+Total goods and services 15.16 [0.00]
+Cereals and bakery 5.74 [0.06]
+Meat and eggs 0.47 [0.79]
+Dairy 0.83 [0.66]
+Fruits and vegetables 11.55 [0.00]
+Nonalcoholic beverages 3.92 [0.14]
+Other FAH 4.10 [0.13]
+FAFH and alcohol 5.62 [0.06]
+CBS (Central Bu-
+reau of Statistics)
+(φ1 = 0, φ2 = 1)
+Total goods and services 17.59 [0.00]
+Cereals and bakery 7.14 [0.03]
+Meat and eggs 2.66 [0.26]
+Dairy 2.62 [0.27]
+Fruits and vegetables 14.65 [0.00]
+Nonalcoholic beverages 6.56 [0.04]
+Other FAH 6.17 [0.05]
+FAFH and alcohol 3.81 [0.15]
+NBR (National Bu-
+reau of Research)
+(φ1 = -1, φ2 = 0)
+Total goods and services 0.50 [0.78]
+Cereals and bakery 18.25 [0.00]
+Meat and eggs 5.33 [0.07]
+Dairy 1.79 [0.41]
+Fruits and vegetables 52.70 [0.00]
+Nonalcoholic beverages 11.26 [0.00]
+Other FAH 15.30 [0.00]
+FAFH and alcohol 14.10 [0.00]
+Source: Authors’ calculations.
+Notes: The bracketed terms are p-values for the null hypothesis that the nesting restrictions 
+are supported by the data. 
+FAFH = Food away from home, including limited-service and full-service restaurants.
+FAH = Food-at-home..
+15 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+some cases (as with the estimates of first-stage allocations and second-stage 
+models of demand for dairy and meat/eggs), but are completely rejected in 
+others (as with second-stage model of demand for fruits and vegetables), 
+we present elasticities of demand for the GODDS model for all of the first- 
+and second-stage allocations, including those cases where a more restric-
+tive model could have been used. It has been argued that the GODDS and 
+its reparameterization, Barten’s synthetic model, are not merely artificial 
+composites of known differential demand systems, but can be viewed as 
+demand systems in their own right (Eales, Durham, and Wessells, 1997; 
+Matsuda, 2005).
+We then tested whether the data supported the restrictions of homogeneity 
+(equation 6) and symmetry (equation 8) from demand theory for the first- and 
+second-stage estimates based on the GODDS (table 3). For the first-stage 
+estimates, homogeneity and symmetry were rejected. Many of the second-
+stage estimates supported symmetry, except fruits and vegetables and other 
+FAH. Homogeneity is supported only in the nonalcoholic beverage and 
+FAFH/alcoholic beverages second stages.8 Since we find some support for 
+both symmetry and homogeneity restrictions, we model the first and second 
+stages using the GODDS and with these restrictions. 
+Last, we tested for first-order autocorrelation in the first- and second-
+stage estimates (with homogeneity and symmetry restrictions) using the 
+Rao-Breusch-Godfrey test for first-order autocorrelation for the system of 
+equations (Edgarton and Shukur, 1999).9 We detected first-order autocor-
+relation in the second-stage estimates for nonalcoholic beverages only. 
+Following Berndt and Savin (1975), we constrained the first-order autocor-
+relation coefficient to be the same across all equations to preserve adding-up. 
+8Deaton and Muellbauer (1980a) 
+found that homogeneity is frequently 
+rejected.
+9Because Edgarton and Shukur 
+(1999) found that the power and size of 
+the Rao-Breusch-Godfrey test dete-
+riorates as the number of equations 
+increases, we also tested for autocor-
+relation in each equation using the 
+Breusch-Godfrey test and did not find 
+overwhelming evidence of autocorrela-
+tion in the first or second stages (see 
+table 4 and appendix tables A.3-A.9).
+Table 3 
+Goodness of fit, tests of autocorrelation, and restrictions from demand theory for all first- and second-
+stage estimates based on GODDS (Generalized Ordinary Differential Demand System)
+Conditional on expenditure for
+System 
+R2
+Rao-
+Breusch-
+Godfrey 
+statistic
+Likelihood ratio statistics for restrictions from demand theory
+Symmetry Homogeneity
+Symmetry and 
+homogeneity
+Total goods and services 0.15 0.64 49.22 [0.00] 22.44 [0.00] 61.28 [0.00]
+Cereals and bakery 0.07 0.65 23.78 [0.31] 23.64 [0.00] 45.16 [0.02]
+Meat and eggs 0.18 0.30 23.28 [0.05] 18.06 [0.00] 39.78 [0.00]
+Dairy 0.20 1.47 4.96 [0.17] 11.92 [0.00] 13.24 [0.05]
+Fruits and vegetables 0.08 0.93 60.32 [0.00] 17.02 [0.03] 77.84 [0.00]
+Nonalcoholic beverages 0.09 2.19 5.04 [0.17] 0.20 [0.98] 10.50 [0.11]
+Other food at home 0.07 0.57 53.00 [0.00] 21.26 [0.00] 74.66 [0.00]
+Food away from home/alcohol 0.09 1.85 3.26 [0.35] 4.14 [0.25] 6.28 [0.39]
+Source: Authors’ calculations.
+Notes:  The bracketed terms are p-values for the likelihood ratio tests of the null hypothesis that the restrictions from demand theory are sup-
+ported by the data.  The Rao-Breusch-Godfrey statistic is approximately distributed F(p,q), of which the 5% critical value is (i) 1.39 for the first-
+stage model, with p = 49 and q = 609, and, in the second-stage allocations (ii) 1.39 for cereals and bakery, with p = 49 and q = 609; (iii) 1.46 for 
+meat and eggs, with p = 25 and q = 466; (iv) 1.88 for dairy, with p = 9 and q = 290; (v) 1.31 for fruits and vegetables, p = 64 and q = 676;  (vi) 
+1.88 for nonalcoholic beverages, with p = 9 and q = 319; (vii) 1.67 for other FAH, with p = 16 and q = 536; and (viii) 1.88 for FAFH and alcoholic 
+beverages, with p = 9 and q = 288.
+16 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Table 4 
+First-stage uncompensated elasticities of demand from the GODDS model
+Elasticity of demand for
+With respect to price of
+Cereals 
+and 
+bakery
+Meat and 
+eggs Dairy
+Fruits and 
+vegetables
+Non-
+alcoholic 
+drinks
+Other 
+FAH
+FAFH and 
+alcohol Nonfood
+Cereals and bakery
+-0.58 0.05 0.36 -0.31 -0.09 0.25 0.16 0.16
+(0.25) (0.12) (0.08) (0.13) (0.15) (0.29) (0.34) (0.29)
+Meat and eggs
+0.03 -0.31 0.02 0.11 0.08 0.26 0.17 -0.40
+(0.07) (0.17) (0.05) (0.09) (0.04) (0.11) (0.32) (0.40)
+Dairy
+0.49 0.06 -0.05 -0.03 -0.16 -0.44 0.23 -0.21
+(0.10) (0.12) (0.09) (0.11) (0.07) (0.16) (0.30) (0.29)
+Fruits and vegetables
+-0.30 0.18 -0.02 -0.79 0.02 0.58 0.24 0.04
+(0.13) (0.15) (0.08) (0.19) (0.09) (0.20) (0.39) (0.36)
+Nonalcoholic beverages
+-0.21 0.31 -0.25 0.05 -0.65 0.65 -0.05 0.13
+(0.32) (0.16) (0.12) (0.20) (0.39) (0.46) (0.51) (0.38)
+Other FAH
+0.15 0.27 -0.19 0.36 0.18 -0.98 0.45 -0.32
+(0.18) (0.11) (0.07) (0.12) (0.12) (0.30) (0.34) (0.28)
+FAFH and alcohol
+0.03 0.05 0.03 0.05 -0.01 0.14 -0.71 0.20
+(0.07) (0.11) (0.04) (0.08) (0.05) (0.11) (0.38) (0.37)
+Nonfood
+-0.02 -0.05 -0.02 -0.02 -0.01 -0.04 -0.06 -1.00
+(0.01) (0.01) (0.00) (0.01) (0.00) (0.01) (0.04) (0.06)
+--continued
+We then re-estimated the nonalcoholic beverages’ second stage with a 
+correction for first-order autocorrelation, using iterated feasible generalized 
+nonlinear least squares.10 
+First-Stage Estimates of Demand Elasticities for 
+Composite Goods
+The GODDS model seems to fit the monthly data well. The single-equation 
+R2 statistics ranged between 0.58 for FAFH and alcohol and 0.77 for cereals 
+and bakery products (table 4). The system R2 based on Bewley, Young, and 
+Colman (1987) is 0.17, indicating that about 17 percent of the variation in the 
+dependent variables in the first stage can be explained by the price terms in 
+the GODDS model.11 The constant is significant in the equations for cereal 
+and bakery products, meat and eggs, and fruits and vegetables; in particular, 
+the estimated constants indicate trends of increasing consumption for cereals 
+and bakery products and meat and eggs, and decreasing consumption for 
+fruits and vegetables.
+All of the own-price elasticities for the first-stage allocations are negative, 
+which is consistent with demand theory. Most of the own-price elasticities of 
+demand are significant at 10 percent except for dairy, for which the estimate 
+10We estimated ρ to be 0.22 for 
+nonalcoholic beverages. 
+11Bewley, Young, and Colman (1987) 
+developed a measure of goodness-of-fit 
+for a system of equations model as
+system R2 = 1 − 1
+1 + LR/(T(n-1))
+ 
+,
+where LR is twice the difference be-
+tween the log likelihood of the model in 
+(1) and the log likelihood of the model 
+with the dependent variable regressed 
+on a constant only. We use a variant 
+of this measure used by Lee, Brown, 
+and Seale (1994) and Brown, Lee, and 
+Seale (1994) where LR is twice the 
+difference between the log likelihood 
+of the model in (1) and the log likeli-
+hood of the model with the dependent 
+variable regressed on the aggregate 
+income term, d ln Q. As Lee, Brown, 
+and Seale (1994) and Brown, Lee, and 
+Seale (1994) showed, this measure 
+is invariant to the equation left out in 
+estimation.
+17 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+is very small, indicating a very inelastic demand. Demand for nonfood is 
+found to be the most responsive to changes in own price (own-price elasticity 
+of -1.00), followed by other FAH (own-price elasticity of -0.98). The own-
+price elasticity of demand for FAFH and alcohol is -0.71, which compares 
+well with the estimate by Reed, Levedahl, and Hallahan (2005), but is 
+considerably less than in other studies. Okrent and Alston (2011) found that 
+across eight studies the average of the estimates of own-price elasticity of 
+demand for FAFH was -1.02 (table 5). In fact, all of this study’s own-price 
+elasticities are less than the average across studies reported in Okrent and 
+Alston (2011). Our first-stage own-price elasticities are mostly consistent 
+with those of Reed, Levedahl, and Hallahan (2005); Huang and Lin (2000); 
+and Park et al. (1996).
+Of the 56 cross-price elasticities of demand, 20 are statistically significant at 
+the 10-percent level of significance. Many of the FAH products (i.e., cereals 
+and bakery products, dairy, and other FAH) are gross substitutes for FAFH 
+and alcohol, although these relationships are not found to be statistically 
+significant. Other FAH is a statistically significant gross substitute for both 
+meat/eggs and fruits/vegetables, but a gross complement for dairy. And dairy 
+Table 4 
+First-stage uncompensated elasticities of demand from the GODDS model--continued
+Elasticity of demand for
+With respect to total 
+expenditure R2
+Breusch-Godfrey 
+statistic Constant
+Cereals and bakery
+0.01
+0.77 1.66
+0.0002
+(0.05) (0.0001)
+Meat and eggs
+0.04
+0.59 4.90
+0.0005
+(0.07) (0.0002)
+Dairy
+0.11
+0.74 2.20
+0.0001
+(0.05) (0.0001)
+Fruits and vegetables
+0.04
+0.66 5.87
+-0.0002
+(0.06) (0.0001)
+Nonalcoholic beverages
+0.02
+0.70 0.18
+0.0000
+(0.05) (0.0001)
+Other FAH
+0.09
+0.76 0.08
+-0.0003
+(0.04) (0.0002)
+FAFH and alcohol
+0.21
+0.58 3.63
+0.0003
+(0.06)
+Nonfood
+1.21
+na na na
+(0.01)
+Source: Authors’ calculations using feasible generalized least squares GLS (Stata version 11) with homogeneity and symmetry constraints 
+imposed.
+Notes: Estimates of elasticities of demand were computed at the mean of the data.  Standard errors were bootstrapped using the residual 
+method.  Total expenditure includes expenditures on durable and nondurable goods and services.  The R2 and the Breusch-Godfrey statistic are 
+for the individual equations and Breusch-Godfrey statistic is distributed χ2(1), for which the 10% critical value is 2.71.
+FAFH = Food away from home, including limited-service and full-service restaurants; FAH = Food at home; GODDS = Generalized Ordinary 
+Differential Demand System.
+18 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+is also found to be a statistically significant gross complement for nonalco-
+holic beverages.
+Not unexpectedly, demand for nonfood is the most responsive to total expen-
+diture (elasticity of 1.21), followed by demand for FAFH and alcohol (0.21). 
+Demands for FAFH and alcohol are twice as responsive to changes in total 
+expenditure as the most expenditure-elastic FAH products, namely dairy 
+(0.11) and other FAH (0.09). Compared with the total-expenditure elastici-
+ties from the studies listed in table 5, the ones here are quite small, mainly 
+because the nonfood budget share is 80 percent. 
+Conditional Elasticities of Demand for Disaggregated 
+Food Products
+We estimated demand for disaggregated food products, assuming the prod-
+ucts belonged to the following weakly separable groups: cereals and bakery 
+products, meat and eggs, dairy products, fruits and vegetables, nonalcoholic 
+beverages, other FAH, and FAFH/alcohol. Hence, the elasticities of demand 
+for the disaggregated FAH products are conditional on total expenditure for 
+the respective group. First-order autocorrelation is not detected in most of 
+the second-stage estimates, with the exception of nonalcoholic beverages, 
+based on the Rao-Breusch-Godfrey test. The system R2 for the second-stage 
+allocations ranges between 0.07 for other FAH and cereals/bakery products 
+Table 5 
+Comparison of first-stage elasticities of demand from this study with previous studies
+This study
+Reed, Levedahl, 
+Hallahan (2005)
+Huang and Lin 
+(2000)b Park et al. (1996)c
+Okrent and Alston 
+(2011), table 5
+Own-
+price
+Expen-
+diture
+Own-
+price Income
+Own-
+price
+Expen-
+diture
+Own-
+price
+Expen-
+diture
+Number 
+of studies 
+repre-
+sented
+Average 
+own-price 
+across 
+studies
+Cereals and bakery -0.58 0.01 -0.61 1.31 -0.45 0.63 -0.14 0.43 3 -0.86
+Meat and eggs -0.31 0.04 -0.61 1.81 -0.41 0.78 -0.45 0.64 8 -0.52
+Dairy -0.05 0.11 -0.86 2.25 -0.79 0.67 -0.36 0.57 8 -0.85
+Fruits and 
+vegetables -0.79 0.04 -0.98 1.60 -0.72 1.07 -0.49 0.65 4 -0.91
+Nonalcoholic 
+beverages -0.65 0.02 -0.74a 1.04a -1.01 1.04 na na na na
+Other FAH -0.98 0.09 -0.40 0.82 -0.58 0.59 11 -0.80
+FAFH and alcohol -0.71 0.21 -0.69 1.38 na na -0.96 1.42 8 -1.02
+Nonfood -1.00 1.21 -0.86 0.92 na na na na 2 -0.93
+Source: Estimates for this study based on the GODDS and average monthly household expenditures based on the Consumer Expenditure 
+Survey (U.S. Department of Labor, BLS, 2010a) and the Consumer Price Indexes (U.S. Department of Labor, BLS, 2010c).
+a Nonalcoholic beverages included in other FAH category.
+b The own-price and expenditure elasticities in this table are simple averages for disaggregated elasticities presented in Huang and Lin (2000) 
+within the groups comprising cereals and bakery, meat and eggs, dairy, and fruits and vegetables.
+c Estimates for nonpoverty status households only (table 8). The own-price and expenditure elasticities in this table are simple averages for 
+disaggregated elasticities presented in Park et al. (1996) within the groups comprising cereals and bakery, meat and eggs, dairy, and fruits/
+vegetables. The other FAH category only includes fats and oils. 
+FAFH = Food away from home, including limited-service and full-service restaurants; FAH = Food-at-home; GODDS = Generalized Ordinary 
+Differential Demand System.
+19 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+and 0.20 for dairy. For brevity, we report the elasticities of demand, single-
+equation R2, first-order autocorrelation coefficient, Breusch-Godfrey LM 
+statistic, and the trend term in each equation for the second-stage allocations 
+in appendix tables A.3-A.9. 
+Unconditional Elasticities of Demand for 
+Disaggregated Food Products
+Using equations (11) and (12) and the estimated elasticities of demand from 
+the models of the first- and second-stage allocations, we approximated the 
+elasticities of demand for disaggregated FAH and FAFH products condi-
+tional on total expenditure for all goods and services. Table 6 shows the own-
+price and expenditure elasticities of demand for disaggregated food products 
+compared with Huang (1993) and Bergtold, Akobundo, and Peterson 
+(2004).12 Appendix table A.10. contains the 43 × 43 matrix of all elasticities. 
+The standard errors were bootstrapped using the parametric residual method 
+suggested by Green, Hahn, and Rocke (1987).
+Cereals and Bakery Products. The demands for flour and prepared flour 
+mixes; rice and pasta; and biscuits, rolls, and muffins are almost perfectly 
+inelastic; the point estimates are close to zero and not statistically signifi-
+cantly different from zero (table 6). These findings approximate those of 
+Huang (1993). By comparison, Bergtold, Akobundu, and Peterson (2004) 
+found the own-price elasticity of demand to be closer to -1.0 for rice, pasta, 
+and flour, but only the own-price elasticity of demand for pasta was statisti-
+cally significant. The demands for breakfast cereals and cakes/cookies are 
+price-elastic (i.e., elasticities of -1.05 and -1.20, respectively). The demand 
+for nonwhite bread is less responsive to changes in price than the demand for 
+white bread (elasticities of -0.59 and -1.54, respectively). Most of the cross-
+price elasticities of demand for foods within the cereals and bakery products 
+group are statistically insignificant, although white bread and nonwhite bread 
+are statistically significant gross substitutes, and flour/prepared flour mixes 
+is a gross substitute for rice and pasta and a gross complement to nonwhite 
+bread. Compared with the disaggregated demands of the other groups, the 
+demands for all of the cereals and bakery products are relatively expendi-
+ture-inelastic, with elasticities ranging between 0.00 and 0.01. Bergtold, 
+Akobundu, and Peterson (2004) and Huang (1993) also found the demands 
+for disaggregated cereals and bakery products to be expenditure-inelastic 
+and even inferior (i.e., expenditure elasticity is less than zero), compared to 
+disaggregated products within other food groups. 
+Meat and Eggs.	Pork	and	“other	red	meat”	(that	is,	other	than	beef	and	
+pork) are price-elastic (own-price elasticities of -1.26 and -1.05), while the 
+other products in the meat and eggs group—beef, poultry, fish/seafood, and 
+eggs—are price inelastic, with eggs being the most price inelastic (own-
+price elasticity of -0.24). The rankings of meat products in terms of their 
+price responsiveness are roughly consistent with results from Huang (1993), 
+although some of our estimates are statistically significantly smaller, at the 
+10-percent level of significance (e.g., pork, other red meat, fish/seafood, and 
+eggs). Also, similar to Huang’s findings (1993), beef and pork are statis-
+tically significant gross substitutes for each another. Demands for meat 
+products are slightly more responsive to changes in total expenditure than 
+12Huang (1993) and Bergtold et al. 
+(2004) are the only recent studies to 
+our knowledge that included a number 
+of disaggregated FAH products in their 
+estimation of unconditional demand 
+systems, such that their results can be 
+compared with ours. Huang (1993) 
+directly estimated demand for 39 
+foods and a nonfood composite using 
+quantity indexes constructed from per 
+capita disappearance data (ERS) and 
+consumer price indexes.  The per capita 
+disappearance data, however, are not 
+direct estimates of retail purchases 
+because they are measured as total 
+commodity supply less quantities used 
+for farm inputs, exports, ending stocks, 
+and industrial uses. Hence, the per 
+capita disappearance data measure food 
+use at a very basic level, do not distin-
+guish between FAFH and FAH, and do 
+not measure use of highly processed 
+foods such as bakery products and 
+frozen dinners in the finished product 
+form (although the ingredients in those 
+products are included as components 
+of less highly processed foods such as 
+sugar, flour, vegetables for processing, 
+and fresh meat). Bergtold et al. (2004) 
+used price and quantity scanner data 
+(e.g., IRI Infoscan) and the flexible and 
+separable translog multistage demand 
+system (Moschini 2001) to estimate 
+demand for 49 processed foods and 
+an	“all-other-goods”	composite.	One	
+limitation of their dataset is that it did 
+not include information on several key 
+food categories, including fresh meats, 
+fruits and vegetables, and FAFH, and 
+such products were lumped into the 
+“all-other-goods”	composite	in	their	
+model.
+20 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Table 6 
+Comparison of unconditional elasticities of demand from this study with previous studies
+This study
+Bergtold, Akobundu, and 
+Peterson (2004)a,b Huang (1993)b
+Own-price Expenditure Own-price Income Own-price Expenditure
+Cereals and bakery
+Flour and flour mixes 0.07 0.01 -0.86 0.06 -0.08 0.13
+Breakfast cereals -1.05* 0.00 na na na 0
+Rice and pasta -0.07 0.01 -0.87 -0.06 0.07 0.15
+Nonwhite bread -0.59* 0.00 -0.80 -0.21 na na
+White bread -1.54 0.01 na na
+Biscuits, rolls, muffins -0.21 0.00 -1.03 -0.55 na na
+Cakes and cookies -1.20* 0.01 na na na na
+Other bakery products -0.55 0.00 na na na na
+Meat and eggs
+Beef -0.70* 0.05 na na -0.62 0.39
+Pork -1.26* 0.04 na na -0.73 0.66
+Other red meat -1.05* 0.02 na na -1.87 -0.57
+Poultry -0.81* 0.03 na na -0.45 -0.02
+Fish -0.84* 0.03 na na -0.13 0.41
+Eggs -0.24* 0.03 na na -0.11 0.29
+Dairy
+Cheese -0.70* 0.13* -1.18 -0.03 -0.25 0.42
+Ice cream -0.23 0.13* -0.88 0.05 -0.08 0.00
+Milk -0.10 0.09* -0.80 -0.20 -0.04 0.12
+Other dairy -1.04* 0.09* -1.03 0.31 -0.28 0.52
+Fruits and vegetables
+Apples -0.58* 0.03 na na -0.19 -0.36
+Bananas -1.01* 0.05 na na -0.50 0.00
+Citrus -1.10* 0.06 na na -0.65 -0.33
+Other fresh fruit -0.90* 0.04 na na -0.80 0.34
+Potatoes -0.42* 0.03 na na -0.10 0.11
+Lettuce -0.84* 0.04 na na -0.09 0.37
+Tomatoes -0.58* 0.06 na na -0.62 0.92
+Other fresh vegetables -0.94* 0.04 na na -0.26 0.69
+Proc. fruits and vegetables -0.77* 0.03 -1.20 -0.29 -0.40 0.56
+--continued
+21 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+are demands for cereals and bakery products, with expenditure elasticities 
+ranging between 0.02 for other red meat and 0.05 for beef. But this effect is 
+still small and insignificant compared to the other products in the system.
+Dairy. The own-price elasticities of demand for cheese and other dairy are 
+statistically different from zero at the 10-percent level of significance (-0.70 
+and -1.04, respectively) and much more price-elastic than the demands for 
+fluid milk and ice cream/frozen desserts (-0.10 and -0.23, respectively), 
+which are not found to be statistically significant. Huang (1993) found 
+demand for similar dairy products to be mostly price-inelastic, whereas 
+Bergtold, Akobundu, and Peterson (2004) found demand for comparable 
+items to be much more elastic. Our results fall between the two studies’ 
+findings. Cheese is found to be a statistically significant gross substitute 
+for other dairy, which includes yogurt and sour cream. Compared with the 
+Table 6 
+Comparison of unconditional elasticities of demand from this study with previous studies (continued)
+This Study
+Bergtold, Akobundu, and 
+Peterson (2004)a,b Huang (1993)b
+Own-price Expenditure Own-price Income Own-price Expenditure
+Nonalcoholic beverages
+Coffee and tea -0.12 0.02 -0.45 -0.27 -0.18 0.82
+Carbonated drinks -0.30 0.01 -1.15 -0.03 na na
+Nonfrozen noncarb. drinks -0.44 0.02 -0.65 -0.12 -0.56 0.37
+Frozen noncarb. drinks -0.61 0.01 -0.70 -0.14 na na
+Other food at home
+Sugar and sweets -0.56 0.13* -0.66 -0.16 -0.04 0.21
+Fats and oils -0.21 0.08* -0.62 -0.51 -0.13 0.23
+Soups 0.19* 0.07* -1.51 0.59 na na
+Frozen foods -1.05 0.09* -1.08 -0.27 na na
+Snacks -1.14* 0.08* -1.17 -0.10 na na
+Condiments, sauces, seas. -1.92* 0.07* -1.00 -0.01 na na
+Misc. FAH -1.48* 0.11* -1.17 0.01 na na
+Food away from home/alcohol
+Alcohol -1.15* 0.32* na na na na
+Limited-service -0.13 0.18* na na na na
+Full-service -1.96* 0.20* na na na na
+Other FAFH -0.43* 0.21* na na na na
+Nonfood -1.00* 1.21* -1.00 0.99 -0.98 1.17
+* designates statistical significance at the 10-percent level for estimates in this study only.
+a Bergtold et al. (2004) presented own-price and expenditure elasticities of demand for four quarters.  We averaged the elasticity estimates over 
+the quarters.  
+b Some of the products in Bergtold et al. (2004) and Huang (1993) did not correspond directly to the products in this study.  Hence, we calcu-
+lated the average own-price and expenditure elasticities of demand for multiple products that corresponded to a product in this study. 
+Source: Estimates from this study based on first-stage elasticities of demand (table 4), second-stage elasticities of demand (appendix tables 
+A.4-A.9) and formulas derived by Carpentier and Guyomard (2001) in equations (12) and (13). 
+FAFH = Food away from home, including limited-service and full-service restaurants; FAH = Food-at-home.
+22 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+disaggregated demands in the cereals/bakery, meat/eggs, fruits/vegetables, 
+and nonalcoholic beverages groups, demands for disaggregated dairy prod-
+ucts are almost twice as responsive to changes in total expenditure, with 
+expenditure elasticities ranging between 0.09 for milk and other dairy and 
+0.13 for cheese and ice cream. Again, these estimated elasticities of demand 
+with respect to total expenditure fall generally in between the estimates of 
+Bergtold, Akobundu, and Peterson (2004) and Huang (1993). Bergtold, 
+Akobundu, and Peterson found cheese and milk to be inferior products (a 
+good that decreases in demand when income increases) and the elasticity of 
+demand for ice cream and cheese with respect to total expenditure to be close 
+to zero.
+Fruits and Vegetables. In this group, all of the own-price elasticities are 
+statistically significant, with demand for citrus being the most elastic (own-
+price elasticity of -1.10) and demand for potatoes being the least elastic 
+(own-price elasticity of -0.42). Within the fruits and vegetables group, few of 
+the cross-price relationships are statistically significant with the exception of 
+processed fruits and vegetables, which is a gross complement to fresh toma-
+toes. The elasticities of demand for the disaggregated fruits and vegetables 
+with respect to total expenditure are small, ranging between 0.03 and 0.06. 
+Compared with Huang (1993), the present study finds the demands for disag-
+gregated fruits and vegetables to be generally more price-elastic and more 
+expenditure-inelastic.
+Nonalcoholic Beverages. Within this group, none of the elasticities of 
+demand with respect to price or expenditure elasticities is significant. The 
+elasticities of demand with respect to total expenditure are close to zero, 
+and the own-price elasticities of demand are small compared with most 
+other food products, with the demand for coffee and tea being the least price 
+responsive at -0.12. Huang (1993) found the own-price elasticity of demand 
+for coffee and tea to be -0.18, while Bergtold, Akobundu, and Peterson 
+(2004) found the own-price elasticity for coffee to be -0.45. However, 
+Bergtold, Akobundu, and Peterson (2004) found the demand for carbonated 
+beverages (averaged across diet and regular cola estimates) to be much more 
+price elastic (-1.15) than our estimate for carbonated beverages (-0.30).
+Other FAH. Most of the demands for products within the other FAH group 
+are price-elastic, with seasonings, condiments, and sauces being the most 
+price elastic (-1.92), followed by miscellaneous FAH (-1.48), snacks (-1.14), 
+and frozen meals (-1.05). This finding is consistent with Bergtold, Akobundu 
+and Peterson (2004), who found sauces and marinades, mayonnaise, relishes, 
+and dressings to be generally price elastic. We find the demands for sugars/
+sweets and fats/oils to be price-inelastic, but both relationships are statisti-
+cally insignificant. Compared with the other food product categories, the 
+“other FAH” products are the most responsive to changes in their own price 
+with the exception of FAFH and alcohol. 
+FAFH and Alcohol. The demands for limited-service FAFH and other FAFH 
+(vending machines, mobile food vendors, and school/employee sites) are 
+the most inelastic in the group (-0.13 and -0.43, respectively). The own-
+price elasticity of demand for full-service FAFH is -1.96, and is statistically 
+different from the own-price elasticity of demand for limited-service FAFH 
+at the 10-percent level of significance. Full- and limited-service FAFH 
+23 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+are found to be gross substitutes, although this relationship is not statisti-
+cally significant. Demand for alcohol is also price-elastic (-1.15). All of the 
+FAFH products and alcohol are more than twice as responsive to changes in 
+total expenditure compared to the FAH products. Alcohol is the most price-
+responsive (0.32), followed by other FAFH (0.21), full-service FAFH (0.20), 
+and limited-service FAFH (0.18). 
+24 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Potential Policy Implications
+Because disaggregated FAFH and FAH products may differ in responsive-
+ness to prices and total expenditure, as well as in nutritional content, we esti-
+mate elasticities using a more disaggregated approach than previously done 
+in the literature. Our results show that the demand for full-service FAFH is 
+much more responsive than the demand for limited-service FAFH to changes 
+in price, and the demands for all FAFH products are at least twice as elastic 
+with respect to changes in total expenditure than their FAH counterparts. The 
+finding that FAFH products are much more responsive to changes in total 
+expenditure—and that these FAFH products are generally gross substitutes 
+for many FAH products—can explain why the budget share for these prod-
+ucts dipped during the 2007-09 recession, while the budget shares for many 
+FAH products increased. In particular, during the period of December 2007-
+June 2009, monthly total consumer expenditures fell by about 0.5 percent 
+on average, while the prices of most FAH products, which are mostly gross 
+substitutes for FAFH products, fell relative to the prices of the FAFH prod-
+ucts. Hence, income-induced changes in total expenditures and movements in 
+prices of FAH products relative to prices of FAFH products caused demand 
+for FAFH to fall during the most recent recession. 
+The demands for disaggregated FAH products, which include some foods 
+that	are	considered	to	be	“healthy”	and	others	considered	too	be	“unhealthy,”	
+also varied in their responsiveness to changes in prices and total expenditure. 
+“Healthy”	foods—such	as	nonwhite	bread,	most	fruits	and	vegetables,	and	
+fish/seafood—are generally less responsive to changes in their own prices 
+than	their	“unhealthy”	counterparts.	For	example,	for	cereals	and	bakery	
+products, we found that the unconditional demand for white bread was much 
+more price elastic than the unconditional demand for nonwhite bread, and the 
+demand for cookies and cakes was one of the most price elastic within the 
+group. Likewise, the unconditional demands for snacks, condiments/sauces/
+seasonings, and frozen foods were very price elastic compared with the 
+demands for other FAH products. 
+However, own-price effects are only one part of an analysis of the effects 
+of policy-induced price changes on consumption. The cross-price relation-
+ships	between	“unhealthy”	and	“healthy”	foods	are	complex;	in	analyzing	
+the	effect	of	a	change	in	the	price	of	a	“healthy”	or	“unhealthy”	food	on	the	
+nutritional outcome of an individual, one must consider the cross-price, as 
+well as the own-price, effects. 
+To further demonstrate the importance of these cross-price relationships 
+and intergroup substitution on the quantities of food consumed, we forecast 
+the changes in consumption for several foods between 2011 and 2012—
+given forecast changes in prices and total expenditures—and compare the 
+predictions	based	on	alternative	elasticity	measures.	We	use	the	“uncondi -
+tional”	demand	elasticities	reported	in	appendix	table	A.10	to	obtain	fore -
+casts that consider intergroup as well as intragroup substitution; and we use 
+the	“conditional”	demand	elasticities	reported	in	appendix	tables	A.3-A.9 	
+(i.e., conditional on group expenditure) to obtain forecasts that consider 
+only intragroup substitution. 
+25 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+The forecast changes in prices of food from 2011 to 2012 are taken from the 
+CPI forecasts by the U.S. Department of Agriculture, ERS (2011), and the 
+forecast changes in prices for nonfood and total expenditures are taken from 
+the Federal Reserve Bank of Philadelphia’s Fourth Quarter 2011 Survey 
+of Professional Forecasters (2011) (table 7).13 According to the ERS price 
+forecasts, the prices of beef, fish/seafood, fats/oils, and cereals/bakery prod-
+ucts will increase the most (between 4 and 4.5 percent) from 2011 to 2012, 
+whereas the prices for fresh vegetables, eggs, and nonalcoholic beverages 
+will increase the least, between 1.5 and 2 percent. The price of nonfood 
+products, as proxied by core inflation for 2012, is predicted to increase by 
+1.8 percent, while total personal consumption expenditures are predicted to 
+increase 1.7 percent.
+Using these predicted changes in prices and total expenditure, we forecast 
+changes in food quantities using both unconditional and conditional elas-
+ticities. Both sets of forecasts indicate decreases in the quantities of disag-
+gregated cereals and bakery products consumed, but the magnitudes differ 
+substantially; the forecasts based on the conditional elasticities of demand 
+are three to four times larger in absolute terms than the forecasts based on the 
+unconditional elasticities of demand. Even though the conditional own-price 
+elasticities of demand were not statistically different from the unconditional 
+own-price elasticities of demand at the 10-percent level of significance, the 
+conditional forecasts disregarded statistically significant intergroup substi-
+tution and complementary relationships found in the first stage (i.e., dairy, 
+fruits/vegetables, and nonfood). The conditional forecasts followed the same 
+pattern for the disaggregated FAFH products. 
+The predicted percentage changes in dairy consumption based on the elas-
+ticities of demand conditional on dairy expenditure take opposite signs 
+compared with the predicted percentage changes based on the unconditional 
+elasticities of demand: consumption of each of the disaggregated dairy prod-
+ucts is predicted to increase between 0.61 percent and 0.9 percent in 2012 
+based on the unconditional demand elasticities, but predicted to decrease 
+between 0.63 percent and 0.97 percent based on the conditional demand elas-
+ticities. Similar contradictions between the two sets of elasticities are found 
+for other food products as well (e.g., pork, poultry, eggs, sugar and sweets, 
+frozen foods). Again, dairy—like cereals and bakery products—has several 
+statistically significant cross-price relationships between groups of foods at 
+the first stage that results in complementary and substitution relationships 
+among the disaggregated products in these groups, causing contradictions in 
+our forecast changes in quantities consumed depending on which set of elas-
+ticities is used.
+The substantial cross-price relationships between products in different groups 
+lead to two important and related implications. First, the predicted changes 
+in quantities of foods consumed based on the conditional demand elastici-
+ties pertaining to a weakly separable group are different in magnitude, and 
+sometimes in direction of change, than predicted changes in quantities based 
+on unconditional elasticities of demand. Second, policy analysis based on 
+conditional demand elasticities for a small group of products is likely to be 
+misleading. 
+13The survey reports the mean 
+annualized predictions by professional 
+forecasters of changes in headline (all 
+items) and core (all items excluding 
+food and energy) inflation and personal 
+consumption expenditures (PCE).  We 
+used predicted core inflation and head-
+line PCE to proxy for 2012 predicted 
+proportional changes in nonfood price 
+and total expenditures, respectively.
+26 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Table 7 
+Forecast changes in food consumption, 2011 to 2012, based on forecast changes in prices and 
+expenditure, using alternative sets of elasticities of demand
+Forecast 
+changes in 
+prices and total 
+expenditure
+Predicted changes in  
+food quantities based on
+Predicted changes in  
+expenditures based on
+Unconditional 
+elasticitiesa
+Conditional 
+elasticitiesb
+Unconditional 
+elasticitiesa
+Conditional 
+elasticitiesb
+Annual percentage change
+Flour and prep. mixes 4.0 -1.25 -4.23 2.75 -0.23
+Breakfast cereals 4.0 -0.48 -1.56 3.52 2.44
+Rice and pasta 4.0 -1.01 -3.69 2.99 0.31
+Nonwhite bread 4.0 -0.44 -1.62 3.56 2.38
+White bread 4.0 -0.78 -2.63 3.22 1.37
+Biscuits, rolls, muffins 4.0 -0.39 -1.81 3.61 2.19
+Cakes and cookies 4.0 -0.84 -2.67 3.16 1.33
+Other bakery 4.0 -0.55 -1.92 3.45 2.09
+Beef 4.5 -0.39 -3.39 4.11 1.11
+Pork 3.5 0.58 -1.75 4.08 1.75
+Other red meat 3.0 1.35 0.07 4.35 3.07
+Poultry 3.5 0.28 -1.31 3.78 2.19
+Fish 4.5 -1.08 -3.11 3.43 1.39
+Eggs 1.5 0.75 -0.77 2.25 0.73
+Cheese 2.5 0.90 -0.97 3.40 1.53
+Ice cream and frozen desserts 2.5 0.87 -0.92 3.37 1.58
+Milk 2.5 0.61 -0.63 3.11 1.87
+Other dairy 2.5 0.69 -0.71 3.19 1.80
+Apples 3.5 -0.70 -1.55 2.81 1.95
+Bananas 3.5 -0.62 -2.11 2.88 1.39
+Citrus 3.5 -0.91 -2.64 2.59 0.86
+Other fruits 3.5 -0.16 -1.45 3.35 2.05
+Potatoes 1.5 0.90 0.09 2.40 1.59
+Lettuce 1.5 1.02 -0.38 2.52 1.12
+Tomatoes 1.5 0.22 -1.55 1.72 -0.05
+Other veg. 1.5 1.66 0.27 3.16 1.77
+Processed fruits/vegetables 3.5 -0.32 -1.15 3.18 2.35
+Coffee and tea 2.0 0.78 -0.16 2.78 1.84
+Carbonated drinks 2.0 0.66 -0.31 2.66 1.69
+--continued
+27 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Table 7 
+Forecast changes in food consumption, 2011 to 2012, based on forecast changes in prices and 
+expenditure, using alternative sets of elasticities of demand (continued)
+Forecast 
+changes in 
+prices and total 
+expenditure
+Predicted changes in  
+food quantities based on
+Predicted changes in  
+expenditures based on
+Unconditional 
+elasticitiesa
+Conditional 
+elasticitiesb
+Unconditional 
+elasticitiesa
+Conditional 
+elasticitiesb
+Annual percentage change
+Nonfrozen noncarbonated drinks 2.0 1.06 -0.35 3.06 1.65
+Frozen noncarbonated drinks 2.0 0.44 -0.22 2.44 1.78
+Sugar and sweets 2.5 0.56 -2.06 3.06 0.44
+Fats and oils 4.0 -0.07 -1.62 3.93 2.38
+Soups 3.5 1.86 1.00 5.36 4.50
+Frozen foods 3.5 0.63 -1.15 4.14 2.35
+Snacks 3.5 -0.08 -1.59 3.42 1.91
+Condiments, sauces, seasonings 3.5 -0.80 -2.20 2.70 1.30
+Misc. food at home 3.5 -0.13 -2.28 3.37 1.22
+Alcohol 3.0 -0.61 -1.93 2.39 1.07
+Limited 3.0 -0.42 -1.09 2.58 1.91
+Full 3.0 -0.49 -1.22 2.51 1.78
+Other food away from home 3.0 -0.51 -1.30 2.49 1.70
+Nonfood 1.8 -0.35 na 1.45 na
+Notes: Forecast changes in food prices from 2011 to 2012 are based on forecast changes in Consumer Price Index for foods (U.S. Department 
+of Agriculture, ERS, 2011); forecast changes in the nonfood price and total expenditure are based on the mean of reported predictions for 
+2012 by a sample of professional forecasters for core inflation and headline personal consumption expenditures (Federal Reserve Board of 
+Philadelphia, 2011).
+a The predictions based on the unconditional elasticities of demand use elasticities of demand reported in appendix table A.10. 
+b The predictions based on conditional elasticities of demand use elasticities reported in appendix tables A.3-A.9
+28 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Conclusion
+Many studies have evaluated the effect of policy-induced price changes on 
+food consumption and nutritional outcomes. Several studies have based their 
+analysis on demand elasticities for only a subset of foods (i.e., conditional on 
+expenditure for a particular group of foods), which ignores important cross-
+price relationships of foods not included in a given analysis. In particular, 
+because FAFH comprises a significant share of total food expenditures and 
+nutritional intake for an average American, disregarding the potential cross-
+price relationship between FAFH and another relevant subset of foods may 
+lead to misleading results regarding nutrition and health policy. 
+This study is the first to present disaggregated estimates of demand elas-
+ticities for different types of FAFH within a complete demand system for 
+food, alcohol, and nonfood. We find that the demand for full-service FAFH 
+is much more price-elastic than the demand for food from limited-service 
+restaurants. All of the disaggregated products within FAFH are much more 
+responsive to changes in total expenditure than all of the FAH products. 
+Hence, our findings suggest that decreases in total expenditure during the 
+most recent recession had a much greater impact on demands for most FAFH 
+products than for FAH products. 
+We also present disaggregated elasticities of demand for FAH products. 
+The demands for products within any group can vary considerably in terms 
+of responsiveness to price changes, aggregating groups in policy simula-
+tions masks important dissimilarities within food groups in terms of nutrient 
+characteristics and responses to prices and total expenditure. In particular, 
+the	demands	for	products	commonly	deemed	to	be	“healthy”	(fruits	and	
+vegetables, nonwhite bread, fish and seafood) tend to be much less respon-
+sive to own-price changes compared with those commonly deemed to be 
+“unhealthy”	(e.g.,	white	bread,	cakes	and	cookies,	frozen	foods,	snacks).	
+Many	of	these	“healthy”	and	“unhealthy”	foods	are	found	to	have	statistically	
+significant substitution and complementary relationships within and among 
+food groups, which complicates analysis that tries to predict the effects of 
+policy-induced changes in prices and income on demands for foods and the 
+nutritional outcomes of consumers. Consequently, forecasts of the changes 
+of quantities of food based on estimates of conditional demand elasticities 
+that ignore the total effects of intergroup substitution and complementarities 
+differ substantially in magnitude and sometimes even direction from fore-
+casts based on estimates of unconditional demand elasticities that include all 
+goods and services.
+29 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+References
+Andreyeva,	T.,	M.W.	Long,	and	K.D.	Brownell.	2009.	“The	Impact	of	Food	
+Prices on Consumption: A Systematic Review of Research on the Price 
+Elasticity	of	Demand	for	Food,”	American Journal of Public Health 
+100(2): 216-222.
+Barnes,	R.,	and	R.	Gillingham.	1984.	“Demographic	Effects	in	Demand	
+Analysis: Estimation of the Quadratic Expenditure System Using 
+Microdata,”	The Review of Economics and Statistics 66(4): 591-601.
+Barten,	A.P.	1966.	“Theorie	en	empirie	van	een	volledig	stelsel	van	
+vraagvergelijkiingrn,”	Doctoral	dissertation:	University	of	Rotterdam.
+Barten,	A.P.	1969.	“Maximum	Likelihood	Estimation	of	a	Complete	System	
+of	Demand	Equations,”	European Economic Review 1: 7-73.
+Barten,	A.P.	1977.	“The	Systems	of	Consumer	Demand	Functions	Approach:	
+A	Review.”	Econometrica 45): 23-50.
+Barten,	A.P.	1993.	“Consumer	Allocation	Models:	Choice	of	Functional	
+Form.”	Empirical Economics 18(1):129-158.
+Beaulieu,	J.J.,	and	J.A.	Miron.	1993.	“Seasonal	Unit	Roots	in	Aggregate	U.S.	
+Data,”	Journal of Econometrics 55(1/2): 305-328.
+Bergtold,	J.,	E.	Akobundu,	and	E.	Peterson.	2004.	“The	FAST	Method:	
+Estimating Unconditional Demand Elasticities for Processed Foods in 
+the	Presence	of	Fixed	Effects,”	Journal of Agricultural and Resource 
+Economics 29(2): 276-295.
+Berndt,	E.R.,	and	N.E.	Savin.	1975.	“Estimation	and	Hypothesis	Testing	
+in	Singular	Equation	Systems	with	Autoregressive	Disturbances,”	
+Econometrica 43(5/6): 937-958.
+Bewley,	R.,	T.	Young,	and	D.	Colman.	1987.	“A	System	Approach	to	
+Modeling	Supply	Equations	in	Agriculture,”	Journal of Agricultural 
+Economics 38(2): 151-66.
+Binkley,	J.K.	2008.	“Calorie	and	Gram	Differences	between	Meals	at	Fast	
+Food	and	Table	Service	Restaurants,”	Review of Agricultural Economics 
+30(4): 750-763.
+Brown,	M.G.,	J.Y.	Lee,	and	J.L.	Seale.	1994.	“Demand	Relationships	among	
+Juice	Beverages:	A	Differential	Demand	System	Approach,”	Journal of 
+Agricultural and Applied Economics 26: 417-417.
+Byrne,	P.J.,	O.	Capps,	and	A.	Saha.	2008.	“Analysis	of	Quick-serve,	
+Mid-scale,	and	Up-scale	Food	Away	from	Home	Expenditures,”	
+International Food and Agribusiness Management Review 1(1): 51-72.
+30 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Capps,	O.,	and	J.	Havlicek.	1984.	“National	and	Regional	Household	
+Demand	for	Meat,	Poultry	and	Seafood:	A	Complete	Systems	Approach,”	
+Canadian Journal of Agricultural Economics 32(1): 93-108.
+Carpentier,	A.,	and	H.	Guyomard.	“Unconditional	Elasticities	in	Two-Stage	
+Systems:	An	Approximate	Solution,”	American Journal of Agricultural 
+Economics 83(1): 222-229.
+Chen, S.E., R.J.G.M. Florax, and S.D. Snyder. Forthcoming.	“Obesity	and	
+Fast-Food	Markets:	A	New	Approach	Using	Geo-referenced	Micro	Data.”	
+Health Economics.
+Chou,	S.-Y.,	M.	Grossman,	and	H.	Saffer.	2004.	“An	economic	analysis	
+of adult obesity: results from the Behavioral Risk Factor Surveillance 
+System,”	Journal of Health Economics 23(3): 565-587.
+Christensen,	L.R.,	D.W.	Jorgenson,	and	L.J.	Lau.	1975.	“Transcendental	
+Logarithmic	Utility	Functions,”	American Economic Review 65: 367-83.
+Craven,	J.A.	and	R.C.	Haidacher.	1987.	“Comparison	of	Estimates	from	
+Three	Linear	Expenditure	Systems,”	Food Demand Analysis: Problems, 
+Issues, and Empirical Evidence. R. Raunikar and C. Huang, editors. Iowa 
+State University Press, 91-113.
+Currie,	J.,	S.	Della	Vigna,	E.	Moretti,	and	V.	Pathania.	2010.	“The	Effect	of	
+Fast	Food	Restaurants	on	Obesity	and	Weight	Gain,”	American Economic 
+Journal: Economic Policy (2)(3): 32-63.
+Davis,	B.,	and	C.	Carpenter.	2009.	“Proximity	of	Fast-Food	Restaurants	to	
+Schools	and	Adolescent	Obesity,”	American Journal of Public Health 
+99(3): 505-510.
+Deaton,	A.,	and	J.	Muellbauer.	1980a.	“An	Almost	Ideal	Demand	System,”	
+The American Economic Review 70(3): 312-326.
+Deaton, A., and J. Muellbauer.1980b. Economics and Consumer Behavior. 
+New York, NY: Cambridge University Press.
+Eales,	J.,	C.	Durham,	and	C.R.	Wessells.	1997.	“Generalized	Models	of	
+Japanese	Demand	for	Fish,”	American Journal of Agricultural Economics 
+79(4): 1153-1163.
+Edgarton,	D.L.,	and	G.	Shukur.	1999.	“Testing	Autocorrelation	in	a	System	
+Perspective,” Econometric Reviews 18: 343-86.
+Federal Reserve Board of Philadelphia. 2011. Fourth Quarter 2011 Survey 
+of Professional Forecasters, Nov. 14, 2011. http://www.philadelphiafed.
+org/research-and-data/real-time-center/survey-of-professional-fore-
+casters/2011/survq411.cfm.
+Gao,	X.M.,	and	J.S.	Shonkwiler.	1993.	“Characterizing	Taste	Change	in	
+a Model of US Meat Demand: Correcting for Spurious Regression and 
+Measurement	Errors,”	Review of Agricultural Economics 15(2): 313-324.
+31 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Gao,	X.M.,	and	T.	Spreen.	1994.	“A	Microeconometric	Analysis	of	the	US	
+Meat	Demand,”	Canadian Journal of Agricultural Economics 42(3): 
+397-412.
+Gorman,	W.M.	1959.	“Separable	Utility	and	Aggregation,”	Econometrica 
+27(3) :469-481.
+Green,	R.,	W.	Hahn,	and	D.	Rocke.	1987.	“Standard	Errors	for	Elasticities:	
+A	Comparison	of	Bootstrap	and	Asymptotic	Standard	Errors,”	Journal of 
+Business and Economic Statistics 5(1): 145-149.
+Greene, W.H. 2003. Econometric Analysis, 5th ed. New York: Prentice Hall, 
+Inc.
+Heien,	D.M.,	and	G.	Pompelli.	1988.	“The	Demand	for	Beef	Products:	Cross-
+Section	Estimation	of	Demographic	and	Economic	Effects,”	Western 
+Journal of Agricultural Economics 13(1): 37-44.
+Huang, K.S. 1993. A Complete System of U.S. Demand for Food. TB-1821.
+USDA, Economic Research Service.
+Huang, K.S., and B.-H. Lin.2000. Estimation of Food Demand and Nutrient 
+Elasticities from Household Survey Data. TB-1887. USDA, Economic 
+Research Service. 
+Hylleberg,	S.,	R.F.	Engle,	C.W.S	Granger,	and	B.S.	Yoo.	1990.	“Seasonal	
+Integration	and	Cointegration,”	Journal of Econometrics 44: 215-238.
+Jeffrey,	R.W.,	J.	Baxter,	M.	McGuire,	J.	Linde.	“Are	Fast-Food	Restaurants	
+an	Environmental	Risk	Factor	for	Obesity?” International Journal of 
+Behavior Nutrition and Physical Activity 3(2)(2006).
+Kastens,	T.L.,	and	G.W.	Brester.	1996.	“Model	Selection	and	Forecasting	
+Ability	of	Theory-Constrained	Food	Demand	Systems,”	American 
+Journal of Agricultural Economics 78(2): 301-312.
+Keller,	W.J.,	and	J.	Van	Driel.	1985.	“Differential	Consumer	Demand	
+Systems,”	European Economic Review 27(3): 375-390.
+Kmenta,	J.,	and	R.F.	Gilbert.	1968.	“Small	Sample	Properties	of	Alternative	
+Estimators	of	Seemingly	Unrelated	Regressions,”	Journal of the American 
+Statistical Association 63: 1180-1200.
+Lee,	J.Y.,	M.G.	Brown,	and	J.L.	Seale.	“Model	Choice	in	Consumer	
+Analysis:	Taiwan,	1970-1989,”	American Journal of Agricultural 
+Economics 76(3): 504-512.
+Leser,	C.E.V.	1963.	“Forms	of	Engel	Functions,”	Econometrica 31(4): 
+694-703.
+Lin, B.-H., J. Guthrie, and E. Frazao. 1999. Away-From-Home Foods 
+Increasingly Important to Quality of American Diet. AIB-749. U.S. 
+Department of Agriculture, Economic Research Service.
+32 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Matsuda,	T.	2005.	“Differential	Demand	Systems:	A	Further	Look	at	
+Barten’s	Synthesis,”	Southern Economic Journal 71(3): 607-619.
+Moschini,	G.	1998.	“The	Semiflexible	Almost	Ideal	Demand	System,”	
+European Economic Review (42): 349-364.
+Moschini,	G.	2001.	“A	Flexible	Multistage	Demand	System	Based	on	
+Indirect	Separability.”	Southern Economic Journal 68(1): 22-41.
+Nayga,	R.M.,	and	O.	Capps.1992.	“Analysis	of	Food	Away	from	Home	and	
+Food	at	Home	Consumption:	A	Systems	Approach,”	Journal of Food 
+Distribution Research 23(6).
+Neves,	P.	1987.	“Analysis	of	Consumer	Demand	in	Portugal,	1958-1981.”	
+Memorie de Maitrise en Sciences Economiques. Louvain-la-Neuve, 
+France: University Catholiqque de Louvrain. 
+Okrent, A.M., and J.M. Alston. 2011. The Demand for Food in the United 
+States: A Review of the Literature, Evaluation of Previous Estimates, 
+and Presentation of New Estimates of Demand. Giannini Foundation of 
+Agricultural Economics Monograph 48, Berkeley, CA, April.
+Park,	J.L.,	R.B.	Holcomb,	K.C.	Raper,	and	O.	Capps.1996.	“A	Demand	
+Systems Analysis of Food Commodities by U.S. Households Segmented 
+by	Income,”	American Journal of Agricultural Economics 78(2): 290-300.
+Piggott,	N.E.	2003.	“The	Nested	PIGLOG	Model:	An	Application	to	US	
+Food	Demand.”	American Journal of Agricultural Economics 85(1): 1-15.
+Raper,	K.C.,	M.N.	Wanzala,	and	R.M.	Nayga.	2002.	“Food	Expenditures	
+and Household Demographic Composition in the US: A Demand Systems 
+Approach,”	Applied Economics 34(8): 981-992.
+Reed,	A.J.,	J.W.	Levedahl,	and	C.	Hallahan.	2005.	“The	Generalized	
+Composite	Commodity	Theorem	and	Food	Demand	Estimation,”	
+American Journal of Agricultural Economics 87(1): 28-37.
+Seale,	J.L.,	M.A.	Marchant,	and	A.	Basso.	2003.	“Import	Versus	Domestic	
+Production:	A	Demand	System	Analysis	of	the	U.S.	Red	Wine	Market,”	
+Review of Agricultural Economics 25: 187-202.
+Stewart, H., N. Blisard, S. Bhuyan, and R.M. Nayga. 2004. The Demand 
+for Food Away From Home: Full-Service or Fast Food? AER-829. U.S. 
+Department of Agriculture, Economic Research Service.
+Strotz,	R.H.	1957.	“The	Empirical	Implications	of	a	Utility	Tree,”	
+Econometrica 25(2): 269-280.
+Strotz,	R.H.	1959.	“The	Utility	Tree—A	Correction	and	Further	Appraisal,”	
+Econometrica 27(3): 482-488.
+Theil,	H.	1965.	“The	Information	Approach	to	Demand	Analysis,”	
+Econometrica 33(1): 67-87.
+33 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Todd, J.E., L. Mancino, and B.-H. Lin. 2010. The Impact of Food Away 
+From Home on Adult Diet Quality. ERR-90. U.S. Department of 
+Agriculture, Economic Research Service.
+U.S. Department of Agriculture, Economic Research Service. 2011. Food 
+CPI and Expenditures: CPI for Food Forecasts, 2011. http://www.ers.
+usda.gov/Briefing/CPIFoodAndExpenditures/Data/cpiforecasts.htm.
+U.S. Department of Labor, Bureau of Labor Statistics. 2010a. Consumer 
+Expenditure Survey Database. http://data.bls.gov/pdq/querytool.
+jsp?survey=cx. 
+U.S. Department of Labor, Bureau of Labor Statistics. 2010b. Consumer 
+Expenditure Survey Public Microdata, 1999-2009: Detailed Expenditure 
+Files. 
+U.S. Department of Labor, Bureau of Labor Statistics. 2010c. Consumer 
+Price Index Database. www.bls.gov/cpi/#data. 
+Working,	H.	1943.	“Statistical	Laws	of	Family	Expenditure,”	Journal of the 
+American Statistical Association 38(221): 43-56.
+34 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix Tables
+Appendix table A.1 
+Test for seasonal unit roots in monthly logarithmic transformation of price series
+Seasonal frequency
+(Tests of coefficients in HEGY test regression)
+0 π π/2 2π/3 π/3 5π/6 π/6
+Lag π1=0 π2=0 π3=π4=0 π5=π6=0 π7=π8=0 π9=π10=0 π11=π12=0
+Cereals and bakery 4 0.02 -2.65 8.53 7.95 9.47 5.04 10.01
+Flour and flour mixes 0 -2.29 -2.97 11.00 13.36 14.47 11.56 15.34
+Breakfast cereals 2 -1.16 -3.35 11.48 16.92 10.30 8.45 12.44
+Rice and pasta 2 0.09 -3.26 8.25 10.55 10.03 7.58 15.71
+Nonwhite bread 9 -2.47 -3.71 8.56 9.97 24.58 8.24 10.15
+White bread 1 -3.21 -2.40 7.74 9.15 9.35 9.74 12.75
+Biscuits, rolls, muffins 1 -2.25 -2.83 8.02 6.41 8.44 10.72 12.01
+Cakes and cookies 9 -0.27 -2.05 9.22 10.54 6.09 4.00 11.29
+Other bakery products 9 -4.22 -4.53 3.00 11.86 12.48 2.36 7.37
+Meat and eggs 0 -2.90 -4.01 9.89 10.24 14.04 11.71 15.58
+Beef 0 -1.78 -3.03 11.84 15.86 10.64 11.51 13.57
+Pork 13 0.25 -4.73 2.18 1.88 16.39 17.95 7.60
+Other red meat 1 -0.39 -4.03 12.40 9.15 11.68 13.17 6.24
+Poultry 0 -3.74 -3.58 13.31 12.36 15.08 11.02 11.42
+Fish 2 -3.80 -2.69 11.57 10.39 6.20 11.34 12.46
+Eggs 3 -0.95 -3.25 9.53 6.41 7.47 5.75 9.09
+Dairy 2 -3.45 -3.58 11.15 11.96 11.09 11.44 10.94
+Cheese 4 -2.01 -2.41 13.71 8.40 6.43 11.22 4.91
+Ice cream 6 -1.41 -2.84 3.67 8.82 8.10 10.20 10.00
+Milk 0 -2.96 -3.81 11.39 17.07 14.23 13.66 16.79
+Other dairy 2 -2.83 -2.62 13.24 17.77 15.54 9.62 13.85
+Fruits and vegetables 6 -0.44 -4.51 4.99 5.88 2.25 9.35 4.42
+Apples 4 -3.09 -3.21 14.39 9.51 9.72 9.33 11.70
+Bananas 11 -1.01 -1.73 9.09 7.85 4.83 9.42 9.56
+Citrus 9 -3.43 -1.14 7.35 6.85 2.53 13.18 9.54
+Other fresh fruit 11 1.79 -4.73 13.94 13.13 7.55 6.99 6.13
+Potatoes 2 -2.92 -2.22 12.67 13.27 11.36 7.68 9.86
+Lettuce 16 -3.04 -2.62 18.27 4.74 5.88 27.88 11.35
+Tomatoes 3 -2.28 -4.13 8.17 7.95 8.25 7.49 6.78
+Other fresh vegetables 1 -0.93 -3.73 10.63 11.30 8.56 8.46 8.16
+Proc. fruits & vegetables 1 -2.67 -2.40 6.40 8.07 11.16 12.39 13.92
+Nonalcoholic beverages 2 -2.24 -2.64 8.23 10.71 9.65 9.96 12.60
+Frozen noncarb. drinks 14 -1.14 -1.58 12.34 7.57 0.54 2.18 2.50
+Nonfro noncarb. drinks 4 -4.27 -3.94 20.96 25.76 24.76 26.48 16.64
+--continued
+35 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.1 
+Test for seasonal unit roots in monthly logarithmic transformation of price series (continued)
+Seasonal frequency
+(Tests of coefficients in HEGY test regression)
+0 π π/2 2π/3 π/3 5π/6 π/6
+Lag π1=0 π2=0 π3=π4=0 π5=π6=0 π7=π8=0 π9=π10=0 π11=π12=0
+Carbonated drinks 5 -2.97 -3.69 9.69 16.58 11.72 15.90 20.27
+Coffee and tea 9 -3.20 -4.46 8.45 14.32 10.49 2.61 8.73
+Sugar and sweets 6 -3.01 -4.33 4.70 3.10 6.18 16.72 4.44
+Fats and oils 10 -0.18 -2.82 13.96 7.25 9.36 7.68 4.58
+Miscellaneous foods 4 1.72 -3.52 7.66 13.71 8.45 8.99 9.21
+Soups 4 -3.44 -3.81 13.07 12.57 17.02 9.07 12.30
+Frozen foods 7 -2.53 -3.18 9.42 9.01 8.34 12.96 13.74
+Snacks 3 0.03 -2.95 22.36 12.73 11.22 10.66 7.80
+Cond., sauces, seas. 2 -2.17 -4.23 4.30 6.54 4.63 13.02 3.59
+Other miscellaneous 5 -3.20 -3.09 13.26 8.87 12.24 17.81 7.91
+Other FAFH 4 -3.83 -4.53 14.75 17.73 19.15 18.28 26.08
+Limited-service FAFH 5 -1.62 -3.44 7.23 7.50 10.40 5.77 8.67
+Full-service FAFH 6 -3.50 -3.29 12.70 13.89 8.21 16.55 7.78
+Alcoholic beverages 25 -1.04 -4.83 6.44 2.82 1.16 4.38 0.92
+Nonfood 4 -2.13 -3.28 10.61 9.89 11.83 11.44 6.13
+Note: The HEGY test regressions included a trend, constant, and lagged dependent variables. Beaulieu and Miron (1993) derived the critical 
+values from the distributions of the HEGY test statistics for monthly data. The critical values for the test regression with a trend and a constant 
+and 240 observations for a 10-percent level of significance are: 
+-2.99 for the test of the null hypothesis π1 = 0 versus the alternative π1 < 0 (test of long-run unit root), -2.47 for the test of the null hypothesis π2 
+= 0 versus the alternative π2 < 0 (test of unit root corresponding to a biannual cycle), and 5.25 for the joint test of the null hypothesis πn = πn-1 = 
+0, n = 2, 6, 8, 10, 12 (test of unit root corresponding to seasonal frequencies π/2, 2π/3, π/3, 5π/6 and π/6).  
+FAFH = Food away from home.
+Source: Authors’ calculation of HEGY test for monthly data using logarithmic transformation of consumer price indexes (U.S. Department of 
+Labor, BLS, Consumer Expenditure Survey (2010a); U.S. Department of Labor, BLS, Consumer Price Index Database (2010c)).
+36 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.2 
+Test for seasonal unit roots in monthly expenditure share series
+Seasonal frequency
+(Tests of coefficients in HEGY test regression)
+0 π π/2 2π/3 π/3 5π/6 π/6
+Lag π1=0 π2=0 π3=π4=0 π5=π6=0 π7=π8=0 π9=π10=0 π11=π12=0
+Cereals and bakery 6 -1.18 -1.69 12.24 6.72 3.73 12.05 8.98
+Flour and flour mixes 3 0.93 -0.46 1.73 0.51 1.73 0.77 3.06
+Breakfast cereals 7 -1.28 -3.01 0.89 4.37 1.58 4.47 1.20
+Rice and pasta 8 -3.09 -3.61 1.21 9.57 2.30 9.15 2.06
+Nonwhite bread 15 -0.10 -0.56 0.90 1.46 15.48 2.44 1.88
+White bread 1 -0.38 -1.89 8.31 4.81 8.43 11.01 5.11
+Biscuits, rolls, muffins 3 -1.49 -1.58 13.80 3.34 5.82 2.57 3.68
+Cakes and cookies 6 -3.99 -4.54 14.01 5.09 1.49 10.63 2.65
+Other bakery products 17 -2.39 -2.38 0.41 1.69 0.06 0.78 0.28
+Meat and eggs 3 -2.90 -4.08 14.16 12.22 9.98 8.24 10.49
+Beef 8 -1.86 -1.57 1.57 4.72 4.50 7.03 2.11
+Pork 3 -2.32 -1.92 1.85 1.38 5.49 3.55 0.85
+Other red meat 3 -1.61 -2.42 9.23 16.00 3.01 13.89 2.05
+Poultry 11 -0.53 0.15 0.20 0.98 0.18 0.26 0.05
+Fish 4 -2.64 -3.05 11.29 4.07 4.92 6.18 3.17
+Eggs 2 -0.77 -3.08 7.97 10.58 10.26 9.18 2.82
+Dairy 3 -1.98 -2.58 4.65 7.84 7.88 5.58 2.67
+Cheese 9 -4.81 -1.34 2.33 5.59 3.61 1.50 0.02
+Ice cream 7 -2.98 -2.70 6.71 7.67 4.10 17.46 0.35
+Milk 13 -4.37 -3.31 8.01 1.41 2.83 11.63 0.91
+Other dairy 2 -4.11 -4.39 10.89 7.16 6.56 10.28 8.06
+Fruits and vegetables 1 -0.45 -2.01 14.98 8.27 4.12 19.85 5.78
+Apples 11 -4.02 -1.56 1.90 4.21 0.58 8.55 0.51
+Bananas 2 1.83 -1.29 2.28 5.03 2.26 3.02 0.78
+Citrus 4 2.42 -1.37 3.57 0.42 1.53 2.88 2.97
+Other fresh fruit 4 1.15 -2.33 1.43 1.78 0.67 6.82 0.86
+Potatoes 0 -1.81 -3.65 10.34 10.50 5.02 9.07 2.36
+Lettuce 9 -1.51 -0.96 1.36 7.56 0.82 6.24 3.52
+Tomatoes 2 -2.41 -3.64 3.57 4.71 4.84 3.14 4.08
+Other fresh vegetables 4 -1.31 -3.12 5.96 6.27 4.60 3.18 2.67
+Proc. fruits & vegetables 9 0.09 -0.49 8.39 1.09 0.50 2.88 0.37
+Nonalcoholic beverages 1 -2.53 -2.75 12.28 11.49 3.96 8.52 7.36
+Frozen noncarb. drinks 5 -0.40 -3.49 8.56 1.86 9.00 8.01 13.40
+Nonfro. noncarb. drinks 7 0.53 -3.39 5.19 4.14 1.86 4.08 0.13
+Carbonated drinks 4 -2.77 -2.92 10.96 2.36 5.74 5.09 9.65
+Coffee and tea 4 0.19 -1.62 6.93 2.72 1.99 6.94 1.07
+Sugar and sweets 3 -1.98 -2.78 3.32 5.38 2.52 1.40 1.10
+Fats and oils 3 1.06 -2.42 3.47 3.25 3.06 4.77 3.56
+--continued
+37 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.2 
+Test for seasonal unit roots in monthly expenditure share series (continued)
+Seasonal frequency
+(Tests of coefficients in HEGY test regression)
+0 π π/2 2π/3 π/3 5π/6 π/6
+Lag π1=0 π2=0 π3=π4=0 π5=π6=0 π7=π8=0 π9=π10=0 π11=π12=0
+Miscellaneous foods 4 1.73 -1.85 2.42 1.72 1.74 1.79 0.57
+Soups 2 -0.67 -1.09 2.59 2.57 0.84 1.82 1.12
+Frozen foods 3 0.85 -1.45 2.29 3.56 4.60 4.02 2.49
+Snacks 1 -0.55 -2.44 8.03 9.12 9.89 9.95 6.60
+Condiments, sauces, 
+seasonings 2 -2.03 -1.77 2.48 2.81 1.58 2.91 2.47
+Other miscellaneous 6 -2.33 -1.57 3.55 2.01 2.51 9.52 0.59
+Other FAFH 1 -1.94 -4.40 9.06 11.84 3.05 14.89 2.63
+Limited-service FAFH 8 -1.44 -2.91 3.55 0.90 5.50 10.53 1.52
+Full-service FAFH 5 -3.60 -1.11 9.09 7.23 10.53 13.76 1.15
+Alcoholic beverages 11 -3.44 -1.21 1.55 5.82 0.43 2.14 0.32
+Nonfood 2 -3.46 -3.92 10.41 9.55 4.48 12.57 4.06
+Note: See notes to table A.1.
+Source: Authors’ calculation of HEGY test for monthly data using aggregated average monthly household expenditures (U.S. Department of 
+Labor, BLS, Consumer Expenditure Survey (2010a); U.S. Department of Labor, BLS, Consumer Price Index Database (2010c)).
+38 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.3 
+Second-stage estimated elasticities of demand for cereals and bakery products based on the GODDS 
+model, 1998-2010
+With respect to price of With  
+respect 
+to cereals 
+and bakery 
+expenditure R2
+Breusch-
+Godfrey 
+statistic Constant
+Demand 
+for
+Flour and 
+prepared 
+flour 
+mixes
+Break-
+fast 
+cereals
+Rice 
+and 
+pasta
+Non-
+white 
+bread
+White 
+bread
+Biscuits, 
+rolls, 
+and muf-
+fins
+Cakes 
+and 
+cookies
+Other 
+bakery
+Flour and 
+prepared 
+mixes
+0.07 1.20 0.93 -1.96 -0.37 -0.39 -0.98 -0.33 1.82 0.21 1.27 --0.0022
+(0.60) (0.62) (0.52) (0.45) (0.49) (0.60) (0.95) (0.70) (0.21) (0.0008)
+Breakfast 
+cereals
+0.33 -1.13 -0.09 -0.10 -0.06 0.09 0.50 -0.22 0.68 0.11 0.29 0.0039
+(0.14) (0.31) (0.18) (0.15) (0.16) (0.20) (0.37) (0.25) (0.09) (0.0016)
+Rice and 
+pasta
+0.41 -0.34 -0.08 -0.10 -0.36 0.20 -0.43 -0.91 1.62 0.21 9.13 -0.0012
+(0.22) (0.34) (0.34) (0.21) (0.23) (0.28) (0.47) (0.35) (0.15) (0.0013)
+Non-white 
+bread
+-0.71 -0.17 -0.00 -0.64 0.56 -0.09 0.30 0.04 0.72 0.17 0.73 0.0000
+(0.18) (0.25) (0.19) (0.28) (0.24) (0.27) (0.40) (0.29) (0.08) (0.0008)
+White 
+bread
+-0.18 -0.23 -0.42 0.77 -1.57 -0.09 0.56 0.01 1.16 0.03 13.89 0.0006
+(0.28) (0.41) (0.30) (0.36) (0.50) (0.45) (0.62) (0.45) (0.13) (0.0009)
+Biscuits, 
+rolls, and 
+muffins
+-0.14 0.16 0.31 -0.11 -0.05 -0.25 -1.00 0.30 0.77 0.05 0.01 -0.0002
+(0.29) (0.41) (0.31) (0.33) (0.37) (0.62) (0.64) (0.47) (0.12) (0.0011)
+Cakes 
+and cook-
+ies
+-0.21 0.44 -0.20 0.14 0.24 -0.55 -1.27 0.24 1.18 0.07 2.80 -0.0005
+(0.23) (0.40) (0.27) (0.25) (0.27) (0.33) (0.74) (0.43) (0.12) (0.0020)
+Other 
+bakery 
+-0.03 -0.24 -0.38 0.01 0.03 0.13 0.27 -0.63 0.85 na na na
+(0.15) (0.23) (0.17) (0.16) (0.17) (0.21) (0.38) (0.35) (0.08)
+Notes: Estimated elasticities of demand were computed at the mean of the data.  Standard errors were bootstrapped using the residual method.  
+Total expenditure includes expenditures on durable and nondurable goods and services.  The R2 and the Breusch-Godfrey statistic are for the 
+individual equations and Breusch-Godfrey statistic is distributed χ2(1), for which the 10% critical value is 2.71.
+Source: Authors’ calculations using iterated feasible generalized least squares (GLS, Stata version 11) with homogeneity and symmetry con-
+straints imposed. 
+GODDS = Generalized Ordinary Differential Demand System.
+39 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.4 
+Second-stage estimated elasticities of demand for meat based on the GODDS model, 1998-2010
+With respect to price of With respect 
+to meat 
+expenditure R2
+Breusch-
+Godfrey 
+statistic ConstantDemand for Beef Pork
+Other 
+meat Poultry Fish Eggs
+Beef
+-0.93 0.15 -0.10 -0.17 -0.23 -0.05 1.34 0.18 3.54 0.0009
+(0.19) (0.14) (0.12) (0.11) (0.13) (0.03) (0.07) (0.0022)
+Pork
+0.30 -1.40 0.09 0.13 -0.16 -0.03 1.08 0.05 4.61 0.0018
+(0.20) (0.23) (0.17) (0.15) (0.17) (0.04) (0.07) (0.0016)
+Other red meat
+-0.02 0.23 -1.12 -0.13 0.50 -0.10 0.63 0.13 0.28 -0.0012
+(0.26) (0.26) (0.41) (0.27) (0.29) (0.06) (0.09) (0.0013)
+Poultry
+-0.11 0.21 -0.11 -0.92 0.15 0.01 0.77 0.10 2.51 0.0013
+(0.19) (0.17) (0.20) (0.24) (0.18) (0.04) (0.06) (0.0013)
+Fish
+-0.34 -0.19 0.40 0.16 -0.94 -0.02 0.93 0.04 1.34 -0.0019
+(0.25) (0.23) (0.26) (0.22) (0.31) (0.05) (0.10) (0.0017)
+Eggs
+-0.14 -0.07 -0.27 0.05 -0.02 -0.26 0.72
+na na na
+(0.19) (0.17) (0.16) (0.15) (0.16) (0.06) (0.08)
+Notes: Estimated elasticities of demand were computed at the mean of the data.  Standard errors were bootstrapped using the residual method.  
+Total expenditure includes expenditures on durable and nondurable goods and services.  The R2 and the Breusch-Godfrey statistic are for the 
+individual equations and Breusch-Godfrey statistic is distributed χ2(1), for which the 10% critical value is 2.71.
+Source: Authors’ calculations using iterated feasible generalized least squares (GLS, Stata version 11) with homogeneity and symmetry con-
+straints imposed.
+Appendix table A.5 
+Second-stage estimated elasticities of demand for dairy based on the GODDS model, 1998-2010
+With respect to price of With respect 
+to dairy 
+expenditure R2
+Breusch-
+Godfrey 
+statistic ConstantDemand for Cheese
+Ice cream and 
+frozen desserts Milk
+Other 
+dairy
+Cheese
+-1.02 -0.14 -0.31 0.26 1.21 0.08 1.73 -0.0017
+(0.21) (0.12) (0.10) (0.17) (0.08) (0.0017)
+Ice cream and 
+related products
+-0.25 -0.43 -0.53 0.04 1.18 0.23 0.00 0.0027
+(0.22) (0.23) (0.14) (0.27) (0.13) (0.0014)
+Milk
+-0.14 -0.18 -0.32 -0.15 0.79 0.38 8.79 0.0028
+(0.09) (0.06) (0.08) (0.08) (0.07) (0.0016)
+Other dairy
+0.69 0.10 -0.40 -1.25 0.85
+na na na
+(0.37) (0.32) (0.21) (0.52) (0.17)
+Notes: Estimated elasticities of demand were computed at the mean of the data.  Standard errors were bootstrapped using the residual method.  
+Total expenditure includes expenditures on durable and nondurable goods and services.  The R2 and the Breusch-Godfrey statistic are for the 
+individual equations and Breusch-Godfrey statistic is distributed χ2(1), for which the 10% critical value is 2.71.
+Source: Authors’ calculations using iterated feasible generalized least squares (GLS, Stata version 11) with homogeneity and symmetry con-
+straints imposed.
+40 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.6 
+Second-stage estimated elasticities of demand for fruits and vegetables based on the GODDS model,  
+1998-2010
+With respect to price of With  
+respect 
+to  
+fruit/veg. 
+expendi-
+ture R2
+Breusch-
+Godfrey 
+statistic Constant
+Demand 
+for Apples
+Ba-
+nanas Citrus
+Other 
+fruits
+Pota-
+toes
+Let-
+tuce
+Toma-
+toes
+Other 
+veg.
+Processed 
+fruits/ 
+vegetables
+Apples
+-0.60 -0.03 0.02 -0.11 -0.11 0.03 -0.05 0.21 -0.13 0.77 0.06 0.01 0.0008
+(0.14) (0.11) (0.08) (0.15) (0.10) (0.06) (0.07) (0.16) (0.20) (0.12) (0.0007)
+Bananas
+-0.07 -1.01 -0.11 0.06 0.01 -0.14 -0.05 0.12 -0.05 1.24 0.05 3.04 0.0004
+(0.11) (0.19) (0.08) (0.15) (0.11) (0.06) (0.07) (0.17) (0.25) (0.11) (0.0006)
+Citrus
+-0.03 -0.10 -1.09 -0.15 -0.10 0.00 0.10 0.05 -0.09 1.41 0.17 0.98 -0.0008
+(0.07) (0.07) (0.09) (0.13) (0.07) (0.04) (0.06) (0.12) (0.15) (0.12) (0.0007)
+Other 
+fruits
+-0.06 0.04 -0.04 -0.93 0.03 -0.05 -0.09 -0.11 0.17 1.03 0.00 34.64 -0.0006
+(0.06) (0.06) (0.06) (0.14) (0.06) (0.04) (0.05) (0.10) (0.13) (0.10) (0.0014)
+Potatoes
+-0.11 0.04 -0.07 0.14 -0.45 -0.02 0.10 -0.35 -0.03 0.75 0.17 1.38 0.0007
+(0.11) (0.11) (0.08) (0.15) (0.14) (0.06) (0.07) (0.16) (0.21) (0.12) (0.0007)
+Lettuce
+0.02 -0.17 0.03 -0.16 -0.04 -0.85 0.05 0.12 -0.01 1.01 0.05 1.41 -0.0001
+(0.08) (0.08) (0.07) (0.13) (0.08) (0.07) (0.06) (0.13) (0.16) (0.10) (0.0004)
+Tomatoes
+-0.10 -0.06 0.11 -0.29 0.05 0.01 -0.57 0.00 -0.58 1.43 0.28 1.34 0.0002
+(0.07) (0.07) (0.06) (0.12) (0.07) (0.04) (0.08) (0.12) (0.15) (0.12) (0.0007)
+Other 
+vegetables
+0.06 0.05 0.05 -0.09 -0.14 0.03 0.03 -0.98 -0.03 1.01 0.02 6.88 0.0010
+(0.06) (0.06) (0.05) (0.09) (0.05) (0.03) (0.04) (0.12) (0.12) (0.08) (0.0012)
+Processed 
+fruits/
+vegetables
+-0.04 0.02 0.02 0.18 -0.01 0.01 -0.13 0.03 -0.84 0.77
+na na na
+(0.06) (0.07) (0.05) (0.09) (0.06) (0.03) (0.04) (0.09) (0.16) (0.09)
+Notes: Estimated elasticities of demand were computed at the mean of the data.  Standard errors were bootstrapped using the residual method.  
+Total expenditure includes expenditures on durable and nondurable goods and services.  The R2 and the Breusch-Godfrey statistic are for the 
+individual equations and Breusch-Godfrey statistic is distributed χ2(1), for which the 10% critical value is 2.71.
+Source: Authors’ calculations using iterated feasible generalized least squares (GLS, Stata version 11) with homogeneity and symmetry constraints 
+imposed.
+41 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.7 
+Second-stage estimated elasticities of demand for nonalcoholic beverages based on the GODDS 
+(Generalized Ordinary Differential Demand System) model, 1998-2010
+With respect to price of
+With respect to 
+nonalcoholic 
+beverage 
+expenditure R2 ConstantDemand for
+Coffee and 
+tea
+Carbonated 
+beverages
+Nonfrozen 
+noncarbon-
+ated juices 
+and drinks
+Frozen non-
+carbonated 
+juices and 
+drinks 
+Coffee and tea
+-0.17 -0.07 -0.31 -0.01 0.56 0.25 -0.0042
+(0.26) (0.31) (0.30) (0.08) (0.14) (0.0017)
+Carbonated 
+beverages
+-0.12 -0.58 -0.37 0.01 1.06 0.01 0.0074
+(0.15) (0.34) (0.30) (0.07) (0.09) (0.0024)
+Nonfrozen 
+noncarbonated 
+juices and drinks
+-0.22 -0.31 -0.61 0.01 1.13 0.18 -0.0048
+(0.11) (0.23) (0.27) (0.07) (0.07) (0.0024)
+Frozen 
+noncarbonated 
+juices and drinks 
+-0.14 0.25 0.38 -1.37 0.88
+na na
+(0.59) (1.11) (1.36) (0.91) (0.33)
+Notes: Estimated elasticities of demand were computed at the mean of the data.  Standard errors were bootstrapped using the residual method.  
+Total expenditure includes expenditures on durable and nondurable goods and services.  The R2 values are for the individual equations.
+Source: Authors’ calculations using iterated feasible generalized least squares (GLS, Stata version 11) with homogeneity and symmetry con-
+straints imposed and with correction for first-order autocorrelation.
+Appendix table A.8 
+Second-stage estimated elasticities of demand for other FAH based on the GODDS model, 1998-2010
+With respect to price of With 
+respect to 
+other FAH 
+expenditure R2
+Breusch-
+Godfrey 
+statistic ConstantDemand for
+Sugar 
+and 
+sweets
+Fats 
+and oils Soups
+Frozen 
+foods Snacks
+Condiments, 
+sauces, 
+seasonings
+Miscel-
+laneous
+Sugar and 
+sweets
+-0.47 -0.06 -0.70 -0.75 0.02 0.63 -0.06 1.39 0.08 0.41 0.0086
+(0.73) (0.23) (0.23) (0.46) (0.14) (0.35) (0.56) (0.18) (0.0028)
+Fats and oils
+0.04 -0.24 -0.19 -0.24 0.02 0.06 -0.27 0.83 0.19 2.06 0.0037
+(0.25) (0.16) (0.10) (0.22) (0.06) (0.14) (0.25) (0.10) (0.0013)
+Soups
+-2.05 -0.48 0.18 0.96 0.05 0.30 0.59 0.45 0.04 0.01 -0.0018
+(0.72) (0.28) (0.56) (0.68) (0.27) (0.58) (0.67) (0.18) (0.0009)
+Frozen foods
+-0.74 -0.26 0.30 -1.06 -0.23 0.07 0.95 0.96 0.05 0.75 -0.0038
+(0.50) (0.22) (0.24) (0.62) (0.14) (0.35) (0.47) (0.14) (0.0021)
+Snacks
+0.22 0.11 0.07 -1.01 -1.15 1.06 -0.10 0.81 0.04 1.31 0.0000
+(0.70) (0.27) (0.42) (0.65) (0.47) (0.60) (0.60) (0.16) (0.0005)
+Condiments, 
+sauces, 
+seasonings
+0.89 0.08 0.10 0.12 0.26 -1.95 -0.25 0.75 0.12 0.80 0.0008
+(0.42) (0.16) (0.22) (0.39) (0.15) (0.44) (0.37) (0.10) (0.0013)
+Miscellaneous
+-0.01 -0.27 0.11 0.69 -0.03 -0.24 -1.44 1.18
+na na na
+(0.46) (0.18) (0.18) (0.36) (0.10) (0.25) (0.55) (0.14)
+Notes: Estimated elasticities of demand were computed at the mean of the data.  Standard errors were bootstrapped using the residual method.  
+Total expenditure includes expenditures on durable and nondurable goods and services.  The R2 and the Breusch-Godfrey statistic are for the 
+individual equations and Breusch-Godfrey statistic is distributed χ2(1), for which the 10% critical value is 2.71.
+Source: Authors’ calculations using iterated feasible GLS (Stata version 11) with homogeneity and symmetry constraints imposed.
+42 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.9 
+Second-stage estimated elasticities of demand for FAFH (food away from home) and alcohol based on the 
+GODDS model, 1998-2010
+With respect to price of With respect 
+to FAFH 
+and alcohol 
+expenditure R2
+Breusch-
+Godfrey 
+statistic ConstantDemand for Alcohol
+Limited-
+service Full-service Other FAFH
+Alcohol
+-1.13 -2.39 2.17 -0.16 1.53 0.10 6.24 -0.0021
+(0.63) (0.66) (0.74) (0.12) (0.16) (0.0020)
+Limited-service
+-0.89 -0.26 0.31 -0.00 0.84 0.15 4.25 0.0057
+(0.27) (0.94) (0.95) (0.06) (0.07) (0.0024)
+Full-service
+0.92 0.24 -2.08 -0.02 0.94 0.08 21.87 -0.0054
+(0.29) (0.88) (0.96) (0.06) (0.08) (0.0027)
+Other FAFH
+-0.31 -0.06 -0.17 -0.45 0.98
+na na na
+(0.37) (0.32) (0.21) (0.52) (0.17)
+Notes: Estimated elasticities of demand were computed at the mean of the data.  Standard errors were bootstrapped using the residual method.  
+Total expenditure includes expenditures on durable and nondurable goods and services.  The R2 and the Breusch-Godfrey statistic are for the 
+individual equations and Breusch-Godfrey statistic is distributed χ2(1), for which the 10% critical value is 2.71.
+Source: Authors’ calculations using iterated feasible GLS (Stata version 11) with homogeneity and symmetry constraints imposed. 
+FAFH = Food away from home, including limited-service and full-service restaurants; FAH = Food at home; GODDS = Generalized Ordinary 
+Differential Demand System. 
+43 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10` 
+Estimated unconditional elasticities of demand
+With respect to price of
+Demand for
+Flour, prep. 
+mixes
+Breakfast 
+cereals
+Rice and 
+pasta
+Nonwhite 
+bread
+White 
+bread
+Biscuits, 
+rolls, muff.
+Cakes and 
+cookies
+Other 
+bakery 
+products
+Flour, prep. mixes
+0.07 1.41 0.94 -1.84 -0.32 -0.30 -0.88 -0.14
+(0.71) (0.67) (0.56) (0.51) (0.58) (0.68) (1.09) (0.74)
+Breakfast cereals
+0.32 -1.05 -0.08 -0.05 -0.04 0.12 0.54 -0.15
+(0.15) (0.33) (0.19) (0.17) (0.18) (0.21) (0.40) (0.25)
+Rice and pasta
+0.41 -0.15 -0.07 0.00 -0.31 0.28 -0.34 -0.75
+(0.24) (0.36) (0.38) (0.22) (0.27) (0.30) (0.53) (0.36)
+Nonwhite bread
+-0.72 -0.09 0.00 -0.59 0.58 -0.05 0.34 0.11
+(0.20) (0.28) (0.20) (0.30) (0.28) (0.31) (0.45) (0.31)
+White bread
+-0.18 -0.10 -0.42 0.84 -1.54 -0.04 0.63 0.13
+(0.33) (0.44) (0.35) (0.41) (0.58) (0.54) (0.69) (0.47)
+Biscuits, rolls, 
+muff.
+-0.14 0.25 0.31 -0.06 -0.03 -0.21 -0.95 0.38
+(0.33) (0.44) (0.34) (0.38) (0.45) (0.71) (0.72) (0.47)
+Cakes and 
+cookies
+-0.22 0.57 -0.19 0.21 0.27 -0.49 -1.20 0.36
+(0.27) (0.43) (0.30) (0.28) (0.30) (0.37) (0.81) (0.42)
+Other bakery
+-0.03 -0.14 -0.37 0.06 0.05 0.17 0.31 -0.55
+(0.16) (0.23) (0.18) (0.17) (0.18) (0.21) (0.37) (0.34)
+Beef
+0.00 0.01 0.01 0.00 0.00 0.00 0.01 0.01
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02)
+Pork
+0.00 0.00 0.01 0.00 0.00 0.00 0.01 0.01
+(0.01) (0.01) (0.01) (0.01) (0.01) (0.01) (0.02) (0.01)
+Other red meat
+0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+(0.00) (0.01) (0.01) (0.00) (0.00) (0.00) (0.01) (0.01)
+Poultry
+0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+(0.00) (0.01) (0.01) (0.00) (0.01) (0.00) (0.01) (0.01)
+Fish
+0.00 0.00 0.00 0.00 0.00 0.00 0.01 0.00
+(0.01) (0.01) (0.01) (0.01) (0.01) (0.00) (0.01) (0.01)
+See notes at end of table.
+44 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+Demand for Beef Pork
+Other 
+red meat Poultry Fish Eggs Cheese
+Ice cream 
+and frozen 
+desserts Milk
+Flour, prep. mixes
+0.04 0.02 0.01 0.01 0.01 0.00 0.24 0.13 0.19
+(0.09) (0.05) (0.02) (0.03) (0.03) (0.01) (0.07) (0.04) (0.06)
+Breakfast cereals
+0.01 0.01 0.00 0.01 0.00 0.00 0.09 0.05 0.07
+(0.03) (0.02) (0.01) (0.01) (0.01) (0.00) (0.03) (0.01) (0.02)
+Rice and pasta
+0.03 0.02 0.01 0.01 0.01 0.00 0.22 0.12 0.17
+(0.08) (0.04) (0.02) (0.03) (0.03) (0.01) (0.06) (0.03) (0.05)
+Nonwhite bread
+0.01 0.01 0.00 0.01 0.01 0.00 0.10 0.05 0.08
+(0.04) (0.02) (0.01) (0.01) (0.01) (0.00) (0.03) (0.01) (0.02)
+White bread
+0.02 0.01 0.01 0.01 0.01 0.00 0.15 0.08 0.12
+(0.06) (0.03) (0.01) (0.02) (0.02) (0.01) (0.05) (0.03) (0.03)
+Biscuits, rolls, 
+muff.
+0.02 0.01 0.00 0.01 0.01 0.00 0.10 0.06 0.08
+(0.04) (0.02) (0.01) (0.01) (0.01) (0.00) (0.03) (0.02) (0.02)
+Cakes and 
+cookies
+0.02 0.01 0.01 0.01 0.01 0.00 0.16 0.08 0.12
+(0.06) (0.03) (0.01) (0.02) (0.02) (0.01) (0.05) (0.03) (0.04)
+Other bakery
+0.02 0.01 0.00 0.01 0.01 0.00 0.11 0.06 0.09
+(0.04) (0.02) (0.01) (0.02) (0.02) (0.00) (0.03) (0.02) (0.02)
+Beef
+-0.70 0.33 0.04 0.01 -0.09 0.00 0.01 0.01 0.01
+(0.20) (0.15) (0.11) (0.12) (0.12) (0.03) (0.03) (0.01) (0.02)
+Pork
+0.48 -1.26 0.20 0.28 -0.05 0.01 0.01 0.01 0.01
+(0.21) (0.26) (0.18) (0.18) (0.17) (0.04) (0.02) (0.01) (0.02)
+Other red meat
+0.09 0.32 -1.05 -0.04 0.56 -0.07 0.01 0.00 0.00
+(0.26) (0.28) (0.42) (0.30) (0.29) (0.07) (0.01) (0.01) (0.01)
+Poultry
+0.02 0.31 -0.03 -0.81 0.23 0.04 0.01 0.00 0.01
+(0.19) (0.20) (0.22) (0.28) (0.19) (0.04) (0.02) (0.01) (0.01)
+Fish
+-0.18 -0.06 0.50 0.28 -0.84 0.02 0.01 0.00 0.01
+(0.24) (0.24) (0.25) (0.23) (0.30) (0.06) (0.02) (0.01) (0.01)
+See notes at end of table.
+45 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+Demand for
+Other 
+dairy Apples Bananas Citrus
+Other 
+fresh fruits Potatoes Lettuce Tomatoes
+Other fresh 
+vegetable
+Flour, prep. mixes
+0.08 -0.03 -0.05 -0.06 -0.10 -0.03 -0.03 -0.06 -0.11
+(0.03) (0.01) (0.02) (0.03) (0.05) (0.01) (0.01) (0.03) (0.05)
+Breakfast cereals
+0.03 -0.01 -0.02 -0.02 -0.04 -0.01 -0.01 -0.02 -0.04
+(0.01) (0.01) (0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02)
+Rice and pasta
+0.07 -0.03 -0.04 -0.06 -0.09 -0.03 -0.02 -0.05 -0.10
+(0.02) (0.01) (0.02) (0.03) (0.04) (0.01) (0.01) (0.02) (0.05)
+Nonwhite bread
+0.03 -0.01 -0.02 -0.02 -0.04 -0.01 -0.01 -0.02 -0.04
+(0.01) (0.01) (0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02)
+White bread
+0.05 -0.02 -0.03 -0.04 -0.06 -0.02 -0.02 -0.04 -0.07
+(0.02) (0.01) (0.01) (0.02) (0.03) (0.01) (0.01) (0.02) (0.03)
+Biscuits, rolls, 
+muff.
+0.04 -0.01 -0.02 -0.03 -0.04 -0.01 -0.01 -0.02 -0.05
+(0.01) (0.01) (0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02)
+Cakes and 
+cookies
+0.05 -0.02 -0.03 -0.04 -0.07 -0.02 -0.02 -0.04 -0.07
+(0.02) (0.01) (0.01) (0.02) (0.03) (0.01) (0.01) (0.02) (0.03)
+Other bakery
+0.04 -0.01 -0.02 -0.03 -0.05 -0.01 -0.01 -0.03 -0.05
+(0.01) (0.01) (0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02)
+Beef
+0.00 0.01 0.01 0.02 0.03 0.01 0.01 0.01 0.03
+(0.01) (0.01) (0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.03)
+Pork
+0.00 0.01 0.01 0.01 0.02 0.01 0.01 0.01 0.02
+(0.01) (0.01) (0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02)
+Other red meat
+0.00 0.00 0.01 0.01 0.01 0.00 0.00 0.01 0.01
+(0.00) (0.00) (0.00) (0.01) (0.01) (0.00) (0.00) (0.01) (0.01)
+Poultry
+0.00 0.00 0.01 0.01 0.02 0.00 0.00 0.01 0.02
+(0.01) (0.00) (0.01) (0.01) (0.01) (0.00) (0.00) (0.01) (0.01)
+Fish
+0.00 0.01 0.01 0.01 0.02 0.01 0.00 0.01 0.02
+(0.01) (0.00) (0.01) (0.01) (0.02) (0.00) (0.00) (0.01) (0.02)
+See notes at end of table.
+46 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+Demand for
+Processed 
+fruits and 
+vegetables
+Coffee 
+and tea
+Carbonated 
+beverages
+Non-
+carbonated 
+beverages
+Frozen 
+beverages
+Sugar and 
+sweets
+Fats 
+and 
+oils Soups Snacks
+Flour, prep. mixes
+-0.10 -0.02 -0.06 -0.09 0.00 0.12 0.06 0.01 0.01
+(0.05) (0.03) (0.12) (0.17) (0.01) (0.16) (0.09) (0.02) (0.02)
+Breakfast cereals
+-0.04 -0.01 -0.02 -0.03 0.00 0.04 0.02 0.00 0.01
+(0.02) (0.01) (0.04) (0.06) (0.00) (0.06) (0.03) (0.01) (0.01)
+Rice and pasta
+-0.09 -0.02 -0.06 -0.08 0.00 0.10 0.06 0.01 0.01
+(0.04) (0.03) (0.11) (0.15) (0.01) (0.15) (0.08) (0.02) (0.02)
+Nonwhite bread
+-0.04 -0.01 -0.03 -0.03 0.00 0.05 0.02 0.00 0.01
+(0.02) (0.01) (0.05) (0.07) (0.00) (0.06) (0.03) (0.01) (0.01)
+White bread
+-0.06 -0.01 -0.04 -0.06 0.00 0.07 0.04 0.01 0.01
+(0.03) (0.02) (0.08) (0.11) (0.00) (0.10) (0.06) (0.01) (0.01)
+Biscuits, rolls, 
+muff.
+-0.04 -0.01 -0.03 -0.04 0.00 0.05 0.03 0.01 0.01
+(0.02) (0.01) (0.05) (0.07) (0.00) (0.07) (0.04) (0.01) (0.01)
+Cakes and 
+cookies
+-0.07 -0.01 -0.04 -0.06 0.00 0.08 0.04 0.01 0.01
+(0.03) (0.02) (0.08) (0.11) (0.00) (0.11) (0.06) (0.01) (0.01)
+Other bakery
+-0.05 -0.01 -0.03 -0.04 0.00 0.05 0.03 0.01 0.01
+(0.02) (0.01) (0.06) (0.08) (0.00) (0.08) (0.04) (0.01) (0.01)
+Beef
+0.03 0.01 0.04 0.05 0.00 0.09 0.05 0.01 0.01
+(0.02) (0.01) (0.02) (0.03) (0.00) (0.04) (0.02) (0.01) (0.01)
+Pork
+0.02 0.01 0.03 0.04 0.00 0.07 0.04 0.01 0.01
+(0.02) (0.00) (0.02) (0.03) (0.00) (0.03) (0.02) (0.00) (0.00)
+Other red meat
+0.01 0.00 0.02 0.03 0.00 0.04 0.02 0.00 0.00
+(0.01) (0.00) (0.01) (0.02) (0.00) (0.02) (0.01) (0.00) (0.00)
+Poultry
+0.01 0.01 0.02 0.03 0.00 0.05 0.03 0.01 0.01
+(0.01) (0.00) (0.01) (0.02) (0.00) (0.03) (0.01) (0.00) (0.00)
+Fish
+0.02 0.01 0.03 0.04 0.00 0.06 0.03 0.01 0.01
+(0.02) (0.00) (0.02) (0.02) (0.00) (0.03) (0.02) (0.00) (0.00)
+See notes at end of table.
+47 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+With 
+respect to 
+expenditureDemand for
+Condiments, 
+sauces, 
+season.
+Miscella-
+neous FAH
+Alcoholic 
+beverages
+Limited-
+service 
+FAFH
+Full-service 
+FAFH
+Other 
+FAFH Nonfood
+Flour, prep. mixes
+0.05 0.12 0.07 0.09 0.11 0.02 0.30 0.01
+(0.07) (0.16) (0.17) (0.22) (0.27) (0.05) (0.61) (0.08)
+Breakfast cereals
+0.02 0.04 0.03 0.03 0.04 0.01 0.11 0.00
+(0.03) (0.06) (0.06) (0.08) (0.10) (0.02) (0.23) (0.03)
+Rice and pasta
+0.05 0.11 0.06 0.08 0.10 0.02 0.26 0.01
+(0.06) (0.14) (0.15) (0.20) (0.24) (0.04) (0.54) (0.08)
+Nonwhite bread
+0.02 0.05 0.03 0.04 0.04 0.01 0.12 0.00
+(0.03) (0.06) (0.07) (0.09) (0.11) (0.02) (0.24) (0.03)
+White bread
+0.03 0.08 0.04 0.06 0.07 0.01 0.19 0.01
+(0.05) (0.10) (0.11) (0.14) (0.17) (0.03) (0.39) (0.05)
+Biscuits, rolls, 
+muff.
+0.02 0.05 0.03 0.04 0.05 0.01 0.13 0.00
+(0.03) (0.07) (0.07) (0.10) (0.12) (0.02) (0.26) (0.04)
+Cakes and 
+cookies
+0.03 0.08 0.04 0.06 0.07 0.01 0.19 0.01
+(0.05) (0.11) (0.11) (0.14) (0.18) (0.03) (0.39) (0.05)
+Other bakery
+0.02 0.06 0.03 0.04 0.05 0.01 0.14 0.00
+(0.03) (0.08) (0.08) (0.10) (0.13) (0.02) (0.28) (0.04)
+Beef
+0.04 0.09 0.06 0.07 0.09 0.01 -0.54 0.05
+(0.02) (0.04) (0.11) (0.14) (0.18) (0.03) (0.60) (0.09)
+Pork
+0.03 0.07 0.04 0.06 0.07 0.01 -0.43 0.04
+(0.02) (0.03) (0.09) (0.11) (0.14) (0.02) (0.48) (0.07)
+Other red meat
+0.02 0.04 0.03 0.03 0.04 0.01 -0.25 0.02
+(0.01) (0.02) (0.05) (0.07) (0.08) (0.01) (0.29) (0.04)
+Poultry
+0.02 0.05 0.03 0.04 0.05 0.01 -0.31 0.03
+(0.01) (0.02) (0.06) (0.08) (0.10) (0.02) (0.35) (0.05)
+Fish
+0.03 0.06 0.04 0.05 0.06 0.01 -0.37 0.03
+(0.01) (0.03) (0.08) (0.10) (0.12) (0.02) (0.42) (0.06)
+See notes at end of table.
+48 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand
+With respect to price of
+Demand for
+Flour, 
+prep. 
+mixes
+Breakfast 
+cereals
+Rice and 
+pasta
+Non-white 
+bread
+White 
+bread
+Biscuits, 
+rolls, 
+muff.
+Cakes 
+and 
+cookies
+Other 
+bakery 
+products Beef
+Eggs
+0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 -0.02
+(0.00) (0.01) (0.01) (0.00) (0.00) (0.00) (0.01) (0.01) (0.20)
+Cheese
+0.05 0.07 0.09 0.05 0.05 0.04 0.12 0.10 0.03
+(0.01) (0.02) (0.03) (0.01) (0.02) (0.01) (0.04) (0.03) (0.06)
+Ice cream and 
+froz. dessert
+0.05 0.07 0.09 0.05 0.05 0.04 0.12 0.10 0.03
+(0.01) (0.02) (0.03) (0.01) (0.02) (0.01) (0.04) (0.03) (0.06)
+Milk
+0.03 0.05 0.06 0.03 0.04 0.03 0.08 0.07 0.02
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02) (0.04)
+Other dairy
+0.04 0.06 0.07 0.04 0.04 0.03 0.09 0.08 0.02
+(0.01) (0.02) (0.02) (0.01) (0.01) (0.01) (0.03) (0.02) (0.04)
+Apples
+-0.02 -0.03 -0.04 -0.02 -0.02 -0.02 -0.05 -0.04 0.06
+(0.01) (0.02) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02) (0.05)
+Bananas
+-0.03 -0.05 -0.06 -0.03 -0.03 -0.03 -0.08 -0.07 0.09
+(0.01) (0.02) (0.03) (0.01) (0.02) (0.01) (0.04) (0.03) (0.08)
+Citrus
+-0.03 -0.06 -0.07 -0.03 -0.04 -0.03 -0.09 -0.07 0.10
+(0.02) (0.03) (0.03) (0.02) (0.02) (0.02) (0.04) (0.04) (0.09)
+Other fresh fruits
+-0.03 -0.04 -0.05 -0.03 -0.03 -0.02 -0.07 -0.05 0.07
+(0.01) (0.02) (0.02) (0.01) (0.01) (0.01) (0.03) (0.03) (0.07)
+Potatoes
+-0.02 -0.03 -0.04 -0.02 -0.02 -0.02 -0.05 -0.04 0.05
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02) (0.05)
+Lettuce
+-0.02 -0.04 -0.05 -0.02 -0.03 -0.02 -0.06 -0.05 0.07
+(0.01) (0.02) (0.03) (0.01) (0.01) (0.01) (0.03) (0.03) (0.06)
+Tomatoes
+-0.03 -0.06 -0.07 -0.04 -0.04 -0.03 -0.09 -0.08 0.10
+(0.02) (0.03) (0.04) (0.02) (0.02) (0.02) (0.04) (0.04) (0.09)
+Other fresh 
+vegetables
+-0.02 -0.04 -0.05 -0.02 -0.03 -0.02 -0.07 -0.05 0.07
+(0.01) (0.02) (0.02) (0.01) (0.01) (0.01) (0.03) (0.03) (0.06)
+See notes at end of table.
+49 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+Demand for Pork
+Other 
+red meat Poultry Fish Eggs Cheese
+Ice 
+cream 
+and 
+frozen 
+desserts Milk
+Other 
+dairy Apples
+Eggs
+0.03 -0.20 0.15 0.06 -0.24 0.01 0.00 0.01 0.00 0.00
+(0.19) (0.18) (0.17) (0.17) (0.06) (0.01) (0.01) (0.01) (0.00) (0.00)
+Cheese
+0.01 0.01 0.01 0.01 0.00 -0.70 0.07 0.15 0.42 0.00
+(0.03) (0.01) (0.02) (0.02) (0.01) (0.24) (0.13) (0.13) (0.19) (0.01)
+Ice cream and 
+froz. dessert
+0.01 0.01 0.01 0.01 0.00 0.13 -0.23 -0.08 0.12 0.00
+(0.03) (0.01) (0.02) (0.02) (0.01) (0.24) (0.22) (0.16) (0.25) (0.01)
+Milk
+0.01 0.00 0.01 0.01 0.00 0.13 -0.04 -0.10 -0.03 0.00
+(0.02) (0.01) (0.01) (0.01) (0.00) (0.11) (0.07) (0.09) (0.09) (0.01)
+Other dairy
+0.01 0.00 0.01 0.01 0.00 0.93 0.14 -0.08 -1.04 0.00
+(0.02) (0.01) (0.02) (0.02) (0.00) (0.42) (0.29) (0.23) (0.53) (0.01)
+Apples
+0.03 0.01 0.02 0.02 0.00 -0.01 0.00 0.00 0.00 -0.58
+(0.03) (0.01) (0.02) (0.02) (0.00) (0.03) (0.01) (0.02) (0.01) (0.16)
+Bananas
+0.05 0.02 0.03 0.03 0.01 -0.01 0.00 -0.01 0.00 -0.03
+(0.04) (0.02) (0.03) (0.03) (0.01) (0.04) (0.02) (0.03) (0.01) (0.12)
+Citrus
+0.06 0.02 0.04 0.04 0.01 -0.01 -0.01 -0.01 0.00 0.01
+(0.05) (0.02) (0.03) (0.03) (0.01) (0.05) (0.03) (0.04) (0.02) (0.09)
+Other fresh fruits
+0.04 0.02 0.03 0.03 0.01 -0.01 0.00 -0.01 0.00 -0.03
+(0.04) (0.01) (0.02) (0.02) (0.01) (0.04) (0.02) (0.03) (0.01) (0.07)
+Potatoes
+0.03 0.01 0.02 0.02 0.00 -0.01 0.00 0.00 0.00 -0.09
+(0.03) (0.01) (0.02) (0.02) (0.00) (0.03) (0.01) (0.02) (0.01) (0.11)
+Lettuce
+0.04 0.02 0.03 0.03 0.01 -0.01 0.00 -0.01 0.00 0.05
+(0.04) (0.01) (0.02) (0.02) (0.01) (0.03) (0.02) (0.03) (0.01) (0.09)
+Tomatoes
+0.06 0.02 0.04 0.04 0.01 -0.01 -0.01 -0.01 0.00 -0.06
+(0.05) (0.02) (0.03) (0.03) (0.01) (0.05) (0.03) (0.04) (0.02) (0.08)
+Other fresh 
+vegetables
+0.04 0.02 0.03 0.03 0.01 -0.01 0.00 -0.01 0.00 0.09
+(0.04) (0.01) (0.02) (0.02) (0.01) (0.03) (0.02) (0.03) (0.01) (0.06)
+See notes at end of table.
+50 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+Demand for Bananas Citrus
+Other 
+fresh 
+fruits Potatoes Lettuce Tomatoes
+Other 
+fresh 
+vegetable
+Processed 
+fruits and 
+vegetables
+Coffee 
+and tea
+Eggs
+0.01 0.01 0.01 0.00 0.00 0.01 0.02 0.01 0.01
+(0.01) (0.01) (0.01) (0.00) (0.00) (0.01) (0.01) (0.01) (0.00)
+Cheese
+0.00 0.00 -0.01 0.00 0.00 0.00 -0.01 -0.01 -0.02
+(0.01) (0.02) (0.03) (0.01) (0.01) (0.02) (0.03) (0.03) (0.01)
+Ice cream and 
+froz. dessert
+0.00 0.00 -0.01 0.00 0.00 0.00 -0.01 -0.01 -0.02
+(0.01) (0.02) (0.03) (0.01) (0.01) (0.01) (0.03) (0.03) (0.01)
+Milk
+0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 -0.01
+(0.01) (0.01) (0.02) (0.01) (0.00) (0.01) (0.02) (0.02) (0.01)
+Other dairy
+0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 -0.01
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02) (0.01)
+Apples
+-0.03 0.01 -0.08 -0.09 0.03 -0.06 0.24 -0.06 0.00
+(0.12) (0.10) (0.17) (0.11) (0.06) (0.08) (0.17) (0.22) (0.01)
+Bananas
+-1.01 -0.12 0.10 0.05 -0.13 -0.06 0.16 0.06 0.00
+(0.21) (0.10) (0.18) (0.12) (0.07) (0.08) (0.19) (0.28) (0.01)
+Citrus
+-0.10 -1.10 -0.11 -0.06 0.02 0.09 0.10 0.04 0.00
+(0.08) (0.10) (0.15) (0.08) (0.05) (0.07) (0.13) (0.17) (0.01)
+Other fresh fruits
+0.04 -0.05 -0.90 0.06 -0.04 -0.10 -0.07 0.27 0.00
+(0.07) (0.07) (0.15) (0.07) (0.04) (0.06) (0.11) (0.14) (0.01)
+Potatoes
+0.04 -0.07 0.16 -0.42 -0.01 0.09 -0.32 0.03 0.00
+(0.12) (0.09) (0.17) (0.15) (0.06) (0.08) (0.17) (0.23) (0.01)
+Lettuce
+-0.17 0.03 -0.13 -0.01 -0.84 0.04 0.16 0.08 0.00
+(0.09) (0.08) (0.14) (0.09) (0.07) (0.07) (0.15) (0.18) (0.01)
+Tomatoes
+-0.06 0.10 -0.24 0.09 0.03 -0.58 0.06 -0.45 0.00
+(0.08) (0.08) (0.15) (0.07) (0.05) (0.09) (0.14) (0.17) (0.01)
+Other fresh 
+vegetables
+0.06 0.04 -0.06 -0.11 0.04 0.02 -0.94 0.07 0.00
+(0.06) (0.05) (0.10) (0.06) (0.04) (0.05) (0.14) (0.13) (0.01)
+See notes at end of table.
+51 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+Demand for
+Carbonated 
+beverages
+Non-
+carbonated 
+beverages
+Frozen 
+beverages
+Sugar and 
+sweets
+Fats and 
+oils Soups
+Frozen 
+meals and 
+snacks Snacks
+Eggs
+0.02 0.03 0.00 0.05 0.03 0.00 0.03 0.01
+(0.01) (0.02) (0.00) (0.02) (0.01) (0.00) (0.01) (0.00)
+Cheese
+-0.07 -0.09 0.00 -0.13 -0.07 -0.01 -0.08 -0.02
+(0.04) (0.05) (0.00) (0.06) (0.03) (0.01) (0.04) (0.01)
+Ice cream and 
+froz. dessert
+-0.07 -0.09 0.00 -0.13 -0.07 -0.01 -0.08 -0.02
+(0.04) (0.05) (0.00) (0.06) (0.03) (0.01) (0.04) (0.01)
+Milk
+-0.05 -0.06 0.00 -0.09 -0.05 -0.01 -0.06 -0.01
+(0.02) (0.04) (0.00) (0.04) (0.02) (0.01) (0.03) (0.00)
+Other dairy
+-0.05 -0.07 0.00 -0.10 -0.06 -0.01 -0.07 -0.01
+(0.03) (0.04) (0.00) (0.05) (0.02) (0.01) (0.03) (0.01)
+Apples
+0.01 0.01 0.00 0.12 0.06 0.01 0.07 0.01
+(0.03) (0.04) (0.00) (0.05) (0.03) (0.01) (0.03) (0.01)
+Bananas
+0.01 0.02 0.00 0.19 0.10 0.02 0.12 0.02
+(0.05) (0.07) (0.00) (0.08) (0.04) (0.01) (0.05) (0.01)
+Citrus
+0.01 0.02 0.00 0.22 0.11 0.02 0.14 0.02
+(0.05) (0.08) (0.00) (0.09) (0.05) (0.01) (0.06) (0.01)
+Other fresh fruits
+0.01 0.01 0.00 0.16 0.08 0.02 0.10 0.02
+(0.04) (0.06) (0.00) (0.07) (0.03) (0.01) (0.04) (0.01)
+Potatoes
+0.01 0.01 0.00 0.11 0.06 0.01 0.07 0.01
+(0.03) (0.04) (0.00) (0.05) (0.03) (0.01) (0.03) (0.01)
+Lettuce
+0.01 0.01 0.00 0.15 0.08 0.02 0.10 0.02
+(0.04) (0.05) (0.00) (0.07) (0.03) (0.01) (0.04) (0.01)
+Tomatoes
+0.01 0.02 0.00 0.22 0.12 0.02 0.14 0.03
+(0.05) (0.08) (0.00) (0.09) (0.05) (0.01) (0.06) (0.01)
+Other fresh 
+vegetables
+0.01 0.01 0.00 0.15 0.08 0.02 0.10 0.02
+(0.04) (0.05) (0.00) (0.07) (0.03) (0.01) (0.04) (0.01)
+See notes at end of table.
+52 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+With 
+respect to 
+expenditureDemand for
+Condiments, 
+sauces, 
+season.
+Miscella-
+neous FAH
+Alcoholic 
+beverages
+Limited-
+service 
+FAFH
+Full-service 
+FAFH
+Other 
+FAFH Nonfood
+Eggs
+0.02 0.05 0.03 0.04 0.05 0.01 -0.29 0.03
+(0.01) (0.02) (0.06) (0.08) (0.09) (0.02) (0.32) (0.05)
+Cheese
+-0.06 -0.14 0.07 0.09 0.11 0.02 -0.25 0.13
+(0.03) (0.06) (0.10) (0.13) (0.16) (0.03) (0.40) (0.06)
+Ice cream and 
+froz. dessert
+-0.06 -0.13 0.06 0.08 0.10 0.02 -0.25 0.12
+(0.03) (0.06) (0.10) (0.13) (0.16) (0.03) (0.40) (0.06)
+Milk
+-0.04 -0.09 0.05 0.06 0.07 0.01 -0.17 0.09
+(0.02) (0.04) (0.06) (0.09) (0.10) (0.02) (0.26) (0.04)
+Other dairy
+-0.05 -0.10 0.05 0.07 0.08 0.01 -0.19 0.10
+(0.02) (0.05) (0.07) (0.09) (0.11) (0.02) (0.29) (0.05)
+Apples
+0.05 0.12 0.04 0.06 0.07 0.01 0.03 0.03
+(0.02) (0.05) (0.08) (0.10) (0.13) (0.02) (0.32) (0.04)
+Bananas
+0.08 0.19 0.07 0.10 0.12 0.02 0.05 0.04
+(0.03) (0.08) (0.13) (0.17) (0.20) (0.04) (0.51) (0.07)
+Citrus
+0.09 0.22 0.08 0.11 0.13 0.02 0.06 0.05
+(0.04) (0.09) (0.15) (0.19) (0.23) (0.04) (0.58) (0.08)
+Other fresh fruits
+0.07 0.16 0.06 0.08 0.10 0.02 0.04 0.04
+(0.03) (0.07) (0.11) (0.14) (0.17) (0.03) (0.42) (0.06)
+Potatoes
+0.05 0.12 0.04 0.06 0.07 0.01 0.03 0.03
+(0.02) (0.05) (0.08) (0.10) (0.12) (0.02) (0.31) (0.04)
+Lettuce
+0.07 0.16 0.06 0.08 0.09 0.02 0.04 0.04
+(0.03) (0.07) (0.10) (0.14) (0.16) (0.03) (0.41) (0.06)
+Tomatoes
+0.10 0.22 0.08 0.11 0.13 0.02 0.06 0.05
+(0.04) (0.09) (0.15) (0.19) (0.23) (0.04) (0.58) (0.08)
+Other fresh 
+vegetables
+0.07 0.16 0.06 0.08 0.09 0.02 0.04 0.04
+(0.03) (0.06) (0.10) (0.14) (0.16) (0.03) (0.41) (0.06)
+See notes at end of table.
+53 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand
+With respect to price of
+Demand for
+Flour, 
+prep. 
+mixes
+Breakfast 
+cereals
+Rice and 
+pasta
+Non-white 
+bread
+White 
+bread
+Biscuits, 
+rolls, 
+muff.
+Cakes 
+and 
+cookies
+Other 
+bakery 
+products Beef
+Proc. fruits and 
+vegetables
+-0.02 -0.03 -0.04 -0.02 -0.02 -0.02 -0.05 -0.04 0.06
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02) (0.05)
+Coffee and tea
+-0.01 -0.01 -0.02 -0.01 -0.01 -0.01 -0.02 -0.02 0.06
+(0.02) (0.03) (0.04) (0.02) (0.02) (0.02) (0.05) (0.04) (0.04)
+Carbonated 
+beverages
+-0.02 -0.03 -0.04 -0.02 -0.02 -0.02 -0.05 -0.04 0.12
+(0.03) (0.05) (0.07) (0.03) (0.04) (0.03) (0.09) (0.07) (0.07)
+Noncarb. 
+beverages
+-0.02 -0.03 -0.04 -0.02 -0.02 -0.02 -0.05 -0.04 0.14
+(0.04) (0.06) (0.07) (0.04) (0.04) (0.03) (0.09) (0.08) (0.08)
+Frozen beverages
+-0.01 -0.02 -0.02 -0.01 -0.01 -0.01 -0.03 -0.03 0.09
+(0.03) (0.04) (0.05) (0.03) (0.03) (0.02) (0.07) (0.06) (0.07)
+Sugar and sweets
+0.02 0.03 0.03 0.02 0.02 0.01 0.04 0.04 0.15
+(0.02) (0.04) (0.05) (0.02) (0.03) (0.02) (0.06) (0.05) (0.07)
+Fats and oils
+0.01 0.02 0.02 0.01 0.01 0.01 0.03 0.02 0.09
+(0.01) (0.02) (0.03) (0.01) (0.02) (0.01) (0.04) (0.03) (0.04)
+Soups
+0.01 0.01 0.01 0.01 0.01 0.00 0.01 0.01 0.05
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02) (0.03)
+Frozen foods
+0.01 0.02 0.02 0.01 0.01 0.01 0.03 0.02 0.10
+(0.02) (0.03) (0.03) (0.02) (0.02) (0.01) (0.04) (0.03) (0.05)
+Snacks
+0.01 0.02 0.02 0.01 0.01 0.01 0.03 0.02 0.08
+(0.01) (0.02) (0.03) (0.01) (0.02) (0.01) (0.04) (0.03) (0.04)
+Condiments, 
+sauces, seas.
+0.01 0.01 0.02 0.01 0.01 0.01 0.02 0.02 0.08
+(0.01) (0.02) (0.03) (0.01) (0.01) (0.01) (0.03) (0.03) (0.04)
+Misc. FAH
+0.01 0.02 0.03 0.01 0.02 0.01 0.04 0.03 0.12
+(0.02) (0.03) (0.04) (0.02) (0.02) (0.02) (0.05) (0.04) (0.06)
+Alcoholic 
+beverage
+0.00 0.01 0.01 0.00 0.00 0.00 0.01 0.01 0.03
+(0.01) (0.02) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02) (0.07)
+See notes at end of table.
+54 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+Demand for Pork
+Other 
+red meat Poultry Fish Eggs Cheese
+Ice 
+cream 
+and 
+frozen 
+desserts Milk
+Other 
+dairy Apples
+Proc. fruits and 
+vegetables
+0.03 0.01 0.02 0.02 0.00 -0.01 0.00 0.00 0.00 -0.02
+(0.03) (0.01) (0.02) (0.02) (0.00) (0.03) (0.01) (0.02) (0.01) (0.07)
+Coffee and tea
+0.04 0.01 0.02 0.02 0.01 -0.05 -0.03 -0.04 -0.02 0.00
+(0.02) (0.01) (0.01) (0.01) (0.00) (0.03) (0.02) (0.02) (0.01) (0.01)
+Carbonated 
+beverages
+0.07 0.03 0.04 0.04 0.01 -0.10 -0.05 -0.08 -0.03 0.00
+(0.04) (0.02) (0.03) (0.03) (0.01) (0.06) (0.03) (0.04) (0.02) (0.01)
+Noncarb. 
+beverages
+0.08 0.03 0.05 0.05 0.01 -0.11 -0.06 -0.09 -0.04 0.00
+(0.04) (0.02) (0.03) (0.03) (0.01) (0.06) (0.03) (0.05) (0.02) (0.01)
+Frozen beverages
+0.05 0.02 0.03 0.03 0.01 -0.07 -0.04 -0.05 -0.02 0.00
+(0.04) (0.01) (0.02) (0.02) (0.01) (0.05) (0.03) (0.04) (0.02) (0.01)
+Sugar and sweets
+0.08 0.03 0.05 0.05 0.01 -0.10 -0.05 -0.08 -0.03 0.03
+(0.04) (0.02) (0.03) (0.03) (0.01) (0.04) (0.02) (0.03) (0.02) (0.01)
+Fats and oils
+0.05 0.02 0.03 0.03 0.01 -0.06 -0.03 -0.05 -0.02 0.02
+(0.02) (0.01) (0.01) (0.01) (0.00) (0.03) (0.01) (0.02) (0.01) (0.01)
+Soups
+0.03 0.01 0.02 0.02 0.00 -0.03 -0.02 -0.03 -0.01 0.01
+(0.02) (0.01) (0.01) (0.01) (0.00) (0.02) (0.01) (0.02) (0.01) (0.01)
+Frozen foods
+0.06 0.02 0.04 0.04 0.01 -0.07 -0.04 -0.05 -0.02 0.02
+(0.03) (0.01) (0.02) (0.02) (0.00) (0.03) (0.02) (0.02) (0.01) (0.01)
+Snacks
+0.05 0.02 0.03 0.03 0.01 -0.06 -0.03 -0.05 -0.02 0.02
+(0.02) (0.01) (0.02) (0.02) (0.00) (0.03) (0.01) (0.02) (0.01) (0.01)
+Condiments, 
+sauces, seas.
+0.04 0.02 0.03 0.03 0.01 -0.05 -0.03 -0.04 -0.02 0.01
+(0.02) (0.01) (0.01) (0.01) (0.00) (0.02) (0.01) (0.02) (0.01) (0.01)
+Misc. FAH
+0.07 0.03 0.04 0.04 0.01 -0.08 -0.05 -0.07 -0.03 0.02
+(0.03) (0.01) (0.02) (0.02) (0.01) (0.04) (0.02) (0.03) (0.01) (0.01)
+Alcoholic 
+beverage
+0.02 0.01 0.01 0.01 0.00 0.02 0.01 0.01 0.01 0.00
+(0.04) (0.01) (0.03) (0.02) (0.01) (0.03) (0.02) (0.02) (0.01) (0.01)
+See notes at end of table.
+55 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+Demand for Bananas Citrus
+Other 
+fresh 
+fruits Potatoes Lettuce Tomatoes
+Other 
+fresh 
+vegetable
+Processed 
+fruits and 
+vegetables
+Coffee 
+and tea
+Proc. fruits and 
+vegetables
+0.02 0.01 0.20 0.01 0.02 -0.14 0.06 -0.77 0.00
+(0.08) (0.06) (0.11) (0.07) (0.04) (0.05) (0.11) (0.20) (0.01)
+Coffee and tea
+0.00 0.00 0.01 0.00 0.00 0.00 0.01 0.01 -0.12
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02) (0.21)
+Carbonated 
+beverages
+0.00 0.01 0.01 0.00 0.00 0.01 0.01 0.01 -0.01
+(0.02) (0.03) (0.04) (0.01) (0.01) (0.02) (0.05) (0.04) (0.13)
+Noncarb. 
+beverages
+0.01 0.01 0.01 0.00 0.00 0.01 0.01 0.01 -0.07
+(0.02) (0.03) (0.05) (0.01) (0.01) (0.03) (0.05) (0.05) (0.11)
+Frozen beverages
+0.00 0.00 0.01 0.00 0.00 0.00 0.01 0.01 -0.08
+(0.02) (0.02) (0.03) (0.01) (0.01) (0.02) (0.04) (0.03) (0.49)
+Sugar and sweets
+0.04 0.05 0.09 0.02 0.02 0.05 0.10 0.09 0.02
+(0.02) (0.02) (0.04) (0.01) (0.01) (0.02) (0.04) (0.04) (0.02)
+Fats and oils
+0.02 0.03 0.05 0.01 0.01 0.03 0.06 0.05 0.01
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02) (0.01)
+Soups
+0.01 0.02 0.03 0.01 0.01 0.02 0.03 0.03 0.01
+(0.01) (0.01) (0.02) (0.00) (0.00) (0.01) (0.02) (0.02) (0.01)
+Frozen foods
+0.03 0.04 0.06 0.02 0.02 0.03 0.07 0.06 0.02
+(0.01) (0.02) (0.03) (0.01) (0.01) (0.01) (0.03) (0.03) (0.01)
+Snacks
+0.02 0.03 0.05 0.01 0.01 0.03 0.06 0.05 0.01
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.03) (0.02) (0.01)
+Condiments, 
+sauces, seas.
+0.02 0.03 0.05 0.01 0.01 0.03 0.05 0.05 0.01
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02) (0.01)
+Misc. FAH
+0.03 0.05 0.08 0.02 0.02 0.04 0.08 0.07 0.02
+(0.01) (0.02) (0.03) (0.01) (0.01) (0.02) (0.03) (0.03) (0.02)
+Alcoholic 
+beverage
+0.01 0.01 0.01 0.00 0.00 0.01 0.01 0.01 0.00
+(0.01) (0.01) (0.02) (0.01) (0.01) (0.01) (0.03) (0.02) (0.01)
+See notes at end of table.
+56 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+Demand for
+Carbonated 
+beverages
+Non-
+carbonated 
+beverages
+Frozen 
+beverages
+Sugar and 
+sweets
+Fats and 
+oils Soups
+Frozen 
+meals and 
+snacks Snacks
+Proc. fruits and 
+vegetables
+0.01 0.01 0.00 0.12 0.06 0.01 0.07 0.01
+(0.03) (0.04) (0.00) (0.05) (0.03) (0.01) (0.03) (0.01)
+Coffee and tea
+-0.02 -0.19 -0.01 0.09 0.05 0.01 0.06 0.01
+(0.27) (0.27) (0.06) (0.08) (0.04) (0.01) (0.05) (0.01)
+Carbonated 
+beverages
+-0.30 -0.35 -0.01 0.18 0.09 0.02 0.11 0.02
+(0.38) (0.39) (0.07) (0.15) (0.08) (0.02) (0.09) (0.02)
+Noncarb. 
+beverages
+-0.27 -0.44 0.02 0.20 0.11 0.02 0.13 0.02
+(0.30) (0.37) (0.07) (0.16) (0.09) (0.02) (0.10) (0.02)
+Frozen beverages
+-0.09 0.32 -0.61 0.12 0.07 0.01 0.08 0.01
+(1.09) (1.30) (0.91) (0.13) (0.07) (0.02) (0.08) (0.02)
+Sugar and sweets
+0.09 0.13 0.00 -0.56 -0.01 -0.66 -0.74 0.03
+(0.07) (0.10) (0.00) (0.76) (0.26) (0.23) (0.49) (0.14)
+Fats and oils
+0.05 0.08 0.00 -0.02 -0.21 -0.16 -0.23 0.03
+(0.04) (0.06) (0.00) (0.29) (0.18) (0.11) (0.26) (0.06)
+Soups
+0.03 0.04 0.00 -2.08 -0.47 0.19 0.96 0.06
+(0.03) (0.04) (0.00) (0.74) (0.31) (0.60) (0.77) (0.28)
+Frozen foods
+0.06 0.09 0.00 -0.81 -0.23 0.33 -1.05 -0.22
+(0.05) (0.07) (0.00) (0.53) (0.25) (0.27) (0.72) (0.15)
+Snacks
+0.05 0.08 0.00 0.16 0.13 0.09 -1.00 -1.14
+(0.05) (0.06) (0.00) (0.70) (0.28) (0.44) (0.70) (0.46)
+Condiments, 
+sauces, seas.
+0.05 0.07 0.00 0.84 0.10 0.12 0.13 0.27
+(0.04) (0.06) (0.00) (0.45) (0.16) (0.23) (0.43) (0.15)
+Misc. FAH
+0.08 0.11 0.00 -0.09 -0.23 0.15 0.71 -0.02
+(0.06) (0.09) (0.00) (0.48) (0.21) (0.19) (0.41) (0.10)
+Alcoholic 
+beverage
+0.00 0.00 0.00 0.06 0.03 0.01 0.04 0.01
+(0.03) (0.04) (0.00) (0.05) (0.03) (0.01) (0.03) (0.01)
+See notes at end of table.
+57 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand--continued
+With respect to price of
+With 
+respect to 
+expenditureDemand for
+Condiments, 
+sauces, 
+season.
+Miscella-
+neous FAH
+Alcoholic 
+beverages
+Limited-
+service 
+FAFH
+Full-service 
+FAFH
+Other 
+FAFH Nonfood
+Proc. fruits and 
+vegetables
+0.05 0.12 0.04 0.06 0.07 0.01 0.03 0.03
+(0.02) (0.05) (0.08) (0.10) (0.13) (0.02) (0.32) (0.04)
+Coffee and tea
+0.04 0.09 -0.01 -0.01 -0.01 0.00 0.07 0.01
+(0.03) (0.08) (0.07) (0.10) (0.12) (0.02) (0.24) (0.03)
+Carbonated 
+beverages
+0.08 0.18 -0.01 -0.02 -0.02 0.00 0.13 0.02
+(0.06) (0.15) (0.14) (0.19) (0.23) (0.04) (0.45) (0.06)
+Noncarb. 
+beverages
+0.09 0.20 -0.01 -0.02 -0.02 0.00 0.15 0.02
+(0.07) (0.16) (0.15) (0.20) (0.25) (0.04) (0.50) (0.06)
+Frozen beverages
+0.05 0.12 -0.01 -0.01 -0.01 0.00 0.09 0.01
+(0.06) (0.13) (0.11) (0.15) (0.18) (0.03) (0.35) (0.05)
+Sugar and sweets
+0.69 -0.11 0.15 0.20 0.24 0.04 -0.45 0.13
+(0.37) (0.58) (0.12) (0.16) (0.20) (0.03) (0.48) (0.06)
+Fats and oils
+0.09 -0.30 0.09 0.12 0.14 0.02 -0.27 0.08
+(0.15) (0.28) (0.08) (0.10) (0.12) (0.02) (0.29) (0.04)
+Soups
+0.32 0.57 0.05 0.06 0.08 0.01 -0.15 0.04
+(0.59) (0.73) (0.05) (0.06) (0.08) (0.01) (0.18) (0.03)
+Frozen foods
+0.11 0.92 0.10 0.13 0.16 0.03 -0.31 0.09
+(0.38) (0.54) (0.09) (0.12) (0.14) (0.02) (0.32) (0.05)
+Snacks
+1.10 -0.13 0.09 0.11 0.14 0.02 -0.26 0.08
+(0.61) (0.63) (0.08) (0.10) (0.12) (0.02) (0.29) (0.04)
+Condiments, 
+sauces, seas.
+-1.92 -0.28 0.08 0.11 0.13 0.02 -0.24 0.07
+(0.44) (0.39) (0.07) (0.09) (0.11) (0.02) (0.26) (0.03)
+Misc. FAH
+-0.19 -1.48 0.13 0.17 0.20 0.03 -0.38 0.11
+(0.27) (0.59) (0.11) (0.14) (0.17) (0.03) (0.40) (0.05)
+Alcoholic 
+beverage
+0.02 0.06 -1.15 -2.17 2.37 -0.13 0.31 0.32
+(0.02) (0.05) (0.67) (0.73) (0.82) (0.13) (0.68) (0.09)
+See notes at end of table.
+58 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand
+With respect to price of
+Demand for
+Flour, prep. 
+mixes
+Breakfast 
+cereals
+Rice and 
+pasta
+Non-white 
+bread
+White 
+bread
+Biscuits, 
+rolls, muff.
+Cakes and 
+cookies
+Other 
+bakery 
+products
+Limited service
+0.00 0.00 0.00 0.00 0.00 0.00 0.01 0.00
+(0.01) (0.01) (0.01) (0.01) (0.01) (0.00) (0.01) (0.01)
+Full service 
+0.00 0.00 0.00 0.00 0.00 0.00 0.01 0.00
+(0.01) (0.01) (0.01) (0.01) (0.01) (0.01) (0.02) (0.01)
+Other FAFH
+0.00 0.00 0.00 0.00 0.00 0.00 0.01 0.00
+(0.01) (0.01) (0.01) (0.01) (0.01) (0.01) (0.02) (0.01)
+Nonfood
+0.03 -0.06 0.06 -0.03 0.01 -0.02 0.03 -0.03
+(0.01) (0.02) (0.02) (0.01) (0.01) (0.01) (0.02) (0.02)
+See notes at end of table.
+Appendix table A.10 
+Estimated unconditional elasticities of demand
+With respect to price of
+Demand for Beef Pork
+Other red 
+meat Poultry Fish Eggs Cheese
+Ice cream 
+and frozen 
+desserts
+Limited service
+0.02 0.01 0.00 0.01 0.01 0.01 0.01 0.01
+(0.04) (0.02) (0.01) (0.01) (0.01) (0.02) (0.01) (0.01)
+Full service 
+0.02 0.01 0.00 0.01 0.01 0.01 0.01 0.01
+(0.04) (0.02) (0.01) (0.02) (0.02) (0.02) (0.01) (0.01)
+Other FAFH
+0.02 0.01 0.00 0.01 0.01 0.01 0.01 0.01
+(0.05) (0.03) (0.01) (0.02) (0.02) (0.02) (0.01) (0.01)
+Nonfood
+0.08 0.01 -0.05 -0.05 -0.02 0.06 0.03 -0.08
+(0.02) (0.01) (0.01) (0.01) (0.02) (0.03) (0.02) (0.03)
+0.01 0.01 0.01
+See notes at end of table.
+Appendix table A.10 
+Estimated unconditional elasticities of demand
+With respect to price of
+Demand for Beef Pork
+Other red 
+meat Poultry Fish Eggs Cheese
+Ice cream and 
+frozen desserts
+Limited service
+0.02 0.01 0.00 0.01 0.01 0.01 0.01 0.01
+(0.04) (0.02) (0.01) (0.01) (0.01) (0.02) (0.01) (0.01)
+Full service 
+0.02 0.01 0.00 0.01 0.01 0.01 0.01 0.01
+(0.04) (0.02) (0.01) (0.02) (0.02) (0.02) (0.01) (0.01)
+Other FAFH
+0.02 0.01 0.00 0.01 0.01 0.01 0.01 0.01
+(0.05) (0.03) (0.01) (0.02) (0.02) (0.02) (0.01) (0.01)
+Nonfood
+0.08 0.01 -0.05 -0.05 -0.02 0.06 0.03 -0.08
+(0.02) (0.01) (0.01) (0.01) (0.02) (0.03) (0.02) (0.03)
+0.01 0.01 0.01
+See notes at end of table.
+59 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand
+With respect to price of
+Demand for Milk Other dairy Apples Bananas Citrus
+Other fresh 
+fruits Potatoes Lettuce
+Limited service
+0.00 0.00 0.00 0.00 0.01 0.00 0.00 0.00
+(0.01) (0.00) (0.01) (0.01) (0.01) (0.00) (0.00) (0.01)
+Full service 
+0.00 0.00 0.00 0.00 0.01 0.00 0.00 0.00
+(0.01) (0.00) (0.01) (0.01) (0.01) (0.00) (0.00) (0.01)
+Other FAFH
+0.00 0.00 0.00 0.01 0.01 0.00 0.00 0.00
+(0.01) (0.00) (0.01) (0.01) (0.02) (0.00) (0.00) (0.01)
+Nonfood
+-0.02 -0.02 0.01 0.03 0.00 -0.02 0.00 0.03
+(0.02) (0.01) (0.01) (0.01) (0.02) (0.01) (0.01) (0.01)
+0.00 0.00 0.00 0.00 0.01 0.00 0.00 0.00
+See notes at end of table.
+Appendix table A.10 
+Estimated unconditional elasticities of demand
+With respect to price of
+Demand for Tomatoes
+Other fresh 
+vegetable
+Processed 
+fruits and 
+vegetables
+Coffee 
+and tea
+Carb. 
+beverages
+Non-
+carbonated 
+beverages
+Frozen 
+beverages
+Sugar and 
+sweets
+Limited service
+0.01 0.01 0.01 0.00 0.00 0.00 0.00 0.03
+(0.01) (0.02) (0.01) (0.00) (0.02) (0.02) (0.00) (0.03)
+Full service 
+0.01 0.01 0.01 0.00 0.00 0.00 0.00 0.04
+(0.02) (0.02) (0.01) (0.00) (0.02) (0.02) (0.00) (0.03)
+Other FAFH
+0.01 0.01 0.01 0.00 0.00 0.00 0.00 0.04
+(0.02) (0.02) (0.02) (0.00) (0.02) (0.03) (0.00) (0.03)
+Nonfood
+0.00 0.06 -0.06 -0.08 0.02 0.05 0.00 0.06
+(0.01) (0.03) (0.02) (0.02) (0.03) (0.03) (0.01) (0.03)
+0.01 0.01 0.01 0.00 0.00 0.00 0.00 0.03
+See notes at end of table.
+Appendix table A.10 
+Estimated unconditional elasticities of demand
+With respect to price of
+Demand for
+Fats and 
+oils Soups
+Frozen 
+foods Snacks
+Condiments, 
+sauces, seas. Misc. FAH
+Alcoholic 
+beverages
+Limited service
+0.02 0.00 0.02 0.00 0.01 0.03 -0.90
+(0.01) (0.00) (0.02) (0.00) (0.01) (0.03) (0.31)
+Full service 
+0.02 0.00 0.02 0.00 0.02 0.04 0.91
+(0.02) (0.00) (0.02) (0.00) (0.01) (0.03) (0.31)
+Other FAFH
+0.02 0.00 0.02 0.00 0.02 0.04 -0.32
+(0.02) (0.00) (0.02) (0.00) (0.01) (0.03) (0.32)
+Nonfood
+-0.03 -0.03 -0.01 -0.01 -0.04 0.03 0.07
+(0.02) (0.01) (0.02) (0.01) (0.01) (0.03) (0.02)
+0.02 0.00 0.02 0.00 0.01 0.03 -0.90
+See notes at end of table.
+60 
+The Demand for Disaggregated Food-Away-from-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix table A.10 
+Estimated unconditional elasticities of demand
+With respect to price of
+With 
+respect to 
+expenditureDemand for
+Limited-
+service 
+FAFH
+Full-service 
+FAFH
+Other 
+FAFH Nonfood
+Limited service
+-0.13 0.42 0.01 0.17 0.18
+(1.08) (1.15) (0.07) (0.37) (0.05)
+Full service 
+0.38 -1.96 -0.01 0.19 0.20
+(1.06) (1.10) (0.07) (0.42) (0.06)
+Other FAFH
+0.08 -0.04 -0.43 0.20 0.21
+(0.37) (0.42) (0.18) (0.44) (0.07)
+Nonfood
+-0.08 -0.05 0.00 -1.00 1.21
+(0.03) (0.03) (0.01) (0.07) (0.01)
+Notes: Authors’ calculations using first-stage elasticities from table 5, second-stage elasticities 
+from tables A.3.-A.9., and Carpentier and Guyomard’s formulas for approximating uncondi-
+tional elasticities of demand, equations 12 and 13. Standard errors calculated using a residual 
+bootstrap (Green, Hahn, and Rocke 1987). 
+FAFH = Food away from home, including limited-service and full-service restaurants; FAH = 
+Food at home.
+61 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Appendix: Derivations of the Generalized 
+Ordinary Differential Demand System 
+(GODDS)
+The GODDS is a reparameterization of a synthetic model developed by 
+Barten (1993) that exploits the fact that the Rotterdam (R), the FDLAIDS 
+(F), the NBR (N), and the CBS (C) models can be rewritten so they all have 
+the same right-hand-side terms: 
+(A.1.0) yR = wnd ln qn = θn d ln Q + ∑ N
+j = 1πnjd ln pj,
+(A.1.1) yF = dwn = βn d ln Q + ∑ N
+j = 1γnjd ln pj,
+(A.1.2) yC = wn(d ln qn - d ln Q) = βn d ln Q + ∑ N
+j =  1πnjd ln pj,
+(A.1.3) yN = dwn + wnd ln Q = θn d ln Q + ∑ N
+j =  1γnjd ln pj,
+where wn is the budget share for good n, qn is quantity, pn is price, and d ln Q 
+is the Divisia volume index.1,2 
+Barten’s general model takes the form: 
+αRyR + αCyC + αFyF + αNyN = XΩ,
+where yi, i = R, C, N, F is a t × 1 vector of transformed basic endogenous 
+variables; X is a t × k matrix of exogenous price and expenditure variables; 
+and Ω = αRωR + αCωC + αFωF + αNωN and ωi, i=R, C, N, F compose a k × 
+1 vector of coefficients. Without loss of generality, Barten set the sum of 
+the α’s to one and solved for αR. Instead of solving for αR in (A.1.4), Eales, 
+Durham, and Wessells (1997) solved for αF such that the term on the left-
+hand side of the final model is the same as the left-hand side term of the 
+FDAIDS (i.e., dwn):
+(A.1.5) αF = 1 - αR - αC - αN.
+Substituting αF from (A.1.5) into (A.1.4) and solving for yF yields,
+(A.1.6) yF = αC(yF - yC) + αR(yF - yR) + αN(yF - yN) + XΩ.
+Unconstrained estimation of the αs is not possible since αF is a linear combi-
+nation of αR, αC, and αN. However, (A.1.6) can be rewritten using the fact 
+that
+(A.1.7) yR - yC + yF - yN = 0,
+or 
+(A.1.8) (yF - yC) + (yF - yN) - (yF - yR) = 0.
+1The Divisia volume index is  
+defined as 
+   d ln Q = d ln M – ∑N
+n = 1wnd ln pn, 
+where M is total expenditure on all 
+goods. Equivalently, the Divisia volume 
+index is
+   d ln Q = ∑N
+n = 1wnd ln qn.
+2The coefficient on the income term 
+in the Rotterdam and NBR models 
+(i.e., θn) is the marginal budget share 
+and is constant, whereas the marginal 
+budget shares for the FDLAIDS and 
+CBS models (i.e., βn = θn – wn) vary 
+with the expenditure shares. Similarly, 
+the Slutsky terms are considered to 
+be constants in the Rotterdam and 
+CBS models (i.e., πnj) but vary with 
+expenditure shares in the NBR and 
+FDLAIDS models.
+62 
+The Demand for Disaggregated Food-Away-From-Home and Food-at-Home Products in the United States / ERR-139 
+Economic Research Service/USDA
+Solving (A.1.8) for yF - yR yields
+(A.1.9) (yF - yC) + (yF - yN) = (yF - yR),
+and substituting this into (A.1.6) gives 
+(A.1.10) yF = ( αC + αR) (yF - yC) + (αR + αN)(yF - yN) + XΩ,
+  = φ1(yF - yC) + φ2(yF - yN) + XΩ.
+The nesting coefficient φ1 measures the difference between the price coef-
+ficients in the FDLAIDS model and the price coefficients in the CBS and 
+Rotterdam models. The nesting coefficient φ2 measures the difference 
+between the marginal budget shares of the FDLAIDS model and marginal 
+budget shares of the NBR and Rotterdam models. 
+Substituting (A.1.0)-(A.1.3) into (A.1.10) and using 
+(A.1.11) dwn = wnd ln qn + wnd ln pn - wnd ln M,
+(A.1.12) d ln M = ∑N
+n = 1wnd ln pn + ∑N
+n = 1wnd ln qn,
+the GODDS is
+(A.1.13) dwn = (cn + φ1wn)d ln Q + ∑ N
+k = 1[dnk + φ2wn(δnk - wk)]d ln pk,
+where cn = φ1βn + (1 - φ1)θn and dnk = φ2γnk + (1 - φ2)πn are expenditure and 
+price coefficients to be estimated, respectively, φ1 and φ2 are nesting coef-
+ficients, δnk is the Kronecker delta, wn is a t × 1 vector of expenditure shares 
+for good n, pk is a t × 1 vector of prices of good k, and Q is a t × 1 vector of 
+Divisia volume indexes.

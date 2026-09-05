@@ -1,0 +1,115 @@
+ 
+The Economic Impact of HPAI on U.S. Egg 
+Consumers: Estimating a $1.41 Billion Loss in 
+Consumer Surplus 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+James L. Mitchell, Jada M. Thompson, and Trey Malone 
+ 
+ 
+ 
+ 
+ 
+Agricultural Economics & Agribusiness Department 
+Dale Bumpers College of Agriculture, Food & Life Sciences 
+and 
+University of Arkansas System Division of Agriculture 
+ 
+ 
+ 
+ 
+FC-2025-001 
+ 
+ 
+ 
+ 
+Feburary 2025 
+ 
+ 
+   
+
+The Economic Impact of HPAI on U.S. Egg Consumers: Estimating a $1.41 Billion 
+Loss in Consumer Surplus 
+ 
+James L. Mitchell, Jada M. Thompson, and Trey Malone 
+ 
+Billions of eggs are grown in large -scale, layer houses each year in the United States. 
+These eggs are distributed through grocery stores, food service industries, and processed 
+into liquid or powdered forms for use in various food products . American per capita egg 
+consumption will reach 275 eggs in 2025 (USDA-ERS, 2024). Because eggs are a staple 
+food, any disruption in production —such as highly pathogenic avian influenza (HPAI) —
+can have a noticeable impact on availability and prices in grocery stores acro ss the 
+country. 
+ 
+HPAI is a highly contagious viral disease that affects domestic and wild birds, with the 
+largest economic impacts derived from commercial poultry. Often carried by migratory 
+waterfowl, the virus can spread rapidly through direct contact, contaminated surfaces, or 
+airborne transmission. HPAI is noted for its high mortality (>75%) in infected flocks, often 
+requiring large-scale depopulation efforts to control viral spread. The U.S. Department of 
+Agriculture (USDA) and other regulatory bodies monitor and respo nd to outbreaks to 
+mitigate their economic and food supply impact . Despite these efforts, the loss of birds 
+continues to grow each year, dramatically influencing egg supply chains  and, 
+consequently, consumer prices. 
+ 
+Given the size of these impacts, empirically estimating the size of the economic loss is of 
+critical importance. This paper extends the findings of Mitchell, Thompson, and Malone 
+(2024), which established an appropriate framework for modeling HPAI disease dynamics 
+within the egg supply chain, accounting for both the lagged and cumulative effects of HPAI 
+on egg prices;  When a flock is depopulated due to HPAI, it takes six months for a new 
+flock to reach maturity and begin laying eggs. Additionally, each successive depopulation 
+compounds the impact on egg prices. 
+ 
+According to USDA-APHIS (2024), HPAI affected 38.4 million commercial egg laying birds 
+and 29 flocks in 2024. As a result, we estimate a 9% increase in retail egg prices, 
+independent of other sources of egg price inflation. Using own-price elasticities of demand 
+from the literature, we estimate that quantity demanded for retail eggs declined by 2%. 
+ 
+This reduction in consumption, coupled with higher prices, led to an estimated consumer 
+surplus loss of $1.41 billion  (Table 1). This estimate reflects the economic burden on 
+consumers due to reduced availability and affordability of eggs following HPAI outbreaks. 
+The magnitude of these losses underscores the importance of understanding how 
+disease outbreaks in the egg supply chai n influence consumer welfare and market 
+dynamics. 
+ 
+Table 1. HPAI impacts on retail egg prices, quantities, and consumer surplus 
+Variable Value 
+Retail Egg Price ($/doz) 2.73 
+Per Capita Egg Consumption (eggs) 202 
+Own-Price Elasticity  -0.228 
+Retail Egg Price (% Chg) 9% 
+Quantity Demand (% Chg) -2% 
+Consumer Surplus (million dollars) -1,414.28 
+Note: Retail Egg Price ($/doz) represents the estimated average price of eggs in 2024 in 
+the absence of HPAI cases. Per Capita Egg Consumption (eggs) refers to projected 2024 
+shell egg consumption per person under the same assumption. Own-Price Elasticity is an 
+estimated average demand elasticity from the literature, indicating the percentage change 
+in quantity demanded for a 1% change in price. Retail Egg Price (% Chg)  and Quantity 
+Demand (% Chg)  represent the percentage change in retail egg prices and quantity 
+demanded due to HPAI out breaks in 2024. Consumer Surplus (million dollars)  reflects 
+the estimated economic loss to consumers resulting from higher egg prices and lower 
+consumption. 
+These estimates come with a few important caveats. First, the estimate assumes that 
+consumer preferences and purchasing behavior remained stable, meaning that 
+consumers responded to price increases in the same way as they have in the past. 
+Second, the analysis focuses on the direct impact of HPAI on egg prices and consumer 
+surplus, meaning it does not account for any indirect effects, such as potential changes 
+in producer behavior or government policy responses. Despite these considerations, this 
+estimate provides a clear and useful benchmark for understanding how HPAI affected 
+egg prices and consumer spending in 2024. 
+ 
+References 
+Mitchell, J. L., J. M. Thompson, T. Malone. 2024. “Biological Lags and Market Dynamics 
+in Vertically Coordinated Food Supply Chains: HPAI Impacts on U.S. Egg Prices.” Food 
+Policy 126: 102655 
+ 
+USDA-APHIS. 2024. 2022-2024 Confirmations of Highly Pathogenic Avian Influenza in 
+Commercial and Backyard Flocks. Available at: https://www.aphis.usda.gov/livestock-
+poultry-disease/avian/avian-influenza/hpai-detections.   
+ 
+USDA-ERS. 2024. Livestock, Livestock, Dairy, and Poultry Outlook: July 2024. Available 
+at: https://www.ers.usda.gov/publications/pub-details?pubid=109570  

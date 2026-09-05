@@ -1,0 +1,1089 @@
+Welfare Effects of the 2022 U.S. HPAI Outbreak
+by
+ 
+Peyton Ferrier, Monica Saavoss, and Samuel 
+Williamson
+Suggested citation format:
+Ferrier, P., M. Saavoss, and S. Williamson. 2024. “Welfare Effects of the 2022 
+U.S. HPAI Outbreak.” Proceedings of the NCCC-134 Conference on Applied 
+Commodity Price Analysis, Forecasting, and Market Risk Management. St. 
+Louis, MO. [http://www.farmdoc.illinois.edu/nccc134].
+1 
+ 
+ 
+ 
+ 
+Welfare Effects of the 2022 U.S. HPAI Outbreak  
+ 
+ 
+ 
+Peyton Ferrier, Monica Saavoss, and Samuel Williamson1  
+ 
+ 
+ 
+ 
+Paper prepared for the NCCC-134 Conference on Applied Commodity Price Analysis, 
+Forecasting, and Market Risk Management, 2024. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Disclaimer:  The views and opinions expressed in this paper are those of the authors and do not 
+reflect those of the USDA or any of its Agencies. 
+ 
+1 Peyton Ferrier is an economist of the USDA’s Agricultural Marketing Service, Monica Saavoss and Samuel 
+Williamson are economists for the USDA’s Animal Plant Health Inspection Service.   
+2 
+ 
+ 
+ 
+Welfare Effects of the 2022 U.S. HPAI Outbreak  
+Shocks to agricultural markets due to animal disease outbreaks are especially disruptive.  We use 
+an Equilibrium Displacement Model (EDM) to estimate the price and welfare effects of the U.S. 
+outbreak of High Path Avian Influenza (HP AI) that reduced turkey production by 9 to 12 percent 
+and egg production by 5 to 7 percent over the last three quarters of 2022. We find that HP AI 
+reduced consumer welfare by $199.2 million for turkey and $3.56 billion for eggs and reduced 
+coarse grain expenditures by $112.3 million. 
+Keywords:  Animal Disease, Partial Equilibrium Model, Food Prices, Poultry, Eggs, 
+Livestock, High Path Avian Influenza  
+ 
+Introduction 
+Shocks to agricultural markets due to animal disease outbreaks are especially disruptive.  
+Depending on their severity, outbreaks lead to the depopulation of exposed animals, the 
+establishment of quarantine zones restricting animal movement, the loss of trade access, and, 
+when human health is at risk, sharp falls in demand.  In recent history, all major animal product 
+markets have suffered severe, disease shocks events including the 2003 discoveries of Bovine 
+Spongiform Encephalopathy (BSE) in Canadian and then U.S. cattle, the 2019 outbreak of 
+African Swine Fever in pigs in China, and the 2015 and 2022 outbreaks of High Path Avian 
+Influenza2 (HPAI) in the United States.   
+ 
+Animal disease shocks ripple through upstream markets for feed grains, machinery, and 
+agricultural labor and downstream markets for packing, processing, and consumer food.  When 
+demand for animal products is inelastic at the wholesale level, producers, as a group, may 
+counter-intuitively have sales revenue increase as price increases outpace the sales loss from 
+reduced production.  For these reasons, fully accounting for welfare losses from disease 
+outbreaks requires a consideration of upstream and downstream markets, specifically the 
+spillover effect across markets for other animal products using the same feed inputs and showing 
+varying degrees of demand substitutability with each other3.      
+ 
+Among other economic models, the Equilibrium Displacement Model (EDM) is well-developed 
+and has been applied to animal disease shocks trace extensively (Hennessy and Marsh, 2021).  In 
+general, EDMs parameterize a set of interrelated markets by a set of tractable parameters 
+defining supply and demand and then trace through the effects on price and output as an 
+exogenous shock (disease loss, trade restrictions, taxes) causes the market to move from an 
+ 
+2 Avian Influenza is an infectious, viral respiratory disease originating in birds and transmitted by contact with 
+infected hosts.  Epidemiologically, strains are classified into subtypes based on numbered classification of two 
+proteins - hemagglutinin and neuraminidase - on the surface of the Influenza A virus, with the 2022-23 U.S. 
+outbreak being a H5N1 sub-type.  The 2022-23 outbreak is similar to the 2015 HPAI outbreak (subtype H2N2) in 
+terms of its size (around 50 million birds), industries requiring bird depopulations (turkey and eggs), and negligible 
+human health risk. 
+3 See Kappes et al (2024) for a more general review of economic analysis of livestock health and disease economics .   
+3 
+ 
+initial observed equilibrium to another counterfactual one (Brester et al., 2023). We implement 
+the model developed by Paarlberg et al (2008) that specifies the market for livestock (beef cattle, 
+swine, broilers, egg-laying hens, sheep, dairy cattle, and turkeys), meat (beef, pork, chickens, 
+eggs, lamb, milk, and turkey meat), and feed grains (soybeans, corn, wheat, forage), along with 
+rice and soy oil.  Importantly, this model also allows for shocks to persist over several periods 
+due to the biological cycles of livestock.  
+ 
+Using this model, we compare prices, consumer welfare and producer welfare under the 
+observed 2022 market equilibrium impacted by the large U.S. HPAI outbreak and a counter-
+factual scenarios removing the disease’s effects on production and export access.  In this 
+simulation, the production counterfactual is calibrated from pre-outbreak forecasts of production 
+and exports.  In conducting our estimation, we note the similarity between the 2022 HPAI and 
+the earlier 2015 HPAI outbreak which similarly affected turkey, egg, and broiler markets.  While 
+these outbreaks were both large and disruptive, the 2015 outbreak led notably to the 
+comprehensive loss to all U.S. producers of export access to China and South Korea, both major 
+markets for U.S. eggs, broilers, and turkeys at the time.  In contrast, the 2022 outbreak led only 
+to regionalized restrictions of exports from production areas with ongoing outbreaks and a much 
+smaller impact on export access, especially with broilers.   
+ 
+The 2022 U.S. HPAI outbreak eventually led to the culling of 9.4 million meat turkeys, 43.3 
+million table egg laying hens, and 2.2 million broilers.  After circulated in Europe and Asia since 
+2020, the specific virus responsible for the outbreak4 was spread in the United States by wild 
+birds along regular north-south migration flight ways – first, in the late winter and spring, 
+followed by a notable summer lull, and then again in fall and winter. As shown in Figure 1, 
+commercial depopulations – the destruction of live birds in facilities infected with HPAI – of 
+turkeys and egg began in February of 2022.   
+ 
+<< Figure 1 – Weekly Depopulations of Table Egg Layers and Turkeys due to HPAI >> 
+ 
+The similar 2015 HPAI outbreak had comparable losses across turkeys, egg-laying hens, and 
+broilers.  December 2014 marked the first detections of HPAI in wild bird populations at which 
+time many countries including China and South Korea immediately banned U.S. poultry and egg 
+imports entirely.  Detections in and depopulations of commercial flocks did not begin until 
+January of 2015 while large scale disruptions of production were concentrated between late 
+March through June 2015, which marked the end of new detections.  This abrupt end of the 
+outbreak contrasts with the fall resurgence of the 2022 outbreak which continue sporadically 
+through April of 2023 as shown in Table 1. 
+  
+<< Table 1 – HPAI Related Depopulations of Poultry in 2015 and 2022 as a Share of 
+Production and Inventory >> 
+ 
+In both the 2015 and 2022 outbreaks, the broiler industry saw only minor disease-related losses 
+relative to total production.  In contrast, 2022 production of turkeys fell 6.0 percent and shell-
+ 
+4See Shi et al (2022) for a detailed discussion of the HPAI epidemiology. 
+4 
+ 
+eggs 2.4 percent compared to the previous year while average annual prices rose 26 percent for 
+turkeys and 141 percent for eggs.   
+Figures 2 and 3 show that turkey and egg prices increased dramatically following the onset of 
+the 2022 outbreak.  For turkeys, prices for fresh boneless skinless tom breast prices rose 208 
+percent in May and whole hens rose 35 percent in their highest year-over-year peaks.  For eggs, 
+monthly prices for New York carton eggs5 rose 217 percent and the Central States breaking eggs 
+rose 379 percent in their highest year-over-year peak.  For eggs, price volatility increased 
+dramatically with the greatest upward spikes occurring in the weeks preceding holidays in which 
+demand increases and retail outlets often run loss-leading egg promotions. Despite their severity, 
+the 2022 price increases were comparable with those of 2015 when the monthly average price for 
+eggs rose 243%, the fresh boneless skinless turkey breast rose 52%, and whole frozen turkey 
+hens rose 17% over the previous year’s level.  
+ 
+<< Figure 2 – Prices for New York Carton and Central States Broken Eggs >> 
+<< Figure 3 – Prices for Frozen Whole Hens and Fresh Turkey Parts >> 
+ 
+Unlike the 2015 outbreak, however, the United States largely preserved access to export markets 
+during the 2022 outbreak. Table 2 shows that the share of U.S. production exported of turkey, 
+eggs, and broilers in the years preceding and following the 2015 HPAI outbreak.  Compared to 
+the three years preceding the outbreak year, the share of broiler and turkey production exported 
+abroad fell 3.8 percentage points while the export share of shell eggs, which are not largely 
+exported, fell 0.6 percentage points.  This decline was due both to export restrictions and to the 
+decreased production and higher prices also caused by the HPAI outbreak.  Additionally, whereas 
+the 2015 outbreak was associated with the loss of key export markets as over 50 countries placed 
+restrictions on U.S. poultry products, in 2022 most restrictions on U.S. exports were limited only 
+to production regions in which the outbreak was active. 
+ 
+<< Table 2 – Aggregate Shares of U.S. Production Exported Before and After the 2015 HPAI 
+Outbreak >> 
+ 
+Since 2015, the United States secured several agreements to regionalize trade restrictions, along 
+with other animal health measures to better geographically isolate outbreaks as they occur.  
+Subsequently, with most trade partners, export restrictions were limited regionally during the 
+2022-23 outbreak6.   
+ 
+Empirical Framework 
+ 
+ 
+5Egg prices differ regionally but are highly correlated.  We use the benchmark New York egg price which refers to 
+the wholesale price of dozen-carton eggs delivered to the New York City market as reported daily by AMS.  
+6In lieu of more restrictive country-wide restrictions following an animal or plant disease output threat, the World 
+Trade Organization’s Agreement on Sanitary and Phytosanitary Restrictions encourages regionalization strategies 
+that limit trade restrictions to geographic regions in which a phytosanitary threat is relevant.  Such encouragements 
+are often not formalized or binding in the absence of separate and more comprehensive bi -lateral trade agreement 
+formalizing reporting and notification requirements and the permissible scope of trade restrictions where necessary.   
+5 
+ 
+To estimate the market and welfare effects under the counter-factual, we employ the Equilibrium 
+Displacement Model (EDM) specifically developed by Paarlberg et al., 2008 to consider the 
+welfare effects of animal disease shocks.  Our EDM has been applied broadly in policy 
+application to study the comprehensive market effects of various animal disease outbreaks 
+(Thompson et al., 2019).   Full documentation of this model is included in Paarlberg et al. 
+(2008).  Table 3 describes the input-output process used in its embedded supply and demand 
+linkages for 19 products. Of these, seven are animal products, seven are livestock used as inputs 
+to animal products, and four are feedstuffs used as inputs to animal production.  Soybeans are 
+crushed to make soy oil and soy meal in a fixed ratio.  On the demand side, eleven products are 
+sold in final goods markets, including rice which has no animal product use but competes with 
+feedstuffs for land and wheat and coarse grains which are used both as inputs to animal 
+production and as final goods.  Trade relationship, either as export demand, import demand or 
+both, are defined for 14 products.  Inventory demand, where inventory is carried across quarterly 
+periods, is also incorporated for seven commodities.   
+ 
+On the production side, all products use capital in production and the exogenous input, a variable 
+that captures labor and other inputs assumed to have a perfectly elastic supply.  animal products 
+use livestock animals as inputs; Livestock products use feedstuffs, forage, and, in the case of 
+ruminants, land; And, finally, crops use land in production.  Within Table 3, “B” denotes that the 
+input is the reference input and other input levels are adjusted in reference to it.  
+ 
+<< Table 3–Commodities, Uses, Trade, Inventory, and Production Relationships in the Animal 
+Disease Outbreak Model >>  
+  
+The model also tracks cattle, swine, and sheep through their inventory periods in which the 
+animals are being raised for future production and consuming feedstuffs but are not ready for 
+slaughter.  The inventory variables on both on the demand and production sides, along with 
+reproduction and growth constraints of animals, can create persistence in the market effects 
+across periods for certain types of shocks.  The model incorporates these lags to replace lost 
+animals and, accounts for stocks of animals at different ages with differing feed requirements7. In 
+our specific application of HPAI in 2015, shocks enter directly into production variables, rather 
+than to breeding stock variables. All shocks inputs and simulated changes from the 
+counterfactual withing our EDM are made as log changes from the baseline of 2022 market 
+conditions.  
+ 
+Data 
+ 
+Data used to calculate the initial equilibrium is drawn from various USDA sources and 
+documented in Paarlberg et al (2008).  Data describing initial market equilibrium levels 
+(production, prices, exports, imports, trade, and inventories) largely follows the construction of 
+commodity data reported monthly in the USDA’s process of reporting World Agricultural 
+ 
+7The model allows for biological reproduction constraints, particularly with cattle, to create market cycles in the 
+manner described by Rosen, Murphy and Scheinkman (1994) and allows for continuously updating price 
+expectations to affect stocking decisions.  Since our shock only affects poultry which does not face biological 
+constraint on restocking, those options are turned off. 
+6 
+ 
+Demand and Supply Estimates (WASDE)8.  Cost share variables for inputs and behavioral 
+variables, including elasticities of demand, substitution, trade, and stocking, are drawn from 
+available sources and documented in Paarlberg et al (2008).  
+ 
+Simulation 
+ 
+The scenario counterfactual is developed from the observed differences between actual 2022 
+values of poultry production and exports versus those predicted for 2022 by the WASDE forecast 
+in December 2021. For broilers, these differences were relatively small and sometimes positive 
+since as broiler HPAI outbreaks were minor.  For this reason, in our counterfactual scenario, we 
+assume that broiler were unaffected by HPAI and focus solely on turkey and eggs.  
+ 
+Production Effects Counterfactual  
+ 
+The baseline in out model is the observed market equilibrium in the last three quarters of 2022.  
+The counterfactual is 2022 WASDE projection.  The estimated impact of HPAI impact is the 
+calculated welfare difference based on prices and quantities in the observed production baseline 
+and the counterfactual scenario where the market regains the lost production and exports.   
+ 
+In our case, simply restoring production via a counterfactual supply shift did not return exports to 
+plausible levels as it does not account for unobserved trade restrictions.  HPAI, like other disease 
+outbreak, can reduce exports in two ways. First, the decreased production caused by 
+depopulations may result in fewer exports shifts the supply curve and raises prices, making U.S. 
+turkey and eggs less competitive and reducing exports, other things equal.  Second, other 
+countries may restrict the importation of U.S. poultry products because of the HPAI detection.  
+To separate out these two factors, we run two separate counterfactual scenarios.  Scenario 1 
+restores lost production in 2022 due to HPAI but does not otherwise address trade.  As we 
+discuss later, this supply shift alone moves trade to a level far below its level forecast in the 
+WASDE.  Scenario 2 restores the same lost production and returns trade (exports, in the case of 
+turkey and eggs) to their forecast level.  The difference between the equilibrium in the two 
+scenarios isolates the trade effect of the outbreak as compared to the production effect of the 
+outbreak.  
+ 
+Within the mechanics of the model simulation, simply inputting the difference in equilibria 
+production levels as a supply shock will induce a contemporaneous supply response that will 
+offset the inputted shock.  Conceptually, EDM practitioners can impose a movement from the 
+actual to a counterfactual equilibrium by either iteratively adjusting and calibrating shifts in the 
+supply curve until the counterfactual change is reached or they can simply turn off the internal 
+supply responses by setting key supply elasticities in the model to be approximately zero.  Our 
+simulation considers both the production shock and the export access shock of HPAI for turkey 
+and eggs.  For the export access shock, we turned off internal supply responses – shifting the 
+export demand to the levels projected in the WASDE estimates pre-HPAI and then 
+ 
+8 Underlying data for WASDE itself is drawn from various USDA sources: production and stocks data from NASS, 
+price data from AMS, and trade data from the Foreign Agricultural Service.  bas 
+7 
+ 
+simultaneously setting the elasticity of export demand arbitrarily close to zero9.  For the 
+production shock, we used the calibration process over successive modeling runs.   
+ 
+We note that, as a practical matter, the magnitude of a supply curve shift is unknown even if the 
+exact number of livestock lost is exactly observed.  Birds might be lost in an early stage of 
+production, rather than represent the loss of a market-ready animal.  Also, producers can, to some 
+degree, substitute inputs like feed and processing to affect production with the same number of 
+animals by feeding animals to higher weights or retaining older, less productive layers longer 
+than would ordinarily be optimal.  Conversely, producers might reduce per animal production in 
+response to other disease related factors, such as moving forward slaughter of smaller turkeys (at 
+lower weights) to meet orders, sustain employment at packing plants, or to avoid a complete loss 
+from potential future outbreaks.  Also, APHIS requires a downtime period of 9 to 13 weeks 
+before a depopulated facility (hen house, turkey barn) can re-stock to ensure the house is 
+sanitized and virus free, thus reducing production capacity for 2 to 3 months.   
+ 
+Table 4 includes the levels for actual and forecast production for turkey, broilers, and eggs for 
+each quarter in 2022.  
+ 
+<< Table 4 - Estimated counterfactual difference between actual production in 2022 and forecast 
+production without HPAI >> 
+ 
+Notice that broiler production significantly exceeded forecasts in the 3rd and 4th quarters of 2022 
+and this increase was associated with a significant fall in prices.  Broiler depopulations at the 
+time were also a very small share of production.  For this reason, we assume that HPAI caused 
+no substantive change in production for the purposes of our counterfactual simulation.  Table 5 
+provides the changes applied changes in the counterfactual. 
+ 
+<< Table 5 - Estimated counterfactual difference between actual production in 2022 and 
+projected production without HPAI >> 
+ 
+Our production effects counterfactual is that that the turkey supply would have been at least 9 
+percent greater and eggs at least 5 percent greater across the 2nd, 3rd, and 4th quarters of 2022 if 
+the HPAI outbreak had not occurred, but broiler production would not have increased in the 
+absence of HPAI.    
+ 
+Our trade effects counter-factual is similarly developed from actual and forecast export shares as 
+reported in Table 6.  The shortfall of actual exports from forecasted values for turkey and eggs 
+ranged from 29.6 to 90.3 percent over the 2nd, 3rd, and 4th quarter of 2022. This compares with 
+production shortfalls over the same period (shown in Table 4) ranging from only 4.7% to 12.3% 
+for turkey and eggs over the same period.  As a prima facie comparison, actual trade flows seem 
+to over-respond to the production shock of the outbreak if one assumes that HPAI causes no 
+other impact on trade (i.e. export restrictions in the form of complete or partial bans) other than 
+ 
+9 Setting either the elasticities or consumer demand or export demand to be exactly zero prevents the model from 
+reaching equilibrium.  
+8 
+ 
+through supply and price.  Even in the absence of total bans, disease outbreaks can affect trade 
+through regionalized restrictions that re-route supply chains or even quarantine restrictions that 
+ban product if it moves through certain regions.  In terms of predictive consequences, excluding 
+trade restrictions is non-trivial when accounting for welfare effects because trade restrictions 
+push product back into domestic markets and offsetting some of supply shortfalls and related 
+price increases brought on by the initial production shock.   
+ 
+<< Table 6 - 2022 WASDE export forecast, actuals, and percentage difference >> 
+ 
+Simulation the Effects on Prices, Production and Trade 
+From a base level of actual observed production, out first scenario incorporates only the 
+production shock effect.  The second scenario incorporates both the production shock effect and 
+forces trade to remain effect.  The difference between the simulated changes in export percentage 
+in the two models can be interpreted as the percentage change in exports that can be attributed 
+solely to export restrictions as opposed to production.  For example, the production-only 
+Scenario 1 model predicts that turkey exports would have been 2 percent higher in the fourth 
+quarter in a world with no HPAI based on production effects alone, yet the actual difference 
+between WASDE projected exports for turkey in the fourth quarter was 62 percent higher than 
+the actual exports.  The suggests that of the 62 percent difference between the forecasted and 
+actual turkey exports in the fourth quarter, only 2 percentage points were due to production 
+differences and the rest were due to export restrictions. 
+ 
+To account for the trade effect in Scenario 2, we include the counterfactual production from 
+Scenario 1 but add additional export demand shocks in the magnitude described exactly in Table 
+6. Since exports are affected by production shocks separately from export restrictions, we 
+artificially fix the import elasticity of demand to be close to zero so that we can specify the exact 
+shock in export levels.  The production effects and export effects of HPAI pull the price of 
+poultry products in opposite directions. Decreased production lowers the supply of poultry 
+products and increases the cost of production, which pushes the market price downwards. On the 
+other hand, export restrictions increasing the domestic availability of poultry products in the 
+short run and lower prices. For each commodity, the estimated price change varied considerably 
+by quarter. Taking the simple average of percentage price differences across quarters, the model 
+estimates that restoring lost HPAI production (without consideration of trade effects) would 
+lower egg prices by 98.7 cents in the 4th quarter.  With potential trade effects include, the 
+estimated change is 89 89.8 cents per dozen from the observed price of $3.75 per dozen. 
+ 
+Like price effects, consumption effects for production and export shocks work in opposite 
+directions. HPAI reduces domestic supply via production due to depopulations but increases 
+domestic supply via restricting exports. The model estimates that the net effect of moving to a 
+counterfactual situation with no HPAI would have increased domestic consumption of both eggs 
+and turkey by around 4 percent on an annual level. The third quarter, when Thanksgiving drives 
+a sharp increase in turkey consumption, the model estimates that consumption of turkey would 
+have been 7 percent higher without HPAI. 
+ 
+In applying the counterfactual, we simulate the impact of the HPAI shocks on commodity 
+production, retail prices, wholesale prices, imports, exports, consumption, and other variables on 
+9 
+ 
+a quarterly level.  Egg production would have been 4.7 percent higher throughout the year 
+without HPAI than it was. While the export market for eggs is small to begin with, the model 
+estimated that exports would have been 21 percent higher based on production effects alone, as 
+shown in Scenario 1 of Table 8. That table also shows that in the absence of HPAI retail prices 
+would have been 36 to 98 cents cheaper than actual retail prices, which ranged from 2.70 to 
+$3.75 per dozen. This price difference would have caused the estimated per capita consumer 
+expenditure to be nearly $8 more in the base scenario ($54.3) than in the counterfactual scenario 
+with no HPAI ($46.2). 
+ 
+Turkey production would also have been 8.6 percent larger (5,216 million pounds rather than 
+4,804 million pounds over the 2nd, 3rd, and 4th quarters) in the absence of an HPAI outbreak. 
+Table 7 shows that turkey exports would have been only slightly higher at 416 million pounds 
+rather than 407 million pounds. Similarly, estimated price effects of HPAI were less dramatic for 
+turkeys compared to eggs, with the estimated counterfactual retail price of turkey at $1.46/pound 
+in a world with no HPAI versus the observed average retail price of $1.52/pound. 
+  
+Simulation of Consumer Welfare Effects  
+The appendix discusses how consumer welfare effects can be calculated using two methods.  The 
+exact method (∆𝐶𝐶𝐶𝐶𝐴𝐴𝐴𝐴𝐴𝐴𝐴𝐴𝐴𝐴𝐴𝐴) is an analytical solution based on the demand elasticity and well-
+suited to considering supply shifts arising from a supply shift in a single market.  One small 
+shortcoming, however, is that the welfare change cannot be calculate when the demand 
+elasticities with respect to price is unitary (i.e., equal to one). Alternatively, the approximation 
+method (∆𝐶𝐶𝐶𝐶𝐸𝐸𝐸𝐸𝐴𝐴., as presented in Brester et al, 2023) does not include the price elasticity in its 
+formula and maybe conceptually better suited to considering multiple supply shifts 
+simultaneously.  We calculated the quarterly welfare change using both methods.  We found little 
+difference between the values.  Specifically, for our Scenario 2 simulations, the ∆𝐶𝐶𝐶𝐶𝐸𝐸𝐸𝐸𝐴𝐴. differed 
+from the  ∆𝐶𝐶𝐶𝐶𝐴𝐴𝐴𝐴𝐴𝐴𝐴𝐴𝐴𝐴𝐴𝐴   in the 1st, 2nd, 3rd, and 4th quarters by -0.01, -0.32, -0.05 and -0.37 percent 
+for eggs and -0.1, -0.4, 0.4, and 0.01 percent for turkeys.  All reported estimates to follow are 
+those of the exact method.   
+ 
+Results    
+Estimates of the consumer, producer, and input market welfare effects are typically quite 
+sensitive to the parameterization of key elasticities.  With a price elasticity of -0.27, demand for 
+eggs is extremely inelastic and, subsequently, the HPAI shock simulations show that total retail 
+revenue for egg sellers is expected to increase as price rises more than the quantity of sales 
+decrease as layers are lost.  Conversely, at -1.989, the demand elasticity for turkey is the highest 
+(in absolute terms) across animal products.  In this case, the demand is elastic and the HPAI 
+supply shock causes smaller percentage increase in prices than in quantity, making retail revenue 
+fall. 
+  
+Tables 7 and Table 8 show the effects of the HPAI shocks for turkey and eggs, respectively, 
+under two scenarios.  Scenario 1 adds back the lost production from HPAI depopulations so that 
+it now equals the pre-HPAI forecast level (see Table 5 for specific values).  Scenario 2 adds back 
+the lost production and, also, in compensating for lost export access during the HPAI shock, adds 
+10 
+ 
+back exports so that they meet their pre-HPAI forecast levels. Our analysis focuses on the effects 
+in the 2nd, 3rd and 4th quarter of 2022 because the HPAI did not begin until Feb 8th for turkeys and 
+Feb 22nd for eggs.  Figures 4 and 5 show the information from Tables 7 and 8 graphically.  
+ 
+<< Table 7 – Effects of 2022 HPAI losses and export restrictions on turkey markets >> 
+ 
+<< Table 8 – Effects of 2022 HPAI losses and export restrictions on egg markets>> 
+ 
+<< Figure 4 – Price and Welfare Effects of 2022 HPAI Losses and Export Restrictions >> 
+ 
+<< Figure 5 – Poultry Exports Lost Due to 2022 HPAI Losses and Export Restrictions (2022) >> 
+ 
+ Notably, under both Scenarios considered, the elimination of the HPAI shock increases producer 
+revenues for the turkey market but decrease it for the egg market.  Moreover, as shown in Table 
+5, despite regained production losses in our simulation being smaller as a percentage of supply 
+for eggs (losses of 6, 5, and 6 percent in Q2, Q3, and Q4) than turkey (losses of 10, 12, and 9 
+percent), eggs saw a larger percentage change in price in absolute value terms -- 25.6, 11.9, 26.3 
+for eggs versus 6.2, 6.1, and 4.1 for turkey – a difference stemming from eggs having more 
+inelastic demand.   
+ 
+For turkeys, the simulation in Scenario 2 suggests that if trade reductions associated with the 
+HPAI continued, despite regaining the lost production, price decreases would have been a bit 
+larger (8, 9, and 6 percent) because only the domestic market would be the only outlet for the 
+higher production levels.  The higher prices of $1.33 to $1.52 observed in 2022 compare with a 
+$1.25-$1.26 price expected over the same period.  Summing the value in Table 7 in the 2nd, 3rd, 
+and 4th quarters (in Scenario 2) shows that had production not fallen due to HPAI, total consumer 
+welfare would have been $199.2 million higher and production value $140 million higher for 
+turkey sellers.  The regained production would have also led to a $33.1 million increase in coarse 
+grain purchases but only trivial changes in the soybean meal purchases.   
+ 
+Table 8 shows that for eggs, total consumer welfare would have been $3.562 billion higher, but 
+egg seller revenue would fall by about $823.9.  At the same time, average prices would be $0.61, 
+$0.28, and $0.90 lower per dozen in the 2nd, 3rd, and 4th quarters.  Even after subtracting the 
+simulated prices increases from the base, egg prices would have still been above $2 in 2nd 
+quarter, $2.50 in the 3rd quarter, and $2.75 in the 4th quarter, levels well above the pre-HPAI 
+forecast range of $1.25 to $1.35.  Given actual prices, our simulated egg prices are likely an 
+underestimate of the true increase in prices (and relatedly, loss of welfare) due to the HPAI.  
+Moreover generally, the notably higher consumer surplus loss for eggs is attributable to its larger 
+level of baseline expenditure ($66.12 average annually per capita on eggs, $20.01 on turkey), its 
+more inelastic demand, and its larger percentage change in price from the disease shock (35 to 99 
+percent price increase for eggs versus 6 to 9 percent for turkeys).  We also find that had egg 
+markets regained the lost production and trade access due to HPAI, feed demand for laying 
+flocks would have raised coarse grain and soymeal expenditures in total across the 2nd, 3rd, and 
+4th quarters by $79.2 million and $56.1 million, respectively.  Combining turkeys and eggs, 
+coarse grain expenditures would have been $112.3 million higher without HPAI effects.  If 
+production had been regained, but trade disruptions were still in place (as in Scenario 1) then 
+11 
+ 
+consumer welfare would have been increased $4.066 billion but egg seller revenue would have 
+fallen $1.027 billion.  The average price of a dozen eggs would have fallen $0.69, $0.36, and 
+$0.99 in the 2nd, 3rd, and 4th quarter.  As with turkeys, these large effects stem from the increase 
+in available supply from regained production not being offset by exports returning to their 
+original shares of production.   
+  
+Conclusion  
+Animal disease shocks are extremely costly and disruptive and can have devasting effects on 
+food prices, consumer welfare, input markets, and trade.  In the most severe quarterly periods, 
+the U.S. HPAI Outbreak of 2022 reduced production from its expected level by 7 percent for 
+eggs and 12 percent for turkeys.  In that same year, benchmark prices reached record highs for 
+monthly averages of $5.03 per dozen for eggs in December and $1.80 per pound for turkeys in 
+November, even as exports fell precipitously.  We find that the combined effect of the HPAI 
+outbreak on the production and trade in turkey and eggs lowered consumer welfare by $199.2 
+and $3,562 million over the 2nd, 3rd, and 4th quarters of 2022, or about $11.4 per person across 
+the United States.   
+ 
+Estimating the welfare effects of animal disease shocks has several challenges.  Welfare losses 
+for producers for the affected goods may be shift forward to consumers in higher prices or 
+backward to input markets through derived demand relationships.  We find that producers of 
+inelastically demanded eggs were able to raise total revenue (despite losses) but producers of 
+elastically demanded turkey were not.  Additionally, we were able to parse out the specific 
+impact of production versus trade effects in our welfare analysis.  Regionalization agreements, 
+which restrain the scope of disease-related trade restrictions, benefit agricultural industries with 
+large export shares, but may lead to larger price swings during disease shocks. In the short run, 
+the ordinarily exported share of production is likely to be re-directed to domestic consumption 
+channels, offsetting the supply loss from the outbreak.  Since regionalization initiatives are 
+largely undertaken to limit trade partners from reneging on free trade agreements by imposing 
+arbitrary SPS-related trade restrictions for protectionist reasons, the potential short-run consumer 
+benefits restrictions to exports should be cautiously weighed against the long-run cost of lost 
+export markets and the potential persistence of restrictions long past any reasonable period of 
+disease transmission threat.   
+ 
+By leveraging WASDE forecasts, we develop a plausible counterfactual for trade without 
+needing to track the specific timing and scope of SPS restrictions across numerous trade partners.  
+The use of WASDE production estimates also allows us to develop production counterfactuals 
+that account for observable market changes (lower turkey bird weights, changes in egg-lay rates) 
+that related to the outbreak and affect production but are not directly the result of disease loss.   
+Our EDM developed by Paarlberg et al (2022) can then simulate various shocks to trade, 
+production, demand, and breeding stock over time.  The benefits of this approach are both the 
+transparency of the assumptions about what ordinary price and production dynamics are assumed 
+by the model and the ability to trace through an upstream production supply shock to 
+downstream retail prices and demand and vice versa.  We found that the egg and turkey disease 
+shock had significant effects on coarse grain and soy feed markets.   
+ 
+12 
+ 
+A reasonable concern surrounding EDM models applied in agricultural settings are their 
+sensitivity to parameterization and the representativeness of the initial equilibrium and to the 
+related concern of misattributing the effect of all shocks in the analysis period to HPAI.  For 
+instance, 2022 also saw tightness in supplies in European and Asian egg markets due to their 
+own HPAI outbreak, as well as historically high prices and low supplies in the turkey market 
+preceding disease losses.  We acknowledge these limitations and advise caution in implementing 
+this model for small production shocks that are not easily distinguished from other market 
+events.  But in our case, the 2022 outbreak was not small, but instead large, disruptive, and costly 
+to consumers and the public.    
+13 
+ 
+References 
+APHIS (2016). “Final Report for the 2014–2015 Outbreak of Highly Pathogenic Avian Influenza 
+(HPAI) In the United States. Revised August 11, 2016” United States Department of 
+Agriculture, Washington, DC” 
+ 
+Brester, Gary W., Joseph A. Atwood, and Michael A. Boland. Equilibrium Displacement Models: 
+Theory, Applications, & Policy Analysis.  (2023). 
+ 
+Biden, S., Ker, A. P., Larue, B., & Duff, S. (2024). “Economic Impacts of a Disease Outbreak in 
+Canada’s Pork Industry: Case of a Price-Taking, Open Country.” Food Policy, 125, 
+102624. 
+ 
+Çakır, M., Boland, M. A., & Wang, Y . (2018). “The Economic Impacts Of 2015 Avian Influenza 
+Outbreak on The US Turkey Industry and The Loss Mitigating Role of Free Trade 
+Agreements.” Applied Economic Perspectives and Policy, 40(2), 297-315. 
+ 
+Hennessy, David A., and Thomas L. Marsh. "Economics of Animal Health and Livestock 
+Disease." Handbook of Agricultural Economics. V ol. 5. Elsevier, 2021. 4233-4330. 
+ 
+Hafi, A., et al. "Economic Benefits of Implementing Trading Zones for Australian Livestock 
+Disease Outbreaks of Limited Duration." Australian Veterinary Journal 100.4 (2022): 
+150-161. 
+ 
+Longworth, N., Jongeneel, R. A., & Saatkamp, H. W. (2019). A vertically linked dynamic partial 
+equilibrium model to analyze market shocks caused by HPAI control in the Dutch egg 
+production chain. NJAS-Wageningen Journal of Life Sciences, 88, 112-128. 
+ 
+MacLachlan, M. J., Boussios, D., & Hagerman, A. D. (2021). Market Responses to Export 
+Restrictions from Highly Pathogenic Avian Influenza Outbreaks. Journal of Agricultural 
+and Resource Economics, 47(1), 209-224. 
+ 
+Paarlberg, P. L., Seitzinger, A., Lee, J. G., & Mathews Jr, K. H. (2008). Economic Impacts of 
+Foreign Animal Disease USDA Economic Research Service, Economist Research Report 
+No. 1477-2016-121206. 
+ 
+Paarlberg, Philip L., et al. "Supply Reductions, Export Restrictions, And Expectations for Hog 
+Returns in A Potential Classical Swine Fever Outbreak in the United States." Journal of 
+Swine Health and Production 17.3 (2009): 155-162. 
+ 
+Paarlberg, P., Seitzinger, A., & Lee, J. (2007). “Economic Impacts of Regionalization of a Highly 
+Pathogenic Avian Influenza Outbreak in the United States.” Journal of Agricultural and 
+Applied Economics, 39(2), 325-333. doi:10.1017/S1074070800023026 
+ 
+ 
+14 
+ 
+Ramos, S., MacLachlan, M., & Melton, A. (2017). “Impacts Of The 2014-2015 Highly 
+Pathogenic Avian Influenza Outbreak on The US Poultry Sector.” Washington, DC, USA: 
+USDA. 
+ 
+Rosen, Sherwin, Kevin M. Murphy, and José A. Scheinkman. “Cattle Cycles.” Journal of Political 
+Economy 102, no. 3 (1994): 468–92. http://www.jstor.org/stable/2138619. 
+ 
+Seitzinger, Ann Hillberg, and Philip L. Paarlberg. "Regionalization of the 2014 and 2015 highly 
+pathogenic avian influenza outbreaks." Choices 31.2 (2016): 1-8. 
+ 
+Shi, J., Zeng, X., Cui, P., Yan, C., & Chen, H. (2023). “Alarming Situation of Emerging H5 And 
+H7 Avian Influenza and Effective Control Strategies.” Emerging microbes & 
+infections, 12(1), 2155072. 
+ 
+Thompson, Jada M., et al. "Economic Impacts of Business Continuity on an Outbreak of Highly 
+Pathogenic Avian Influenza in Minnesota Egg Laying Operations." Journal of 
+Agricultural and Applied Economics 51.2 (2019): 235-248. 
+ 
+Thompson, J. M. (2018). “Effects Of Regionalized Trade Restrictions on Quantity Exported 
+During a Highly Pathogenic Avian Influenza Event.” Journal of Agricultural and Applied 
+Economics, 50(2), 270-289. 
+ 
+USDA ERS (2023) “Livestock and Meat International Trade Data” 
+https://www.ers.usda.gov/data-products/livestock-and-meat-international-trade-data/ 
+ 
+USDA ERS, (2023) “Livestock and Meat Domestic Data” https://www.ers.usda.gov/data-
+products/livestock-and-meat-domestic-data/ 
+ 
+USDA AMS (2023), Turkey Market News Reports, https://www.ams.usda.gov/market-
+news/turkey-market-news-reports  
+ 
+USDA APHIS, “2022-2023 Confirmations of Highly Pathogenic Avian Influenza in Commercial 
+and Backyard Flocks” https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-
+disease-information/avian/avian-influenza/hpai-2022/2022-hpai-commercial-backyard-
+flocks 
+15 
+ 
+Tables  
+Table 1 – HPAI Related Depopulations of Poultry in 2015 and 2022 as a Share of Slaughter or Flock Size 
+ 2022 2015 
+Birds 
+(1000s head) 
+Depopulated 
+Birds 
+Previous Year’s 
+Slaughter or  
+January Flock 
+Losses as 
+Percentage of 
+Slaughter or  Flock 
+Depopulated 
+Birds 
+Previous Year’s 
+Slaughter or January 
+Flock 
+Losses as 
+Percentage of 
+Slaughter or Flock  
+Turkey 9,442  213,937 4.4% 7,400 237,500 3.1% 
+Egg Hen 43,291  394,962 11.0% 43,000 372,903 11.6% 
+Broiler 2,266  9,210,889 0.02% NA 8,525,393 <0.01% 
+ 
+ 
+ 
+Table 2 – Aggregate Shares of U.S. Production Exported Before and After the 2015 HPAI Outbreak 
+ 2012-2014 2015 2016 2017 2018 
+Broiler Exports 7,199 6,321 6,988 6,754 6,584 
+Broiler Production 37,202 40,048 37,830 38,565 40,048 
+Broiler Export Share 19.6% 15.8% 16.3% 16.3% 16.6% 
+Turkey Exports 771 529 624 574 601 
+Turkey Production 5,843 5,627 5,981 5,981 5,878 
+Turkey Export Share 13.2% 9.4% 10.4% 9.6% 10.2% 
+Egg Exports 391.7 341.8 304.2 354.9 333.2 
+Egg Production 7,149.9 7,015.8 7,509.2 7,811.3 8,042.6 
+Egg Export Share 5.5% 4.9% 4.1% 4.5% 4.1% 
+Source: USDA ERS, (2023) “Livestock and Meat International Trade Data”; USDA ERS, (2023) “Livestock and Meat Domestic 
+Data” 
+  
+16 
+ 
+ 
+Table 3 – Commodities, Uses, Trade, Inventory, and Production Relationships in the Animal Disease Outbreak Model   
+  Sources of Demand Production  Ani. 
+Inv 
+Feed 
+Qtrs 
+ Commodity Use Trade Inv. 
+Dem 
+Inputs Feed Grain Inputs 
+Final 
+Use 
+Animal 
+Input 
+Feed 
+Input 
+Exp. 
+Dem 
+Imp. 
+Dem 
+Exog. Cap. AnimalS
+oybean 
+Land WH CG SM FO 
+1 Beef (BF) Y   Y Y  Y B CT       
+2 Pork (PK) Y   Y Y  Y B SW       
+3 Lamb (LM) Y    Y  Y B SH       
+4 Chicken (PM) Y   Y   Y B    B X   
+5 Turkey (TK) Y      Y B GB       
+6 Eggs (EG) Y   Y   Y B BD   B X   
+7 Milk (MK) Y    Y Y Y B CT   B X X  
+8 Wheat (WH) Y  Y Y  Y Y B        
+9 Rice (RI) Y   Y  Y Y B        
+10 C. Grains (CG) Y  Y Y  Y Y B        
+11 SoyOil (SO) Y   Y  Y Y B SB       
+12 SoyMeal (SM)    Y Y   Y B SB       
+13 Forage (FO)   Y   Y Y B        
+14 Cattle (CT)  BF  Y Y  Y     B X X 5 
+15 Swine (SW)  PK  Y Y  Y     B X  3 
+16 Sheep (SH)  LM  Y Y  Y     B X X 3 
+17 Birds (BR)  EG     Y     B X   
+18 Gobblers (GB)  TK     Y     B X   
+19 SoyBean (SB)    Y  Y Y B        
+ 
+ 
+17 
+ 
+ 
+Table 4 - Estimated Difference Between Actual and Forecast Production in 2022  
+ Forecast Production  Actual Production  Percentage Difference 
+ Turkey Broiler Eggs  Turkey Broiler Eggs Turkey Broiler Eggs 
+Q1 1,390 11,250 2,345 1,374 11,170 2,316 1.2% 0.7% 1.3% 
+Q2 1,405 11,400 2,345 1,275 11,279 2,218 10.2% 1.1% 5.7% 
+Q3 1,420 11,690 2,365 1,264 11,896 2,259 12.3% -1.7% 4.7% 
+Q4 1,425 11,260 2,425 1,310 11,861 2,277 8.8% -5.1% 6.5% 
+Egg production values are in million dozen; turkey and broiler production values are in millions 
+of pounds. 
+ 
+ 
+ 
+Table 5 - Estimated Counterfactual Increase in Production in 2022 in the Absence of HPAI  
+Quarter Turkey Broiler Eggs 
+2 10.2% 0.0% 5.7% 
+3 12.3% 0.0% 4.7% 
+4 8.8% 0.0% 6.5% 
+ 
+ 
+ 
+Table 6 – Estimated Difference Between Actual and Forecast Exports in 2022  
+ Forecast Exports Actual Export Percentage Difference 
+ Turkey Broiler Eggs Turkey Broiler Eggs Turkey Broiler Eggs 
+Q1 130.7 1,856.3 84.4 107.2 1,831.9 71.8 21.9% 1.3% 17.6% 
+Q2 140.5 1,801.2 89.1 108.4 1,804.6 51.0 29.6% -0.2% 74.7% 
+Q3 140.6 1,858.7 94.6 96.1 1,724.9 49.7 46.3% 7.8% 90.3% 
+Q4 155.3 1,925.5 89.7 95.6 1,933.3 54.6 62.4% -0.4% 64.2% 
+ 
+ 
+18 
+ 
+ 
+Table 7 – Effects of 2022 HPAI losses and export restrictions on turkey markets 
+    Change ($/CWT)  Percent Change 
+Period  Base     Scenario 1   Scenario 2    Scenario 1 Scenario 2 
+Retail Prices (dollars/CWT) 
+Q1 128.6    (1.0)  0.5  
+ 
+-0.8% 0.4% 
+Q2 132.8    (8.3)  (6.8) 
+ 
+-6.2% -5.2% 
+Q3 141.0    (8.5)  (5.8) 
+ 
+-6.1% -4.1% 
+Q4 151.9    (6.2)  (3.7) 
+ 
+-4.1% -2.5% 
+Retail Production Value (dollars, millions) 
+Q1 666.2       3.1     10.8   0.5% 1.6% 
+Q2 638.8     22.8     33.5   3.6% 5.2% 
+Q3 672.1     34.2     52.0   5.1% 7.7% 
+Q4 748.0     35.5     54.7   4.8% 7.3% 
+Consumer Surplus (dollars, millions) 
+Q1 -      10.9   (5.4)  1.7% -0.9% 
+Q2 -      90.9   74.7   15.5% 12.8% 
+Q3 -      105.6   70.7   17.7% 11.9% 
+Q4 -      90.0   53.8   15.0% 9.0% 
+Exports (lbs., millions) 
+Q1 107.4       0.4     23.6   0.4% 22.0% 
+Q2 108.7       3.4     32.6   3.1% 30.0% 
+Q3   96.2       2.9     44.3   3.0% 46.0% 
+Q4   95.2       1.9     59.0   2.0% 62.0% 
+Feed Use - Coarse Grains Costs (dollars, millions) 
+Q1 101.4       1.3       1.3   1.2% 1.3% 
+Q2 106.1     11.3     11.8   10.6% 11.1% 
+Q3   89.4     10.9     11.5   12.2% 12.8% 
+Q4   96.8       9.0       9.8   9.3% 10.1% 
+Feed Use - Soybean Meal Costs (dollars, millions) 
+Q1     5.2       0.0       0.0   0.0% 0.0% 
+Q2     6.0       0.0       0.0   0.1% 0.1% 
+Q3     5.1       0.0       0.0   0.2% 0.3% 
+Q4     6.4       0.0       0.0   0.1% 0.1% 
+ 
+Source: Model outputs.  
+Notes: Scenario 1 incorporates only the production shock effect. Scenario 2 incorporates both 
+the production shock effect and forces trade to remain in effect. 
+ 
+  
+19 
+ 
+Table 8 – Effects of 2022 HPAI losses and export restrictions on egg markets 
+    Change (Level, Cents/Dozen)  Percent Change 
+Period  Base     Scenario 1   Scenario 2    Scenario Scenario 2 
+Retail Prices (cents/doz) 
+Q1 199.3    (11.0)  (8.7) 
+ 
+-5.5% -4.4% 
+Q2 269.7    (69.2)  (60.6) 
+ 
+-25.6% -22.5% 
+Q3 298.5    (35.5)  (28.3) 
+ 
+-11.9% -9.5% 
+Q4 375.3    (98.7)  (89.8) 
+ 
+-26.3% -23.9% 
+Retail Production Value (dollars, millions) 
+Q1 1,301.0   (58.6)  (39.1)  -4.5% -3.0% 
+Q2 1,683.3    (361.9)   (294.0)  -21.5% -17.5% 
+Q3 1,897.7    (148.3)  (87.9)  -7.8% -4.6% 
+Q4 2,404.2    (516.8)   (442.0)  -21.5% -18.4% 
+Consumer Surplus (dollars, millions) 
+Q1 -      219.8   172.7   4.3% 3.3% 
+Q2 -      1,361.1   1,187.2   34.2% 29.8% 
+Q3 -      696.1   554.3   19.3% 15.4% 
+Q4 -      2,008.9   1,820.1   85.7% 77.7% 
+Exports (dozens, millions) 
+Q1   71.1       4.9     12.8   6.9% 18.0% 
+Q2   51.6     16.5     38.7   32.0% 75.0% 
+Q3   49.1       7.3     44.2   14.8% 90.0% 
+Q4   54.6     17.9     34.9   32.9% 64.0% 
+Feed Use - Coarse Grains Costs (dollars, millions) 
+Q1 294.6       3.3       4.2   1.1% 1.4% 
+Q2 311.5     17.8     20.7   5.7% 6.6% 
+Q3 261.7     12.9     15.2   4.9% 5.8% 
+Q4 273.6     18.1     20.2   6.6% 7.4% 
+Feed Use - Soybean Meal Costs (dollars, millions) 
+Q1 394.9       4.4       5.7   1.1% 1.4% 
+Q2 391.2     22.4     26.0   5.7% 6.6% 
+Q3 417.1     20.5     24.2   4.9% 5.8% 
+Q4 392.8     26.0     29.0   6.6% 7.4% 
+ 
+Source: Model outputs.  
+Notes: Scenario 1 incorporates only the production shock effect. Scenario 2 incorporates both 
+the production shock effect and forces trade to remain in effect. 
+ 
+20 
+ 
+Figures 
+Figure 1 – Weekly Depopulations of Table Egg Layers and Turkeys due to HPAI in 2022 
+ 
+Source: USDA APHIS, “2022-2023 Confirmations of Highly Pathogenic Avian Influenza in Commercial 
+and Backyard Flocks” 
+ 
+  
+0
+200
+400
+600
+800
+1000
+1200
+1400
+1600
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+7 9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49 51 53
+Turkeys (in Thousands)
+Layers (in MIllions)
+Week Number
+Commercial Table Egg Layer Commercial Turkey Meat Bird
+21 
+ 
+Figure 2 – Prices for Delivered New York Eggs and Central States Broken Eggs 
+ 
+Source:  USDA AMS (2023), Egg Market News Reports  
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ $-
+ $100.00
+ $200.00
+ $300.00
+ $400.00
+ $500.00
+ $600.00
+1/1/2020
+2/1/2020
+3/1/2020
+4/1/2020
+5/1/2020
+6/1/2020
+7/1/2020
+8/1/2020
+9/1/2020
+10/1/2020
+11/1/2020
+12/1/2020
+1/1/2021
+2/1/2021
+3/1/2021
+4/1/2021
+5/1/2021
+6/1/2021
+7/1/2021
+8/1/2021
+9/1/2021
+10/1/2021
+11/1/2021
+12/1/2021
+1/1/2022
+2/1/2022
+3/1/2022
+4/1/2022
+5/1/2022
+6/1/2022
+7/1/2022
+8/1/2022
+9/1/2022
+10/1/2022
+11/1/2022
+12/1/2022
+1/1/2023
+2/1/2023
+3/1/2023
+4/1/2023
+5/1/2023
+6/1/2023
+7/1/2023
+8/1/2023
+NY Eggs
+Broken Eggs
+Onset of HPAI Outbreak in 
+February 2022
+22 
+ 
+Figure 3 – Prices for Frozen Whole Hens and Fresh Turkey Parts 
+ 
+Source: USDA AMS (2023), Turkey Market News Reports 
+ $-
+ $100.00
+ $200.00
+ $300.00
+ $400.00
+ $500.00
+ $600.00
+ $700.00
+ $800.00
+1/1/2020
+2/1/2020
+3/1/2020
+4/1/2020
+5/1/2020
+6/1/2020
+7/1/2020
+8/1/2020
+9/1/2020
+10/1/2020
+11/1/2020
+12/1/2020
+1/1/2021
+2/1/2021
+3/1/2021
+4/1/2021
+5/1/2021
+6/1/2021
+7/1/2021
+8/1/2021
+9/1/2021
+10/1/2021
+11/1/2021
+12/1/2021
+1/1/2022
+2/1/2022
+3/1/2022
+4/1/2022
+5/1/2022
+6/1/2022
+7/1/2022
+8/1/2022
+9/1/2022
+10/1/2022
+11/1/2022
+12/1/2022
+1/1/2023
+2/1/2023
+3/1/2023
+4/1/2023
+5/1/2023
+6/1/2023
+7/1/2023
+8/1/2023
+Frs W Hens
+Frsh B/S T. Breasts
+Frsh T. Drumsticks
+Frsh Thigh
+Onset of HPAI Outbreak 
+February 2022
+23 
+ 
+Figure 4 – Price and Welfare Effects of HPAI Depopulations and Export Restrictions (2022) 
+ 
+Source: Model outputs. Egg and turkey meat prices are per dozen and per pound, respectively. 
+
+24 
+ 
+ 
+ 
+Figure 5 – Poultry Exports Lost Due to HPAI Depopulations and Export Restrictions (2022) 
+ 
+Source: Model outputs. 
+ 
+ 
+ 
+ 
+
+25 
+ 
+Appendix 
+The consumer welfare effects of the disease shocks can be calculated in two ways.  Using the 
+simulated percentage changes in quantity and price, Brester et al. (2023, Ch. 8) and Ferrier et al. 
+(2023) show the consumer welfare loss is approximately: 
+ 
+∆𝐶𝐶𝐶𝐶𝐸𝐸𝐸𝐸𝐴𝐴.   ≈ −𝑑𝑑𝑑𝑑𝑑𝑑 × (1 + 0.5𝑑𝑑𝑑𝑑𝑑𝑑)  × 𝑑𝑑0𝑑𝑑0        (1) 
+ 
+where 𝑑𝑑𝑑𝑑𝑑𝑑 is the change in the log value of price (or, identically, the percentage change in price 
+from the base), 𝑑𝑑𝑑𝑑𝑑𝑑 is the change in the log value of quantity, and 𝑑𝑑0𝑑𝑑0 is the initial level of total 
+expenditure, and ∆𝐶𝐶𝐶𝐶 is the change in consumer surplus10.  This equation only estimates the true 
+change in ∆𝐶𝐶𝐶𝐶 because the EDM’s assumed demand elasticities are point estimates of the slope 
+of a fully defined demand curve. 
+In contrast, Paarlberg et al (2008) use the point estimate of the demand elasticity and the initial 
+prices and quantity to fully specify a constant elasticity of demand function of the form: 
+ 
+𝑑𝑑 = 𝐴𝐴𝑑𝑑𝜀𝜀           (2) 
+ 
+where 𝜀𝜀𝑑𝑑 is the (constant) elasticity of demand, 𝑑𝑑0 and 𝑑𝑑0 are the (initial) base quantity and 
+price, A is set to 
+𝑄𝑄0
+𝑃𝑃0
+𝜀𝜀 to ensure the market is in equilibrium at the initial price. In this case, the 
+change in consumer surplus as the price falls from 𝑑𝑑1 to 𝑑𝑑0 is: 
+ 
+  ∆𝐶𝐶𝐶𝐶𝐸𝐸𝐸𝐸𝐴𝐴𝐴𝐴𝐴𝐴  = ∫ 𝐴𝐴𝑑𝑑𝜀𝜀 𝑑𝑑𝑑𝑑
+𝑃𝑃1
+𝑃𝑃0
+= 𝐴𝐴
+1
+𝜀𝜀+1 (𝑑𝑑1
+𝜀𝜀+1 − 𝑑𝑑0
+𝜀𝜀+1)     (3) 
+ 
+Like Equation (1), Equation (3) can be recast as percentage change from the initial equilibrium.  
+Substituting the Equation (2) demand formula back into Equation (3) yields:  
+ 
+∆𝐶𝐶𝐶𝐶𝐸𝐸𝐸𝐸𝐴𝐴𝐴𝐴𝐴𝐴 =
+1
+𝜀𝜀+1 (𝑑𝑑1𝑑𝑑1 − 𝑑𝑑0𝑑𝑑0)       (4) 
+ 
+Note that 𝑑𝑑1𝑑𝑑1 can be re-written as (1 + 𝑑𝑑𝑑𝑑𝑑𝑑)𝑑𝑑0(1 + 𝑑𝑑𝑑𝑑𝑑𝑑)𝑑𝑑0.  With some manipulation, 
+∆𝐶𝐶𝐶𝐶𝐸𝐸𝐸𝐸𝐴𝐴𝐴𝐴𝐴𝐴 becomes: 
+ 
+ 
+10In Brester, the terminology E(P) is used to denote our dlP. 
+26 
+ 
+∆𝐶𝐶𝐶𝐶𝐸𝐸𝐸𝐸𝐴𝐴𝐴𝐴𝐴𝐴 = �1 +
+1
+𝜀𝜀+1 𝑑𝑑𝑑𝑑𝑑𝑑� × 𝑑𝑑𝑑𝑑𝑑𝑑 × 𝑑𝑑0𝑑𝑑0      (5) 
+ 
+Our paper uses the ∆𝐶𝐶𝐶𝐶𝐸𝐸𝐸𝐸𝐴𝐴𝐴𝐴𝐴𝐴 to calculate the change in consumer welfare reported in this paper.   
+However, we note two reasons practitioners may opt to use ∆𝐶𝐶𝐶𝐶𝐸𝐸𝐸𝐸𝐴𝐴. instead.  First, Equation (3-5) 
+is incalculable when demand is exactly unit elastic (𝜀𝜀 = −1) due to zero appearing in the 
+denominator.  This issue seems limited to the exact specification of unit elastic demand and 
+results seem reasonable when 𝜀𝜀 is disturbed to be arbitrarily close to -1 but not equal to it11. 
+Since unit elastic demand is often the “default” setting on demand systems, the need to perturb 
+slightly the elasticity to ensure calculability might be frequent and feel arbitrary.  Second, more 
+substantively, if the animal disease shocks affect multiple goods simultaneously, the Equation (3) 
+will recalculate changes in the quantities the production of multiple goods while ignoring 
+potential cross-price effects that shift the demand curve itself.  While Equation (1) does not 
+distinguish the role of cross-price effects either, it does use observed changes in quantities to 
+account for them.   
+ 
+ 
+11Equation (4) provides some intuition for this problem in the following cases by consider the separate movement of 
+the first term (1 (𝜀𝜀 + 1)⁄ )  and second term (𝑑𝑑1𝑑𝑑1 − 𝑑𝑑0𝑑𝑑0)  assuming that 𝑑𝑑1 is greater than 𝑑𝑑0.  As 𝜀𝜀 moves from 
+an inelastic to unit elastic value, the first term is positive and approaches positive infinity which the second term is 
+positive and approaches zero. Conversely, in the case where 𝜀𝜀 moves from an elastic to unit elastic value, the first 
+term is negative and approaches negative infinity and the second term is negative and approaches zero.  The limiting 
+effects largely cancel out and generate reasonable results except where demand is exactly unitary elastic , in which 
+case, Equation (4) is incalculable.    
+ 
