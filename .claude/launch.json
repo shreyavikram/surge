@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web",
+      "runtimeExecutable": "/Users/shreyavikram/.local/bin/node",
+      "runtimeArgs": [
+        "/Users/shreyavikram/SURGE/node_modules/vite/bin/vite.js",
+        "/Users/shreyavikram/SURGE/apps/web",
+        "--port",
+        "5173",
+        "--strictPort"
+      ],
+      "port": 5173
+    }
+  ]
+}
