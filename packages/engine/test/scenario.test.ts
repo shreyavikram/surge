@@ -16,7 +16,7 @@ describe('runScenario', () => {
     expect(r.impact.welfare.cv).toBeGreaterThan(0);
   });
   it('applies severity overrides and scenario assumption overrides', () => {
-    const half = runScenario(sc('h', [{ ...egg, severityOverride: 0.5 }]), ctx);
+    const half = runScenario(sc('h', [{ ...egg, severityOverride: egg.severity / 2 }]), ctx);
     const full = runScenario(sc('f', [egg]), ctx);
     expect(half.impact.welfare.cv).toBeLessThan(full.impact.welfare.cv);
     const zero = runScenario(sc('z', [{ ...egg, severityOverride: 0 }]), ctx);
@@ -35,7 +35,7 @@ describe('combine', () => {
   });
   it('flags conflicting versions of the same commodity-region threat and resolves by choice', () => {
     const a = sc('a', [egg]);
-    const b = sc('b', [{ ...egg, id: 'hpai-2022-worse', name: 'worse', physical: { kind: 'animals_affected', value: 60e6 } }]);
+    const b = sc('b', [{ ...egg, id: 'hpai-2022-worse', name: 'worse', severity: 0.2 }]);
     const conflicts = findConflicts(a, b, ctx);
     expect(conflicts).toHaveLength(1);
     expect(combineScenarios(a, b, ctx, {}).scenario).toBeUndefined();

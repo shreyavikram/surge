@@ -47,8 +47,11 @@ export interface Threat {
   kind: 'geopolitical' | 'natural';
   location: { lat: number; lng: number; admin?: string; iso3?: string; regionId?: string };
   commodities: { id: string; relevance: number }[];
-  severity: number;               // 0..1
+  /** Fraction of the affected supply channel lost (1 = that channel entirely ceases); for tariffs, the ad valorem rate. */
+  severity: number;
+  /** Provenance and, for disease, the monthly timeline shape; never the magnitude (severity is). */
   physical?: PhysicalShock;
+  status?: 'active' | 'breaking';
   start: string;                  // YYYY-MM
   months?: number;                // duration override
   source: SourceStamp;
@@ -57,6 +60,8 @@ export interface Threat {
 
 export interface Shock {
   kind: 'supply' | 'cost';
+  /** where lost quantity sits: US production (domestic) or imports; cost shocks lose no quantity */
+  origin?: 'domestic' | 'import';
   commodity: string;              // retail commodity id that consumers face
   via?: string;                   // input id when kind === 'cost'
   region: string;
@@ -189,7 +194,31 @@ export interface AssumptionOverrides {
   pricePath?: 'modeled' | 'observed';
 }
 
+export type CensusRegion = 'northeast' | 'midwest' | 'south' | 'west';
+export interface AreaInfo {
+  id: string;                     // 'IA' or 'IA-04'
+  name: string;
+  state: string;                  // USPS code
+  kind: 'state' | 'district';
+  population: number;
+  medianIncome: number;
+  region: CensusRegion;
+  lat: number; lng: number;
+}
+export interface FocusConfig {
+  source: string;
+  usMedianIncome: number;
+  incomeElasticityFood: number;
+  foodSpendPerCU: Record<CensusRegion, number>;
+  areas: AreaInfo[];
+  /** commodity or input id → area id → share of US production */
+  production: Record<string, Record<string, number>>;
+  /** production-region id → state codes it covers */
+  regionStates: Record<string, string[]>;
+}
+
 export interface EngineContext {
+  focus?: FocusConfig;
   commodities: Record<string, CommodityConfig>;
   inputs: Record<string, InputConfig>;
   demand: DemandSystemConfig;
@@ -212,9 +241,13 @@ export interface ImpactResult {
   commodities: string[];
   price: { wholesalePct: Record<string, number[]>; retailPct: Record<string, number[]>; path: 'modeled' | 'observed' };
   quantity: { pct: Record<string, number[]> };
-  shortfall: Record<string, { units: number[]; unit: string }>;
+  shortfall: Record<string, { units: number[]; unit: string; domesticUnits: number[]; importUnits: number[] }>;
+  /** domestic lost quantity by production region, units per month (for state/district attribution) */
+  domesticLossByRegion: Record<string, Record<string, number[]>>;
   welfare: {
     cv: number;
+    cvByMonth: number[];
+    cvAnnual: number;               // first 12 months
     ev: number;
     csReplica: number;
     band: { low: number; high: number; over: 'elasticity' };
@@ -253,6 +286,8 @@ export interface MitigationPlan {
   timeToCloseMonths: number | null;
   cumulativeGap: number;
   uncoveredShare: number;
+  /** true when the gap is an offset target (supply needed to return price to baseline after a cost/tariff shock) */
+  offset: boolean;
 }
 
 export interface ScenarioThreat extends Threat { severityOverride?: number }

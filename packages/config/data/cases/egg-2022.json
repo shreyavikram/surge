@@ -1,18 +1,135 @@
 {
-  "id": "egg-2022", "name": "2022 HPAI egg shock (replay)", "description": "43.4M table-egg layers depopulated Feb-Dec 2022; validated against Ferrier, Saavoss, Williamson (2024).",
-  "threats": [ { "id": "hpai-2022", "name": "HPAI layer depopulations, 2022", "category": "disease", "kind": "natural",
-    "location": { "lat": 42.0, "lng": -93.5, "admin": "Iowa and Midwest", "iso3": "USA", "regionId": "us-midwest-corn-belt" },
-    "commodities": [ { "id": "eggs", "relevance": 1 } ], "severity": 1,
-    "physical": { "kind": "animals_affected", "value": 43400000, "timeline": [
-      { "month": 1, "value": 2500000 }, { "month": 2, "value": 16900000 }, { "month": 3, "value": 10700000 }, { "month": 4, "value": 300000 }, { "month": 5, "value": 300000 },
-      { "month": 8, "value": 1000000 }, { "month": 9, "value": 3200000 }, { "month": 10, "value": 3400000 }, { "month": 11, "value": 5000000 } ] },
-    "start": "2022-01", "months": 24,
-    "source": { "feed": "APHIS confirmations via WATTPoultry monthly summary and ERS April 2022 outlook (Plan 2 replaces with archive sums)", "kind": "archive" } } ],
-  "observed": { "commodity": "eggs", "months": ["2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-09","2022-10","2022-11","2022-12","2023-01"],
-    "retailPrice": [1.93, 2.005, 2.046, 2.52, 2.863, 2.707, 2.936, 3.116, 2.902, 3.419, 3.589, 4.25, 4.823],
-    "counterfactualPrice": [1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93],
-    "attributionShare": 0.5,
-    "source": "FRED APU0000708111 monthly 2022 (values approximate to 3 dp; Plan 2 fetches live); counterfactual = Jan 2022 level; attribution 0.5 spans Mitchell (7-9% avg) and Ferrier (22-24% Q2/Q4)" },
-  "expected": { "quarterlyShortfallQ2": 0.057, "quarterlyShortfallQ3": 0.047, "quarterlyShortfallQ4": 0.065, "ferrierConsumerLossUSD": 3562000000, "mitchellConsumerLossLowUSD": 930000000, "mitchellConsumerLossHighUSD": 1195000000 },
-  "source": "Ferrier, Saavoss, Williamson (2024) Tables 4 and 8; Mitchell, Thompson, Malone (2024)"
+ "id": "egg-2022",
+ "name": "2022 HPAI egg shock (replay)",
+ "description": "43.4M table-egg layers depopulated Feb-Dec 2022; validated against Ferrier, Saavoss, Williamson (2024).",
+ "threats": [
+  {
+   "id": "hpai-2022",
+   "name": "HPAI layer depopulations, 2022",
+   "category": "disease",
+   "kind": "natural",
+   "location": {
+    "lat": 42.0,
+    "lng": -93.5,
+    "admin": "United States (multi-state)",
+    "iso3": "USA",
+    "regionId": "us-national"
+   },
+   "commodities": [
+    {
+     "id": "eggs",
+     "relevance": 1
+    }
+   ],
+   "severity": 0.13354,
+   "physical": {
+    "kind": "animals_affected",
+    "value": 43400000,
+    "timeline": [
+     {
+      "month": 1,
+      "value": 2500000
+     },
+     {
+      "month": 2,
+      "value": 16900000
+     },
+     {
+      "month": 3,
+      "value": 10700000
+     },
+     {
+      "month": 4,
+      "value": 300000
+     },
+     {
+      "month": 5,
+      "value": 300000
+     },
+     {
+      "month": 8,
+      "value": 1000000
+     },
+     {
+      "month": 9,
+      "value": 3200000
+     },
+     {
+      "month": 10,
+      "value": 3400000
+     },
+     {
+      "month": 11,
+      "value": 5000000
+     }
+    ]
+   },
+   "start": "2022-01",
+   "months": 24,
+   "source": {
+    "feed": "APHIS confirmations via WATTPoultry monthly summary and ERS April 2022 outlook (Plan 2 replaces with archive sums)",
+    "kind": "archive",
+    "note": "severity = 43.4M layers depopulated \u00f7 325M table-egg layers"
+   }
+  }
+ ],
+ "observed": {
+  "commodity": "eggs",
+  "months": [
+   "2022-01",
+   "2022-02",
+   "2022-03",
+   "2022-04",
+   "2022-05",
+   "2022-06",
+   "2022-07",
+   "2022-08",
+   "2022-09",
+   "2022-10",
+   "2022-11",
+   "2022-12",
+   "2023-01"
+  ],
+  "retailPrice": [
+   1.93,
+   2.005,
+   2.046,
+   2.52,
+   2.863,
+   2.707,
+   2.936,
+   3.116,
+   2.902,
+   3.419,
+   3.589,
+   4.25,
+   4.823
+  ],
+  "counterfactualPrice": [
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93
+  ],
+  "attributionShare": 0.5,
+  "source": "FRED APU0000708111 monthly 2022 (values approximate to 3 dp; Plan 2 fetches live); counterfactual = Jan 2022 level; attribution 0.5 spans Mitchell (7-9% avg) and Ferrier (22-24% Q2/Q4)"
+ },
+ "expected": {
+  "quarterlyShortfallQ2": 0.057,
+  "quarterlyShortfallQ3": 0.047,
+  "quarterlyShortfallQ4": 0.065,
+  "ferrierConsumerLossUSD": 3562000000,
+  "mitchellConsumerLossLowUSD": 930000000,
+  "mitchellConsumerLossHighUSD": 1195000000
+ },
+ "source": "Ferrier, Saavoss, Williamson (2024) Tables 4 and 8; Mitchell, Thompson, Malone (2024)"
 }

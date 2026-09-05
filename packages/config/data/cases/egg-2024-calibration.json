@@ -13,7 +13,7 @@
     "lng": -93.1,
     "admin": "United States",
     "iso3": "USA",
-    "regionId": "us-midwest-corn-belt"
+    "regionId": "us-national"
    },
    "commodities": [
     {
@@ -21,7 +21,7 @@
      "relevance": 1
     }
    ],
-   "severity": 1,
+   "severity": 0.11815,
    "physical": {
     "kind": "animals_affected",
     "value": 38400000
@@ -30,7 +30,8 @@
    "months": 12,
    "source": {
     "feed": "APHIS via Fryar FC-2025-001",
-    "kind": "archive"
+    "kind": "archive",
+    "note": "severity = 38.4M layers \u00f7 325M"
    }
   }
  ],

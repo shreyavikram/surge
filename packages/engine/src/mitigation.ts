@@ -26,7 +26,7 @@ function effectiveEnd(l: LeverConfig, byId: Map<string, LeverConfig>, lead: Map<
  * Demand-side levers ration first; supply levers are allocated cheapest-first subject to lead,
  * ramp, stock, and unlock caps; regulatory levers are credited with what they enable.
  */
-export function planMitigation(gap: number[], allLevers: LeverConfig[], opts: { commodity: string; unit: string; activate?: string[]; deactivate?: string[] }): MitigationPlan {
+export function planMitigation(gap: number[], allLevers: LeverConfig[], opts: { commodity: string; unit: string; activate?: string[]; deactivate?: string[]; offset?: boolean }): MitigationPlan {
   const n = gap.length;
   const forCommodity = allLevers.filter((l) => l.commodity === opts.commodity);
   const isActive = (l: LeverConfig) => (l.enabledByDefault || (opts.activate ?? []).includes(l.id)) && !(opts.deactivate ?? []).includes(l.id);
@@ -101,5 +101,6 @@ export function planMitigation(gap: number[], allLevers: LeverConfig[], opts: { 
     if (coverage.slice(t).every((c) => c >= CLOSE_THRESHOLD)) { timeToCloseMonths = t; break; }
   }
   return { commodity: opts.commodity, unit: opts.unit, gap, covered, coverage, rationed, levers, totalCost, timeToCloseMonths, cumulativeGap,
-    uncoveredShare: cumulativeGap > 0 ? 1 - delivered / cumulativeGap : 0 };
+    uncoveredShare: cumulativeGap > 0 ? 1 - delivered / cumulativeGap : 0,
+    offset: opts.offset ?? false };
 }

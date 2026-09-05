@@ -44,6 +44,10 @@ describe('computeImpact', () => {
     const poultry = r.welfare.substitution.find((s) => s.commodity === 'poultry');
     expect(poultry).toBeDefined();
     expect(typeof poultry!.significant).toBe('boolean');
+    expect(r.welfare.substitution.some((s) => s.commodity === 'eggs')).toBe(false);
+    expect(r.welfare.substitution.some((s) => s.commodity === 'nonfood')).toBe(false);
+    expect(r.welfare.cvByMonth.length).toBe(r.months.length);
+    expect(r.welfare.cvAnnual).toBeCloseTo(r.welfare.cvByMonth.slice(0, 12).reduce((a, b) => a + b, 0), 6);
   });
   it('is order independent for two shocks', () => {
     const egg = threatToShocks(loadCase('egg-2022').threats[0]!, ctx);
@@ -53,8 +57,8 @@ describe('computeImpact', () => {
     expect(a).toBeCloseTo(b, 6);
   });
   it('splits item-level welfare across commodities that share a demand item', () => {
-    const chicken = threatToShocks({ id: 'c', name: 'C', category: 'disease', kind: 'natural', location: { lat: 33, lng: -86, regionId: 'us-southeast-broilers' }, commodities: [{ id: 'chicken', relevance: 1 }], severity: 1, physical: { kind: 'animals_affected', value: 900e6 }, start: '2024-01', months: 6, source: { feed: 't', kind: 'user' } }, ctx);
-    const turkey = threatToShocks({ id: 't', name: 'T', category: 'disease', kind: 'natural', location: { lat: 44, lng: -93, regionId: 'us-midwest-corn-belt' }, commodities: [{ id: 'turkey', relevance: 1 }], severity: 1, physical: { kind: 'animals_affected', value: 20e6 }, start: '2024-01', months: 6, source: { feed: 't', kind: 'user' } }, ctx);
+    const chicken = threatToShocks({ id: 'c', name: 'C', category: 'disease', kind: 'natural', location: { lat: 33, lng: -86, regionId: 'us-southeast-broilers' }, commodities: [{ id: 'chicken', relevance: 1 }], severity: 0.5, start: '2024-01', months: 6, source: { feed: 't', kind: 'user' } }, ctx);
+    const turkey = threatToShocks({ id: 't', name: 'T', category: 'disease', kind: 'natural', location: { lat: 39.8, lng: -98.6, regionId: 'us-national' }, commodities: [{ id: 'turkey', relevance: 1 }], severity: 0.1, start: '2024-01', months: 6, source: { feed: 't', kind: 'user' } }, ctx);
     const r = computeImpact([...chicken, ...turkey], ctx);
     expect(r.commodities).toEqual(['chicken', 'turkey']);
     expect(r.welfare.byCommodity['chicken']).toBeGreaterThan(0);

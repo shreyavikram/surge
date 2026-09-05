@@ -10,8 +10,8 @@ const STYLE: Record<'dark' | 'light', string> = {
 };
 
 function radius(cv: number): number {
-  const r = 8 + 6 * Math.log10(Math.max(1, cv / 1e6));
-  return Math.max(9, Math.min(30, r));
+  const r = 4 + 2.2 * Math.log10(Math.max(1, cv / 1e6));
+  return Math.max(5, Math.min(13, r));
 }
 
 interface Props {
@@ -41,7 +41,12 @@ export function MapView({ entries, selectedId, onSelect, theme }: Props) {
     });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
     mapRef.current = map;
+    // The container is laid out by flexbox after mount; MapLibre sized its canvas at 400×300 before that.
+    const ro = new ResizeObserver(() => map.resize());
+    ro.observe(container.current);
+    map.once('load', () => map.resize());
     return () => {
+      ro.disconnect();
       map.remove();
       mapRef.current = null;
     };

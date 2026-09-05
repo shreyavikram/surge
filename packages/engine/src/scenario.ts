@@ -5,11 +5,25 @@ import { computeImpact } from './impact.js';
 import { planMitigation } from './mitigation.js';
 import { monthIndex } from './months.js';
 
+/**
+ * Supply needed to return retail price to baseline after a cost or tariff shock (methodology §2 inverted):
+ * s* = π_r × |(1−x)ε + xεₓ/θ|, in units per month.
+ */
+export function offsetGap(impact: ImpactResult, id: string, ctx: EngineContext): number[] {
+  const c = ctx.commodities[id]!;
+  const eps = ctx.overrides?.elasticity?.[id] ?? c.demand.ownPrice;
+  const theta = ctx.overrides?.passThrough?.[id] ?? c.transmission.passThrough;
+  const denom = Math.abs((1 - c.trade.exportShare) * eps + (c.trade.exportShare * c.trade.exportElasticity) / theta);
+  return (impact.price.retailPct[id] ?? []).map((pi) => (pi > 0 ? pi * denom * (c.baseline.annualQuantity / 12) : 0));
+}
+
 function mitigationFor(impact: ImpactResult, ctx: EngineContext): Record<string, MitigationPlan> {
   const out: Record<string, MitigationPlan> = {};
   for (const id of impact.commodities) {
     const sf = impact.shortfall[id]!;
-    out[id] = planMitigation(sf.units, ctx.levers, { commodity: id, unit: sf.unit });
+    const physical = sf.units.some((u) => u > 0);
+    const gap = physical ? sf.units : offsetGap(impact, id, ctx);
+    out[id] = planMitigation(gap, ctx.levers, { commodity: id, unit: sf.unit, offset: !physical });
   }
   return out;
 }

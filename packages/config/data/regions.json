@@ -1,60 +1,382 @@
 {
-  "us-iowa": { "id": "us-iowa", "name": "Iowa", "lat": 42.0, "lng": -93.5, "bbox": [-96.6, 40.4, -90.1, 43.5],
-    "usSupplyShare": { "eggs": 0.15, "pork": 0.32, "corn": 0.17, "soybeans": 0.13 },
-    "source": "NASS: Iowa ~15% of US table-egg layers (2021), ~1/3 of hogs, ~17% corn, ~13% soybeans" },
-  "us-midwest-corn-belt": { "id": "us-midwest-corn-belt", "name": "Corn Belt (IL, IN, NE, MN, OH)", "lat": 41.0, "lng": -90.0, "bbox": [-104.0, 37.0, -80.5, 49.0],
-    "usSupplyShare": { "corn": 0.55, "soybeans": 0.55, "eggs": 0.35, "pork": 0.35, "turkey": 0.35 },
-    "source": "NASS Crop Production; Chickens and Eggs (IN, OH, PA, IA top layer states) approximate" },
-  "us-plains-wheat": { "id": "us-plains-wheat", "name": "Wheat Plains (KS, OK, TX, NE, CO)", "lat": 38.5, "lng": -99.0, "bbox": [-106.0, 31.0, -95.0, 43.0],
-    "usSupplyShare": { "wheat": 0.4, "beef": 0.3 },
-    "source": "NASS Crop Production hard red winter wheat; cattle on feed (approximate)" },
-  "us-california-central-valley": { "id": "us-california-central-valley", "name": "California Central Valley", "lat": 36.7, "lng": -119.8, "bbox": [-122.5, 34.5, -118.0, 40.5],
-    "usSupplyShare": { "milk": 0.18, "tomatoes": 0.3, "lettuce": 0.7, "fresh-vegetables": 0.4, "citrus": 0.3, "eggs": 0.04 },
-    "source": "NASS California Agricultural Statistics (approximate)" },
-  "us-florida": { "id": "us-florida", "name": "Florida", "lat": 28.0, "lng": -81.7, "bbox": [-87.6, 24.5, -80.0, 31.0],
-    "usSupplyShare": { "citrus": 0.45, "tomatoes": 0.25, "sugar": 0.2 },
-    "source": "NASS Citrus Fruits; Vegetables (approximate)" },
-  "us-pacific-northwest": { "id": "us-pacific-northwest", "name": "Pacific Northwest", "lat": 46.5, "lng": -119.5, "bbox": [-124.7, 42.0, -111.0, 49.0],
-    "usSupplyShare": { "apples": 0.7, "potatoes": 0.55, "wheat": 0.15 },
-    "source": "NASS Noncitrus Fruits; Potatoes (approximate)" },
-  "us-southeast-broilers": { "id": "us-southeast-broilers", "name": "Southeast broiler belt (GA, AL, AR, NC, MS)", "lat": 33.5, "lng": -86.0, "bbox": [-95.0, 30.0, -76.0, 37.0],
-    "usSupplyShare": { "chicken": 0.6, "eggs": 0.15 },
-    "source": "NASS Poultry Production and Value (approximate)" },
-  "mexico": { "id": "mexico", "name": "Mexico", "lat": 23.6, "lng": -102.5, "bbox": [-118.4, 14.5, -86.7, 32.7],
-    "usImportOriginShare": { "tomatoes": 0.9, "fresh-vegetables": 0.7, "sugar": 0.8, "beef": 0.25 },
-    "source": "USDA FAS GATS (approximate)" },
-  "canada": { "id": "canada", "name": "Canada", "lat": 56.1, "lng": -106.3, "bbox": [-141.0, 41.7, -52.6, 83.1],
-    "usImportOriginShare": { "beef": 0.3, "pork": 0.6, "wheat": 0.8, "fats-oils": 0.5 },
-    "source": "USDA FAS GATS (approximate)" },
-  "brazil": { "id": "brazil", "name": "Brazil", "lat": -14.2, "lng": -51.9, "bbox": [-73.9, -33.7, -34.8, 5.3],
-    "usImportOriginShare": { "coffee": 0.3, "sugar": 0.1, "eggs": 0.2, "beef": 0.2 },
-    "worldExportShare": { "soybeans": 0.5, "coffee": 0.35, "sugar": 0.4, "chicken": 0.35, "beef": 0.25 },
-    "source": "USDA FAS PSD; FAS GATS (approximate); USDA Jun 2025 egg imports" },
-  "central-america-bananas": { "id": "central-america-bananas", "name": "Guatemala, Ecuador, Costa Rica, Honduras, Colombia", "lat": 10.0, "lng": -84.0, "bbox": [-92.5, -5.0, -66.0, 18.0],
-    "usImportOriginShare": { "bananas": 0.95, "coffee": 0.3 },
-    "source": "USDA FAS GATS (approximate)" },
-  "black-sea": { "id": "black-sea", "name": "Ukraine and Russia (Black Sea)", "lat": 48.0, "lng": 35.0, "bbox": [22.0, 41.0, 60.0, 56.0],
-    "worldExportShare": { "wheat": 0.28, "fats-oils": 0.5, "corn": 0.15, "fertilizer": 0.2 },
-    "usImportOriginShare": { "fertilizer": 0.15 },
-    "source": "USDA FAS PSD 2021/22: Russia+Ukraine ~28% of wheat exports, ~75% sunflower oil; IFPRI fertilizer (approximate)" },
-  "hormuz": { "id": "hormuz", "name": "Strait of Hormuz", "lat": 26.6, "lng": 56.3, "bbox": [55.0, 25.5, 57.5, 27.5],
-    "chokepointImportShare": { "fertilizer": 0.3, "energy": 0.1 },
-    "source": "IMF PortWatch chokepoint; urea/ammonia seaborne trade share ~30% (IFPRI 2024, approximate)" },
-  "suez-red-sea": { "id": "suez-red-sea", "name": "Suez Canal and Bab el-Mandeb", "lat": 27.0, "lng": 33.0, "bbox": [30.0, 12.0, 45.0, 32.0],
-    "chokepointImportShare": { "coffee": 0.1, "rice": 0.15, "fats-oils": 0.1 },
-    "source": "IMF PortWatch; trade routing Asia-Europe-US East Coast (approximate)" },
-  "panama-canal": { "id": "panama-canal", "name": "Panama Canal", "lat": 9.1, "lng": -79.7, "bbox": [-80.5, 8.5, -79.0, 9.7],
-    "chokepointImportShare": { "bananas": 0.1, "coffee": 0.1 },
-    "source": "IMF PortWatch (approximate)" },
-  "turkey": { "id": "turkey", "name": "Turkey", "lat": 39.0, "lng": 35.2, "bbox": [26.0, 36.0, 45.0, 42.1],
-    "usImportOriginShare": { "eggs": 0.57 },
-    "source": "USDA Jun 2025: 57% of 2025 shell-egg imports" },
-  "vietnam-brazil-coffee": { "id": "vietnam-brazil-coffee", "name": "Vietnam and Brazil coffee belt", "lat": 12.0, "lng": 108.0, "bbox": [102.0, 8.0, 110.0, 23.0],
-    "worldExportShare": { "coffee": 0.2 },
-    "usImportOriginShare": { "coffee": 0.1 },
-    "source": "USDA FAS Coffee (approximate)" },
-  "india-rice": { "id": "india-rice", "name": "India", "lat": 22.0, "lng": 79.0, "bbox": [68.0, 8.0, 97.0, 35.0],
-    "worldExportShare": { "rice": 0.4 },
-    "usImportOriginShare": { "rice": 0.2 },
-    "source": "USDA FAS Grain: World Markets and Trade; India ~40% of rice exports; 2023 export ban precedent" }
+ "us-iowa": {
+  "id": "us-iowa",
+  "name": "Iowa",
+  "lat": 42.0,
+  "lng": -93.5,
+  "bbox": [
+   -96.6,
+   40.4,
+   -90.1,
+   43.5
+  ],
+  "usSupplyShare": {
+   "eggs": 0.15,
+   "pork": 0.32,
+   "corn": 0.17,
+   "soybeans": 0.13
+  },
+  "source": "NASS: Iowa ~15% of US table-egg layers (2021), ~1/3 of hogs, ~17% corn, ~13% soybeans"
+ },
+ "us-midwest-corn-belt": {
+  "id": "us-midwest-corn-belt",
+  "name": "Corn Belt (IL, IN, NE, MN, OH)",
+  "lat": 41.0,
+  "lng": -90.0,
+  "bbox": [
+   -104.0,
+   37.0,
+   -80.5,
+   49.0
+  ],
+  "usSupplyShare": {
+   "corn": 0.55,
+   "soybeans": 0.55,
+   "eggs": 0.35,
+   "pork": 0.35,
+   "turkey": 0.35
+  },
+  "source": "NASS Crop Production; Chickens and Eggs (IN, OH, PA, IA top layer states) approximate"
+ },
+ "us-plains-wheat": {
+  "id": "us-plains-wheat",
+  "name": "Wheat Plains (KS, OK, TX, NE, CO)",
+  "lat": 38.5,
+  "lng": -99.0,
+  "bbox": [
+   -106.0,
+   31.0,
+   -95.0,
+   43.0
+  ],
+  "usSupplyShare": {
+   "wheat": 0.4,
+   "beef": 0.3
+  },
+  "source": "NASS Crop Production hard red winter wheat; cattle on feed (approximate)"
+ },
+ "us-california-central-valley": {
+  "id": "us-california-central-valley",
+  "name": "California Central Valley",
+  "lat": 36.7,
+  "lng": -119.8,
+  "bbox": [
+   -122.5,
+   34.5,
+   -118.0,
+   40.5
+  ],
+  "usSupplyShare": {
+   "milk": 0.18,
+   "tomatoes": 0.3,
+   "lettuce": 0.7,
+   "fresh-vegetables": 0.4,
+   "citrus": 0.3,
+   "eggs": 0.04
+  },
+  "source": "NASS California Agricultural Statistics (approximate)"
+ },
+ "us-florida": {
+  "id": "us-florida",
+  "name": "Florida",
+  "lat": 28.0,
+  "lng": -81.7,
+  "bbox": [
+   -87.6,
+   24.5,
+   -80.0,
+   31.0
+  ],
+  "usSupplyShare": {
+   "citrus": 0.45,
+   "tomatoes": 0.25,
+   "sugar": 0.2
+  },
+  "source": "NASS Citrus Fruits; Vegetables (approximate)"
+ },
+ "us-pacific-northwest": {
+  "id": "us-pacific-northwest",
+  "name": "Pacific Northwest",
+  "lat": 46.5,
+  "lng": -119.5,
+  "bbox": [
+   -124.7,
+   42.0,
+   -111.0,
+   49.0
+  ],
+  "usSupplyShare": {
+   "apples": 0.7,
+   "potatoes": 0.55,
+   "wheat": 0.15
+  },
+  "source": "NASS Noncitrus Fruits; Potatoes (approximate)"
+ },
+ "us-southeast-broilers": {
+  "id": "us-southeast-broilers",
+  "name": "Southeast broiler belt (GA, AL, AR, NC, MS)",
+  "lat": 33.5,
+  "lng": -86.0,
+  "bbox": [
+   -95.0,
+   30.0,
+   -76.0,
+   37.0
+  ],
+  "usSupplyShare": {
+   "chicken": 0.6,
+   "eggs": 0.15
+  },
+  "source": "NASS Poultry Production and Value (approximate)"
+ },
+ "mexico": {
+  "id": "mexico",
+  "name": "Mexico",
+  "lat": 23.6,
+  "lng": -102.5,
+  "bbox": [
+   -118.4,
+   14.5,
+   -86.7,
+   32.7
+  ],
+  "usImportOriginShare": {
+   "tomatoes": 0.9,
+   "fresh-vegetables": 0.7,
+   "sugar": 0.8,
+   "beef": 0.25
+  },
+  "source": "USDA FAS GATS (approximate)"
+ },
+ "canada": {
+  "id": "canada",
+  "name": "Canada",
+  "lat": 56.1,
+  "lng": -106.3,
+  "bbox": [
+   -141.0,
+   41.7,
+   -52.6,
+   83.1
+  ],
+  "usImportOriginShare": {
+   "beef": 0.3,
+   "pork": 0.6,
+   "wheat": 0.8,
+   "fats-oils": 0.5
+  },
+  "source": "USDA FAS GATS (approximate)"
+ },
+ "brazil": {
+  "id": "brazil",
+  "name": "Brazil",
+  "lat": -14.2,
+  "lng": -51.9,
+  "bbox": [
+   -73.9,
+   -33.7,
+   -34.8,
+   5.3
+  ],
+  "usImportOriginShare": {
+   "coffee": 0.3,
+   "sugar": 0.1,
+   "eggs": 0.2,
+   "beef": 0.2
+  },
+  "worldExportShare": {
+   "soybeans": 0.5,
+   "coffee": 0.35,
+   "sugar": 0.4,
+   "chicken": 0.35,
+   "beef": 0.25
+  },
+  "source": "USDA FAS PSD; FAS GATS (approximate); USDA Jun 2025 egg imports"
+ },
+ "central-america-bananas": {
+  "id": "central-america-bananas",
+  "name": "Guatemala, Ecuador, Costa Rica, Honduras, Colombia",
+  "lat": 10.0,
+  "lng": -84.0,
+  "bbox": [
+   -92.5,
+   -5.0,
+   -66.0,
+   18.0
+  ],
+  "usImportOriginShare": {
+   "bananas": 0.95,
+   "coffee": 0.3
+  },
+  "source": "USDA FAS GATS (approximate)"
+ },
+ "black-sea": {
+  "id": "black-sea",
+  "name": "Ukraine and Russia (Black Sea)",
+  "lat": 48.0,
+  "lng": 35.0,
+  "bbox": [
+   22.0,
+   41.0,
+   60.0,
+   56.0
+  ],
+  "worldExportShare": {
+   "wheat": 0.28,
+   "fats-oils": 0.5,
+   "corn": 0.15,
+   "fertilizer": 0.2
+  },
+  "usImportOriginShare": {
+   "fertilizer": 0.15
+  },
+  "source": "USDA FAS PSD 2021/22: Russia+Ukraine ~28% of wheat exports, ~75% sunflower oil; IFPRI fertilizer (approximate)"
+ },
+ "hormuz": {
+  "id": "hormuz",
+  "name": "Strait of Hormuz",
+  "lat": 26.6,
+  "lng": 56.3,
+  "bbox": [
+   55.0,
+   25.5,
+   57.5,
+   27.5
+  ],
+  "chokepointImportShare": {
+   "fertilizer": 0.3,
+   "energy": 0.1
+  },
+  "source": "IMF PortWatch chokepoint; urea/ammonia seaborne trade share ~30% (IFPRI 2024, approximate)"
+ },
+ "suez-red-sea": {
+  "id": "suez-red-sea",
+  "name": "Suez Canal and Bab el-Mandeb",
+  "lat": 27.0,
+  "lng": 33.0,
+  "bbox": [
+   30.0,
+   12.0,
+   45.0,
+   32.0
+  ],
+  "chokepointImportShare": {
+   "coffee": 0.1,
+   "rice": 0.15,
+   "fats-oils": 0.1
+  },
+  "source": "IMF PortWatch; trade routing Asia-Europe-US East Coast (approximate)"
+ },
+ "panama-canal": {
+  "id": "panama-canal",
+  "name": "Panama Canal",
+  "lat": 9.1,
+  "lng": -79.7,
+  "bbox": [
+   -80.5,
+   8.5,
+   -79.0,
+   9.7
+  ],
+  "chokepointImportShare": {
+   "bananas": 0.1,
+   "coffee": 0.1
+  },
+  "source": "IMF PortWatch (approximate)"
+ },
+ "turkey": {
+  "id": "turkey",
+  "name": "Turkey",
+  "lat": 39.0,
+  "lng": 35.2,
+  "bbox": [
+   26.0,
+   36.0,
+   45.0,
+   42.1
+  ],
+  "usImportOriginShare": {
+   "eggs": 0.57
+  },
+  "source": "USDA Jun 2025: 57% of 2025 shell-egg imports"
+ },
+ "vietnam-brazil-coffee": {
+  "id": "vietnam-brazil-coffee",
+  "name": "Vietnam and Brazil coffee belt",
+  "lat": 12.0,
+  "lng": 108.0,
+  "bbox": [
+   102.0,
+   8.0,
+   110.0,
+   23.0
+  ],
+  "worldExportShare": {
+   "coffee": 0.2
+  },
+  "usImportOriginShare": {
+   "coffee": 0.1
+  },
+  "source": "USDA FAS Coffee (approximate)"
+ },
+ "india-rice": {
+  "id": "india-rice",
+  "name": "India",
+  "lat": 22.0,
+  "lng": 79.0,
+  "bbox": [
+   68.0,
+   8.0,
+   97.0,
+   35.0
+  ],
+  "worldExportShare": {
+   "rice": 0.4
+  },
+  "usImportOriginShare": {
+   "rice": 0.2
+  },
+  "source": "USDA FAS Grain: World Markets and Trade; India ~40% of rice exports; 2023 export ban precedent"
+ },
+ "us-national": {
+  "id": "us-national",
+  "name": "United States (national)",
+  "lat": 39.8,
+  "lng": -98.6,
+  "bbox": [
+   -125.0,
+   24.5,
+   -66.9,
+   49.4
+  ],
+  "usSupplyShare": {
+   "eggs": 1.0,
+   "chicken": 1.0,
+   "turkey": 1.0,
+   "beef": 1.0,
+   "pork": 1.0,
+   "milk": 1.0,
+   "cheese": 1.0,
+   "bread": 1.0,
+   "rice": 1.0,
+   "potatoes": 1.0,
+   "lettuce": 1.0,
+   "tomatoes": 1.0,
+   "fresh-vegetables": 1.0,
+   "apples": 1.0,
+   "bananas": 1.0,
+   "citrus": 1.0,
+   "coffee": 1.0,
+   "sugar": 1.0,
+   "fats-oils": 1.0,
+   "infant-formula": 1.0,
+   "corn": 1.0,
+   "soybeans": 1.0,
+   "wheat": 1.0,
+   "fertilizer": 1.0,
+   "energy": 1.0,
+   "milk-farm": 1.0
+  },
+  "source": "Definitional: the whole of US production; used for nationwide events (e.g., multi-state HPAI waves)"
+ }
 }

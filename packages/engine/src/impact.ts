@@ -6,7 +6,7 @@ import { cvSecondOrder, evApprox, csConstantElasticity, substitutionPct, inciden
 import { monthRange, monthIndex } from './months.js';
 import { SHOCK_CONSTANTS } from './shock.js';
 
-interface Merged { supply: number[]; cost: number[]; n: number }
+interface Merged { supply: number[]; cost: number[]; domestic: number[]; imports: number[]; byRegion: Record<string, number[]>; n: number }
 
 /** Sum shocks per commodity onto a common monthly axis starting at the earliest shock month. */
 function mergeShocks(shocks: Shock[], start: string): Map<string, Merged> {
@@ -14,10 +14,16 @@ function mergeShocks(shocks: Shock[], start: string): Map<string, Merged> {
   for (const s of shocks) {
     const off = monthIndex(start, s.start);
     const n = off + s.supplyPath.length;
-    const cur = byC.get(s.commodity) ?? { supply: [], cost: [], n: 0 };
-    while (cur.supply.length < n) { cur.supply.push(0); cur.cost.push(0); }
+    const cur = byC.get(s.commodity) ?? { supply: [], cost: [], domestic: [], imports: [], byRegion: {}, n: 0 };
+    while (cur.supply.length < n) { cur.supply.push(0); cur.cost.push(0); cur.domestic.push(0); cur.imports.push(0); }
     cur.n = Math.max(cur.n, n);
-    s.supplyPath.forEach((v, t) => { cur.supply[off + t]! += v; });
+    const dom = s.kind === 'supply' && (s.origin ?? 'domestic') === 'domestic';
+    const reg = (cur.byRegion[s.region] ??= []);
+    while (reg.length < n) reg.push(0);
+    s.supplyPath.forEach((v, t) => {
+      cur.supply[off + t]! += v;
+      if (dom) { cur.domestic[off + t]! += v; reg[off + t]! += v; } else cur.imports[off + t]! += v;
+    });
     (s.costPath ?? []).forEach((v, t) => { cur.cost[off + t]! += v; });
     byC.set(s.commodity, cur);
   }
@@ -65,6 +71,7 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
   const retailPct: Record<string, number[]> = {};
   const quantityPct: Record<string, number[]> = {};
   const shortfall: ImpactResult['shortfall'] = {};
+  const domesticLossByRegion: ImpactResult['domesticLossByRegion'] = {};
   const producerRevenueChange: Record<string, number> = {};
   const epsOwnOf: Record<string, number> = {};
 
@@ -86,8 +93,14 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
     wholesalePct[id] = p.wholesalePct;
     retailPct[id] = retail;
     quantityPct[id] = retail.map((r) => epsOwn * r);
-    shortfall[id] = { units: supply.map((s) => (s * c.baseline.annualQuantity) / 12), unit: c.unit };
-    producerRevenueChange[id] = retail.reduce((acc, r, t) => acc + Xc(c) * ((1 + r) * (1 - (supply[t] ?? 0)) - 1), 0);
+    const monthlyQ = c.baseline.annualQuantity / 12;
+    const domestic = pad(m.domestic, N), imports = pad(m.imports, N);
+    shortfall[id] = { units: supply.map((s) => s * monthlyQ), unit: c.unit, domesticUnits: domestic.map((s) => s * monthlyQ), importUnits: imports.map((s) => s * monthlyQ) };
+    domesticLossByRegion[id] = Object.fromEntries(Object.entries(m.byRegion).map(([r, path]) => [r, pad(path, N).map((s) => s * monthlyQ)]));
+    // US producers of this commodity: revenue on domestic supply at the wholesale price; only domestic losses reduce their quantity
+    const domShare = Math.max(1e-9, 1 - c.trade.importShare);
+    const Xdom = Xc(c) * domShare;
+    producerRevenueChange[id] = p.wholesalePct.reduce((acc, pw, t) => acc + Xdom * ((1 + pw) * (1 - (domestic[t] ?? 0) / domShare) - 1), 0);
     assumptions.push(
       { key: `elasticity.${id}`, label: `Own-price elasticity, ${c.name}`, value: epsOwn, source: c.demand.source, kind: 'modeled' },
       { key: `passThrough.${id}`, label: `Retail pass-through, ${c.name}`, value: theta, source: c.transmission.source, kind: 'modeled' },
@@ -134,11 +147,13 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
   // welfare, summed monthly
   const M = ctx.totalExpenditure.value / 12;
   let cv = 0, ev = 0;
+  const cvByMonth: number[] = new Array(N).fill(0);
   const byCommodity: Record<string, number> = Object.fromEntries(commodities.map((id) => [id, 0]));
   for (let t = 0; t < N; t++) {
     const pi = piByMonth[t]!;
     const r = cvSecondOrder(Xitem, epsC, pi);
     cv += r.cv;
+    cvByMonth[t] = r.cv;
     ev += evApprox(r.cv, Xitem, ds.eta, pi, M);
     for (const [k, ids] of itemsMoved) {
       if (pi[k] === 0) continue;
@@ -194,7 +209,13 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
   let peakT = 0, peakMag = -1;
   piByMonth.forEach((pi, t) => { const mag = pi.reduce((a, b) => a + Math.abs(b), 0); if (mag > peakMag) { peakMag = mag; peakT = t; } });
   const sub = substitutionPct(eps, piByMonth[peakT] ?? [], ds.se);
-  const substitution = ds.ids.map((id, i) => ({ commodity: id, quantityPct: sub.pct[i]!, significant: sub.significant[i]! })).filter((s) => s.quantityPct !== 0);
+  // other goods only: the shocked commodities' own items and the nonfood numeraire are not substitutes
+  const shockedItems = new Set(commodities.map(itemOf));
+  const substitution = ds.ids
+    .map((id, i) => ({ commodity: id, quantityPct: sub.pct[i]!, significant: sub.significant[i]!, i }))
+    .filter((s) => s.quantityPct !== 0 && !shockedItems.has(s.i) && !numeraire.has(s.i))
+    .map(({ commodity, quantityPct, significant }) => ({ commodity, quantityPct, significant }));
+  const cvAnnual = cvByMonth.slice(0, 12).reduce((a, b) => a + b, 0);
 
   // incidence: worst-hit commodity, per household by income quintile
   const worst = commodities.slice().sort((a, b) => byCommodity[b]! - byCommodity[a]!)[0];
@@ -216,7 +237,8 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
     price: { wholesalePct, retailPct, path: usePath },
     quantity: { pct: quantityPct },
     shortfall,
-    welfare: { cv, ev, csReplica, band, byCommodity, substitution, incidence, producerRevenueChange },
+    domesticLossByRegion,
+    welfare: { cv, cvByMonth, cvAnnual, ev, csReplica, band, byCommodity, substitution, incidence, producerRevenueChange },
     durationMonths,
     assumptions,
     checks: { slutskySymmetryAdjustment: sym.maxAdjustment, negativeSemidefinite: nsd.ok },

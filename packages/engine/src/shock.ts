@@ -21,8 +21,8 @@ function stamp(threat: Threat, note: string): SourceStamp {
   return { ...threat.source, note };
 }
 
-function supplyShock(threat: Threat, c: CommodityConfig, path: number[], label: string): Shock {
-  return { kind: 'supply', commodity: c.id, region: threat.location.regionId ?? 'unknown', start: threat.start, supplyPath: path,
+function supplyShock(threat: Threat, c: CommodityConfig, path: number[], label: string, origin: 'domestic' | 'import' = 'domestic'): Shock {
+  return { kind: 'supply', origin, commodity: c.id, region: threat.location.regionId ?? 'unknown', start: threat.start, supplyPath: path,
     passThrough: c.transmission.passThrough, lagMonths: c.transmission.lagMonths, provenance: [stamp(threat, label)], label };
 }
 
@@ -77,17 +77,23 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
         if (!c || c.supply.model !== 'livestock') break;
         const inv = c.supply.nationalInventory!;
         const lagShift = ctx.overrides?.recoveryLagShiftMonths ?? 0;
-        const events = threat.physical?.timeline
-          ? threat.physical.timeline.map((e) => ({ month: e.month, headLost: e.value * sev * rel }))
-          : [{ month: 0, headLost: (threat.physical?.value ?? 0) * sev * rel }];
+        // severity = fraction of the region's flock/herd lost; the timeline (if any) only shapes it over months
+        const share = region ? (region.usSupplyShare?.[id] ?? 0) : 1;
+        const total = sev * share * inv * rel;
+        const tl = threat.physical?.timeline;
+        const tlSum = tl ? tl.reduce((a, e) => a + e.value, 0) : 0;
+        const events = tl && tl.length > 0
+          ? tl.map((e) => ({ month: e.month, headLost: total * (tlSum > 0 ? e.value / tlSum : 1 / tl.length) }))
+          : [{ month: 0, headLost: total }];
         const path = livestockShortfall(events, { inventory: inv, lagMin: c.supply.recoveryLagMinMonths! + lagShift, lagMax: c.supply.recoveryLagMaxMonths! + lagShift, producerOffset: c.supply.producerOffset ?? 0, months: n });
         out.push(supplyShock(threat, c, path, threat.name));
         break;
       }
       case 'crop_hazard':
       case 'livestock_hazard': {
-        const damage = (type.damageAtSeverity1 ?? 0.2) * sev * rel;
-        const share = region?.usSupplyShare?.[id] ?? 0;
+        // severity = fraction of the region's production lost (feeds map alert levels to this at ingestion)
+        const damage = sev * rel;
+        const share = region ? (region.usSupplyShare?.[id] ?? 0) : 1;
         if (share === 0 || damage === 0) break;
         if (inp) {
           const supplyPath = cropPathFor(id, ctx, damage, share, n);
@@ -99,11 +105,11 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
         break;
       }
       case 'trade_block': {
-        const blocked = threat.physical?.kind === 'import_share_blocked' ? threat.physical.value * sev : sev;
+        const blocked = sev; // fraction of US imports from this origin that stop
         const origin = region?.usImportOriginShare?.[id] ?? 0;
         if (c) {
           const loss = c.trade.importShare * origin * blocked * (1 - K.REROUTING_SHARE) * rel;
-          out.push(supplyShock(threat, c, new Array<number>(n).fill(loss), threat.name));
+          out.push(supplyShock(threat, c, new Array<number>(n).fill(loss), threat.name, 'import'));
         } else if (inp) {
           const loss = inp.trade.importShare * origin * blocked * (1 - K.REROUTING_SHARE) * rel;
           out.push(...propagateInput(threat, id, inputPricePath(inp, new Array<number>(n).fill(loss)), ctx, threat.name));
@@ -111,7 +117,7 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
         break;
       }
       case 'tariff': {
-        const rate = threat.physical?.kind === 'tariff_rate' ? threat.physical.value * sev : 0.1 * sev;
+        const rate = sev; // ad valorem tariff rate
         const origin = region?.usImportOriginShare?.[id] ?? 1;
         if (c) {
           out.push(costShock(threat, c, new Array<number>(n).fill(rate * c.trade.importShare * origin * rel), threat.name));
@@ -134,13 +140,13 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
         break;
       }
       case 'chokepoint': {
-        const decline = threat.physical?.kind === 'transit_decline_fraction' ? threat.physical.value * sev : sev;
+        const decline = sev; // fraction of transit through the chokepoint that stops
         const share = region?.chokepointImportShare?.[id] ?? 0;
         if (share === 0 || decline === 0) break;
         const wedge = K.FREIGHT_WEDGE_AT_FULL_CLOSURE * decline * rel;
         const delayPath = (importShare: number): number[] => new Array<number>(n).fill(0).map((_, t) => (t < K.DELAY_MONTHS ? importShare * share * decline * rel : 0));
         if (c) {
-          out.push({ ...supplyShock(threat, c, delayPath(c.trade.importShare), threat.name), costPath: new Array<number>(n).fill(wedge) });
+          out.push({ ...supplyShock(threat, c, delayPath(c.trade.importShare), threat.name, 'import'), costPath: new Array<number>(n).fill(wedge) });
         } else if (inp) {
           const price = inputPricePath(inp, delayPath(inp.trade.importShare)).map((p) => p + wedge);
           out.push(...propagateInput(threat, id, price, ctx, threat.name));
@@ -149,13 +155,16 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
       }
       case 'input_cost': {
         if (!inp) break;
-        const rise = threat.physical?.kind === 'input_price_increase' ? threat.physical.value * sev : 0.2 * sev;
-        out.push(...propagateInput(threat, id, new Array<number>(n).fill(rise * rel), ctx, threat.name));
+        // severity = fraction of the input's supply (from this region, or national) lost; price clears at the farm gate
+        const share = region ? (region.usSupplyShare?.[id] ?? 0) : 1;
+        const lost = sev * share * rel;
+        if (lost === 0) break;
+        out.push(...propagateInput(threat, id, inputPricePath(inp, new Array<number>(n).fill(lost)), ctx, threat.name));
         break;
       }
       case 'facility': {
         if (!c) break;
-        const outFrac = threat.physical?.kind === 'capacity_out_fraction' ? threat.physical.value * sev : 0.1 * sev;
+        const outFrac = sev; // fraction of national capacity offline
         const outMonths = Math.max(1, Math.round(n * K.FACILITY_OUT_SHARE));
         const path = manufacturingShortfall({ capacityOutFraction: outFrac * rel, outMonths, rampMonths: K.FACILITY_RAMP_MONTHS, months: n });
         out.push(supplyShock(threat, c, path, threat.name));
