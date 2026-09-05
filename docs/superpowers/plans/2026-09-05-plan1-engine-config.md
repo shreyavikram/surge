@@ -2640,7 +2640,7 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
       case 'facility': {
         if (!c) break;
         const outFrac = threat.physical?.kind === 'capacity_out_fraction' ? threat.physical.value * sev : 0.1 * sev;
-        const outMonths = Math.max(1, Math.round(n * 0.5));
+        const outMonths = Math.max(1, Math.round(n * 0.75)); // Sturgis: closed Feb 17, product shipped late Aug 2022 → 7 of 9 months
         const path = manufacturingShortfall({ capacityOutFraction: outFrac * rel, outMonths, rampMonths: 2, months: n });
         out.push(supplyShock(threat, c, path, threat.name));
         break;
@@ -2666,7 +2666,7 @@ function cropPathFor(id: string, ctx: EngineContext, lossFraction: number, regio
 - [ ] **Step 5: Run shock tests**
 
 Run: `cd packages/engine && PATH="$HOME/.local/bin:$PATH" npx vitest run test/shock.test.ts`
-Expected: all 11 pass. The facility test expects `supplyPath[8] === 0` with `months: 9` → outMonths 5 (round(4.5) = 5 in JS: `Math.round(4.5)` is 5), ramp months 5,6 → index 7 and 8 are 0. Confirm; if the ramp lands differently adjust the expectation to the actual path printed, not the code.
+Expected: all 11 pass. The facility test expects `supplyPath[8] === 0` with `months: 9` → outMonths 7 (round(6.75)), ramp months 7 and 8 → index 7 is 0.1 and index 8 is 0.
 
 - [ ] **Step 6: Write the failing impact tests**
 
@@ -2921,3 +2921,526 @@ git add -A && git commit -m "feat(engine): threat-to-shock rules and impact asse
 
 Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
 ```
+
+---
+
+### Task 9: Mitigation solver
+
+**Files:**
+- Create: `packages/engine/src/mitigation.ts`
+- Modify: `packages/engine/src/index.ts`
+- Test: `packages/engine/test/mitigation.test.ts`
+
+**Interfaces:**
+- Consumes: `LeverConfig`, `MitigationPlan`, `LeverResult` (Task 2); `computeImpact`, `threatToShocks`, `loadContext`, `loadCase` in tests.
+- Produces: `planMitigation(gap: number[], levers: LeverConfig[], opts: { commodity: string; unit: string; activate?: string[]; deactivate?: string[] }): MitigationPlan`
+
+Semantics (write these into `docs/economics/methodology.md` §5 in Task 11):
+- The gap is the monthly physical shortfall after baseline recovery (biology already embedded), in commodity units.
+- Demand-side levers remove `rationingShare × gap[t]` first and are reported as `rationed`, never as supply.
+- Supply levers (import, stockpile, domestic_ramp, redirect) become available at their effective lead, which is the max of their own lead and the effective lead of any lever they `require`. Capacity ramps linearly over `rampMonths`. Stockpiles are capped by `stock`. A regulatory lever with `stock` caps the cumulative units of everything that requires it.
+- Each month, available supply levers are allocated in ascending `unitCost` until the remaining gap is closed.
+- Regulatory levers receive `enabledUnits` = units delivered by levers that require them; their `share` is `enabledUnits / cumulativeGap`.
+- `share` for other levers is `cumulative / cumulativeGap`. Classification: `unused` if nothing delivered or enabled; `does the work` if share ≥ 0.25; otherwise `marginal`.
+- `uncoveredShare` = 1 − (Σ covered + Σ rationed) / cumulativeGap: the part consumers bear through price and stock-outs.
+- `timeToCloseMonths` = first month from which coverage stays ≥ 0.95 through the end of the gap, else null.
+
+- [ ] **Step 1: Write the failing tests**
+
+`packages/engine/test/mitigation.test.ts`:
+```ts
+import { describe, it, expect } from 'vitest';
+import { planMitigation } from '../src/mitigation.js';
+import { computeImpact } from '../src/impact.js';
+import { threatToShocks } from '../src/shock.js';
+import { loadContext, loadCase } from '@surge/config';
+import type { LeverConfig } from '../src/types.js';
+
+const ctx = loadContext();
+const lever = (o: Partial<LeverConfig>): LeverConfig => ({
+  id: 'l', name: 'L', commodity: 'x', type: 'import', capacityPerMonth: 10, leadMonths: 0, rampMonths: 1, unitCost: 1, fixedCost: 0,
+  enabledByDefault: true, precedent: { name: 'p', url: 'u', note: '' }, source: 's', ...o,
+});
+
+describe('planMitigation mechanics', () => {
+  it('allocates cheapest first and respects capacity, lead, and ramp', () => {
+    const levers = [
+      lever({ id: 'cheap', unitCost: 1, capacityPerMonth: 4, leadMonths: 1, rampMonths: 2 }),
+      lever({ id: 'dear', unitCost: 5, capacityPerMonth: 10, leadMonths: 0, rampMonths: 1 }),
+    ];
+    const plan = planMitigation([10, 10, 10], levers, { commodity: 'x', unit: 'u' });
+    const cheap = plan.levers.find((l) => l.id === 'cheap')!, dear = plan.levers.find((l) => l.id === 'dear')!;
+    expect(cheap.unitsPath).toEqual([0, 2, 4]);
+    expect(dear.unitsPath).toEqual([10, 8, 6]);
+    expect(plan.coverage).toEqual([1, 1, 1]);
+    expect(plan.totalCost).toBeCloseTo(6 * 1 + 24 * 5, 9);
+    expect(plan.timeToCloseMonths).toBe(0);
+  });
+  it('caps stockpiles and regulatory unlocks', () => {
+    const levers = [
+      lever({ id: 'reg', type: 'regulatory', capacityPerMonth: 0, stock: 5 }),
+      lever({ id: 'imp', requires: 'reg', capacityPerMonth: 10, leadMonths: 0 }),
+      lever({ id: 'stk', type: 'stockpile', stock: 3, capacityPerMonth: 3, unitCost: 0.5 }),
+    ];
+    const plan = planMitigation([10, 10], levers, { commodity: 'x', unit: 'u' });
+    const imp = plan.levers.find((l) => l.id === 'imp')!, stk = plan.levers.find((l) => l.id === 'stk')!, reg = plan.levers.find((l) => l.id === 'reg')!;
+    expect(stk.cumulative).toBe(3);
+    expect(imp.cumulative).toBe(5);
+    expect(reg.enabledUnits).toBe(5);
+    expect(plan.uncoveredShare).toBeCloseTo(1 - 8 / 20, 9);
+  });
+  it('effective lead of a dependent is at least its requirement lead', () => {
+    const levers = [lever({ id: 'reg', type: 'regulatory', capacityPerMonth: 0, leadMonths: 2 }), lever({ id: 'imp', requires: 'reg', leadMonths: 0 })];
+    const plan = planMitigation([5, 5, 5], levers, { commodity: 'x', unit: 'u' });
+    expect(plan.levers.find((l) => l.id === 'imp')!.unitsPath).toEqual([0, 0, 5]);
+  });
+  it('demand-side levers ration, they do not supply', () => {
+    const plan = planMitigation([10], [lever({ id: 'ration', type: 'demand_side', capacityPerMonth: 0, rationingShare: 0.1 })], { commodity: 'x', unit: 'u' });
+    expect(plan.rationed).toEqual([1]);
+    expect(plan.covered).toEqual([0]);
+    expect(plan.coverage[0]).toBeCloseTo(0.1, 9);
+  });
+  it('activate and deactivate override defaults', () => {
+    const levers = [lever({ id: 'off', enabledByDefault: false }), lever({ id: 'on', enabledByDefault: true })];
+    const p1 = planMitigation([5], levers, { commodity: 'x', unit: 'u', activate: ['off'], deactivate: ['on'] });
+    expect(p1.levers.find((l) => l.id === 'off')!.cumulative).toBe(5);
+    expect(p1.levers.find((l) => l.id === 'on')!.classification).toBe('unused');
+  });
+  it('returns null time to close when the gap never closes', () => {
+    const plan = planMitigation([10, 10], [lever({ capacityPerMonth: 1 })], { commodity: 'x', unit: 'u' });
+    expect(plan.timeToCloseMonths).toBeNull();
+  });
+});
+
+describe('published cases', () => {
+  it('formula 2022: enforcement discretion does the work, the airlift is marginal', () => {
+    const c = loadCase('formula-2022');
+    const impact = computeImpact(threatToShocks(c.threats[0]!, ctx), ctx);
+    const gap = impact.shortfall['infant-formula']!.units;
+    const plan = planMitigation(gap, ctx.levers, { commodity: 'infant-formula', unit: '8-oz bottle-equivalent' });
+    const fda = plan.levers.find((l) => l.id === 'formula-fda-enforcement-discretion')!;
+    const air = plan.levers.find((l) => l.id === 'formula-fly-formula-airlift')!;
+    expect(fda.classification).toBe('does the work');
+    expect(air.classification).toBe('marginal');
+    expect(fda.enabledUnits).toBeGreaterThan(air.cumulative * 3);
+    expect(air.cost / Math.max(1, air.cumulative)).toBeGreaterThan(plan.levers.find((l) => l.id === 'formula-commercial-imports')!.cost / Math.max(1, plan.levers.find((l) => l.id === 'formula-commercial-imports')!.cumulative));
+  });
+  it('eggs 2022: every lever is marginal and most of the gap is borne by consumers', () => {
+    const c = loadCase('egg-2022');
+    const impact = computeImpact(threatToShocks(c.threats[0]!, ctx), ctx);
+    const plan = planMitigation(impact.shortfall['eggs']!.units, ctx.levers, { commodity: 'eggs', unit: 'dozen' });
+    for (const l of plan.levers) expect(['marginal', 'unused']).toContain(l.classification);
+    expect(plan.uncoveredShare).toBeGreaterThan(0.5);
+    expect(plan.levers.find((l) => l.id === 'egg-broiler-redirect')!.classification).toBe('unused');
+  });
+});
+```
+
+- [ ] **Step 2: Run to verify failure**
+
+Run: `cd packages/engine && PATH="$HOME/.local/bin:$PATH" npx vitest run test/mitigation.test.ts`
+Expected: FAIL, cannot find `../src/mitigation.js`.
+
+- [ ] **Step 3: Write `mitigation.ts`**
+
+```ts
+// packages/engine/src/mitigation.ts
+import type { LeverConfig, LeverResult, MitigationPlan } from './types.js';
+
+const DOES_THE_WORK_SHARE = 0.25;
+const CLOSE_THRESHOLD = 0.95;
+
+function effectiveLead(l: LeverConfig, byId: Map<string, LeverConfig>, seen = new Set<string>()): number {
+  if (!l.requires || seen.has(l.id)) return l.leadMonths;
+  seen.add(l.id);
+  const req = byId.get(l.requires);
+  return req ? Math.max(l.leadMonths, effectiveLead(req, byId, seen)) : l.leadMonths;
+}
+
+export function planMitigation(gap: number[], allLevers: LeverConfig[], opts: { commodity: string; unit: string; activate?: string[]; deactivate?: string[] }): MitigationPlan {
+  const n = gap.length;
+  const active = allLevers.filter((l) => l.commodity === opts.commodity)
+    .filter((l) => (l.enabledByDefault || (opts.activate ?? []).includes(l.id)) && !(opts.deactivate ?? []).includes(l.id));
+  const byId = new Map(active.map((l) => [l.id, l] as const));
+  const lead = new Map(active.map((l) => [l.id, effectiveLead(l, byId)] as const));
+  const units = new Map(active.map((l) => [l.id, new Array<number>(n).fill(0)] as const));
+  const remainingStock = new Map<string, number>();
+  for (const l of active) if (l.stock !== undefined) remainingStock.set(l.id, l.stock);
+  const enabled = new Map(active.map((l) => [l.id, 0] as const));
+
+  const covered: number[] = new Array(n).fill(0);
+  const rationed: number[] = new Array(n).fill(0);
+  const supplyLevers = active.filter((l) => l.type !== 'regulatory' && l.type !== 'demand_side');
+  const demandLevers = active.filter((l) => l.type === 'demand_side');
+
+  for (let t = 0; t < n; t++) {
+    const g = gap[t] ?? 0;
+    if (g <= 0) continue;
+    for (const d of demandLevers) {
+      if (t < (lead.get(d.id) ?? 0)) continue;
+      const r = g * (d.rationingShare ?? 0);
+      units.get(d.id)![t] = r;
+      rationed[t]! += r;
+    }
+    let remaining = Math.max(0, g - rationed[t]!);
+    const avail = supplyLevers.filter((l) => t >= (lead.get(l.id) ?? 0)).sort((a, b) => a.unitCost - b.unitCost);
+    for (const l of avail) {
+      if (remaining <= 0) break;
+      const ld = lead.get(l.id) ?? 0;
+      const ramp = Math.min(1, (t - ld + 1) / Math.max(1, l.rampMonths));
+      let cap = l.capacityPerMonth * ramp;
+      if (remainingStock.has(l.id)) cap = Math.min(cap, remainingStock.get(l.id)!);
+      if (l.requires && remainingStock.has(l.requires)) cap = Math.min(cap, remainingStock.get(l.requires)!);
+      const take = Math.max(0, Math.min(cap, remaining));
+      if (take <= 0) continue;
+      units.get(l.id)![t] = take;
+      remaining -= take;
+      covered[t]! += take;
+      if (remainingStock.has(l.id)) remainingStock.set(l.id, remainingStock.get(l.id)! - take);
+      if (l.requires) {
+        enabled.set(l.requires, (enabled.get(l.requires) ?? 0) + take);
+        if (remainingStock.has(l.requires)) remainingStock.set(l.requires, remainingStock.get(l.requires)! - take);
+      }
+    }
+  }
+
+  const cumulativeGap = gap.reduce((a, b) => a + Math.max(0, b), 0);
+  const coverage = gap.map((g, t) => (g > 0 ? (covered[t]! + rationed[t]!) / g : 1));
+  const levers: LeverResult[] = active.map((l) => {
+    const path = units.get(l.id)!;
+    const cumulative = path.reduce((a, b) => a + b, 0);
+    const enabledUnits = enabled.get(l.id) ?? 0;
+    const basis = l.type === 'regulatory' ? enabledUnits : cumulative;
+    const share = cumulativeGap > 0 ? basis / cumulativeGap : 0;
+    const used = basis > 0;
+    const classification: LeverResult['classification'] = !used ? 'unused' : share >= DOES_THE_WORK_SHARE ? 'does the work' : 'marginal';
+    return { id: l.id, name: l.name, type: l.type, unitsPath: path, cumulative, share, enabledUnits,
+      cost: used ? cumulative * l.unitCost + l.fixedCost : 0, leadMonths: lead.get(l.id) ?? l.leadMonths, precedent: l.precedent, classification };
+  });
+  const totalCost = levers.reduce((a, l) => a + l.cost, 0);
+  let timeToCloseMonths: number | null = null;
+  for (let t = 0; t < n; t++) {
+    if (coverage.slice(t).every((c) => c >= CLOSE_THRESHOLD)) { timeToCloseMonths = t; break; }
+  }
+  const delivered = covered.reduce((a, b) => a + b, 0) + rationed.reduce((a, b) => a + b, 0);
+  return { commodity: opts.commodity, unit: opts.unit, gap, covered, coverage, rationed, levers, totalCost, timeToCloseMonths, cumulativeGap,
+    uncoveredShare: cumulativeGap > 0 ? 1 - delivered / cumulativeGap : 0 };
+}
+```
+
+Add to `index.ts`: `export * from './mitigation.js';`
+
+- [ ] **Step 4: Run tests**
+
+Run: `PATH="$HOME/.local/bin:$PATH" npm test`
+Expected: all pass. If the formula case fails the `does the work` assertion, print `plan.levers.map(l => [l.id, l.share, l.classification])`: with the Task 7 levers and a 9-month threat (7 months out, 2-month ramp) the expected picture is discretion-enabled units around a third of the cumulative gap, airlift under 10%, other-domestic ramp under 25%. Adjust only lever `capacityPerMonth` values in `levers.json` if they contradict the cited precedents, never the classification threshold.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add -A && git commit -m "feat(engine): mitigation solver with unlock dependencies, stock caps, ranking
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
+```
+
+---
+
+### Task 10: Scenarios — run, combine, compare, and the watchlist ranking
+
+**Files:**
+- Create: `packages/engine/src/scenario.ts`
+- Modify: `packages/engine/src/index.ts`
+- Test: `packages/engine/test/scenario.test.ts`, `packages/engine/test/e2e-egg.test.ts`
+
+**Interfaces:**
+- Consumes: everything above.
+- Produces:
+  - `runThreat(threat: Threat, ctx: EngineContext, severityOverride?: number): { shocks: Shock[]; impact: ImpactResult; mitigation: Record<string, MitigationPlan> }`
+  - `rankThreats(threats: Threat[], ctx: EngineContext): { threat: Threat; cv: number; worstCommodity: string }[]` sorted descending by cv (the watchlist order)
+  - `runScenario(scenario: Scenario, ctx: EngineContext, opts?: { observed?: CaseFile['observed'] }): ScenarioResult`
+  - `findConflicts(a: Scenario, b: Scenario, ctx: EngineContext): Conflict[]`
+  - `combineScenarios(a: Scenario, b: Scenario, ctx: EngineContext, resolutions: Record<string, 'a' | 'b'>, name?: string): { scenario?: Scenario; conflicts: Conflict[] }` — conflict key is `${commodity}|${region}|${a.id}|${b.id}`; unresolved conflicts return no scenario.
+  - `compareScenarios(results: ScenarioResult[]): CompareRow[]`
+
+- [ ] **Step 1: Write the failing tests**
+
+`packages/engine/test/scenario.test.ts`:
+```ts
+import { describe, it, expect } from 'vitest';
+import { runScenario, combineScenarios, compareScenarios, findConflicts, rankThreats, runThreat } from '../src/scenario.js';
+import { loadContext, loadCase } from '@surge/config';
+import type { Scenario, Threat } from '../src/types.js';
+
+const ctx = loadContext();
+const egg = loadCase('egg-2022').threats[0]!;
+const formula = loadCase('formula-2022').threats[0]!;
+const sc = (id: string, threats: Threat[]): Scenario => ({ id, name: id, threats, createdAt: '2026-09-05T00:00:00Z', updatedAt: '2026-09-05T00:00:00Z' });
+
+describe('runScenario', () => {
+  it('runs every threat through impact and mitigation', () => {
+    const r = runScenario(sc('s', [egg, formula]), ctx);
+    expect(r.impact.commodities).toEqual(['eggs', 'infant-formula']);
+    expect(Object.keys(r.mitigation).sort()).toEqual(['eggs', 'infant-formula']);
+    expect(r.impact.welfare.cv).toBeGreaterThan(0);
+  });
+  it('applies severity overrides and scenario assumption overrides', () => {
+    const half = runScenario(sc('h', [{ ...egg, severityOverride: 0.5 }]), ctx);
+    const full = runScenario(sc('f', [egg]), ctx);
+    expect(half.impact.welfare.cv).toBeLessThan(full.impact.welfare.cv);
+    const zero = runScenario(sc('z', [{ ...egg, severityOverride: 0 }]), ctx);
+    expect(zero.impact.welfare.cv).toBe(0);
+    const lessElastic = runScenario({ ...sc('e', [egg]), overrides: { elasticity: { eggs: -0.11 } } }, ctx);
+    expect(lessElastic.impact.welfare.cv).toBeGreaterThan(full.impact.welfare.cv);
+  });
+});
+
+describe('combine', () => {
+  it('unions distinct threats and is order independent', () => {
+    const a = sc('a', [egg]), b = sc('b', [formula]);
+    const ab = combineScenarios(a, b, ctx, {}).scenario!, ba = combineScenarios(b, a, ctx, {}).scenario!;
+    expect(ab.threats.map((t) => t.id).sort()).toEqual(['hpai-2022', 'sturgis-2022']);
+    expect(runScenario(ab, ctx).impact.welfare.cv).toBeCloseTo(runScenario(ba, ctx).impact.welfare.cv, 6);
+  });
+  it('flags conflicting versions of the same commodity-region threat and resolves by choice', () => {
+    const a = sc('a', [egg]);
+    const b = sc('b', [{ ...egg, id: 'hpai-2022-worse', name: 'worse', physical: { kind: 'animals_affected', value: 60e6 } }]);
+    const conflicts = findConflicts(a, b, ctx);
+    expect(conflicts).toHaveLength(1);
+    expect(combineScenarios(a, b, ctx, {}).scenario).toBeUndefined();
+    const key = `${conflicts[0]!.commodity}|${conflicts[0]!.region}|${conflicts[0]!.a.id}|${conflicts[0]!.b.id}`;
+    const keepB = combineScenarios(a, b, ctx, { [key]: 'b' }).scenario!;
+    expect(keepB.threats.map((t) => t.id)).toEqual(['hpai-2022-worse']);
+  });
+  it('joint welfare is not the sum of parts when two prices move', () => {
+    const both = runScenario(sc('both', [egg, formula]), ctx).impact.welfare.cv;
+    const sum = runScenario(sc('e', [egg]), ctx).impact.welfare.cv + runScenario(sc('f', [formula]), ctx).impact.welfare.cv;
+    expect(Math.abs(both - sum) / sum).toBeLessThan(0.05); // cross terms are small here but the path is joint
+  });
+});
+
+describe('compare and rank', () => {
+  it('produces one row per scenario with the metrics that matter', () => {
+    const rows = compareScenarios([runScenario(sc('a', [egg]), ctx), runScenario(sc('b', [formula]), ctx)]);
+    expect(rows).toHaveLength(2);
+    expect(rows[0]!.worstCommodity).toBe('eggs');
+    expect(rows[1]!.worstCommodity).toBe('infant-formula');
+    expect(typeof rows[0]!.mitigationCost).toBe('number');
+    expect(rows[0]!.incidence).toHaveLength(5);
+  });
+  it('ranks threats by welfare loss descending', () => {
+    const ranked = rankThreats([formula, egg], ctx);
+    expect(ranked[0]!.cv).toBeGreaterThanOrEqual(ranked[1]!.cv);
+    expect(ranked.map((r) => r.threat.id)).toContain('hpai-2022');
+  });
+  it('runThreat returns mitigation keyed by commodity', () => {
+    expect(Object.keys(runThreat(egg, ctx).mitigation)).toEqual(['eggs']);
+  });
+});
+```
+
+`packages/engine/test/e2e-egg.test.ts`:
+```ts
+import { describe, it, expect } from 'vitest';
+import { runScenario } from '../src/scenario.js';
+import { loadContext, loadCase } from '@surge/config';
+
+/** The egg shock end to end: case file → shocks → impact (observed path, published attribution) → mitigation. */
+describe('egg 2022 end to end', () => {
+  const ctx = loadContext();
+  const c = loadCase('egg-2022');
+  const r = runScenario({ id: 'egg-2022', name: c.name, threats: c.threats, overrides: { pricePath: 'observed' }, createdAt: '', updatedAt: '' }, ctx, { observed: c.observed! });
+  it('produces a retail price path from FRED with attribution', () => {
+    expect(r.impact.price.path).toBe('observed');
+    expect(Math.max(...r.impact.price.retailPct['eggs']!)).toBeGreaterThan(0.5);
+  });
+  it('lands the welfare loss between the two published estimates for 2022', () => {
+    expect(r.impact.welfare.cv).toBeGreaterThan(0.93e9);
+    expect(r.impact.welfare.cv).toBeLessThan(4.1e9);
+  });
+  it('shows the physical shortfall and a mitigation plan dominated by biology', () => {
+    expect(Math.max(...r.impact.shortfall['eggs']!.units)).toBeGreaterThan(20e6);
+    expect(r.mitigation['eggs']!.uncoveredShare).toBeGreaterThan(0.5);
+  });
+  it('exposes the assumptions an economist would ask about', () => {
+    const keys = r.impact.assumptions.map((a) => a.key);
+    for (const k of ['elasticity.eggs', 'passThrough.eggs', 'recovery.eggs', 'offset.eggs', 'attribution.eggs', 'pricePath', 'demandSystem']) expect(keys).toContain(k);
+  });
+});
+```
+
+- [ ] **Step 2: Run to verify failure**
+
+Run: `cd packages/engine && PATH="$HOME/.local/bin:$PATH" npx vitest run test/scenario.test.ts test/e2e-egg.test.ts`
+Expected: FAIL, cannot find `../src/scenario.js`.
+
+- [ ] **Step 3: Write `scenario.ts`**
+
+```ts
+// packages/engine/src/scenario.ts
+import type { EngineContext, Threat, Shock, ImpactResult, MitigationPlan, Scenario, ScenarioResult, ScenarioThreat, Conflict, CompareRow, CaseFile } from './types.js';
+import { threatToShocks } from './shock.js';
+import { computeImpact } from './impact.js';
+import { planMitigation } from './mitigation.js';
+import { monthIndex } from './months.js';
+
+function mitigationFor(impact: ImpactResult, ctx: EngineContext): Record<string, MitigationPlan> {
+  const out: Record<string, MitigationPlan> = {};
+  for (const id of impact.commodities) {
+    const sf = impact.shortfall[id]!;
+    out[id] = planMitigation(sf.units, ctx.levers, { commodity: id, unit: sf.unit });
+  }
+  return out;
+}
+
+export function runThreat(threat: Threat, ctx: EngineContext, severityOverride?: number): { shocks: Shock[]; impact: ImpactResult; mitigation: Record<string, MitigationPlan> } {
+  const shocks = threatToShocks(threat, ctx, severityOverride);
+  const impact = computeImpact(shocks, ctx);
+  return { shocks, impact, mitigation: mitigationFor(impact, ctx) };
+}
+
+export function rankThreats(threats: Threat[], ctx: EngineContext): { threat: Threat; cv: number; worstCommodity: string }[] {
+  return threats.map((threat) => {
+    const { impact } = runThreat(threat, ctx);
+    const worst = Object.entries(impact.welfare.byCommodity).sort((a, b) => b[1] - a[1])[0]?.[0] ?? '';
+    return { threat, cv: impact.welfare.cv, worstCommodity: worst };
+  }).sort((a, b) => b.cv - a.cv);
+}
+
+export function runScenario(scenario: Scenario, ctx: EngineContext, opts?: { observed?: CaseFile['observed'] }): ScenarioResult {
+  const c: EngineContext = { ...ctx, overrides: { ...(ctx.overrides ?? {}), ...(scenario.overrides ?? {}) } };
+  const shocks = scenario.threats.flatMap((t) => threatToShocks(t, c, t.severityOverride));
+  const impact = computeImpact(shocks, c, opts);
+  return { scenario, shocks, impact, mitigation: mitigationFor(impact, c) };
+}
+
+function span(t: ScenarioThreat, ctx: EngineContext): { start: string; months: number } {
+  return { start: t.start, months: t.months ?? ctx.threatTypes[t.category]?.defaultMonths ?? 6 };
+}
+
+function overlaps(a: ScenarioThreat, b: ScenarioThreat, ctx: EngineContext): boolean {
+  const sa = span(a, ctx), sb = span(b, ctx);
+  const off = monthIndex(sa.start, sb.start);
+  return off < sa.months && -off < sb.months;
+}
+
+export function findConflicts(a: Scenario, b: Scenario, ctx: EngineContext): Conflict[] {
+  const out: Conflict[] = [];
+  for (const ta of a.threats) for (const tb of b.threats) {
+    if (ta.id === tb.id && JSON.stringify(ta) === JSON.stringify(tb)) continue; // identical: union silently
+    const ra = ta.location.regionId ?? 'unknown', rb = tb.location.regionId ?? 'unknown';
+    if (ra !== rb) continue;
+    const shared = ta.commodities.map((c) => c.id).filter((id) => tb.commodities.some((c) => c.id === id));
+    if (shared.length === 0 || !overlaps(ta, tb, ctx)) continue;
+    for (const commodity of shared) out.push({ commodity, region: ra, a: ta, b: tb });
+  }
+  return out;
+}
+
+export function combineScenarios(a: Scenario, b: Scenario, ctx: EngineContext, resolutions: Record<string, 'a' | 'b'>, name?: string): { scenario?: Scenario; conflicts: Conflict[] } {
+  const conflicts = findConflicts(a, b, ctx);
+  const key = (c: Conflict) => `${c.commodity}|${c.region}|${c.a.id}|${c.b.id}`;
+  const unresolved = conflicts.filter((c) => !resolutions[key(c)]);
+  if (unresolved.length > 0) return { conflicts };
+  const drop = new Set<string>();
+  for (const c of conflicts) { const keep = resolutions[key(c)]; drop.add(keep === 'a' ? c.b.id : c.a.id); }
+  const byId = new Map<string, ScenarioThreat>();
+  for (const t of [...a.threats, ...b.threats]) if (!drop.has(t.id)) byId.set(t.id, t);
+  const threats = [...byId.values()].sort((x, y) => x.id.localeCompare(y.id));
+  const now = new Date().toISOString();
+  return { conflicts, scenario: { id: `${a.id}+${b.id}`, name: name ?? `${a.name} + ${b.name}`, threats, overrides: { ...(a.overrides ?? {}), ...(b.overrides ?? {}) }, createdAt: now, updatedAt: now } };
+}
+
+export function compareScenarios(results: ScenarioResult[]): CompareRow[] {
+  return results.map((r) => {
+    const by = r.impact.welfare.byCommodity;
+    const worst = Object.entries(by).sort((x, y) => y[1] - x[1])[0]?.[0] ?? '';
+    const plans = Object.values(r.mitigation);
+    const times = plans.map((p) => p.timeToCloseMonths).filter((t): t is number => t !== null);
+    return {
+      scenarioId: r.scenario.id, name: r.scenario.name, totalCV: r.impact.welfare.cv, byCommodity: by, worstCommodity: worst,
+      mitigationCost: plans.reduce((a, p) => a + p.totalCost, 0),
+      timeToRecoverMonths: plans.length > 0 && times.length === plans.length ? Math.max(...times, r.impact.durationMonths) : null,
+      incidence: r.impact.welfare.incidence,
+    };
+  });
+}
+```
+
+Add to `index.ts`: `export * from './scenario.js';`
+
+- [ ] **Step 4: Run all tests and typecheck**
+
+Run: `PATH="$HOME/.local/bin:$PATH" npm test && PATH="$HOME/.local/bin:$PATH" npm run typecheck`
+Expected: all pass, typecheck clean.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add -A && git commit -m "feat(engine): scenarios (run, combine with conflicts, compare) and watchlist ranking; egg end-to-end test
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
+```
+
+---
+
+### Task 11: Methodology derivations, DECISIONS.md, README
+
+**Files:**
+- Create: `docs/economics/methodology.md`, `DECISIONS.md`, `README.md`
+
+- [ ] **Step 1: Write `docs/economics/methodology.md`** with these sections, each stating the equation the code implements and the file/function that implements it:
+
+```markdown
+# SURGE methodology (engine derivations)
+
+Every formula here is implemented in `packages/engine/src` and tested in `packages/engine/test`.
+Sources and parameter choices: `docs/economics/literature-review.md`.
+
+## 1. Physical shortfall (`biology.ts`)
+Livestock: inventory in production I(t) = I₀ − Σₖ Lₖ·(1 − r(t − tₖ)), with r(k) the share of a cohort lost k months ago that is back in lay: 0 for k < lagMin, (k − lagMin + 1)/(lagMax − lagMin + 1) for lagMin ≤ k ≤ lagMax, 1 after. Shortfall s(t) = (1 − ω)·(I₀ − I(t))/I₀, with ω the producer offset (delayed culling, higher lay rates). Defaults for layers: lagMin 5, lagMax 12, ω 0.35; validated against Ferrier et al. (2024) Table 4.
+Crops: a yield loss δ on a region with share σ of national supply gives s = δ·σ·(1 − min(0.5, stocks-to-use)) over one marketing year from the shock month (seasonal timing simplified; see DECISIONS.md).
+Manufacturing: s = capacity-out fraction for the outage, then a linear ramp.
+
+## 2. Price stage (`price.ts`)
+Short-run supply is fixed by biology. Domestic consumers respond to retail prices, foreign buyers to wholesale. With export share x, domestic elasticity ε < 0, export demand elasticity εₓ ≤ 0, and retail pass-through θ (π_r = θ·π_w):
+(1 − x)·ε·π_r + x·εₓ·π_w = −s  ⇒  π_r = −s / ((1 − x)·ε + x·εₓ/θ),  π_w = π_r/θ.
+Cost wedges c(t) (tariffs, input costs, freight) add to π_w. Retail lags wholesale by L months. Quantity: Δq/q = ε·π_r.
+Replays may instead use the observed FRED path: π_r(t) = a·(P_obs(t)/P_cf(t) − 1), with attribution share a exposed.
+
+## 3. Welfare (`welfare.ts`, `impact.ts`)
+Compensating variation from the expenditure function e(p, u): CV = e(p¹, u⁰) − e(p⁰, u⁰). Second-order Taylor expansion in prices, using Shephard's lemma (∂e/∂pᵢ = hᵢ) and the Slutsky matrix (∂hᵢ/∂pⱼ):
+CV ≈ Σᵢ Xᵢ πᵢ + ½ Σᵢ Σⱼ Xᵢ ε^cᵢⱼ πᵢ πⱼ, where Xᵢ = pᵢ hᵢ is baseline expenditure and ε^cᵢⱼ = εᵢⱼ + wⱼ ηᵢ (Slutsky).
+Symmetry: Xᵢ ε^cᵢⱼ = Xⱼ ε^cⱼᵢ is enforced by averaging; the largest adjustment is reported. Negative semidefiniteness of S = [wᵢ ε^cᵢⱼ] is checked with Jacobi eigenvalues and reported.
+EV ≈ CV − (Σᵢ Xᵢ ηᵢ πᵢ)(Σₖ Xₖ πₖ)/M (Willig 1976 income correction).
+Single-good replica: with q = q₀(p/p₀)^ε, ΔCS = X₀[(1 + π)^(1+ε) − 1]/(1 + ε) (Mitchell et al. 2025; Ferrier et al. 2024 "exact method").
+Monthly π vectors are summed over the shock horizon. Substitution: Δqⱼ/qⱼ = Σᵢ εⱼᵢ πᵢ (Marshallian), flagged significant when |εⱼᵢ| ≥ 1.645·SE. Incidence: per-household loss by income quintile = spendₖ·π·(1 + ½ε^cπ).
+
+## 4. Calibration and validation
+Fryar (2025) inputs reproduce $1.41B within 2% (residual: unpublished population base). Ferrier (2024) shortfalls reproduced within 2.5 points per quarter. Price stage matches Ferrier's 22–26% for a 5.7% shortfall at ε = −0.27 without trade buffers.
+
+## 5. Mitigation (`mitigation.ts`)
+Gap g(t) in physical units after baseline recovery. Demand-side levers remove ρ·g(t) (rationing). Supply levers become available at their effective lead (max over the unlock chain), ramp linearly, are capped by stock, and are allocated in ascending unit cost. Regulatory levers are credited with the units of the levers they unlock. Share = units / Σg; "does the work" at ≥ 25%. Uncovered share is borne by consumers through price and stock-outs.
+
+## 6. Scenarios (`scenario.ts`)
+Shocks are unioned; the π vector is joint, so CV is computed once per month over all moved goods and is path-independent. Conflicts (same commodity, region, overlapping months) require the user to choose a version.
+```
+
+- [ ] **Step 2: Write `DECISIONS.md`** listing, one paragraph each, with the reason: TypeScript monorepo with a browser-run engine; zero-dependency engine; ERR-139 as the elasticity source and Andreyeva ranges for bands; second-order Hicksian CV as headline with a single-good replica; observed vs modeled price path as an exposed assumption; recovery lag as a uniform 5–12 month ramp with a 0.35 producer offset; crop seasonal timing simplified to "loss from shock month for one marketing year"; retail commodities vs upstream inputs split, with inputs propagating through cost shares; rerouting share 0.3, world-price transmission 0.5, freight wedge 0.05 at full closure as modeled constants; classification threshold 25% of cumulative gap; infant formula elasticity assumed −0.3 with zero cross terms; monthly time step; public aggregation state-week; scenarios in browser storage.
+
+- [ ] **Step 3: Write `README.md`** with: what SURGE is (two sentences), repo layout, how to run tests (`PATH="$HOME/.local/bin:$PATH" npm install && npm test`), where the economics live, and the plan sequence (Plan 1 engine, Plan 2 server feeds, Plan 3 web, Plan 4 simulator and deploy).
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add -A && git commit -m "docs: methodology derivations, DECISIONS.md, README
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
+```
+
+---
+
+## Plan self-review
+
+- Spec coverage: §3 interfaces (Task 2), §4.1 rules (Task 8), §4.2 biology (Task 5), §4.3 price (Task 6), §4.4 welfare and tests (Tasks 3, 4, 8), §4.5 mitigation (Task 9), §4.6 scenarios (Task 10), §5 config sources (Task 7), §8 engine and config tests (all), §10 decisions (Task 11). Server feeds, UI, deployment are Plans 2–4.
+- Type consistency: `Shock.kind/via` added in Task 7 Step 1 before Task 8 uses them; `EngineContext.inputs` added there and required by `validateConfig`; `loadContext`/`loadCase` names match across Tasks 7–10; `LeverResult.enabledUnits` and `MitigationPlan.uncoveredShare` used by Tasks 9–10 as defined in Task 2.
+- Known simplifications are named in DECISIONS.md rather than hidden: crop seasonal timing, constant rerouting/transmission/freight parameters, infant-formula elasticity.
