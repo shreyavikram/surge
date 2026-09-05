@@ -281,3 +281,34 @@ vegetables, fresh fruit (apples, bananas, citrus, other), nuts, coffee, cocoa, o
 infant formula; inputs: fertilizer, feed grains, energy. Default elasticity source ERR-139 with
 Andreyeva ranges for bands. Default recovery lag for layers 6 months. Public aggregation
 state-week. Scenarios in browser storage, no accounts.
+
+## 11. AI layer (added 2026-09-05 after the judging rubric)
+
+AI is structural in SURGE but never computes a number. Three components, all on the server:
+
+1. **Threat extraction.** Unstructured feed items (GDACS event descriptions, Global Trade Alert
+   intervention text, IFPRI tracker entries, USDA and FDA notices) are converted by Claude into
+   `Threat` candidates against the engine schema. A deterministic validator then checks category,
+   commodity ids against the config, location inside a known region bounding box, physical kind
+   allowed for the category, and dates; anything failing is rejected with a reason and never reaches
+   the map. An evaluation set of labeled feed items is committed and run in tests with recorded
+   model outputs, reporting category accuracy and commodity precision/recall; live calls are used
+   only when a key is present.
+2. **Analyst agent.** A natural-language question ("what happens to bread if the Black Sea closes
+   for three months?") is answered by Claude choosing among deterministic tools: list threats, run a
+   threat, run a scenario, compare scenarios, explain assumptions. The engine computes; Claude
+   narrates and cites tool outputs. A numeric guard rejects any answer containing a number absent
+   from the tool outputs and falls back to a templated summary.
+3. **Briefs.** Plain-language briefs from an ImpactResult and MitigationPlan with the same guard.
+
+Failure modes documented and tested: hallucinated numbers (guard), invented commodities or places
+(validator), stale feeds (staleness badges and snapshot fallback), key absent (templated fallbacks),
+prompt injection from feed text (feed text is passed as data inside a delimited block, tools are
+allow-listed, and the validator is the last word).
+
+## 12. Persona
+
+`docs/design/persona.md` (drafted by the team) names the guiding-star user; UI decisions in Plan 3
+cite it. Working assumption until then: a food-supply risk analyst who must defend a dollar figure
+upward within hours, distrusts numbers whose provenance they cannot see, and needs the map to show
+where, the impact panel to show how much, and the relief panel to show what could be done.
