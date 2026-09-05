@@ -1447,3 +1447,887 @@ git add -A && git commit -m "feat(engine): price stage with trade buffer, pass-t
 
 Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
 ```
+
+---
+
+### Task 7: Config package — ERS demand system extraction, commodities, inputs, regions, threat types, levers, plate, cases
+
+**Files:**
+- Modify: `packages/engine/src/types.ts` (add `InputConfig`, `EngineContext.inputs`, `Shock.kind`, `Shock.via`)
+- Create: `packages/config/package.json`, `packages/config/tsconfig.json`, `packages/config/vitest.config.ts`, `packages/config/src/index.ts`, `packages/config/tools/extract-err139.py`, `packages/config/data/demand-system.json` (generated), `packages/config/data/commodities.json`, `packages/config/data/inputs.json`, `packages/config/data/threat-types.json`, `packages/config/data/regions.json`, `packages/config/data/levers.json`, `packages/config/data/plate.json`, `packages/config/data/cases/egg-2024-calibration.json`, `packages/config/data/cases/egg-2022.json`, `packages/config/data/cases/formula-2022.json`
+- Test: `packages/config/test/config.test.ts`
+
+**Interfaces:**
+- Consumes: `validateConfig`, all config types (Task 2).
+- Produces: `loadContext(): EngineContext` from `@surge/config`; `loadCase(id: 'egg-2024-calibration' | 'egg-2022' | 'formula-2022'): CaseFile`; `CaseFile` type below. Demand-system item ids (used by `commodities.group`): `flour, breakfast_cereals, rice_pasta, nonwhite_bread, white_bread, biscuits_rolls, cakes_cookies, other_bakery, beef, pork, other_red_meat, poultry, fish, eggs, cheese, ice_cream, milk, other_dairy, apples, bananas, citrus, other_fresh_fruit, potatoes, lettuce, tomatoes, other_fresh_vegetables, processed_fv, coffee_tea, carbonated, noncarbonated, frozen_beverages, sugar_sweets, fats_oils, soups, frozen_foods, snacks, condiments, misc_fah, alcohol, limited_service, full_service, other_fafh, nonfood, infant_formula` (44: ERR-139's 43 plus `infant_formula` appended with its own elasticity and zero cross terms).
+
+- [ ] **Step 1: Extend `types.ts`**
+
+Append to `packages/engine/src/types.ts`:
+```ts
+/** Farm-level or upstream inputs whose price shocks reach retail commodities through cost shares. */
+export interface InputConfig {
+  id: string;
+  name: string;
+  unit: string;
+  demand: { totalElasticity: number; source: string };     // domestic use + export demand, at the farm/wholesale level
+  trade: { exportShare: number; exportElasticity: number; importShare: number; source: string };
+  supply: { model: 'crop' | 'manufacturing' | 'import'; harvestMonth?: number; stocksToUse?: number; source: string };
+}
+```
+and change `Shock` to:
+```ts
+export interface Shock {
+  kind: 'supply' | 'cost';
+  commodity: string;              // retail commodity id that consumers face
+  via?: string;                   // input id when kind === 'cost'
+  region: string;
+  start: string;
+  supplyPath: number[];
+  costPath?: number[];
+  passThrough: number;
+  lagMonths: number;
+  provenance: SourceStamp[];
+  label?: string;
+}
+```
+and add to `EngineContext`: `inputs: Record<string, InputConfig>;` and to `CommodityConfig.inputs` items keep `{ input: string; costShare: number; source: string }` (already present).
+Also add:
+```ts
+export interface CaseFile {
+  id: string;
+  name: string;
+  description: string;
+  threats: Threat[];
+  observed?: { commodity: string; months: string[]; retailPrice: number[]; counterfactualPrice: number[]; attributionShare: number; source: string };
+  expected?: Record<string, number>;   // published figures the case is validated against
+  source: string;
+}
+```
+Update `packages/engine/test/fixtures/minimal-context.ts` to include `inputs: {}` and the schema validator (`config-schema.ts`) to require `inputs.<id>.demand.source`, `trade.source`, `supply.source` for each input.
+
+- [ ] **Step 2: Write the config package files**
+
+`packages/config/package.json`:
+```json
+{
+  "name": "@surge/config",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "test": "vitest run", "typecheck": "tsc --noEmit -p tsconfig.json", "extract": "python3 tools/extract-err139.py" },
+  "dependencies": { "@surge/engine": "*" },
+  "devDependencies": { "@types/node": "^24.0.0", "typescript": "^5.6.0", "vitest": "^3.0.0" }
+}
+```
+`packages/config/tsconfig.json`: same as engine's but `include: ["src/**/*.ts", "test/**/*.ts", "data/**/*.json"]`.
+`packages/config/vitest.config.ts`: same as engine's.
+
+- [ ] **Step 3: Write the ERR-139 extraction script**
+
+`packages/config/tools/extract-err139.py` parses Appendix table A.10 (unconditional Marshallian elasticities, 43×43 with bootstrapped SEs) and Table 1 (budget shares) from `tools/err139.txt` into `data/demand-system.json`. Row and column order is the canonical order below; the appendix prints the matrix in page blocks of up to 9 columns, and each row is one label line (sometimes wrapped over two lines), one line of point estimates, one line of parenthesized SEs.
+
+```python
+#!/usr/bin/env python3
+"""Extract the ERR-139 unconditional demand elasticity matrix and budget shares.
+
+Source: Okrent & Alston (2012), ERS ERR-139, Appendix table A.10 and Table 1.
+Output: data/demand-system.json consumed by @surge/config.
+"""
+import json, re, sys
+from pathlib import Path
+
+HERE = Path(__file__).parent
+TXT = (HERE / "err139.txt").read_text()
+OUT = HERE.parent / "data" / "demand-system.json"
+
+# canonical order in ERR-139 (43 items incl. nonfood); label aliases as they appear in the appendix text
+ITEMS = [
+    ("flour", "Flour and flour mixes", ["Flour, prep. mixes", "Flour, prep.mixes", "Flour and flour mixes"]),
+    ("breakfast_cereals", "Breakfast cereals", ["Breakfast cereals"]),
+    ("rice_pasta", "Rice and pasta", ["Rice and pasta", "Rice, pasta"]),
+    ("nonwhite_bread", "Nonwhite bread", ["Nonwhite bread", "Non-white bread"]),
+    ("white_bread", "White bread", ["White bread"]),
+    ("biscuits_rolls", "Biscuits, rolls, muffins", ["Biscuits, rolls, muff.", "Biscuits, rolls, muffins"]),
+    ("cakes_cookies", "Cakes and cookies", ["Cakes and cookies", "Cakes, cookies"]),
+    ("other_bakery", "Other bakery products", ["Other bakery", "Other bakery products"]),
+    ("beef", "Beef", ["Beef"]),
+    ("pork", "Pork", ["Pork"]),
+    ("other_red_meat", "Other red meat", ["Other red meat"]),
+    ("poultry", "Poultry", ["Poultry"]),
+    ("fish", "Fish", ["Fish"]),
+    ("eggs", "Eggs", ["Eggs"]),
+    ("cheese", "Cheese", ["Cheese"]),
+    ("ice_cream", "Ice cream and frozen desserts", ["Ice cream and frozen desserts", "Ice cream and frozen dess.", "Frozen dairy desserts"]),
+    ("milk", "Milk", ["Milk"]),
+    ("other_dairy", "Other dairy", ["Other dairy"]),
+    ("apples", "Apples", ["Apples"]),
+    ("bananas", "Bananas", ["Bananas"]),
+    ("citrus", "Citrus", ["Citrus"]),
+    ("other_fresh_fruit", "Other fresh fruit", ["Other fresh fruit", "Other fresh fruits"]),
+    ("potatoes", "Potatoes", ["Potatoes"]),
+    ("lettuce", "Lettuce", ["Lettuce"]),
+    ("tomatoes", "Tomatoes", ["Tomatoes"]),
+    ("other_fresh_vegetables", "Other fresh vegetables", ["Other fresh vegetables", "Other fresh vegetable"]),
+    ("processed_fv", "Processed fruits and vegetables", ["Processed fruits and vegetables", "Proc. fruits and vegetables", "Proc. fruits, vegetables"]),
+    ("coffee_tea", "Coffee and tea", ["Coffee and tea"]),
+    ("carbonated", "Carbonated beverages", ["Carbonated beverages", "Carbonated drinks"]),
+    ("noncarbonated", "Noncarbonated beverages", ["Non-carbonated beverages", "Noncarbonated beverages", "Nonfrozen noncarb. drinks"]),
+    ("frozen_beverages", "Frozen beverages", ["Frozen beverages", "Frozen noncarb. drinks"]),
+    ("sugar_sweets", "Sugar and sweets", ["Sugar and sweets"]),
+    ("fats_oils", "Fats and oils", ["Fats and oils"]),
+    ("soups", "Soups", ["Soups"]),
+    ("frozen_foods", "Frozen foods", ["Frozen foods"]),
+    ("snacks", "Snacks", ["Snacks"]),
+    ("condiments", "Condiments, sauces, seasonings", ["Condiments, sauces, seas.", "Condiments, sauces, seasonings", "Condiments"]),
+    ("misc_fah", "Miscellaneous food at home", ["Misc. FAH", "Miscellaneous FAH", "Misc. food at home"]),
+    ("alcohol", "Alcohol", ["Alcohol"]),
+    ("limited_service", "Limited-service restaurants", ["Limited service", "Limited-service"]),
+    ("full_service", "Full-service restaurants", ["Full service", "Full-service"]),
+    ("other_fafh", "Other food away from home", ["Other FAFH"]),
+    ("nonfood", "Nonfood", ["Nonfood"]),
+]
+IDS = [i[0] for i in ITEMS]
+ALIAS = {}
+for id_, _, aliases in ITEMS:
+    for a in aliases:
+        ALIAS[re.sub(r"\s+", " ", a.lower()).strip()] = id_
+
+NUM_LINE = re.compile(r"^\s*(-?\d+\.\d+)(\s+-?\d+\.\d+)*\s*$")
+SE_LINE = re.compile(r"^\s*(\(\d+\.\d+\))(\s+\(\d+\.\d+\))*\s*$")
+
+def norm(s):
+    return re.sub(r"\s+", " ", s.lower()).strip()
+
+def parse_a10(text):
+    start = text.index("Appendix table A.10")
+    end = text.index("Notes: Authors’ calculations using first-stage elasticities", start)
+    body = text[start:end]
+    blocks = body.split("Appendix table A.10")[1:]
+    n = len(IDS)
+    est = [[None] * n for _ in range(n)]
+    se = [[None] * n for _ in range(n)]
+    col_cursor = 0          # canonical column index where the current row-page's blocks continue
+    rows_seen_in_page = None
+    for block in blocks:
+        lines = [l.rstrip() for l in block.split("\n")]
+        # 1) rows: label lines followed by estimate line and SE line
+        rows = []
+        i = 0
+        pending_label = []
+        while i < len(lines):
+            l = lines[i]
+            if NUM_LINE.match(l) and i + 1 < len(lines) and SE_LINE.match(lines[i + 1]):
+                label = norm(" ".join(pending_label))
+                # try the last 1..3 label fragments joined, longest first
+                frag = pending_label[-3:]
+                found = None
+                for k in range(len(frag), 0, -1):
+                    cand = norm(" ".join(frag[-k:]))
+                    if cand in ALIAS:
+                        found = ALIAS[cand]; break
+                if found is None:
+                    raise SystemExit(f"unrecognized row label {pending_label!r} before line: {l}")
+                vals = [float(x) for x in l.split()]
+                ses = [float(x.strip("()")) for x in lines[i + 1].split()]
+                rows.append((found, vals, ses))
+                pending_label = []
+                i += 2
+                continue
+            if l.strip() and not l.startswith("See notes") and "ERR-139" not in l and not re.match(r"^\d+\s*$", l):
+                pending_label.append(l.strip())
+            i += 1
+        if not rows:
+            continue
+        # 2) columns: this block's column group starts where the previous block for the same row-page ended
+        row_ids = [r[0] for r in rows]
+        ncols = len(rows[0][1])
+        if rows_seen_in_page != row_ids:
+            # new row page (or first) → reset column cursor when we wrap around
+            if rows_seen_in_page is not None and col_cursor >= n:
+                col_cursor = 0
+            rows_seen_in_page = row_ids
+        if col_cursor + ncols > n:
+            col_cursor = 0
+        cols = list(range(col_cursor, col_cursor + ncols))
+        for rid, vals, ses in rows:
+            ri = IDS.index(rid)
+            for cj, v, s in zip(cols, vals, ses):
+                est[ri][cj] = v
+                se[ri][cj] = s
+        col_cursor += ncols
+    missing = [(IDS[i], IDS[j]) for i in range(n) for j in range(n) if est[i][j] is None]
+    if missing:
+        raise SystemExit(f"{len(missing)} cells missing, e.g. {missing[:5]}")
+    return est, se
+
+def parse_table1(text):
+    """Budget shares (%). Group rows give share of total; item rows give share within group."""
+    start = text.index("Table 1 \nSummary statistics and trends for budget shares and prices")
+    end = text.index("The budget shares for all foods exhibit", start)
+    seg = text[start:end]
+    groups = {}
+    items = {}
+    current_group = None
+    group_names = {
+        "cereals/bakery": "cereals", "dairy": "dairy", "meat and eggs": "meat_eggs",
+        "fruits and vegetables": "fv", "nonalcoholic beverages": "nab", "other fah": "other_fah",
+        "fafh and alcohol": "fafh", "fafh/alcohol": "fafh", "nonfood": "nonfood",
+    }
+    for line in seg.split("\n"):
+        m = re.match(r"^(.*?)\s+(-?\d+\.\d+)\s+(-?\d+\.\d+)\s+(-?\d+\.\d+)", line.strip())
+        if not m:
+            continue
+        label = norm(m.group(1))
+        share = float(m.group(2))
+        if label in group_names:
+            current_group = group_names[label]
+            groups[current_group] = share / 100.0
+            if current_group == "nonfood":
+                items["nonfood"] = (current_group, 1.0)
+        elif label in ALIAS:
+            items[ALIAS[label]] = (current_group, share / 100.0)
+    return groups, items
+
+def main():
+    est, se = parse_a10(TXT)
+    groups, items = parse_table1(TXT)
+    # expenditure elasticities: ERR-139 Table 6 "This study" column (unconditional), hand-entered from the text
+    expenditure = {
+        "flour": 0.01, "breakfast_cereals": 0.00, "rice_pasta": 0.01, "nonwhite_bread": 0.00, "white_bread": 0.01,
+        "biscuits_rolls": 0.00, "cakes_cookies": 0.01, "other_bakery": 0.00,
+        "beef": 0.05, "pork": 0.04, "other_red_meat": 0.02, "poultry": 0.03, "fish": 0.03, "eggs": 0.03,
+        "cheese": 0.13, "ice_cream": 0.13, "milk": 0.09, "other_dairy": 0.09,
+        "apples": 0.03, "bananas": 0.05, "citrus": 0.06, "other_fresh_fruit": 0.04, "potatoes": 0.03,
+        "lettuce": 0.04, "tomatoes": 0.06, "other_fresh_vegetables": 0.04, "processed_fv": 0.03,
+        "coffee_tea": 0.02, "carbonated": 0.01, "noncarbonated": 0.02, "frozen_beverages": 0.01,
+        "sugar_sweets": 0.13, "fats_oils": 0.08, "soups": 0.07, "frozen_foods": 0.09, "snacks": 0.08,
+        "condiments": 0.07, "misc_fah": 0.11, "alcohol": 0.32, "limited_service": 0.18, "full_service": 0.20,
+        "other_fafh": 0.21, "nonfood": 1.21,
+    }
+    out_items = []
+    for id_, label, _ in ITEMS:
+        g, within = items[id_]
+        share = groups[g] * within if id_ != "nonfood" else groups["nonfood"]
+        out_items.append({"id": id_, "label": label, "group": g, "budgetShare": round(share, 6), "expenditureElasticity": expenditure[id_]})
+    # infant formula: no ERS estimate. Own-price -0.3 (range -0.2..-0.6) assumed, zero cross terms, budget share from
+    # ~3.4B bottle-equivalents/yr × $1.50 / total expenditure ≈ 0.05% (see literature review §3 and DECISIONS.md).
+    out_items.append({"id": "infant_formula", "label": "Infant formula", "group": "other_fah", "budgetShare": 0.0005, "expenditureElasticity": 0.05,
+                      "note": "No ERS estimate; own-price -0.3 assumed, cross terms zero. Labeled modeled in the UI."})
+    n = len(out_items)
+    M = [[0.0] * n for _ in range(n)]
+    S = [[0.0] * n for _ in range(n)]
+    for i in range(n - 1):
+        for j in range(n - 1):
+            M[i][j] = est[i][j]; S[i][j] = se[i][j]
+    M[n - 1][n - 1] = -0.3; S[n - 1][n - 1] = 0.2
+    doc = {
+        "source": "Okrent & Alston (2012), ERS ERR-139, Appendix table A.10 (unconditional Marshallian elasticities, bootstrapped SEs) and Table 1 (budget shares 1998-2010); Table 6 expenditure elasticities. Infant formula appended (assumed).",
+        "items": out_items, "marshallian": M, "standardErrors": S,
+    }
+    OUT.write_text(json.dumps(doc, indent=1))
+    print(f"wrote {OUT} with {n} items")
+    for i, id_ in enumerate(IDS):
+        print(f"{id_:26s} own {est[i][i]:6.2f} share {out_items[i]['budgetShare']:.5f}")
+
+if __name__ == "__main__":
+    main()
+```
+
+Run: `cd packages/config && python3 tools/extract-err139.py`. Expected: prints 43 own-price values; the diagonal must match Table 6 (eggs −0.24, beef −0.70, pork −1.26, poultry −0.81, fish −0.84, cheese −0.70, milk −0.10, apples −0.58, potatoes −0.42, coffee_tea −0.12, fats_oils −0.21, nonfood −1.00). If a row label is unrecognized, add the exact text as an alias in `ITEMS`. If column groups misalign (a diagonal value lands off-diagonal), print each block's first row and adjust the cursor logic; the appendix prints, for each page of rows, five consecutive column blocks (8, 9, 9, 9, 8 columns).
+
+- [ ] **Step 4: Write the failing config test**
+
+`packages/config/test/config.test.ts`:
+```ts
+import { describe, it, expect } from 'vitest';
+import { loadContext, loadCase } from '../src/index.js';
+import { validateConfig, buildDemandSystem, toHicksian, symmetrize, slutskyMatrix, checkNSD } from '@surge/engine';
+
+describe('config', () => {
+  const ctx = loadContext();
+  it('passes schema validation', () => {
+    expect(validateConfig(ctx)).toEqual([]);
+  });
+  it('has the ERR-139 diagonal', () => {
+    const ds = buildDemandSystem(ctx.demand);
+    const own = (id: string) => ds.eps[ds.index[id]!]![ds.index[id]!]!;
+    expect(own('eggs')).toBeCloseTo(-0.24, 2);
+    expect(own('beef')).toBeCloseTo(-0.70, 2);
+    expect(own('pork')).toBeCloseTo(-1.26, 2);
+    expect(own('poultry')).toBeCloseTo(-0.81, 2);
+    expect(own('milk')).toBeCloseTo(-0.10, 2);
+    expect(own('nonfood')).toBeCloseTo(-1.00, 2);
+    expect(ds.ids.length).toBe(44);
+  });
+  it('has budget shares that sum to about 1 (excluding infant formula)', () => {
+    const total = ctx.demand.items.filter((i) => i.id !== 'infant_formula').reduce((a, i) => a + i.budgetShare, 0);
+    expect(total).toBeGreaterThan(0.97);
+    expect(total).toBeLessThan(1.03);
+    const eggs = ctx.demand.items.find((i) => i.id === 'eggs')!;
+    expect(eggs.budgetShare).toBeCloseTo(0.0288 * 0.048, 4);
+  });
+  it('reports Slutsky symmetry adjustment and NSD status without throwing', () => {
+    const ds = buildDemandSystem(ctx.demand);
+    const { epsC, maxAdjustment } = symmetrize(toHicksian(ds), ds.w);
+    expect(maxAdjustment).toBeLessThan(2);
+    const r = checkNSD(slutskyMatrix(epsC, ds.w));
+    expect(typeof r.ok).toBe('boolean');
+  });
+  it('maps every commodity to a demand item and every input to at least one commodity', () => {
+    for (const c of Object.values(ctx.commodities)) expect(ctx.demand.items.some((i) => i.id === c.group)).toBe(true);
+    for (const inp of Object.keys(ctx.inputs)) {
+      expect(Object.values(ctx.commodities).some((c) => (c.inputs ?? []).some((x) => x.input === inp))).toBe(true);
+    }
+  });
+  it('loads the three cases with expected figures', () => {
+    expect(loadCase('egg-2024-calibration').expected!['consumerSurplusLossUSD']).toBeCloseTo(1414.28e6, -5);
+    expect(loadCase('egg-2022').threats.length).toBeGreaterThan(0);
+    expect(loadCase('formula-2022').threats[0]!.category).toBe('facility');
+  });
+});
+```
+
+- [ ] **Step 5: Run to verify it fails**
+
+Run: `cd packages/config && PATH="$HOME/.local/bin:$PATH" npx vitest run`
+Expected: FAIL, cannot find `../src/index.js`.
+
+- [ ] **Step 6: Write the data files**
+
+`packages/config/data/commodities.json` (every `source` cites the document; values marked "approximate" are replaced by live NASS/ERS pulls in Plan 2):
+```json
+{
+  "eggs": {
+    "id": "eggs", "name": "Eggs", "group": "eggs", "unit": "dozen",
+    "baseline": { "annualQuantity": 5725000000, "retailPrice": 2.73, "year": 2024, "source": "Fryar FC-2025-001 Table 1 (202 shell eggs per capita, $2.73 counterfactual); population 340.1M Census Vintage 2024" },
+    "demand": { "ownPrice": -0.24, "range": [-0.11, -0.27], "expenditure": 0.03, "source": "ERR-139 Table 6 (unconditional); range Huang 1993 / Ferrier 2024; Fryar uses -0.228" },
+    "trade": { "exportShare": 0.04, "exportElasticity": -2, "importShare": 0.01, "source": "Ferrier 2024 Table 2 (4.1% 2018); export elasticity ERR-57 -5 adjusted to observed 2022 export response (Ferrier Table 6); imports USDA Jun 2025 release" },
+    "supply": { "model": "livestock", "nationalInventory": 325000000, "recoveryLagMinMonths": 5, "recoveryLagMaxMonths": 12, "producerOffset": 0.35, "source": "NASS Chickens and Eggs table-egg layers Jan 2022 approx 325M (approximate; Plan 2 pulls QuickStats); lag: APHIS restock criteria 9-13 wk downtime + 17-20 wk pullets, industry 'a year or more'; offset from Ferrier 2024 Table 4 vs naive inventory loss" },
+    "transmission": { "passThrough": 0.7, "lagMonths": 1, "source": "2022 peak: AMS NY wholesale +217% vs FRED retail +150%; ERS Amber Waves 2014" },
+    "fredSeries": "APU0000708111",
+    "inputs": [ { "input": "corn", "costShare": 0.119, "source": "ERR-57 App. table 2" }, { "input": "soybeans", "costShare": 0.107, "source": "ERR-57 App. table 2 (soymeal)" } ],
+    "plate": ["shell-eggs", "baked-goods", "mayonnaise"]
+  },
+  "chicken": {
+    "id": "chicken", "name": "Chicken", "group": "poultry", "unit": "lb",
+    "baseline": { "annualQuantity": 34000000000, "retailPrice": 1.98, "year": 2024, "source": "ERS per capita broiler consumption ~100 lb (approximate) × 340.1M; FRED APU0000706111 whole chicken 2024 avg" },
+    "demand": { "ownPrice": -0.81, "range": [-0.45, -0.81], "expenditure": 0.03, "source": "ERR-139 Table 6; Huang 1993 -0.45" },
+    "trade": { "exportShare": 0.16, "exportElasticity": -0.448, "importShare": 0.0, "source": "Ferrier 2024 Table 2 (16.6% 2018); ERR-57 App. table 12" },
+    "supply": { "model": "livestock", "nationalInventory": 9200000000, "recoveryLagMinMonths": 2, "recoveryLagMaxMonths": 3, "producerOffset": 0.2, "source": "Ferrier 2024 Table 1 (9.2B broilers slaughtered 2021); 6-7 week grow-out + downtime" },
+    "transmission": { "passThrough": 0.7, "lagMonths": 1, "source": "assumed same as eggs (modeled)" },
+    "fredSeries": "APU0000706111",
+    "inputs": [ { "input": "corn", "costShare": 0.25, "source": "ERR-57 App. table 3 broiler feed shares (approximate)" }, { "input": "soybeans", "costShare": 0.15, "source": "ERR-57 App. table 3 (approximate)" } ],
+    "plate": ["chicken"]
+  },
+  "turkey": {
+    "id": "turkey", "name": "Turkey", "group": "poultry", "unit": "lb",
+    "baseline": { "annualQuantity": 5100000000, "retailPrice": 1.52, "year": 2022, "source": "Ferrier 2024 (observed 2022 retail $1.52/lb; ~15 lb per capita approximate)" },
+    "demand": { "ownPrice": -1.989, "range": [-0.81, -1.989], "expenditure": 0.03, "source": "Ferrier 2024 / Paarlberg 2008 turkey demand -1.989; low end ERR-139 poultry" },
+    "trade": { "exportShare": 0.10, "exportElasticity": -0.448, "importShare": 0.0, "source": "Ferrier 2024 Table 2; ERR-57 App. table 12" },
+    "supply": { "model": "livestock", "nationalInventory": 214000000, "recoveryLagMinMonths": 4, "recoveryLagMaxMonths": 6, "producerOffset": 0.2, "source": "Ferrier 2024 Table 1 (213.9M slaughtered 2021); 14-20 week grow-out + downtime" },
+    "transmission": { "passThrough": 0.7, "lagMonths": 1, "source": "assumed same as eggs (modeled)" },
+    "inputs": [ { "input": "corn", "costShare": 0.25, "source": "ERR-57 App. table 3 (approximate)" }, { "input": "soybeans", "costShare": 0.15, "source": "ERR-57 App. table 3 (approximate)" } ],
+    "plate": ["turkey"]
+  },
+  "beef": {
+    "id": "beef", "name": "Beef", "group": "beef", "unit": "lb",
+    "baseline": { "annualQuantity": 19700000000, "retailPrice": 5.5, "year": 2024, "source": "ERS ~58 lb per capita retail weight (approximate) × 340.1M; FRED APU0000703112 ground beef 2024 avg" },
+    "demand": { "ownPrice": -0.70, "range": [-0.62, -1.52], "expenditure": 0.05, "source": "ERR-139 Table 6; Huang 1993 -0.62; ERR-57 -1.521 (wholesale)" },
+    "trade": { "exportShare": 0.11, "exportElasticity": -1.01, "importShare": 0.15, "source": "ERS Livestock and Meat International Trade Data (approximate); ERR-57 App. table 12" },
+    "supply": { "model": "livestock", "nationalInventory": 87000000, "recoveryLagMinMonths": 24, "recoveryLagMaxMonths": 36, "producerOffset": 0.2, "source": "NASS Cattle Jan 2024 87.2M head; cattle cycle Rosen-Murphy-Scheinkman 1994" },
+    "transmission": { "passThrough": 0.6, "lagMonths": 2, "source": "ERS Amber Waves 2014 beef 1-6 month lag (modeled)" },
+    "fredSeries": "APU0000703112",
+    "inputs": [ { "input": "corn", "costShare": 0.10, "source": "ERR-57 App. table 2 beef feed (approximate)" } ],
+    "plate": ["beef"]
+  },
+  "pork": {
+    "id": "pork", "name": "Pork", "group": "pork", "unit": "lb",
+    "baseline": { "annualQuantity": 17000000000, "retailPrice": 4.2, "year": 2024, "source": "ERS ~50 lb per capita retail weight (approximate) × 340.1M; FRED pork chops APU0000FD3101 2024 avg" },
+    "demand": { "ownPrice": -1.26, "range": [-0.73, -1.45], "expenditure": 0.04, "source": "ERR-139 Table 6; Huang 1993 -0.73; ERR-57 -1.45" },
+    "trade": { "exportShare": 0.25, "exportElasticity": -0.89, "importShare": 0.05, "source": "ERS trade data (approximate); ERR-57 App. table 12" },
+    "supply": { "model": "livestock", "nationalInventory": 75000000, "recoveryLagMinMonths": 10, "recoveryLagMaxMonths": 14, "producerOffset": 0.2, "source": "NASS Quarterly Hogs and Pigs ~75M head; gestation + finishing ~10 months" },
+    "transmission": { "passThrough": 0.6, "lagMonths": 2, "source": "ERS Amber Waves 2014 (modeled)" },
+    "inputs": [ { "input": "corn", "costShare": 0.39, "source": "ERR-57 App. table 2 swine coarse grain share" }, { "input": "soybeans", "costShare": 0.22, "source": "ERR-57 App. table 2 swine meal share" } ],
+    "plate": ["pork", "bacon"]
+  },
+  "milk": {
+    "id": "milk", "name": "Fluid milk", "group": "milk", "unit": "gal",
+    "baseline": { "annualQuantity": 5100000000, "retailPrice": 4.0, "year": 2024, "source": "ERS fluid milk ~15 gal per capita (approximate) × 340.1M; FRED APU0000709112 2024 avg" },
+    "demand": { "ownPrice": -0.10, "range": [-0.04, -0.59], "expenditure": 0.09, "source": "ERR-139 Table 6; Huang 1993 -0.04; Andreyeva 2010 mean 0.59" },
+    "trade": { "exportShare": 0.18, "exportElasticity": 0, "importShare": 0.02, "source": "USDEC dairy solids export share (approximate); ERR-57 App. table 12 (milk/dairy 0)" },
+    "supply": { "model": "livestock", "nationalInventory": 9300000, "recoveryLagMinMonths": 24, "recoveryLagMaxMonths": 30, "producerOffset": 0.1, "source": "NASS milk cows ~9.3M; heifer raising 24+ months" },
+    "transmission": { "passThrough": 0.6, "lagMonths": 2, "source": "ERS Amber Waves 2014 milk 5-6 month lag (modeled shorter for crises)" },
+    "fredSeries": "APU0000709112",
+    "inputs": [ { "input": "corn", "costShare": 0.15, "source": "ERR-57 App. table 3 dairy feed (approximate)" } ],
+    "plate": ["milk", "cheese", "butter"]
+  },
+  "cheese": {
+    "id": "cheese", "name": "Cheese", "group": "cheese", "unit": "lb",
+    "baseline": { "annualQuantity": 14300000000, "retailPrice": 5.8, "year": 2024, "source": "ERS ~42 lb per capita (approximate) × 340.1M; FRED APU0000710212 cheddar 2024 avg" },
+    "demand": { "ownPrice": -0.70, "range": [-0.25, -1.18], "expenditure": 0.13, "source": "ERR-139 Table 6; Huang 1993 -0.25; Bergtold 2004 -1.18" },
+    "trade": { "exportShare": 0.07, "exportElasticity": -1, "importShare": 0.03, "source": "USDEC (approximate)" },
+    "supply": { "model": "manufacturing", "source": "derived from milk; plants" },
+    "transmission": { "passThrough": 0.6, "lagMonths": 2, "source": "assumed as milk (modeled)" },
+    "inputs": [ { "input": "milk-farm", "costShare": 0.5, "source": "ERS price spreads dairy farm share (approximate)" } ],
+    "plate": ["cheese", "pizza"]
+  },
+  "bread": {
+    "id": "bread", "name": "Bread and bakery", "group": "nonwhite_bread", "unit": "lb",
+    "baseline": { "annualQuantity": 18000000000, "retailPrice": 2.0, "year": 2024, "source": "ERS ~53 lb flour-based bakery per capita (approximate) × 340.1M; FRED APU0000702111 white bread 2024 avg" },
+    "demand": { "ownPrice": -0.59, "range": [-0.21, -1.54], "expenditure": 0.00, "source": "ERR-139 Table 6 nonwhite bread; range biscuits -0.21 to white bread -1.54" },
+    "trade": { "exportShare": 0.0, "exportElasticity": 0, "importShare": 0.0, "source": "retail bakery not traded" },
+    "supply": { "model": "manufacturing", "source": "bakeries; wheat enters through inputs" },
+    "transmission": { "passThrough": 1.0, "lagMonths": 1, "source": "cost pass-through (modeled)" },
+    "fredSeries": "APU0000702111",
+    "inputs": [ { "input": "wheat", "costShare": 0.06, "source": "ERS price spreads: farm value ~5-7% of bread retail price" }, { "input": "energy", "costShare": 0.04, "source": "ERS Food Dollar energy share (approximate)" } ],
+    "plate": ["bread", "pasta"]
+  },
+  "rice": {
+    "id": "rice", "name": "Rice", "group": "rice_pasta", "unit": "lb",
+    "baseline": { "annualQuantity": 9000000000, "retailPrice": 1.0, "year": 2024, "source": "ERS ~27 lb per capita (approximate) × 340.1M; FRED APU0000701312 2024 avg" },
+    "demand": { "ownPrice": -0.07, "range": [-0.07, -0.33], "expenditure": 0.01, "source": "ERR-139 Table 6 rice and pasta; ERR-57 rice -0.328" },
+    "trade": { "exportShare": 0.45, "exportElasticity": -5, "importShare": 0.25, "source": "ERS Rice Outlook (approximate); ERR-57 App. table 12" },
+    "supply": { "model": "crop", "harvestMonth": 9, "stocksToUse": 0.2, "source": "ERS Rice Outlook (approximate)" },
+    "transmission": { "passThrough": 0.5, "lagMonths": 2, "source": "modeled" },
+    "fredSeries": "APU0000701312",
+    "inputs": [ { "input": "fertilizer", "costShare": 0.1, "source": "ERS commodity costs and returns rice (approximate)" } ],
+    "plate": ["rice"]
+  },
+  "potatoes": {
+    "id": "potatoes", "name": "Potatoes", "group": "potatoes", "unit": "lb",
+    "baseline": { "annualQuantity": 16000000000, "retailPrice": 1.0, "year": 2024, "source": "ERS ~47 lb fresh-equivalent per capita (approximate) × 340.1M; FRED APU0000712112 2024 avg" },
+    "demand": { "ownPrice": -0.42, "range": [-0.10, -0.58], "expenditure": 0.03, "source": "ERR-139 Table 6; Huang 1993 -0.10; Andreyeva vegetables 0.58" },
+    "trade": { "exportShare": 0.1, "exportElasticity": -1, "importShare": 0.1, "source": "ERS Vegetables and Pulses Outlook (approximate)" },
+    "supply": { "model": "crop", "harvestMonth": 9, "stocksToUse": 0.3, "source": "NASS Potatoes; storage crop" },
+    "transmission": { "passThrough": 0.5, "lagMonths": 1, "source": "modeled" },
+    "fredSeries": "APU0000712112",
+    "inputs": [ { "input": "fertilizer", "costShare": 0.08, "source": "approximate" } ],
+    "plate": ["potatoes", "fries"]
+  },
+  "lettuce": {
+    "id": "lettuce", "name": "Lettuce", "group": "lettuce", "unit": "lb",
+    "baseline": { "annualQuantity": 8000000000, "retailPrice": 1.7, "year": 2024, "source": "ERS ~24 lb per capita (approximate) × 340.1M; FRED APU0000712211 2024 avg" },
+    "demand": { "ownPrice": -0.84, "range": [-0.09, -0.94], "expenditure": 0.04, "source": "ERR-139 Table 6; Huang 1993 -0.09" },
+    "trade": { "exportShare": 0.05, "exportElasticity": -1, "importShare": 0.15, "source": "ERS (approximate)" },
+    "supply": { "model": "crop", "harvestMonth": 0, "stocksToUse": 0.0, "source": "continuous harvest, no storage (Salinas/Yuma rotation)" },
+    "transmission": { "passThrough": 0.6, "lagMonths": 0, "source": "modeled" },
+    "fredSeries": "APU0000712211",
+    "plate": ["salad"]
+  },
+  "tomatoes": {
+    "id": "tomatoes", "name": "Tomatoes", "group": "tomatoes", "unit": "lb",
+    "baseline": { "annualQuantity": 7000000000, "retailPrice": 2.0, "year": 2024, "source": "ERS ~20 lb fresh per capita (approximate) × 340.1M; FRED APU0000712311 2024 avg" },
+    "demand": { "ownPrice": -0.58, "range": [-0.58, -0.94], "expenditure": 0.06, "source": "ERR-139 Table 6" },
+    "trade": { "exportShare": 0.05, "exportElasticity": -1, "importShare": 0.6, "source": "ERS: majority of fresh tomatoes imported, mostly Mexico (approximate)" },
+    "supply": { "model": "crop", "harvestMonth": 0, "stocksToUse": 0.0, "source": "continuous" },
+    "transmission": { "passThrough": 0.6, "lagMonths": 0, "source": "modeled" },
+    "fredSeries": "APU0000712311",
+    "plate": ["salad", "sauce"]
+  },
+  "fresh-vegetables": {
+    "id": "fresh-vegetables", "name": "Other fresh vegetables", "group": "other_fresh_vegetables", "unit": "lb",
+    "baseline": { "annualQuantity": 40000000000, "retailPrice": 1.8, "year": 2024, "source": "ERS fresh vegetables ex potatoes/lettuce/tomatoes ~120 lb per capita (approximate) × 340.1M" },
+    "demand": { "ownPrice": -0.94, "range": [-0.26, -0.94], "expenditure": 0.04, "source": "ERR-139 Table 6; Huang 1993 -0.26" },
+    "trade": { "exportShare": 0.05, "exportElasticity": -1, "importShare": 0.35, "source": "ERS (approximate)" },
+    "supply": { "model": "crop", "harvestMonth": 0, "stocksToUse": 0.05, "source": "continuous" },
+    "transmission": { "passThrough": 0.6, "lagMonths": 0, "source": "modeled" },
+    "plate": ["vegetables"]
+  },
+  "apples": {
+    "id": "apples", "name": "Apples", "group": "apples", "unit": "lb",
+    "baseline": { "annualQuantity": 5500000000, "retailPrice": 1.7, "year": 2024, "source": "ERS ~16 lb fresh per capita (approximate) × 340.1M; FRED APU0000711111 2024 avg" },
+    "demand": { "ownPrice": -0.58, "range": [-0.19, -0.90], "expenditure": 0.03, "source": "ERR-139 Table 6; Huang 1993 -0.19" },
+    "trade": { "exportShare": 0.25, "exportElasticity": -1, "importShare": 0.05, "source": "ERS Fruit and Tree Nuts Outlook (approximate)" },
+    "supply": { "model": "crop", "harvestMonth": 9, "stocksToUse": 0.3, "source": "storage crop; Washington ~65% of US" },
+    "transmission": { "passThrough": 0.5, "lagMonths": 1, "source": "modeled" },
+    "fredSeries": "APU0000711111",
+    "plate": ["fruit"]
+  },
+  "bananas": {
+    "id": "bananas", "name": "Bananas", "group": "bananas", "unit": "lb",
+    "baseline": { "annualQuantity": 9500000000, "retailPrice": 0.63, "year": 2024, "source": "ERS ~28 lb per capita (approximate) × 340.1M; FRED APU0000711211 2024 avg" },
+    "demand": { "ownPrice": -1.01, "range": [-0.50, -1.01], "expenditure": 0.05, "source": "ERR-139 Table 6; Huang 1993 -0.50" },
+    "trade": { "exportShare": 0.0, "exportElasticity": 0, "importShare": 1.0, "source": "essentially all imported (Guatemala, Ecuador, Costa Rica, Colombia, Honduras)" },
+    "supply": { "model": "import", "source": "import-dependent" },
+    "transmission": { "passThrough": 0.7, "lagMonths": 0, "source": "modeled" },
+    "fredSeries": "APU0000711211",
+    "plate": ["fruit"]
+  },
+  "citrus": {
+    "id": "citrus", "name": "Citrus", "group": "citrus", "unit": "lb",
+    "baseline": { "annualQuantity": 7000000000, "retailPrice": 1.6, "year": 2024, "source": "ERS ~21 lb fresh per capita (approximate) × 340.1M; FRED APU0000711311 oranges 2024 avg" },
+    "demand": { "ownPrice": -1.10, "range": [-0.65, -1.10], "expenditure": 0.06, "source": "ERR-139 Table 6; Huang 1993 -0.65" },
+    "trade": { "exportShare": 0.15, "exportElasticity": -1, "importShare": 0.3, "source": "ERS (approximate)" },
+    "supply": { "model": "crop", "harvestMonth": 11, "stocksToUse": 0.05, "source": "Florida/California; citrus greening" },
+    "transmission": { "passThrough": 0.5, "lagMonths": 1, "source": "modeled" },
+    "fredSeries": "APU0000711311",
+    "plate": ["fruit", "orange-juice"]
+  },
+  "coffee": {
+    "id": "coffee", "name": "Coffee", "group": "coffee_tea", "unit": "lb",
+    "baseline": { "annualQuantity": 3400000000, "retailPrice": 6.5, "year": 2024, "source": "USDA FAS ~10 lb green-equivalent per capita (approximate) × 340.1M; FRED APU0000717311 2024 avg" },
+    "demand": { "ownPrice": -0.12, "range": [-0.12, -0.45], "expenditure": 0.02, "source": "ERR-139 Table 6 coffee and tea; Bergtold 2004 -0.45" },
+    "trade": { "exportShare": 0.0, "exportElasticity": 0, "importShare": 0.99, "source": "FAS Coffee: World Markets and Trade (Hawaii/Puerto Rico negligible)" },
+    "supply": { "model": "import", "source": "import-dependent" },
+    "transmission": { "passThrough": 0.6, "lagMonths": 3, "source": "roaster inventories and contracts (modeled)" },
+    "fredSeries": "APU0000717311",
+    "plate": ["coffee"]
+  },
+  "sugar": {
+    "id": "sugar", "name": "Sugar and sweeteners", "group": "sugar_sweets", "unit": "lb",
+    "baseline": { "annualQuantity": 22000000000, "retailPrice": 1.0, "year": 2024, "source": "ERS ~65 lb sugar per capita (approximate) × 340.1M; FRED APU0000715211 2024 avg" },
+    "demand": { "ownPrice": -0.56, "range": [-0.04, -0.66], "expenditure": 0.13, "source": "ERR-139 Table 6" },
+    "trade": { "exportShare": 0.0, "exportElasticity": 0, "importShare": 0.3, "source": "ERS Sugar and Sweeteners Outlook (TRQ; Mexico) approximate" },
+    "supply": { "model": "crop", "harvestMonth": 10, "stocksToUse": 0.15, "source": "ERS Sugar Outlook" },
+    "transmission": { "passThrough": 0.5, "lagMonths": 2, "source": "modeled" },
+    "fredSeries": "APU0000715211",
+    "plate": ["sweets", "baked-goods"]
+  },
+  "fats-oils": {
+    "id": "fats-oils", "name": "Fats and oils", "group": "fats_oils", "unit": "lb",
+    "baseline": { "annualQuantity": 25000000000, "retailPrice": 2.5, "year": 2024, "source": "ERS ~75 lb added fats/oils per capita (approximate) × 340.1M" },
+    "demand": { "ownPrice": -0.21, "range": [-0.13, -0.62], "expenditure": 0.08, "source": "ERR-139 Table 6; Huang 1993 -0.13; Bergtold 2004 -0.62" },
+    "trade": { "exportShare": 0.1, "exportElasticity": -2, "importShare": 0.2, "source": "ERS Oil Crops Outlook (approximate); ERR-57 soy oil -2" },
+    "supply": { "model": "manufacturing", "source": "crushers; soybeans enter through inputs" },
+    "transmission": { "passThrough": 0.6, "lagMonths": 1, "source": "modeled" },
+    "inputs": [ { "input": "soybeans", "costShare": 0.4, "source": "ERS price spreads oils (approximate)" } ],
+    "plate": ["cooking-oil", "fries"]
+  },
+  "infant-formula": {
+    "id": "infant-formula", "name": "Infant formula", "group": "infant_formula", "unit": "8-oz bottle-equivalent",
+    "baseline": { "annualQuantity": 3400000000, "retailPrice": 1.5, "year": 2022, "source": "derived: 3.6M births/yr, ~70% any formula use in first 6 months, ~30 fl oz/day (approximate); price ~$0.19/fl oz prepared (approximate)" },
+    "demand": { "ownPrice": -0.3, "range": [-0.2, -0.6], "expenditure": 0.05, "source": "assumed; no ERS estimate (see literature review §3)" },
+    "trade": { "exportShare": 0.05, "exportElasticity": -1, "importShare": 0.02, "source": "FDA: ~98% domestic before 2022 enforcement discretion" },
+    "supply": { "model": "manufacturing", "source": "Abbott Sturgis, Reckitt, Nestle, Perrigo plants" },
+    "transmission": { "passThrough": 0.5, "lagMonths": 0, "source": "shortage manifested as stock-outs more than price (modeled)" },
+    "plate": ["infant-formula"]
+  }
+}
+```
+
+`packages/config/data/inputs.json`:
+```json
+{
+  "corn": { "id": "corn", "name": "Corn (feed grain)", "unit": "bu",
+    "demand": { "totalElasticity": -0.4, "source": "ERR-57 App. table 7 coarse grains -0.4" },
+    "trade": { "exportShare": 0.15, "exportElasticity": -1.5, "importShare": 0.0, "source": "ERS Feed Outlook (approximate); ERR-57 App. table 12" },
+    "supply": { "model": "crop", "harvestMonth": 10, "stocksToUse": 0.12, "source": "WASDE (approximate)" } },
+  "soybeans": { "id": "soybeans", "name": "Soybeans (meal and oil)", "unit": "bu",
+    "demand": { "totalElasticity": -0.5, "source": "ERR-57 soy oil -0.314, soymeal export -1.5 (blended, modeled)" },
+    "trade": { "exportShare": 0.45, "exportElasticity": -1.0, "importShare": 0.0, "source": "ERS Oil Crops Outlook (approximate); ERR-57 App. table 12" },
+    "supply": { "model": "crop", "harvestMonth": 10, "stocksToUse": 0.08, "source": "WASDE (approximate)" } },
+  "wheat": { "id": "wheat", "name": "Wheat", "unit": "bu",
+    "demand": { "totalElasticity": -0.309, "source": "ERR-57 App. table 7 (Gao, Wailes, Cramer 1995)" },
+    "trade": { "exportShare": 0.45, "exportElasticity": -0.7, "importShare": 0.05, "source": "ERS Wheat Outlook (approximate); ERR-57 App. table 12" },
+    "supply": { "model": "crop", "harvestMonth": 7, "stocksToUse": 0.4, "source": "WASDE (approximate)" } },
+  "fertilizer": { "id": "fertilizer", "name": "Nitrogen fertilizer", "unit": "t",
+    "demand": { "totalElasticity": -0.3, "source": "literature range -0.2 to -0.5 (modeled)" },
+    "trade": { "exportShare": 0.1, "exportElasticity": -1, "importShare": 0.25, "source": "USDA/TFI: US imports ~25% of nitrogen use (approximate)" },
+    "supply": { "model": "manufacturing", "source": "natural-gas based; Gulf Coast plants" } },
+  "energy": { "id": "energy", "name": "Diesel and energy", "unit": "gal",
+    "demand": { "totalElasticity": -0.2, "source": "short-run diesel demand elasticity literature (modeled)" },
+    "trade": { "exportShare": 0.2, "exportElasticity": -1, "importShare": 0.1, "source": "EIA (approximate)" },
+    "supply": { "model": "manufacturing", "source": "refineries" } },
+  "milk-farm": { "id": "milk-farm", "name": "Farm milk", "unit": "cwt",
+    "demand": { "totalElasticity": -0.397, "source": "ERR-57 App. table 7 dairy" },
+    "trade": { "exportShare": 0.18, "exportElasticity": 0, "importShare": 0.02, "source": "ERR-57 App. table 12" },
+    "supply": { "model": "manufacturing", "source": "dairy farms (livestock dynamics carried by the milk commodity)" } }
+}
+```
+
+`packages/config/data/threat-types.json` (the `rule` names are implemented in Task 8):
+```json
+{
+  "disease":           { "category": "disease", "kind": "natural", "rule": "livestock_disease", "defaultMonths": 24, "source": "APHIS detections; biology from commodity config" },
+  "pest":              { "category": "pest", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.3, "defaultMonths": 12, "source": "USWBSI Fusarium risk; FAO locust; yield-loss cap 30% at severity 1 (modeled)" },
+  "drought":           { "category": "drought", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.35, "defaultMonths": 12, "source": "US Drought Monitor classes D0-D4 → severity 0.2-1.0; 2012 corn yield -26% at D3/D4 coverage (NASS) (modeled cap)" },
+  "heat":              { "category": "heat", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.15, "defaultMonths": 6, "source": "Open-Meteo anomaly; Schlenker-Roberts nonlinear heat damage (modeled cap)" },
+  "flood":             { "category": "flood", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.25, "defaultMonths": 12, "source": "GDACS alert level → severity (Green 0.2, Orange 0.5, Red 1.0) (modeled cap)" },
+  "storm":             { "category": "storm", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.2, "defaultMonths": 6, "source": "GDACS tropical cyclone alert (modeled cap)" },
+  "wildfire":          { "category": "wildfire", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.1, "defaultMonths": 6, "source": "NASA FIRMS hotspot density (modeled cap)" },
+  "export_ban":        { "category": "export_ban", "kind": "geopolitical", "rule": "trade_block", "defaultMonths": 6, "source": "GTA / IFPRI tracker" },
+  "embargo":           { "category": "embargo", "kind": "geopolitical", "rule": "trade_block", "defaultMonths": 12, "source": "GTA" },
+  "tariff":            { "category": "tariff", "kind": "geopolitical", "rule": "tariff", "defaultMonths": 12, "source": "GTA" },
+  "war":               { "category": "war", "kind": "geopolitical", "rule": "world_price", "defaultMonths": 6, "source": "ACLED intensity; world-price transmission 0.5 (modeled)" },
+  "instability":       { "category": "instability", "kind": "geopolitical", "rule": "world_price", "defaultMonths": 3, "source": "ACLED; transmission 0.5 (modeled)" },
+  "chokepoint":        { "category": "chokepoint", "kind": "geopolitical", "rule": "chokepoint", "defaultMonths": 3, "source": "IMF PortWatch transit vs 2019-23 baseline" },
+  "import_dependence": { "category": "import_dependence", "kind": "geopolitical", "rule": "vulnerability_only", "defaultMonths": 0, "source": "FAOSTAT/Comtrade structural" },
+  "input_cost":        { "category": "input_cost", "kind": "geopolitical", "rule": "input_cost", "defaultMonths": 6, "source": "EIA; FRED PPI" },
+  "facility":          { "category": "facility", "kind": "geopolitical", "rule": "facility", "defaultMonths": 6, "source": "FDA/USDA recall and closure notices" }
+}
+```
+
+`packages/config/data/regions.json` (seed; shares are structural and cited; Plan 2 extends):
+```json
+{
+  "us-iowa": { "id": "us-iowa", "name": "Iowa", "lat": 42.0, "lng": -93.5, "bbox": [-96.6, 40.4, -90.1, 43.5],
+    "usSupplyShare": { "eggs": 0.15, "pork": 0.32, "corn": 0.17, "soybeans": 0.13 },
+    "source": "NASS: Iowa ~15% of US table-egg layers (2021), ~1/3 of hogs, ~17% corn, ~13% soybeans" },
+  "us-midwest-corn-belt": { "id": "us-midwest-corn-belt", "name": "Corn Belt (IL, IN, NE, MN, OH)", "lat": 41.0, "lng": -90.0, "bbox": [-104.0, 37.0, -80.5, 49.0],
+    "usSupplyShare": { "corn": 0.55, "soybeans": 0.55, "eggs": 0.35, "pork": 0.35, "turkey": 0.35 },
+    "source": "NASS Crop Production; Chickens and Eggs (IN, OH, PA, IA top layer states) approximate" },
+  "us-plains-wheat": { "id": "us-plains-wheat", "name": "Wheat Plains (KS, OK, TX, NE, CO)", "lat": 38.5, "lng": -99.0, "bbox": [-106.0, 31.0, -95.0, 43.0],
+    "usSupplyShare": { "wheat": 0.4, "beef": 0.3 },
+    "source": "NASS Crop Production hard red winter wheat; cattle on feed (approximate)" },
+  "us-california-central-valley": { "id": "us-california-central-valley", "name": "California Central Valley", "lat": 36.7, "lng": -119.8, "bbox": [-122.5, 34.5, -118.0, 40.5],
+    "usSupplyShare": { "milk": 0.18, "tomatoes": 0.3, "lettuce": 0.7, "fresh-vegetables": 0.4, "citrus": 0.3, "eggs": 0.04 },
+    "source": "NASS California Agricultural Statistics (approximate)" },
+  "us-florida": { "id": "us-florida", "name": "Florida", "lat": 28.0, "lng": -81.7, "bbox": [-87.6, 24.5, -80.0, 31.0],
+    "usSupplyShare": { "citrus": 0.45, "tomatoes": 0.25, "sugar": 0.2 },
+    "source": "NASS Citrus Fruits; Vegetables (approximate)" },
+  "us-pacific-northwest": { "id": "us-pacific-northwest", "name": "Pacific Northwest", "lat": 46.5, "lng": -119.5, "bbox": [-124.7, 42.0, -111.0, 49.0],
+    "usSupplyShare": { "apples": 0.7, "potatoes": 0.55, "wheat": 0.15 },
+    "source": "NASS Noncitrus Fruits; Potatoes (approximate)" },
+  "us-southeast-broilers": { "id": "us-southeast-broilers", "name": "Southeast broiler belt (GA, AL, AR, NC, MS)", "lat": 33.5, "lng": -86.0, "bbox": [-95.0, 30.0, -76.0, 37.0],
+    "usSupplyShare": { "chicken": 0.6, "eggs": 0.15 },
+    "source": "NASS Poultry Production and Value (approximate)" },
+  "mexico": { "id": "mexico", "name": "Mexico", "lat": 23.6, "lng": -102.5, "bbox": [-118.4, 14.5, -86.7, 32.7],
+    "usImportOriginShare": { "tomatoes": 0.9, "fresh-vegetables": 0.7, "sugar": 0.8, "beef": 0.25 },
+    "source": "USDA FAS GATS (approximate)" },
+  "canada": { "id": "canada", "name": "Canada", "lat": 56.1, "lng": -106.3, "bbox": [-141.0, 41.7, -52.6, 83.1],
+    "usImportOriginShare": { "beef": 0.3, "pork": 0.6, "wheat": 0.8, "fats-oils": 0.5 },
+    "source": "USDA FAS GATS (approximate)" },
+  "brazil": { "id": "brazil", "name": "Brazil", "lat": -14.2, "lng": -51.9, "bbox": [-73.9, -33.7, -34.8, 5.3],
+    "usImportOriginShare": { "coffee": 0.3, "sugar": 0.1, "eggs": 0.2, "beef": 0.2 },
+    "worldExportShare": { "soybeans": 0.5, "coffee": 0.35, "sugar": 0.4, "chicken": 0.35, "beef": 0.25 },
+    "source": "USDA FAS PSD; FAS GATS (approximate); USDA Jun 2025 egg imports" },
+  "central-america-bananas": { "id": "central-america-bananas", "name": "Guatemala, Ecuador, Costa Rica, Honduras, Colombia", "lat": 10.0, "lng": -84.0, "bbox": [-92.5, -5.0, -66.0, 18.0],
+    "usImportOriginShare": { "bananas": 0.95, "coffee": 0.3 },
+    "source": "USDA FAS GATS (approximate)" },
+  "black-sea": { "id": "black-sea", "name": "Ukraine and Russia (Black Sea)", "lat": 48.0, "lng": 35.0, "bbox": [22.0, 41.0, 60.0, 56.0],
+    "worldExportShare": { "wheat": 0.28, "fats-oils": 0.5, "corn": 0.15, "fertilizer": 0.2 },
+    "usImportOriginShare": { "fertilizer": 0.15 },
+    "source": "USDA FAS PSD 2021/22: Russia+Ukraine ~28% of wheat exports, ~75% sunflower oil; IFPRI fertilizer (approximate)" },
+  "hormuz": { "id": "hormuz", "name": "Strait of Hormuz", "lat": 26.6, "lng": 56.3, "bbox": [55.0, 25.5, 57.5, 27.5],
+    "chokepointImportShare": { "fertilizer": 0.3, "energy": 0.1 },
+    "source": "IMF PortWatch chokepoint; urea/ammonia seaborne trade share ~30% (IFPRI 2024, approximate)" },
+  "suez-red-sea": { "id": "suez-red-sea", "name": "Suez Canal and Bab el-Mandeb", "lat": 27.0, "lng": 33.0, "bbox": [30.0, 12.0, 45.0, 32.0],
+    "chokepointImportShare": { "coffee": 0.1, "rice": 0.15, "fats-oils": 0.1 },
+    "source": "IMF PortWatch; trade routing Asia-Europe-US East Coast (approximate)" },
+  "panama-canal": { "id": "panama-canal", "name": "Panama Canal", "lat": 9.1, "lng": -79.7, "bbox": [-80.5, 8.5, -79.0, 9.7],
+    "chokepointImportShare": { "bananas": 0.1, "coffee": 0.1 },
+    "source": "IMF PortWatch (approximate)" },
+  "turkey": { "id": "turkey", "name": "Turkey", "lat": 39.0, "lng": 35.2, "bbox": [26.0, 36.0, 45.0, 42.1],
+    "usImportOriginShare": { "eggs": 0.57 },
+    "source": "USDA Jun 2025: 57% of 2025 shell-egg imports" },
+  "vietnam-brazil-coffee": { "id": "vietnam-brazil-coffee", "name": "Vietnam and Brazil coffee belt", "lat": 12.0, "lng": 108.0, "bbox": [102.0, 8.0, 110.0, 23.0],
+    "worldExportShare": { "coffee": 0.2 },
+    "usImportOriginShare": { "coffee": 0.1 },
+    "source": "USDA FAS Coffee (approximate)" },
+  "india-rice": { "id": "india-rice", "name": "India", "lat": 22.0, "lng": 79.0, "bbox": [68.0, 8.0, 97.0, 35.0],
+    "worldExportShare": { "rice": 0.4 },
+    "usImportOriginShare": { "rice": 0.2 },
+    "source": "USDA FAS Grain: World Markets and Trade; India ~40% of rice exports; 2023 export ban precedent" }
+}
+```
+
+`packages/config/data/levers.json`:
+```json
+[
+  { "id": "egg-usda-import-facilitation", "name": "USDA/FDA import facilitation (regulatory)", "commodity": "eggs", "type": "regulatory",
+    "capacityPerMonth": 0, "leadMonths": 1, "rampMonths": 1, "unitCost": 0, "fixedCost": 0, "enabledByDefault": true,
+    "precedent": { "name": "USDA five-pronged plan, Feb-Jun 2025", "url": "https://www.usda.gov/about-usda/news/press-releases/2025/06/26/secretary-rollins-provides-update-bird-flu-strategy-egg-prices-continue-fall", "note": "Import commitments from Turkey, South Korea, Brazil; part of $1B plan" },
+    "source": "USDA press releases Mar 20 and Jun 26 2025" },
+  { "id": "egg-imports", "name": "Shell egg and egg-product imports", "commodity": "eggs", "type": "import",
+    "capacityPerMonth": 7000000, "leadMonths": 1, "rampMonths": 2, "unitCost": 1.5, "fixedCost": 0, "requires": "egg-usda-import-facilitation", "enabledByDefault": true,
+    "precedent": { "name": "2025 imports: 26M dozen shell + 14M dozen-eq products, Jan-Jun", "url": "https://www.usda.gov/about-usda/news/press-releases/2025/06/26/secretary-rollins-provides-update-bird-flu-strategy-egg-prices-continue-fall", "note": "~6.7M dozen-equivalents per month; unit cost = freight + price premium (modeled)" },
+    "source": "USDA Jun 26 2025" },
+  { "id": "egg-broiler-redirect", "name": "Allow surplus broiler hatching eggs into breaking (regulatory)", "commodity": "eggs", "type": "redirect",
+    "capacityPerMonth": 2780000, "leadMonths": 1, "rampMonths": 1, "unitCost": 0.2, "fixedCost": 0, "enabledByDefault": false,
+    "precedent": { "name": "National Chicken Council petition to FDA, Feb 2025 (denied Jun 2023; pending)", "url": "https://www.nationalchickencouncil.org/national-chicken-council-offers-measure-to-help-alleviate-egg-shortage-in-wake-of-bird-flu/", "note": "~400M eggs/yr = 2.78M dozen/month" },
+    "source": "NCC Feb 2025" },
+  { "id": "egg-cold-storage", "name": "Frozen egg product drawdown", "commodity": "eggs", "type": "stockpile",
+    "capacityPerMonth": 1000000, "leadMonths": 0, "rampMonths": 1, "unitCost": 0.1, "fixedCost": 0, "stock": 1700000, "enabledByDefault": true,
+    "precedent": { "name": "NASS Cold Storage: ~2.3M lbs frozen eggs (Nov 2025)", "url": "https://www.nass.usda.gov/Publications/Todays_Reports/reports/cost0125.pdf", "note": "≈1.7M dozen-equivalents in total; there is no US strategic egg reserve" },
+    "source": "NASS Cold Storage" },
+  { "id": "egg-repopulation-acceleration", "name": "Accelerated repopulation (pullet placements, indemnity)", "commodity": "eggs", "type": "domestic_ramp",
+    "capacityPerMonth": 5000000, "leadMonths": 5, "rampMonths": 3, "unitCost": 0.5, "fixedCost": 0, "enabledByDefault": true,
+    "precedent": { "name": "APHIS indemnity and restocking, $400M in 2025 plan", "url": "https://www.aphis.usda.gov/sites/default/files/criteriarestock.pdf", "note": "Bounded by pullet supply and 9-13 week downtime; capacity beyond baseline recovery is modeled" },
+    "source": "APHIS restock criteria; USDA Feb 2025" },
+  { "id": "egg-purchase-limits", "name": "Retail purchase limits (demand-side)", "commodity": "eggs", "type": "demand_side",
+    "capacityPerMonth": 0, "leadMonths": 0, "rampMonths": 1, "unitCost": 0, "fixedCost": 0, "rationingShare": 0.1, "enabledByDefault": true,
+    "precedent": { "name": "Trader Joe's, Costco, Kroger limits, Feb 2025", "url": "https://www.cnbc.com/2025/02/12/trader-joes-costco-kroger-limit-egg-purchases.html", "note": "Rationing, not supply; share of gap removed is modeled" },
+    "source": "CNBC Feb 12 2025" },
+
+  { "id": "formula-fda-enforcement-discretion", "name": "FDA enforcement discretion for imports (regulatory)", "commodity": "infant-formula", "type": "regulatory",
+    "capacityPerMonth": 0, "leadMonths": 3, "rampMonths": 1, "unitCost": 0, "fixedCost": 0, "stock": 395600000, "enabledByDefault": true,
+    "precedent": { "name": "FDA Infant Formula Enforcement Discretion, May 16 2022", "url": "https://medical.hibobbie.com/resource/understanding-operation-fly-formula", "note": "18.4M cans ≈ 395.6M 8-oz bottle-equivalents approved by Jul 27 2022; expired Nov 14 2022" },
+    "source": "FDA; Bobbie Medical guide" },
+  { "id": "formula-commercial-imports", "name": "Commercial imports (sea and truck)", "commodity": "infant-formula", "type": "import",
+    "capacityPerMonth": 70000000, "leadMonths": 4, "rampMonths": 1, "unitCost": 0.5, "fixedCost": 0, "requires": "formula-fda-enforcement-discretion", "enabledByDefault": true,
+    "precedent": { "name": "Approved imports moved by commercial freight after discretion", "url": "https://medical.hibobbie.com/resource/understanding-operation-fly-formula", "note": "Approved 395.6M less airlifted 83M by Sep 2 (modeled monthly capacity)" },
+    "source": "FDA; White House releases" },
+  { "id": "formula-fly-formula-airlift", "name": "Operation Fly Formula airlift", "commodity": "infant-formula", "type": "import",
+    "capacityPerMonth": 20000000, "leadMonths": 3, "rampMonths": 1, "unitCost": 2.0, "fixedCost": 0, "requires": "formula-fda-enforcement-discretion", "enabledByDefault": true,
+    "precedent": { "name": "Operation Fly Formula, May 22 - Sep 2022", "url": "https://fortune.com/2022/05/22/78000-pounds-infant-formula-arrives-in-us-military", "note": "First flight 78,000 lbs (>0.5M bottles); ~64M bottles by early Aug; >83M by Sep 2 2022" },
+    "source": "White House releases Jun-Sep 2022; Fortune May 22 2022" },
+  { "id": "formula-sturgis-restart", "name": "Abbott Sturgis restart", "commodity": "infant-formula", "type": "domestic_ramp",
+    "capacityPerMonth": 56000000, "leadMonths": 4, "rampMonths": 2, "unitCost": 0, "fixedCost": 0, "enabledByDefault": true,
+    "precedent": { "name": "Sturgis restarted Jun 4 2022 under consent decree; product shipped from July", "url": "https://www.cnbc.com/2022/07/09/production-resumes-at-troubled-abbott-baby-formula-factory.html", "note": "~20% of US supply (approximate)" },
+    "source": "CNBC Jul 9 2022" },
+  { "id": "formula-other-domestic-ramp", "name": "Other manufacturers run 24/7", "commodity": "infant-formula", "type": "domestic_ramp",
+    "capacityPerMonth": 28000000, "leadMonths": 1, "rampMonths": 2, "unitCost": 0.1, "fixedCost": 0, "enabledByDefault": true,
+    "precedent": { "name": "Reckitt, Nestle, Perrigo increased output ~30% (approximate)", "url": "https://www.supplychaindive.com/news/timeline-infant-formula-shortage/624570/", "note": "modeled ~10% of national supply" },
+    "source": "Supply Chain Dive timeline" },
+  { "id": "formula-wic-flexibilities", "name": "WIC substitution flexibilities (demand-side)", "commodity": "infant-formula", "type": "demand_side",
+    "capacityPerMonth": 0, "leadMonths": 0, "rampMonths": 1, "unitCost": 0, "fixedCost": 0, "rationingShare": 0.05, "enabledByDefault": true,
+    "precedent": { "name": "USDA WIC waivers allowing brand/size substitutions, Feb-May 2022", "url": "https://www.supplychaindive.com/news/timeline-infant-formula-shortage/624570/", "note": "Reallocates demand across products; modeled 5% of gap" },
+    "source": "USDA FNS" }
+]
+```
+
+`packages/config/data/plate.json`:
+```json
+{
+  "source": "SURGE plate graph; cost-share links from ERS Food Dollar and ERR-57 (structural)",
+  "nodes": [
+    { "id": "fertilizer", "label": "Fertilizer", "stage": "input" }, { "id": "energy", "label": "Diesel and gas", "stage": "input" },
+    { "id": "corn", "label": "Corn", "stage": "farm" }, { "id": "soybeans", "label": "Soybeans", "stage": "farm" }, { "id": "wheat", "label": "Wheat", "stage": "farm" },
+    { "id": "layers", "label": "Laying hens", "stage": "farm", "commodity": "eggs" }, { "id": "broilers", "label": "Broilers", "stage": "farm", "commodity": "chicken" },
+    { "id": "turkeys", "label": "Turkeys", "stage": "farm", "commodity": "turkey" }, { "id": "cattle", "label": "Cattle", "stage": "farm", "commodity": "beef" },
+    { "id": "hogs", "label": "Hogs", "stage": "farm", "commodity": "pork" }, { "id": "dairy-cows", "label": "Dairy cows", "stage": "farm", "commodity": "milk" },
+    { "id": "orchards", "label": "Orchards and groves", "stage": "farm" }, { "id": "vegetable-fields", "label": "Vegetable fields", "stage": "farm" },
+    { "id": "rice-paddies", "label": "Rice", "stage": "farm", "commodity": "rice" }, { "id": "cane-beet", "label": "Cane and beet", "stage": "farm", "commodity": "sugar" },
+    { "id": "coffee-farms", "label": "Coffee (imported)", "stage": "farm", "commodity": "coffee" }, { "id": "banana-farms", "label": "Bananas (imported)", "stage": "farm", "commodity": "bananas" },
+    { "id": "breakers", "label": "Egg breakers", "stage": "processing" }, { "id": "mills", "label": "Flour mills and bakeries", "stage": "processing" },
+    { "id": "crushers", "label": "Oilseed crushers", "stage": "processing" }, { "id": "packers", "label": "Meat packers", "stage": "processing" },
+    { "id": "dairies", "label": "Dairies", "stage": "processing" }, { "id": "formula-plants", "label": "Formula plants", "stage": "processing", "commodity": "infant-formula" },
+    { "id": "shell-eggs", "label": "Eggs", "stage": "plate", "commodity": "eggs" }, { "id": "baked-goods", "label": "Baked goods", "stage": "plate" },
+    { "id": "mayonnaise", "label": "Mayonnaise", "stage": "plate" }, { "id": "chicken", "label": "Chicken", "stage": "plate", "commodity": "chicken" },
+    { "id": "turkey", "label": "Turkey", "stage": "plate", "commodity": "turkey" }, { "id": "beef", "label": "Beef", "stage": "plate", "commodity": "beef" },
+    { "id": "pork", "label": "Pork", "stage": "plate", "commodity": "pork" }, { "id": "bacon", "label": "Bacon", "stage": "plate" },
+    { "id": "milk", "label": "Milk", "stage": "plate", "commodity": "milk" }, { "id": "cheese", "label": "Cheese", "stage": "plate", "commodity": "cheese" },
+    { "id": "butter", "label": "Butter", "stage": "plate" }, { "id": "pizza", "label": "Pizza", "stage": "plate" },
+    { "id": "bread", "label": "Bread", "stage": "plate", "commodity": "bread" }, { "id": "pasta", "label": "Pasta", "stage": "plate" },
+    { "id": "rice", "label": "Rice", "stage": "plate", "commodity": "rice" }, { "id": "potatoes", "label": "Potatoes", "stage": "plate", "commodity": "potatoes" },
+    { "id": "fries", "label": "Fries", "stage": "plate" }, { "id": "salad", "label": "Salad", "stage": "plate" }, { "id": "sauce", "label": "Tomato sauce", "stage": "plate" },
+    { "id": "vegetables", "label": "Vegetables", "stage": "plate", "commodity": "fresh-vegetables" }, { "id": "fruit", "label": "Fruit", "stage": "plate" },
+    { "id": "orange-juice", "label": "Orange juice", "stage": "plate" }, { "id": "coffee", "label": "Coffee", "stage": "plate", "commodity": "coffee" },
+    { "id": "sweets", "label": "Sweets", "stage": "plate", "commodity": "sugar" }, { "id": "cooking-oil", "label": "Cooking oil", "stage": "plate", "commodity": "fats-oils" },
+    { "id": "infant-formula", "label": "Infant formula", "stage": "plate", "commodity": "infant-formula" }
+  ],
+  "edges": [
+    { "from": "fertilizer", "to": "corn" }, { "from": "fertilizer", "to": "wheat" }, { "from": "fertilizer", "to": "soybeans" }, { "from": "fertilizer", "to": "rice-paddies" }, { "from": "fertilizer", "to": "vegetable-fields" },
+    { "from": "energy", "to": "corn" }, { "from": "energy", "to": "wheat" }, { "from": "energy", "to": "mills" }, { "from": "energy", "to": "packers" },
+    { "from": "corn", "to": "layers" }, { "from": "corn", "to": "broilers" }, { "from": "corn", "to": "turkeys" }, { "from": "corn", "to": "hogs" }, { "from": "corn", "to": "cattle" }, { "from": "corn", "to": "dairy-cows" },
+    { "from": "soybeans", "to": "layers" }, { "from": "soybeans", "to": "broilers" }, { "from": "soybeans", "to": "hogs" }, { "from": "soybeans", "to": "crushers" },
+    { "from": "wheat", "to": "mills" }, { "from": "layers", "to": "shell-eggs" }, { "from": "layers", "to": "breakers" }, { "from": "breakers", "to": "baked-goods" }, { "from": "breakers", "to": "mayonnaise" },
+    { "from": "broilers", "to": "packers" }, { "from": "turkeys", "to": "packers" }, { "from": "cattle", "to": "packers" }, { "from": "hogs", "to": "packers" },
+    { "from": "packers", "to": "chicken" }, { "from": "packers", "to": "turkey" }, { "from": "packers", "to": "beef" }, { "from": "packers", "to": "pork" }, { "from": "packers", "to": "bacon" },
+    { "from": "dairy-cows", "to": "dairies" }, { "from": "dairies", "to": "milk" }, { "from": "dairies", "to": "cheese" }, { "from": "dairies", "to": "butter" }, { "from": "dairies", "to": "formula-plants" }, { "from": "cheese", "to": "pizza" }, { "from": "mills", "to": "pizza" },
+    { "from": "mills", "to": "bread" }, { "from": "mills", "to": "pasta" }, { "from": "mills", "to": "baked-goods" }, { "from": "rice-paddies", "to": "rice" },
+    { "from": "vegetable-fields", "to": "potatoes" }, { "from": "potatoes", "to": "fries" }, { "from": "crushers", "to": "cooking-oil" }, { "from": "cooking-oil", "to": "fries" },
+    { "from": "vegetable-fields", "to": "salad" }, { "from": "vegetable-fields", "to": "sauce" }, { "from": "vegetable-fields", "to": "vegetables" },
+    { "from": "orchards", "to": "fruit" }, { "from": "orchards", "to": "orange-juice" }, { "from": "banana-farms", "to": "fruit" }, { "from": "coffee-farms", "to": "coffee" },
+    { "from": "cane-beet", "to": "sweets" }, { "from": "cane-beet", "to": "baked-goods" }, { "from": "formula-plants", "to": "infant-formula" }
+  ]
+}
+```
+
+`packages/config/data/cases/egg-2024-calibration.json`:
+```json
+{
+  "id": "egg-2024-calibration", "name": "2024 HPAI egg shock (calibration)", "description": "Reproduces Mitchell, Thompson, Malone (2025) with their published inputs.",
+  "threats": [ { "id": "hpai-2024", "name": "HPAI layer losses, 2024", "category": "disease", "kind": "natural",
+    "location": { "lat": 41.9, "lng": -93.1, "admin": "United States", "iso3": "USA", "regionId": "us-midwest-corn-belt" },
+    "commodities": [ { "id": "eggs", "relevance": 1 } ], "severity": 1,
+    "physical": { "kind": "animals_affected", "value": 38400000 }, "start": "2024-01", "months": 12,
+    "source": { "feed": "APHIS via Fryar FC-2025-001", "kind": "archive" } } ],
+  "observed": { "commodity": "eggs", "months": ["2024-01"], "retailPrice": [2.9757], "counterfactualPrice": [2.73], "attributionShare": 1.0, "source": "Fryar FC-2025-001 Table 1: +9% on $2.73" },
+  "expected": { "consumerSurplusLossUSD": 1414280000, "retailPriceChangePct": 0.09, "quantityChangePct": -0.02, "ownPriceElasticity": -0.228 },
+  "source": "Fryar Center FC-2025-001"
+}
+```
+
+`packages/config/data/cases/egg-2022.json` (monthly depopulations as in the Task 5 test; `expected` from Ferrier):
+```json
+{
+  "id": "egg-2022", "name": "2022 HPAI egg shock (replay)", "description": "43.4M table-egg layers depopulated Feb-Dec 2022; validated against Ferrier, Saavoss, Williamson (2024).",
+  "threats": [ { "id": "hpai-2022", "name": "HPAI layer depopulations, 2022", "category": "disease", "kind": "natural",
+    "location": { "lat": 42.0, "lng": -93.5, "admin": "Iowa and Midwest", "iso3": "USA", "regionId": "us-midwest-corn-belt" },
+    "commodities": [ { "id": "eggs", "relevance": 1 } ], "severity": 1,
+    "physical": { "kind": "animals_affected", "value": 43400000, "timeline": [
+      { "month": 1, "value": 2500000 }, { "month": 2, "value": 16900000 }, { "month": 3, "value": 10700000 }, { "month": 4, "value": 300000 }, { "month": 5, "value": 300000 },
+      { "month": 8, "value": 1000000 }, { "month": 9, "value": 3200000 }, { "month": 10, "value": 3400000 }, { "month": 11, "value": 5000000 } ] },
+    "start": "2022-01", "months": 24,
+    "source": { "feed": "APHIS confirmations via WATTPoultry monthly summary and ERS April 2022 outlook (Plan 2 replaces with archive sums)", "kind": "archive" } } ],
+  "observed": { "commodity": "eggs", "months": ["2022-01","2022-02","2022-03","2022-04","2022-05","2022-06","2022-07","2022-08","2022-09","2022-10","2022-11","2022-12","2023-01"],
+    "retailPrice": [1.93, 2.005, 2.046, 2.52, 2.863, 2.707, 2.936, 3.116, 2.902, 3.419, 3.589, 4.25, 4.823],
+    "counterfactualPrice": [1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93, 1.93],
+    "attributionShare": 0.5,
+    "source": "FRED APU0000708111 monthly 2022 (values approximate to 3 dp; Plan 2 fetches live); counterfactual = Jan 2022 level; attribution 0.5 spans Mitchell (7-9% avg) and Ferrier (22-24% Q2/Q4)" },
+  "expected": { "quarterlyShortfallQ2": 0.057, "quarterlyShortfallQ3": 0.047, "quarterlyShortfallQ4": 0.065, "ferrierConsumerLossUSD": 3562000000, "mitchellConsumerLossLowUSD": 930000000, "mitchellConsumerLossHighUSD": 1195000000 },
+  "source": "Ferrier, Saavoss, Williamson (2024) Tables 4 and 8; Mitchell, Thompson, Malone (2024)"
+}
+```
+
+`packages/config/data/cases/formula-2022.json`:
+```json
+{
+  "id": "formula-2022", "name": "2022 infant formula shortage (Sturgis)", "description": "Abbott Sturgis shutdown Feb 17 2022; FDA enforcement discretion May 16; Operation Fly Formula from May 22; restart Jun 4.",
+  "threats": [ { "id": "sturgis-2022", "name": "Abbott Sturgis plant closure and recall", "category": "facility", "kind": "geopolitical",
+    "location": { "lat": 41.80, "lng": -85.42, "admin": "Sturgis, Michigan", "iso3": "USA" },
+    "commodities": [ { "id": "infant-formula", "relevance": 1 } ], "severity": 1,
+    "physical": { "kind": "capacity_out_fraction", "value": 0.2 }, "start": "2022-02", "months": 9,
+    "source": { "feed": "FDA recall notice Feb 17 2022; CNBC Jul 9 2022 restart", "kind": "archive", "note": "share of national supply approximate" } } ],
+  "expected": { "outOfStockRateFDAMay": 0.21, "outOfStockRateDatasemblyMay": 0.43, "enforcementDiscretionBottles": 395600000, "airliftBottlesBySep2": 83000000 },
+  "source": "FDA; White House Operation Fly Formula releases; Datasembly (widely reported)"
+}
+```
+
+- [ ] **Step 7: Write the loader**
+
+`packages/config/src/index.ts`:
+```ts
+import type { EngineContext, CommodityConfig, InputConfig, DemandSystemConfig, ThreatTypeConfig, RegionConfig, LeverConfig, PlateConfig, CaseFile, ThreatCategory } from '@surge/engine';
+import commodities from '../data/commodities.json' with { type: 'json' };
+import inputs from '../data/inputs.json' with { type: 'json' };
+import demand from '../data/demand-system.json' with { type: 'json' };
+import threatTypes from '../data/threat-types.json' with { type: 'json' };
+import regions from '../data/regions.json' with { type: 'json' };
+import levers from '../data/levers.json' with { type: 'json' };
+import plate from '../data/plate.json' with { type: 'json' };
+import egg2024 from '../data/cases/egg-2024-calibration.json' with { type: 'json' };
+import egg2022 from '../data/cases/egg-2022.json' with { type: 'json' };
+import formula2022 from '../data/cases/formula-2022.json' with { type: 'json' };
+
+export type CaseId = 'egg-2024-calibration' | 'egg-2022' | 'formula-2022';
+
+/** US resident population and CEX totals; Plan 2 refreshes these from FRED (POPTHM, CXUTOTALEXPLB0101M). */
+export const POPULATION = { value: 340.1e6, year: 2024, source: 'Census Vintage 2024 (FRED POPTHM)' };
+export const CONSUMER_UNITS = { value: 134.6e6, year: 2024, source: 'BLS CEX 2024 number of consumer units (approximate)' };
+export const TOTAL_EXPENDITURE = { value: 78535 * 134.6e6, year: 2024, source: 'BLS CEX 2024 CXUTOTALEXPLB0101M $78,535 × consumer units' };
+
+export function loadContext(): EngineContext {
+  return {
+    commodities: commodities as unknown as Record<string, CommodityConfig>,
+    inputs: inputs as unknown as Record<string, InputConfig>,
+    demand: demand as unknown as DemandSystemConfig,
+    threatTypes: threatTypes as unknown as Record<ThreatCategory, ThreatTypeConfig>,
+    regions: regions as unknown as Record<string, RegionConfig>,
+    levers: levers as unknown as LeverConfig[],
+    plate: plate as unknown as PlateConfig,
+    population: POPULATION,
+    totalExpenditure: TOTAL_EXPENDITURE,
+  };
+}
+
+export function loadCase(id: CaseId): CaseFile {
+  const map: Record<CaseId, unknown> = { 'egg-2024-calibration': egg2024, 'egg-2022': egg2022, 'formula-2022': formula2022 };
+  return map[id] as CaseFile;
+}
+```
+
+- [ ] **Step 8: Run tests and typecheck**
+
+Run: `PATH="$HOME/.local/bin:$PATH" npm install && PATH="$HOME/.local/bin:$PATH" npm test && PATH="$HOME/.local/bin:$PATH" npm run typecheck`
+Expected: config tests pass (6), engine tests still pass. If `budget shares sum` fails, check `parse_table1` captured every group line (nonalcoholic beverages, other FAH, FAFH and alcohol, nonfood) from the continued Table 1 at lines 470–512 of `err139.txt`.
+
+- [ ] **Step 9: Commit**
+
+```bash
+git add -A && git commit -m "feat(config): ERR-139 demand system extraction, commodities, inputs, regions, threat types, levers, plate, cases
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
+```
