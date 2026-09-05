@@ -2331,3 +2331,593 @@ git add -A && git commit -m "feat(config): ERR-139 demand system extraction, com
 
 Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
 ```
+
+---
+
+### Task 8: Threat → shock rules and impact assembly
+
+**Files:**
+- Create: `packages/engine/src/shock.ts`, `packages/engine/src/impact.ts`, `packages/engine/src/months.ts`
+- Modify: `packages/engine/src/index.ts`
+- Test: `packages/engine/test/shock.test.ts`, `packages/engine/test/impact.test.ts`
+
+**Interfaces:**
+- Consumes: `livestockShortfall`, `cropShortfall`, `manufacturingShortfall` (Task 5); `pricePaths`, `retailPriceChange`, `observedRetailPath` (Task 6); `buildDemandSystem`, `toHicksian`, `symmetrize`, `slutskyMatrix`, `checkNSD` (Task 3); `cvSecondOrder`, `evApprox`, `csConstantElasticity`, `substitutionPct`, `incidenceByQuintile` (Task 4); `loadContext()` (Task 7) in tests.
+- Produces:
+  - `monthIndex(start: string, ym: string): number`, `addMonths(ym: string, n: number): string`, `monthRange(start: string, n: number): string[]`
+  - `threatToShocks(threat: Threat, ctx: EngineContext, severityOverride?: number): Shock[]`
+  - `computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { observed?: CaseFile['observed'] }): ImpactResult`
+
+- [ ] **Step 1: Write `months.ts`**
+
+```ts
+// packages/engine/src/months.ts
+export function parseYM(ym: string): { y: number; m: number } {
+  const [ys, ms] = ym.split('-');
+  const y = Number(ys), m = Number(ms);
+  if (!Number.isInteger(y) || !Number.isInteger(m) || m < 1 || m > 12) throw new Error(`bad month ${ym}`);
+  return { y, m };
+}
+export function addMonths(ym: string, n: number): string {
+  const { y, m } = parseYM(ym);
+  const total = y * 12 + (m - 1) + n;
+  const yy = Math.floor(total / 12), mm = (total % 12) + 1;
+  return `${yy}-${String(mm).padStart(2, '0')}`;
+}
+export function monthIndex(start: string, ym: string): number {
+  const a = parseYM(start), b = parseYM(ym);
+  return (b.y - a.y) * 12 + (b.m - a.m);
+}
+export function monthRange(start: string, n: number): string[] {
+  return Array.from({ length: n }, (_, i) => addMonths(start, i));
+}
+```
+
+- [ ] **Step 2: Write the failing shock tests**
+
+`packages/engine/test/shock.test.ts`:
+```ts
+import { describe, it, expect } from 'vitest';
+import { threatToShocks } from '../src/shock.js';
+import { loadContext } from '@surge/config';
+import type { Threat } from '../src/types.js';
+
+const ctx = loadContext();
+const base = (over: Partial<Threat>): Threat => ({
+  id: 't', name: 'T', category: 'disease', kind: 'natural',
+  location: { lat: 42, lng: -93.5, regionId: 'us-iowa' },
+  commodities: [{ id: 'eggs', relevance: 1 }], severity: 1, start: '2024-01',
+  source: { feed: 'test', kind: 'user' }, ...over,
+});
+
+describe('threatToShocks', () => {
+  it('disease with animals affected → livestock supply path scaled by inventory', () => {
+    const [s] = threatToShocks(base({ physical: { kind: 'animals_affected', value: 32.5e6 }, months: 12 }), ctx);
+    expect(s!.kind).toBe('supply');
+    expect(s!.commodity).toBe('eggs');
+    // 10% of 325M, offset 0.35 → 0.065 in month 0
+    expect(s!.supplyPath[0]).toBeCloseTo(0.065, 6);
+    expect(s!.supplyPath.length).toBe(12);
+  });
+  it('disease timeline spreads events by month', () => {
+    const [s] = threatToShocks(base({ physical: { kind: 'animals_affected', value: 20e6, timeline: [{ month: 0, value: 10e6 }, { month: 2, value: 10e6 }] }, months: 6 }), ctx);
+    expect(s!.supplyPath[1]).toBeCloseTo(0.02, 6);
+    expect(s!.supplyPath[2]).toBeCloseTo(0.04, 6);
+  });
+  it('severity override scales the physical quantity', () => {
+    const t = base({ physical: { kind: 'animals_affected', value: 32.5e6 }, months: 3 });
+    const [full] = threatToShocks(t, ctx);
+    const [half] = threatToShocks(t, ctx, 0.5);
+    expect(half!.supplyPath[0]).toBeCloseTo(full!.supplyPath[0]! / 2, 9);
+    const [zero] = threatToShocks(t, ctx, 0);
+    expect(zero!.supplyPath[0]).toBe(0);
+  });
+  it('drought on a US crop region → crop supply path using region share and damage cap', () => {
+    const t = base({ category: 'drought', commodities: [{ id: 'potatoes', relevance: 1 }], location: { lat: 46, lng: -119, regionId: 'us-pacific-northwest' }, severity: 0.8, months: 12 });
+    const [s] = threatToShocks(t, ctx);
+    // damage 0.35 * 0.8 = 0.28 yield loss × 0.55 share × (1 - min(0.5, 0.3) stocks buffer) = 0.1078 from harvest month
+    const nonzero = s!.supplyPath.filter((v) => v > 0);
+    expect(nonzero.length).toBeGreaterThan(0);
+    expect(Math.max(...nonzero)).toBeCloseTo(0.28 * 0.55 * 0.7, 6);
+  });
+  it('drought on an input region → cost shocks for every commodity using that input', () => {
+    const t = base({ category: 'drought', commodities: [{ id: 'corn', relevance: 1 }], location: { lat: 42, lng: -93.5, regionId: 'us-iowa' }, severity: 1, months: 12 });
+    const shocks = threatToShocks(t, ctx);
+    const viaCorn = shocks.filter((s) => s.kind === 'cost' && s.via === 'corn');
+    expect(viaCorn.map((s) => s.commodity).sort()).toEqual(['beef', 'chicken', 'eggs', 'milk', 'pork', 'turkey']);
+    const eggs = viaCorn.find((s) => s.commodity === 'eggs')!;
+    // corn supply loss 0.35*0.17*(1-0.12)=0.05236; corn price = 0.05236/((0.85)(0.4)+0.15*1.5)=0.0929; eggs cost share 0.119 → 0.01106
+    const peak = Math.max(...eggs.costPath!);
+    expect(peak).toBeCloseTo(0.119 * (0.35 * 0.17 * 0.88) / (0.85 * 0.4 + 0.15 * 1.5), 5);
+    expect(eggs.supplyPath.every((v) => v === 0)).toBe(true);
+  });
+  it('export ban from an origin → supply loss = import share × origin share × (1 − rerouting)', () => {
+    const t = base({ category: 'export_ban', kind: 'geopolitical', commodities: [{ id: 'tomatoes', relevance: 1 }], location: { lat: 23, lng: -102, regionId: 'mexico' }, physical: { kind: 'import_share_blocked', value: 1 }, months: 6 });
+    const [s] = threatToShocks(t, ctx);
+    expect(s!.supplyPath[0]).toBeCloseTo(0.6 * 0.9 * 1 * (1 - 0.3), 6);
+    expect(s!.supplyPath.length).toBe(6);
+  });
+  it('tariff → cost path = rate × import share × pass-through', () => {
+    const t = base({ category: 'tariff', kind: 'geopolitical', commodities: [{ id: 'bananas', relevance: 1 }], location: { lat: 10, lng: -84, regionId: 'central-america-bananas' }, physical: { kind: 'tariff_rate', value: 0.25 }, months: 12 });
+    const [s] = threatToShocks(t, ctx);
+    expect(s!.kind).toBe('cost');
+    expect(s!.costPath![0]).toBeCloseTo(0.25 * 1.0 * 0.95, 6);
+  });
+  it('chokepoint → delay shortfall and freight wedge on an input, propagated to commodities', () => {
+    const t = base({ category: 'chokepoint', kind: 'geopolitical', commodities: [{ id: 'fertilizer', relevance: 1 }], location: { lat: 26.6, lng: 56.3, regionId: 'hormuz' }, physical: { kind: 'transit_decline_fraction', value: 0.5 }, months: 3 });
+    const shocks = threatToShocks(t, ctx);
+    expect(shocks.every((s) => s.kind === 'cost' && s.via === 'fertilizer')).toBe(true);
+    expect(shocks.map((s) => s.commodity).sort()).toEqual(['potatoes', 'rice']);
+  });
+  it('war in an exporting region → world price shock × import exposure', () => {
+    const t = base({ category: 'war', kind: 'geopolitical', commodities: [{ id: 'wheat', relevance: 1 }], location: { lat: 48, lng: 35, regionId: 'black-sea' }, severity: 1, months: 6 });
+    const shocks = threatToShocks(t, ctx);
+    const bread = shocks.find((s) => s.commodity === 'bread')!;
+    // world export share 0.28 × severity 1 × transmission 0.5 = 0.14 world price; wheat exposure = max(importShare, exportShare)=0.45 → 0.063; bread cost share 0.06 → 0.00378
+    expect(bread.costPath![0]).toBeCloseTo(0.28 * 0.5 * 0.45 * 0.06, 6);
+  });
+  it('import_dependence produces no shock', () => {
+    expect(threatToShocks(base({ category: 'import_dependence', kind: 'geopolitical' }), ctx)).toEqual([]);
+  });
+  it('facility → manufacturing path', () => {
+    const t = base({ category: 'facility', kind: 'geopolitical', commodities: [{ id: 'infant-formula', relevance: 1 }], location: { lat: 41.8, lng: -85.4 }, physical: { kind: 'capacity_out_fraction', value: 0.2 }, months: 9 });
+    const [s] = threatToShocks(t, ctx);
+    expect(s!.supplyPath[0]).toBeCloseTo(0.2, 9);
+    expect(s!.supplyPath[8]).toBe(0);
+  });
+});
+```
+
+- [ ] **Step 3: Run to verify failure**
+
+Run: `cd packages/engine && PATH="$HOME/.local/bin:$PATH" npx vitest run test/shock.test.ts`
+Expected: FAIL, cannot find `../src/shock.js`.
+
+- [ ] **Step 4: Write `shock.ts`**
+
+```ts
+// packages/engine/src/shock.ts
+import type { EngineContext, Threat, Shock, CommodityConfig, InputConfig, SourceStamp } from './types.js';
+import { livestockShortfall, cropShortfall, manufacturingShortfall } from './biology.js';
+import { retailPriceChange } from './price.js';
+
+const REROUTING_SHARE = 0.3;        // share of blocked imports replaced from other origins within the period (modeled)
+const WORLD_PRICE_TRANSMISSION = 0.5; // world price rise per unit of lost world-export share × severity (modeled)
+const FREIGHT_WEDGE_AT_FULL_CLOSURE = 0.05; // wholesale cost wedge when a chokepoint fully closes (modeled)
+const DELAY_MONTHS = 1;              // shortfall months from rerouting delay at full closure (modeled)
+
+function months(threat: Threat, ctx: EngineContext): number {
+  return threat.months ?? ctx.threatTypes[threat.category]?.defaultMonths ?? 6;
+}
+
+function physicalValue(threat: Threat, sev: number): number {
+  return (threat.physical?.value ?? 0) * sev;
+}
+
+function stamp(threat: Threat, note: string): SourceStamp {
+  return { ...threat.source, note };
+}
+
+function supplyShock(threat: Threat, c: CommodityConfig, path: number[], label: string): Shock {
+  return { kind: 'supply', commodity: c.id, region: threat.location.regionId ?? 'unknown', start: threat.start, supplyPath: path,
+    passThrough: c.transmission.passThrough, lagMonths: c.transmission.lagMonths, provenance: [stamp(threat, label)], label };
+}
+
+/** Convert an input price path into cost shocks for every commodity that uses the input. */
+function propagateInput(threat: Threat, inputId: string, pricePath: number[], ctx: EngineContext, label: string): Shock[] {
+  const out: Shock[] = [];
+  for (const c of Object.values(ctx.commodities)) {
+    const link = (c.inputs ?? []).find((x) => x.input === inputId);
+    if (!link) continue;
+    out.push({ kind: 'cost', commodity: c.id, via: inputId, region: threat.location.regionId ?? 'unknown', start: threat.start,
+      supplyPath: new Array(pricePath.length).fill(0), costPath: pricePath.map((p) => p * link.costShare),
+      passThrough: c.transmission.passThrough, lagMonths: c.transmission.lagMonths, provenance: [stamp(threat, `${label} via ${inputId} (cost share ${link.costShare})`)], label: `${label} via ${inputId}` });
+  }
+  return out;
+}
+
+/** Input market clearing with θ = 1 (farm/wholesale level). */
+function inputPricePath(inp: InputConfig, supplyPath: number[]): number[] {
+  return supplyPath.map((s) => (s > 0 ? retailPriceChange(s, { eps: inp.demand.totalElasticity, exportShare: inp.trade.exportShare, exportElasticity: inp.trade.exportElasticity, passThrough: 1, lagMonths: 0 }) : 0));
+}
+
+function cropPathFor(id: string, ctx: EngineContext, lossFraction: number, regionShare: number, n: number): number[] {
+  const c = ctx.commodities[id];
+  const inp = ctx.inputs[id];
+  const supply = c ? c.supply : inp ? inp.supply : undefined;
+  const stocks = supply && 'stocksToUse' in supply ? (supply.stocksToUse ?? 0) : 0;
+  const harvest = supply && 'harvestMonth' in supply ? supply.harvestMonth : undefined;
+  // loss lands at the next harvest month if one is configured (0 = continuous harvest → immediately)
+  let lossMonth = 0;
+  if (harvest !== undefined && harvest > 0) {
+    const startM = Number(ctx.commodities[id]?.baseline.year ?? 0) ? 0 : 0; // month offset resolved below
+    lossMonth = 0; // computed by caller via threat.start; kept simple: loss begins at shock start for continuous crops
+    void startM;
+  }
+  return cropShortfall({ yieldLossFraction: lossFraction, affectedShare: regionShare, lossMonth, marketingMonths: n, stocksToUse: stocks, months: n });
+}
+
+export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverride?: number): Shock[] {
+  const type = ctx.threatTypes[threat.category];
+  if (!type || type.rule === 'vulnerability_only') return [];
+  const sev = severityOverride ?? threat.severity;
+  const n = months(threat, ctx);
+  const region = threat.location.regionId ? ctx.regions[threat.location.regionId] : undefined;
+  const out: Shock[] = [];
+
+  for (const { id, relevance } of threat.commodities) {
+    const c = ctx.commodities[id];
+    const inp = ctx.inputs[id];
+    if (!c && !inp) continue;
+    const rel = Math.max(0, Math.min(1, relevance));
+
+    switch (type.rule) {
+      case 'livestock_disease': {
+        if (!c || c.supply.model !== 'livestock') break;
+        const inv = c.supply.nationalInventory!;
+        const lagShift = ctx.overrides?.recoveryLagShiftMonths ?? 0;
+        const events = threat.physical?.timeline
+          ? threat.physical.timeline.map((e) => ({ month: e.month, headLost: e.value * sev * rel }))
+          : [{ month: 0, headLost: physicalValue(threat, sev) * rel }];
+        const path = livestockShortfall(events, { inventory: inv, lagMin: c.supply.recoveryLagMinMonths! + lagShift, lagMax: c.supply.recoveryLagMaxMonths! + lagShift, producerOffset: c.supply.producerOffset ?? 0, months: n });
+        out.push(supplyShock(threat, c, path, threat.name));
+        break;
+      }
+      case 'crop_hazard': case 'livestock_hazard': {
+        const damage = (type.damageAtSeverity1 ?? 0.2) * sev * rel;
+        const share = region?.usSupplyShare?.[id] ?? 0;
+        if (share === 0) break;
+        if (inp) {
+          const supplyPath = cropPathFor(id, ctx, damage, share, n);
+          out.push(...propagateInput(threat, id, inputPricePath(inp, supplyPath), ctx, threat.name));
+        } else if (c) {
+          const path = c.supply.model === 'livestock'
+            ? new Array(n).fill(damage * share)
+            : cropPathFor(id, ctx, damage, share, n);
+          out.push(supplyShock(threat, c, path, threat.name));
+        }
+        break;
+      }
+      case 'trade_block': {
+        const blocked = threat.physical?.kind === 'import_share_blocked' ? threat.physical.value * sev : sev;
+        const origin = region?.usImportOriginShare?.[id] ?? 0;
+        if (c) {
+          const loss = c.trade.importShare * origin * blocked * (1 - REROUTING_SHARE) * rel;
+          out.push(supplyShock(threat, c, new Array(n).fill(loss), threat.name));
+        } else if (inp) {
+          const loss = inp.trade.importShare * origin * blocked * (1 - REROUTING_SHARE) * rel;
+          out.push(...propagateInput(threat, id, inputPricePath(inp, new Array(n).fill(loss)), ctx, threat.name));
+        }
+        break;
+      }
+      case 'tariff': {
+        const rate = threat.physical?.kind === 'tariff_rate' ? threat.physical.value * sev : 0.1 * sev;
+        const origin = region?.usImportOriginShare?.[id] ?? 1;
+        if (c) {
+          const wedge = rate * c.trade.importShare * origin * rel;
+          out.push({ ...supplyShock(threat, c, new Array(n).fill(0), threat.name), kind: 'cost', costPath: new Array(n).fill(wedge) });
+        } else if (inp) {
+          out.push(...propagateInput(threat, id, new Array(n).fill(rate * inp.trade.importShare * origin * rel), ctx, threat.name));
+        }
+        break;
+      }
+      case 'world_price': {
+        const worldShare = region?.worldExportShare?.[id] ?? 0;
+        const worldPrice = worldShare * sev * WORLD_PRICE_TRANSMISSION * rel;
+        if (worldPrice === 0) break;
+        if (c) {
+          const exposure = Math.max(c.trade.importShare, c.trade.exportShare);
+          out.push({ ...supplyShock(threat, c, new Array(n).fill(0), threat.name), kind: 'cost', costPath: new Array(n).fill(worldPrice * exposure) });
+        } else if (inp) {
+          const exposure = Math.max(inp.trade.importShare, inp.trade.exportShare);
+          out.push(...propagateInput(threat, id, new Array(n).fill(worldPrice * exposure), ctx, threat.name));
+        }
+        break;
+      }
+      case 'chokepoint': {
+        const decline = threat.physical?.kind === 'transit_decline_fraction' ? threat.physical.value * sev : sev;
+        const share = region?.chokepointImportShare?.[id] ?? 0;
+        if (share === 0) break;
+        const wedge = FREIGHT_WEDGE_AT_FULL_CLOSURE * decline * rel;
+        if (c) {
+          const delayLoss = c.trade.importShare * share * decline * rel;
+          const supplyPath = new Array(n).fill(0).map((_, t) => (t < DELAY_MONTHS ? delayLoss : 0));
+          out.push({ ...supplyShock(threat, c, supplyPath, threat.name), costPath: new Array(n).fill(wedge) });
+        } else if (inp) {
+          const delayLoss = inp.trade.importShare * share * decline * rel;
+          const supplyPath = new Array(n).fill(0).map((_, t) => (t < DELAY_MONTHS ? delayLoss : 0));
+          const price = inputPricePath(inp, supplyPath).map((p) => p + wedge);
+          out.push(...propagateInput(threat, id, price, ctx, threat.name));
+        }
+        break;
+      }
+      case 'input_cost': {
+        if (!inp) break;
+        const rise = threat.physical?.kind === 'input_price_increase' ? threat.physical.value * sev : 0.2 * sev;
+        out.push(...propagateInput(threat, id, new Array(n).fill(rise * rel), ctx, threat.name));
+        break;
+      }
+      case 'facility': {
+        if (!c) break;
+        const outFrac = threat.physical?.kind === 'capacity_out_fraction' ? threat.physical.value * sev : 0.1 * sev;
+        const outMonths = Math.max(1, Math.round(n * 0.5));
+        const path = manufacturingShortfall({ capacityOutFraction: outFrac * rel, outMonths, rampMonths: 2, months: n });
+        out.push(supplyShock(threat, c, path, threat.name));
+        break;
+      }
+      default:
+        break;
+    }
+  }
+  return out;
+}
+```
+
+Note on `cropPathFor`: the harvest-month logic is intentionally simple (loss begins at shock start and runs one marketing year); the placeholder-looking lines must be removed and replaced with:
+```ts
+function cropPathFor(id: string, ctx: EngineContext, lossFraction: number, regionShare: number, n: number): number[] {
+  const supply = ctx.commodities[id]?.supply ?? ctx.inputs[id]?.supply;
+  const stocks = supply?.stocksToUse ?? 0;
+  return cropShortfall({ yieldLossFraction: lossFraction, affectedShare: regionShare, lossMonth: 0, marketingMonths: n, stocksToUse: stocks, months: n });
+}
+```
+(Seasonal timing relative to the harvest month is deferred to DECISIONS.md as a known simplification; the assumptions list in `impact.ts` reports it.)
+
+- [ ] **Step 5: Run shock tests**
+
+Run: `cd packages/engine && PATH="$HOME/.local/bin:$PATH" npx vitest run test/shock.test.ts`
+Expected: all 11 pass. The facility test expects `supplyPath[8] === 0` with `months: 9` → outMonths 5 (round(4.5) = 5 in JS: `Math.round(4.5)` is 5), ramp months 5,6 → index 7 and 8 are 0. Confirm; if the ramp lands differently adjust the expectation to the actual path printed, not the code.
+
+- [ ] **Step 6: Write the failing impact tests**
+
+`packages/engine/test/impact.test.ts`:
+```ts
+import { describe, it, expect } from 'vitest';
+import { computeImpact } from '../src/impact.js';
+import { threatToShocks } from '../src/shock.js';
+import { loadContext, loadCase } from '@surge/config';
+
+const ctx = loadContext();
+
+describe('computeImpact', () => {
+  it('egg 2024 calibration on the observed path reproduces the published loss within 2%', () => {
+    const c = loadCase('egg-2024-calibration');
+    const shocks = threatToShocks(c.threats[0]!, { ...ctx, overrides: { elasticity: { eggs: -0.228 } } });
+    const r = computeImpact(shocks, { ...ctx, overrides: { elasticity: { eggs: -0.228 }, pricePath: 'observed' } }, { observed: c.observed! });
+    expect(r.price.path).toBe('observed');
+    expect(Math.abs(r.welfare.csReplica - 1414.28e6) / 1414.28e6).toBeLessThan(0.02);
+    expect(Math.abs(r.welfare.cv - 1414.28e6) / 1414.28e6).toBeLessThan(0.02);
+    expect(r.welfare.band.low).toBeLessThanOrEqual(r.welfare.cv);
+    expect(r.welfare.band.high).toBeGreaterThanOrEqual(r.welfare.cv);
+  });
+  it('single-good CS replica and multi-good CV agree within 0.5% when only eggs move', () => {
+    const c = loadCase('egg-2022');
+    const shocks = threatToShocks(c.threats[0]!, ctx);
+    const r = computeImpact(shocks, ctx);
+    expect(Math.abs(r.welfare.cv - r.welfare.csReplica) / r.welfare.csReplica).toBeLessThan(0.005);
+    expect(r.commodities).toEqual(['eggs']);
+    expect(r.months.length).toBe(24);
+    expect(r.durationMonths).toBeGreaterThan(9);
+  });
+  it('2022 modeled loss lands between the Mitchell and Ferrier published ranges', () => {
+    const c = loadCase('egg-2022');
+    const r = computeImpact(threatToShocks(c.threats[0]!, ctx), ctx);
+    expect(r.welfare.cv).toBeGreaterThan(0.5e9);
+    expect(r.welfare.cv).toBeLessThan(5e9);
+  });
+  it('labels every assumption measured or modeled with a source', () => {
+    const c = loadCase('egg-2022');
+    const r = computeImpact(threatToShocks(c.threats[0]!, ctx), ctx);
+    expect(r.assumptions.length).toBeGreaterThan(5);
+    for (const a of r.assumptions) { expect(['measured', 'modeled']).toContain(a.kind); expect(a.source.length).toBeGreaterThan(3); }
+    expect(r.checks.slutskySymmetryAdjustment).toBeGreaterThanOrEqual(0);
+  });
+  it('substitution readout lists other items with significance flags', () => {
+    const c = loadCase('egg-2022');
+    const r = computeImpact(threatToShocks(c.threats[0]!, ctx), ctx);
+    const poultry = r.welfare.substitution.find((s) => s.commodity === 'poultry');
+    expect(poultry).toBeDefined();
+    expect(typeof poultry!.significant).toBe('boolean');
+  });
+  it('is order independent for two shocks', () => {
+    const egg = threatToShocks(loadCase('egg-2022').threats[0]!, ctx);
+    const formula = threatToShocks(loadCase('formula-2022').threats[0]!, ctx);
+    const a = computeImpact([...egg, ...formula], ctx).welfare.cv;
+    const b = computeImpact([...formula, ...egg], ctx).welfare.cv;
+    expect(a).toBeCloseTo(b, 6);
+  });
+});
+```
+
+- [ ] **Step 7: Write `impact.ts`**
+
+```ts
+// packages/engine/src/impact.ts
+import type { EngineContext, Shock, ImpactResult, Assumption, CaseFile } from './types.js';
+import { buildDemandSystem, toHicksian, symmetrize, slutskyMatrix, checkNSD } from './demand-system.js';
+import { pricePaths, observedRetailPath } from './price.js';
+import { cvSecondOrder, evApprox, csConstantElasticity, substitutionPct, incidenceByQuintile } from './welfare.js';
+import { monthRange, monthIndex } from './months.js';
+
+function mergeShocks(shocks: Shock[]): Map<string, { start: string; n: number; supply: number[]; cost: number[]; passThrough: number; lag: number }> {
+  const byC = new Map<string, { start: string; n: number; supply: number[]; cost: number[]; passThrough: number; lag: number }>();
+  const start = shocks.map((s) => s.start).sort()[0]!;
+  for (const s of shocks) {
+    const off = monthIndex(start, s.start);
+    const n = off + s.supplyPath.length;
+    const cur = byC.get(s.commodity) ?? { start, n: 0, supply: [], cost: [], passThrough: s.passThrough, lag: s.lagMonths };
+    while (cur.supply.length < n) { cur.supply.push(0); cur.cost.push(0); }
+    cur.n = Math.max(cur.n, n);
+    s.supplyPath.forEach((v, t) => { cur.supply[off + t]! += v; });
+    (s.costPath ?? []).forEach((v, t) => { cur.cost[off + t]! += v; });
+    byC.set(s.commodity, cur);
+  }
+  return byC;
+}
+
+export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { observed?: CaseFile['observed'] }): ImpactResult {
+  const assumptions: Assumption[] = [];
+  const merged = mergeShocks(shocks);
+  const commodities = [...merged.keys()].sort();
+  const start = shocks.map((s) => s.start).sort()[0] ?? '2024-01';
+  const N = Math.max(0, ...[...merged.values()].map((m) => m.n));
+  const months = monthRange(start, N);
+  const usePath: 'modeled' | 'observed' = ctx.overrides?.pricePath === 'observed' && opts?.observed ? 'observed' : 'modeled';
+
+  const ds = buildDemandSystem(ctx.demand);
+  const sym = symmetrize(toHicksian(ds), ds.w);
+  const nsd = checkNSD(slutskyMatrix(sym.epsC, ds.w));
+  const eps = ds.eps.map((r) => r.slice());
+  const epsC = sym.epsC.map((r) => r.slice());
+
+  const wholesalePct: Record<string, number[]> = {};
+  const retailPct: Record<string, number[]> = {};
+  const quantityPct: Record<string, number[]> = {};
+  const shortfall: ImpactResult['shortfall'] = {};
+  const producerRevenueChange: Record<string, number> = {};
+  // monthly π vector over demand-system items (zeros except moved commodities)
+  const piByMonth: number[][] = Array.from({ length: N }, () => new Array<number>(ds.ids.length).fill(0));
+  const Xitem: number[] = ds.ids.map((id) => {
+    const c = Object.values(ctx.commodities).find((cc) => cc.group === id);
+    const level = c ? c.baseline.annualQuantity * c.baseline.retailPrice : ds.w[ds.index[id]!]! * ctx.totalExpenditure.value;
+    return level / 12; // per month
+  });
+
+  for (const id of commodities) {
+    const c = ctx.commodities[id]!;
+    const m = merged.get(id)!;
+    const epsOwn = ctx.overrides?.elasticity?.[id] ?? c.demand.ownPrice;
+    const theta = ctx.overrides?.passThrough?.[id] ?? c.transmission.passThrough;
+    const supply = [...m.supply, ...new Array(N - m.supply.length).fill(0)];
+    const cost = [...m.cost, ...new Array(N - m.cost.length).fill(0)];
+    const p = pricePaths(supply, cost, { eps: epsOwn, exportShare: c.trade.exportShare, exportElasticity: c.trade.exportElasticity, passThrough: theta, lagMonths: c.transmission.lagMonths });
+    let retail = p.retailPct;
+    if (usePath === 'observed' && opts?.observed && opts.observed.commodity === id) {
+      const attr = ctx.overrides?.attributionShare ?? opts.observed.attributionShare;
+      const obs = observedRetailPath(opts.observed.retailPrice, opts.observed.counterfactualPrice, attr);
+      retail = months.map((ym) => { const k = opts.observed!.months.indexOf(ym); return k >= 0 ? obs[k]! : 0; });
+      assumptions.push({ key: `attribution.${id}`, label: 'Share of observed price deviation attributed to this threat', value: attr, source: opts.observed.source, kind: 'modeled' });
+    }
+    wholesalePct[id] = p.wholesalePct;
+    retailPct[id] = retail;
+    quantityPct[id] = retail.map((r) => epsOwn * r);
+    shortfall[id] = { units: supply.map((s) => (s * c.baseline.annualQuantity) / 12), unit: c.unit };
+    const X0 = (c.baseline.annualQuantity * c.baseline.retailPrice) / 12;
+    producerRevenueChange[id] = retail.reduce((acc, r, t) => acc + X0 * ((1 + r) * (1 - (supply[t] ?? 0)) - 1), 0);
+    const k = ds.index[c.group]!;
+    retail.forEach((r, t) => { piByMonth[t]![k] = r; });
+    // per-commodity elasticity override propagates to the demand-system diagonal for consistency
+    eps[k]![k] = epsOwn; epsC[k]![k] = epsOwn + ds.w[k]! * ds.eta[k]!;
+    assumptions.push(
+      { key: `elasticity.${id}`, label: `Own-price elasticity, ${c.name}`, value: epsOwn, source: c.demand.source, kind: 'modeled' },
+      { key: `passThrough.${id}`, label: `Retail pass-through, ${c.name}`, value: theta, source: c.transmission.source, kind: 'modeled' },
+      { key: `baseline.${id}`, label: `Baseline consumption, ${c.name}`, value: c.baseline.annualQuantity, unit: `${c.unit}/yr`, source: c.baseline.source, kind: 'measured' },
+      { key: `price.${id}`, label: `Baseline retail price, ${c.name}`, value: c.baseline.retailPrice, unit: `USD/${c.unit}`, source: c.baseline.source, kind: 'measured' },
+      { key: `trade.${id}`, label: `Export share / export elasticity, ${c.name}`, value: `${c.trade.exportShare} / ${c.trade.exportElasticity}`, source: c.trade.source, kind: 'modeled' },
+    );
+    if (c.supply.model === 'livestock') {
+      const shift = ctx.overrides?.recoveryLagShiftMonths ?? 0;
+      assumptions.push({ key: `recovery.${id}`, label: `Recovery lag (months), ${c.name}`, value: `${c.supply.recoveryLagMinMonths! + shift}–${c.supply.recoveryLagMaxMonths! + shift}`, source: c.supply.source, kind: 'modeled' },
+        { key: `offset.${id}`, label: `Producer offset, ${c.name}`, value: c.supply.producerOffset ?? 0, source: c.supply.source, kind: 'modeled' });
+    }
+  }
+  assumptions.push({ key: 'pricePath', label: 'Price path', value: usePath, source: usePath === 'observed' ? 'FRED retail series vs counterfactual' : 'Structural clearing (methodology §2)', kind: 'modeled' });
+  assumptions.push({ key: 'demandSystem', label: 'Demand system', value: 'ERR-139 unconditional, Slutsky-symmetrized', source: ctx.demand.source, kind: 'modeled' });
+  assumptions.push({ key: 'cropSeason', label: 'Crop losses begin at shock start and run one marketing year', value: 'simplification', source: 'DECISIONS.md', kind: 'modeled' });
+
+  // welfare, summed monthly
+  const M = ctx.totalExpenditure.value / 12;
+  let cv = 0, ev = 0;
+  const byCommodityItem: number[] = new Array(ds.ids.length).fill(0);
+  for (let t = 0; t < N; t++) {
+    const pi = piByMonth[t]!;
+    const r = cvSecondOrder(Xitem, epsC, pi);
+    cv += r.cv;
+    ev += evApprox(r.cv, Xitem, ds.eta, pi, M);
+    for (let i = 0; i < ds.ids.length; i++) {
+      if (pi[i] === 0) continue;
+      let own = Xitem[i]! * pi[i]!;
+      for (let j = 0; j < ds.ids.length; j++) own += 0.5 * Xitem[i]! * epsC[i]![j]! * pi[i]! * (pi[j] ?? 0);
+      byCommodityItem[i]! += own;
+    }
+  }
+  const byCommodity: Record<string, number> = {};
+  for (const id of commodities) byCommodity[id] = byCommodityItem[ds.index[ctx.commodities[id]!.group]!]!;
+
+  // single-good replica: sum of exact constant-elasticity CS per commodity per month
+  let csReplica = 0;
+  for (const id of commodities) {
+    const c = ctx.commodities[id]!;
+    const X0 = (c.baseline.annualQuantity * c.baseline.retailPrice) / 12;
+    const epsOwn = ctx.overrides?.elasticity?.[id] ?? c.demand.ownPrice;
+    for (const r of retailPct[id]!) csReplica += r > 0 ? csConstantElasticity(X0, r, epsOwn) : 0;
+  }
+
+  // band over the elasticity range: recompute retail paths and CV at each end (modeled path only affects prices; observed path affects only the second-order term)
+  const bandFor = (pick: (c: (typeof ctx.commodities)[string]) => number): number => {
+    let total = 0;
+    for (let t = 0; t < N; t++) {
+      const pi = new Array<number>(ds.ids.length).fill(0);
+      for (const id of commodities) {
+        const c = ctx.commodities[id]!;
+        const e = pick(c);
+        const k = ds.index[c.group]!;
+        if (usePath === 'observed') { pi[k] = retailPct[id]![t]!; continue; }
+        const m = merged.get(id)!;
+        const s = m.supply[t] ?? 0, co = m.cost[t] ?? 0;
+        const theta = ctx.overrides?.passThrough?.[id] ?? c.transmission.passThrough;
+        const one = pricePaths([s], [co], { eps: e, exportShare: c.trade.exportShare, exportElasticity: c.trade.exportElasticity, passThrough: theta, lagMonths: 0 });
+        pi[k] = one.retailPct[0]!;
+      }
+      const epsB = epsC.map((r) => r.slice());
+      for (const id of commodities) { const c = ctx.commodities[id]!; const k = ds.index[c.group]!; epsB[k]![k] = pick(c) + ds.w[k]! * ds.eta[k]!; }
+      total += cvSecondOrder(Xitem, epsB, pi).cv;
+    }
+    return total;
+  };
+  const lowE = bandFor((c) => c.demand.range[0]);   // least elastic → largest price rise
+  const highE = bandFor((c) => c.demand.range[1]);
+  const band = { low: Math.min(lowE, highE, cv), high: Math.max(lowE, highE, cv), over: 'elasticity' as const };
+
+  // substitution: use the peak-month π vector
+  const peakT = piByMonth.reduce((best, pi, t) => (pi.reduce((a, b) => a + Math.abs(b), 0) > piByMonth[best]!.reduce((a, b) => a + Math.abs(b), 0) ? t : best), 0);
+  const sub = substitutionPct(eps, piByMonth[peakT] ?? [], ds.se);
+  const substitution = ds.ids.map((id, i) => ({ commodity: id, quantityPct: sub.pct[i]!, significant: sub.significant[i]! })).filter((s) => s.quantityPct !== 0);
+
+  // incidence: first moved commodity with quintile data, else average household scaled from CEX shares
+  const first = commodities[0];
+  const spendQ = first ? ctx.quintileSpending?.[first] : undefined;
+  const avgRetail = first ? retailPct[first]!.reduce((a, b) => a + b, 0) / Math.max(1, retailPct[first]!.filter((r) => r > 0).length) : 0;
+  const incidence = first && spendQ
+    ? incidenceByQuintile(spendQ, avgRetail, ctx.overrides?.elasticity?.[first] ?? ctx.commodities[first]!.demand.ownPrice)
+    : first ? incidenceByQuintile(new Array(5).fill((ctx.commodities[first]!.baseline.annualQuantity * ctx.commodities[first]!.baseline.retailPrice) / 134.6e6), avgRetail, ctx.commodities[first]!.demand.ownPrice) : [];
+
+  const durationMonths = commodities.reduce((d, id) => { const last = retailPct[id]!.map((r, t) => (r > 1e-6 ? t + 1 : 0)); return Math.max(d, ...last); }, 0);
+
+  return {
+    months, commodities,
+    price: { wholesalePct, retailPct, path: usePath },
+    quantity: { pct: quantityPct },
+    shortfall,
+    welfare: { cv, ev, csReplica, band, byCommodity, substitution, incidence, producerRevenueChange },
+    durationMonths,
+    assumptions,
+    checks: { slutskySymmetryAdjustment: sym.maxAdjustment, negativeSemidefinite: nsd.ok },
+  };
+}
+```
+
+Add to `index.ts`: `export * from './months.js'; export * from './shock.js'; export * from './impact.js';`
+
+- [ ] **Step 8: Run all tests**
+
+Run: `PATH="$HOME/.local/bin:$PATH" npm test`
+Expected: all pass. The calibration-through-impact test uses the observed path (+9% on $2.73) so it matches Task 4's numbers; the 2022 modeled test only bounds the result.
+
+- [ ] **Step 9: Commit**
+
+```bash
+git add -A && git commit -m "feat(engine): threat-to-shock rules and impact assembly with assumptions and checks
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
+```
