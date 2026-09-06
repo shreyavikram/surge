@@ -239,9 +239,12 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 .wl-head { display: flex; align-items: flex-start; justify-content: space-between; }
 .collapse { background: transparent; border: 1px solid var(--border-solid); color: var(--text-faint); border-radius: 5px; width: 22px; height: 22px; font-size: 10px; cursor: pointer; }
 .collapse:hover { color: var(--text); }
-.edge-toggle { width: 18px; flex: 0 0 auto; background: var(--panel); border: 0; border-right: 1px solid var(--border-solid); color: var(--text-faint); cursor: pointer; font-size: 10px; }
+.edge-toggle { width: 28px; flex: 0 0 auto; align-self: stretch; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 10px; padding-top: 14px; background: var(--panel-2); border: 0; border-right: 1px solid var(--border-solid); color: var(--text-dim); cursor: pointer; }
 .edge-toggle.right { border-right: 0; border-left: 1px solid var(--border-solid); }
-.edge-toggle:hover { color: var(--text); }
+.edge-toggle:hover { color: var(--text); background: var(--panel-3); }
+.edge-toggle .chev { font-size: 22px; line-height: 1; color: var(--accent); }
+.edge-toggle .edge-lbl { writing-mode: vertical-rl; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.edge-toggle.right .edge-lbl { transform: rotate(180deg); }
 .wl-row.dim { opacity: 0.4; }
 .wl-main { min-width: 0; }
 .unread { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--bad); margin-left: 6px; vertical-align: 2px; box-shadow: 0 0 0 2px color-mix(in srgb, var(--bad) 30%, transparent); }

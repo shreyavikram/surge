@@ -97,13 +97,13 @@ export function App() {
         {wlOpen ? (
           <Watchlist entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} readIds={readIds} onCollapse={() => setWlOpen(false)} />
         ) : (
-          <button className="edge-toggle left" onClick={() => setWlOpen(true)} title="Show watchlist">▶</button>
+          <button className="edge-toggle left" onClick={() => setWlOpen(true)} title="Show watchlist and filters"><span className="chev">›</span><span className="edge-lbl">Watchlist</span></button>
         )}
         <MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} />
         {drawerOpen && selectedEntry ? (
           <Drawer entry={selectedEntry} ctx={ctx} focus={focus} tab={tab} editable={editable} onDial={onDial} onRemove={onRemove} onCollapse={() => setDrawerOpen(false)} />
         ) : selectedEntry ? (
-          <button className="edge-toggle right" onClick={() => setDrawerOpen(true)} title="Show analysis">◀</button>
+          <button className="edge-toggle right" onClick={() => setDrawerOpen(true)} title="Show analysis"><span className="chev">‹</span><span className="edge-lbl">Analysis</span></button>
         ) : null}
       </div>
       {showCompare && <Compare ctx={ctx} tabs={tabs} base={base} entriesFor={entriesFor} focus={focus} onClose={() => setShowCompare(false)} />}
