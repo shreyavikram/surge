@@ -8,7 +8,7 @@ Progress is tracked here with [x]; every task commits, pushes, and deploys.
 - [x] A2 Interpreter: "invades", "cuts off exports", region-only scenarios (Russia/Ukraine) produce shocks.
 - [x] A3 Split grouped regions: india / thailand / pakistan; ukraine / russia; guatemala / ecuador / honduras / costa-rica / colombia; vietnam / indonesia. Thailand no longer colors with India.
 - [x] A4 Price charts: explicit month ticks, a "now" marker, "shock ends" label; description of why prices return to normal.
-- [ ] A5 Docs: DATA-AUDIT.md (mechanism, confidence, improvements per process).
+- [x] A5 Docs: DATA-AUDIT.md (mechanism, confidence, improvements per process).
 
 ## B. Branding
 - [x] B1 Rename to Greenfield; temporary logo mark; spinning logo while the map loads; green accent palette; active tab green.
@@ -31,10 +31,10 @@ Progress is tracked here with [x]; every task commits, pushes, and deploys.
 - [x] C15 "Subheading" clarity: rename unclear section headers.
 
 ## D. Price-anomaly tracing
-- [ ] D1 Category price anomalies from FRED (APU series vs trailing trend), Census International Trade API imports by origin for the mapped HS codes, origin declines → "import decline" threats with plain descriptions.
+- [x] D1 Category price anomalies from FRED (APU series vs trailing trend), Census International Trade API imports by origin for the mapped HS codes, origin declines → "import decline" threats with plain descriptions.
 
 ## E. Performance
 - [x] E1 Memoize engine runs per threat; compute mitigation lazily; debounce dials; memoize district producer maps.
 
 ## F. Red team
-- [ ] F1 Review agent over engine, server, web for correctness; fix findings.
+- [x] F1 Review agent over engine, server, web for correctness; fix findings.

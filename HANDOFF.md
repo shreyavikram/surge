@@ -1,15 +1,18 @@
-# SURGE handoff (updated 2026-09-06, after the team critique)
+# Greenfield (formerly SURGE) handoff (updated 2026-09-06, morning after the overnight pass)
 
 Read this first if you are continuing the build in a new session, on a new account, or with a
 different model. Everything below is also in the repo; this is the map.
 
-## Latest state (end of 2026-09-06 session)
+## Latest state (morning of 2026-09-06, after the overnight pass)
 
-- Live: https://surge-bafg.onrender.com. **Render does not auto-deploy** (its GitHub app is not connected to the repo); after every push trigger a deploy with `POST https://api.render.com/v1/services/srv-daebn5ht0dsc739jbsmg/deploys` using `RENDER_API_KEY` from `.env` (see the curl in this session's commits), then poll `/deploys?limit=1` until `live`.
-- Map: CARTO raster tiles under our shading; shading is added as soon as the style parses (no tile dependency). If WebGL is missing or the engine never starts within 20 s, `MapFallback.tsx` (SVG, d3-geo) takes over with the same colors, zoom buttons, +/− keys, arrows, drag. The team's browser/network appears to block map tiles: they see the fallback ("the map engine did not start in time"). Investigate which host is blocked (basemaps.cartocdn.com) before changing tile providers again.
-- Yellow layer: `apps/server/src/feeds/news.ts` reads Google News RSS (no key; personal, non-commercial terms) → `interpretScenario` → breaking items with `explicitCategory && explicitRegion && confidence ≥ 0.75`. GDELT is unwired (rate limits). Expect some false positives; the interpreter's lexicon is in `packages/engine/src/interpret.ts`.
-- APHIS per-detection archive is in (`data/snapshots/aphis-detections.csv`, converter `packages/config/tools/convert-aphis.py`); it produces national HPAI threats for eggs, chicken, turkey with monthly timelines and county rows behind the vetted gate. The 2022 replay uses the exact monthly losses (43.1M).
-- Keys: EIA key was exposed in a public fixture for a short window (history rewritten); rotate it. All other keys are in `.env` only.
+- Live: https://surge-bafg.onrender.com, deployed from `main` of https://github.com/shreyavikram/surge (Render service `srv-daebn5ht0dsc739jbsmg`). **Always push `main` (`git push origin HEAD`) and then trigger a deploy** with `POST https://api.render.com/v1/services/srv-daebn5ht0dsc739jbsmg/deploys` using `RENDER_API_KEY` from `.env`; Render's GitHub sync lags a push by ~30 s, and a deploy triggered too early rebuilds the previous commit. Poll `/deploys?limit=1` until `live`.
+- Tests: engine 132, server 55, config 6, web 4, all green; `npm run typecheck` clean in every workspace.
+- Overnight work (all committed): (1) a read-only red-team review found 13 logic/unit errors, all fixed and pinned (DECISIONS.md #23, `packages/engine/test/review-fixes.test.ts`, `apps/server/test/review-fixes.test.ts`); (2) `docs/DATA-AUDIT.md` records mechanism, confidence and improvements for every data process; (3) FAO price-anomaly indicator (`packages/engine/src/anomaly.ts`) on BLS retail prices via FRED, exposed at `/api/price-stress` and shown as the "Store prices vs. the usual season" strip in the watchlist; (4) US Census imports-by-origin feed (`apps/server/src/feeds/trade.ts`): a ≥ 20% three-month decline from a ≥ 10% origin becomes an *import decline* threat (new category), anticipated (yellow) until store prices are abnormal, then unstable (red); (5) `packages/config/tools/build-origin-shares.py` measured every commodity's origin shares from Census data; `origin-shares.json` now replaces the hand-typed `usImportOriginShare` numbers and adds 36 supplier-country regions (`country-geo.json`), comparison in `packages/config/tools/origin-shares-report.md`; (6) interpreter matches whole words only and reads a percentage as severity only next to loss language; (7) headline-only hazard severities are capped (3% national, 15% regional) unless the headline quotes a loss figure.
+- Map: CARTO raster tiles under our shading, SVG fallback (`MapFallback.tsx`) when WebGL or tiles fail. The team's network appeared to block tiles once; if they see "the map engine did not start in time", check basemaps.cartocdn.com.
+- Yellow layer: Google News RSS → Gemini `gemini-3.6-flash` classification (fallback models in `ai/news-llm.ts`) → deterministic validation and relief/place guards; rules-only path when no key.
+- APHIS per-detection archive is in (`data/snapshots/aphis-detections.csv`, `packages/config/tools/convert-aphis.py`); refresh by hand from the APHIS dashboard export.
+- Keys in `.env` only: FRED, NASS, FIRMS, EIA (**rotate: it was exposed in a public fixture for a short window**), GTA, AMS, RENDER, GEMINI, RESEND, CENSUS, SURGE_VETTED_KEY. No new keys are needed; the Census key is optional (500 requests/day without it).
+- Local dev: `.claude/launch.json` has `server` (Hono 8787) and `vite` (5173, proxies `/api`).
 
 ## What changed on 2026-09-06 (read before anything else)
 
