@@ -71,8 +71,6 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
   const ownStates = new Set(areas.map((a) => a.state));
   const colorFor = (h: AreaHeat | undefined, own: boolean) => (areas.length > 0 && !own && ((h?.status ?? 'stable') === 'stable' || h?.status === 'none') ? NEUTRAL : heatColor(h));
   const nameOf = (id: string) => entries.find((e) => e.threat.id === id)?.threat.name ?? id;
-  const sel = entries.find((e) => e.threat.id === selectedId);
-  const v = sel ? focusView(sel, focus, ctx) : null;
   const hoverHeat = hover ? (ch[hover] ?? sh[hover]) : undefined;
   return (
     <div className="map-wrap fallback" ref={wrapRef}>
@@ -91,8 +89,7 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
         })}
       </svg>
       <div className="svg-zoom"><button onClick={() => zoomBy(1.4)} title="Zoom in (+)">+</button><button onClick={() => zoomBy(1 / 1.4)} title="Zoom out (−)">−</button></div>
-      <div className="svg-hint">+ / − to zoom · arrows or drag to pan</div>
-      <div className="map-badge">{sel && v ? `${sel.threat.name} · ${compactUsd(v.cv)}` : `simplified map · ${reason}`}</div>
+      <div className="svg-hint">+ / − to zoom · arrows or drag to pan · simplified map ({reason})</div>
       {hover && (
         <div className="map-hover">
           <b>{(countries?.features.find((f) => String(f.id) === hover)?.properties as { name?: string } | null)?.name ?? ctx.focus?.areas.find((a) => a.id === hover)?.name ?? hover}</b>

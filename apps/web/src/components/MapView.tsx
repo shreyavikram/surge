@@ -263,13 +263,10 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focus]);
 
-  const sel = entries.find((x) => x.threat.id === selectedId);
-  const v = sel ? focusView(sel, focus, ctx) : null;
   return (
     <div className="map-wrap">
       <div ref={container} style={{ position: 'absolute', inset: 0 }} />
       <div className="basemap-loading">loading basemap…</div>
-      {sel && v && <div className="map-badge">{sel.threat.name} · {compactUsd(v.cv)}</div>}
       <HeatLegend focused={focus.kind !== 'us' && focus.ids.length > 0} />
     </div>
   );
