@@ -75,11 +75,14 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
               const toDate = cut < chartMonths.length;
               const shownMonths = chartMonths.slice(0, cut);
               const pctSeries = pctSeriesAll.slice(0, cut);
-              const isOpen = open === r.id;
+              // no chart when there is nothing to draw yet: a live threat that started this month has one point, and a
+              // lagged commodity shows no retail movement until next month
+              const hasChart = (observed && obs) ? obs.months.length >= 2 : (shownMonths.length >= 2 && pctSeries.some((v) => Math.abs(v) > 1e-6));
+              const isOpen = open === r.id && hasChart;
               return (
                 <Fragment key={r.id}>
-                  <tr className={isOpen ? 'open' : ''} onClick={() => setOpen(isOpen ? null : r.id)}>
-                    <td><span className="caret">{isOpen ? '▾' : '▸'}</span>{r.name}</td>
+                  <tr className={isOpen ? 'open' : ''} onClick={() => { if (hasChart) setOpen(isOpen ? null : r.id); }} style={{ cursor: hasChart ? 'pointer' : 'default' }} title={hasChart ? undefined : 'No price data to chart yet'}>
+                    <td><span className="caret">{hasChart ? (isOpen ? '▾' : '▸') : ''}</span>{r.name}{hasChart ? null : <span className="faint"> · no price data yet</span>}</td>
                     <td className="r" style={{ color: 'var(--bad)' }}>{signedPct(r.price)}</td>
                     <td className="r muted">{signedPct(r.qty)}</td>
                     <td className="r">{r.cv > 0 ? compactUsd(r.cv) : '—'}</td>
