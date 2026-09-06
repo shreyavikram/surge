@@ -1,10 +1,10 @@
 {
-  "fetchedAt": "2026-09-06T00:27:33.054Z",
+  "fetchedAt": "2026-09-06T00:56:04.706Z",
   "result": {
     "items": [
       {
         "id": "firms-us-midwest-corn-belt",
-        "name": "Wildfire hotspots, Corn Belt (IL, IN, NE, MN, OH) (257 in 48 h)",
+        "name": "Wildfire activity, Corn Belt (254 satellite hotspots in 48 h)",
         "category": "wildfire",
         "kind": "natural",
         "regionId": "us-midwest-corn-belt",
@@ -12,14 +12,14 @@
         "iso3": "USA",
         "lat": 41,
         "lng": -90,
-        "severity": 0.1285,
+        "severity": 0.127,
         "alertScore": true,
         "start": "2026-09",
-        "text": "257 VIIRS hotspots in the region bbox over 48 hours (2026-09-05); hotspot counts include agricultural burning"
+        "text": "254 VIIRS hotspots in the region bbox over 48 hours (2026-09-05); hotspot counts include agricultural burning"
       },
       {
         "id": "firms-us-southeast-broilers",
-        "name": "Wildfire hotspots, Southeast broiler belt (GA, AL, AR, NC, MS) (227 in 48 h)",
+        "name": "Wildfire activity, Southeast broiler belt (227 satellite hotspots in 48 h)",
         "category": "wildfire",
         "kind": "natural",
         "regionId": "us-southeast-broilers",
@@ -34,7 +34,7 @@
       },
       {
         "id": "firms-us-plains-wheat",
-        "name": "Wildfire hotspots, Wheat Plains (KS, OK, TX, NE, CO) (106 in 48 h)",
+        "name": "Wildfire activity, Wheat Plains (106 satellite hotspots in 48 h)",
         "category": "wildfire",
         "kind": "natural",
         "regionId": "us-plains-wheat",

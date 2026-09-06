@@ -1,10 +1,10 @@
 {
-  "fetchedAt": "2026-09-06T00:27:19.714Z",
+  "fetchedAt": "2026-09-06T00:55:59.593Z",
   "result": {
     "items": [
       {
         "id": "gdacs-1104081",
-        "name": "Flood in China",
+        "name": "Flooding, China",
         "category": "flood",
         "kind": "natural",
         "lng": 113.7681,
@@ -19,7 +19,7 @@
       },
       {
         "id": "gdacs-1018332",
-        "name": "Drought in Austria, Bosnia  and  Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, San Marino, Ukraine, , ",
+        "name": "Drought, Spain and 24 other countries",
         "category": "drought",
         "kind": "natural",
         "lng": 10.941,
@@ -34,7 +34,7 @@
       },
       {
         "id": "gdacs-1018431",
-        "name": "Drought in Madagascar",
+        "name": "Drought, Madagascar",
         "category": "drought",
         "kind": "natural",
         "lng": 47.727,
@@ -49,7 +49,7 @@
       },
       {
         "id": "gdacs-1027449",
-        "name": "Drought in The Bahamas, Belize, Cuba, Guatemala, Honduras, Mexico, Nicaragua, El Salvador",
+        "name": "Drought, Guatemala and 7 other countries",
         "category": "drought",
         "kind": "natural",
         "lng": -89.169,
@@ -64,7 +64,7 @@
       },
       {
         "id": "gdacs-1001305",
-        "name": "Tropical Cyclone SAUDEL-26",
+        "name": "Tropical cyclone, China and 2 other countries",
         "category": "storm",
         "kind": "natural",
         "lng": 117.4,
@@ -79,7 +79,7 @@
       },
       {
         "id": "gdacs-1104121",
-        "name": "Flood in India",
+        "name": "Flooding, India",
         "category": "flood",
         "kind": "natural",
         "lng": 79.5542,
@@ -94,7 +94,7 @@
       },
       {
         "id": "gdacs-1104124",
-        "name": "Flood in Nepal",
+        "name": "Flooding, Nepal",
         "category": "flood",
         "kind": "natural",
         "lng": 85.3649,
@@ -109,7 +109,7 @@
       },
       {
         "id": "gdacs-1104123",
-        "name": "Flood in China",
+        "name": "Flooding, China",
         "category": "flood",
         "kind": "natural",
         "lng": 117.0123,
@@ -124,7 +124,7 @@
       },
       {
         "id": "gdacs-1030252",
-        "name": "Forest fires in Serbia",
+        "name": "Wildfire, Serbia",
         "category": "wildfire",
         "kind": "natural",
         "lng": 21.1671,
@@ -139,7 +139,7 @@
       },
       {
         "id": "gdacs-1030410",
-        "name": "Forest fires in Spain",
+        "name": "Wildfire, Spain",
         "category": "wildfire",
         "kind": "natural",
         "lng": -0.7181,
@@ -154,7 +154,7 @@
       },
       {
         "id": "gdacs-1030534",
-        "name": "Forest fires in Belgium",
+        "name": "Wildfire, Belgium",
         "category": "wildfire",
         "kind": "natural",
         "lng": 6.0772,
@@ -169,7 +169,7 @@
       },
       {
         "id": "gdacs-1001297",
-        "name": "Tropical Cyclone DOLPHIN-26",
+        "name": "Tropical cyclone, China and 2 other countries",
         "category": "storm",
         "kind": "natural",
         "lng": 120.6,

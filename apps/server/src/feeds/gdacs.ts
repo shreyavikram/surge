@@ -47,7 +47,11 @@ export const gdacs: FeedAdapter = {
       const coords = f.geometry?.coordinates;
       if (!coords) continue;
       const label: Record<string, string> = { FL: 'Flooding', TC: 'Tropical cyclone', WF: 'Wildfire', DR: 'Drought' };
-      const countries = (p.country ?? '').split(',').map((x) => x.trim()).filter(Boolean);
+      // lead with the country that matters most to US supply when GDACS lists several
+      const SUPPLIERS = ['Mexico', 'Canada', 'Brazil', 'India', 'Ukraine', 'Russia', 'Turkey', 'Viet Nam', 'Vietnam', 'Thailand', 'Guatemala', 'Ecuador', 'Colombia', 'Honduras', 'Costa Rica', 'Peru', 'Chile', 'Argentina', 'Australia', 'Indonesia', 'Italy', 'France', 'Spain', 'China'];
+      const raw = (p.country ?? '').split(',').map((x) => x.trim()).filter(Boolean);
+      const lead = raw.find((c) => SUPPLIERS.includes(c));
+      const countries = lead ? [lead, ...raw.filter((c) => c !== lead)] : raw;
       const where = countries.length === 0 ? 'unknown location' : countries.length <= 2 ? countries.join(' and ') : `${countries[0]} and ${countries.length - 1} other countries`;
       const item: FeedItem = {
         id: `gdacs-${p.eventid}`,

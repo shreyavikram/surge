@@ -1,10 +1,10 @@
 {
-  "fetchedAt": "2026-09-06T00:27:34.165Z",
+  "fetchedAt": "2026-09-06T00:56:06.353Z",
   "result": {
     "items": [
       {
         "id": "eia-energy",
-        "name": "US retail diesel +26% vs trailing mean",
+        "name": "US retail diesel up 26% on its 12-month average",
         "category": "input_cost",
         "kind": "geopolitical",
         "regionId": "us-national",
