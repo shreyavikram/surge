@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import type { EngineContext } from '@surge/engine';
 import { type RankedEntry, commodityName, focusView } from '../engine.js';
 import type { Focus } from '../state.js';
@@ -66,15 +66,15 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
               const priceSeries = pi.map((p) => base * (1 + p));
               const isOpen = open === r.id;
               return (
-                <>
-                  <tr key={r.id} className={isOpen ? 'open' : ''} onClick={() => setOpen(isOpen ? null : r.id)}>
+                <Fragment key={r.id}>
+                  <tr className={isOpen ? 'open' : ''} onClick={() => setOpen(isOpen ? null : r.id)}>
                     <td><span className="caret">{isOpen ? '▾' : '▸'}</span>{r.name}</td>
                     <td className="r" style={{ color: 'var(--bad)' }}>{signedPct(r.price)}</td>
                     <td className="r muted">{signedPct(r.qty)}</td>
                     <td className="r">{r.cv > 0 ? compactUsd(r.cv) : '—'}</td>
                   </tr>
                   {isOpen && (
-                    <tr key={`${r.id}-chart`} className="chart-row">
+                    <tr className="chart-row">
                       <td colSpan={4}>
                         <div className="chart-title">Retail price, {r.name} <span className="faint">USD per {c?.unit ?? 'unit'} · {observed && obs ? 'observed (FRED) vs counterfactual' : 'modeled vs baseline'}</span></div>
                         {observed && obs ? (
@@ -85,7 +85,7 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
                       </td>
                     </tr>
                   )}
-                </>
+                </Fragment>
               );
             })}
           </tbody>
