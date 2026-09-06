@@ -41,7 +41,7 @@ export function Describe({ ctx, onAdd }: { ctx: EngineContext; onAdd: (t: Threat
           <div className="cand-dials">
             <label>{c.category === 'tariff' ? 'Rate' : 'Severity'} <b>{pct(c.severity, 0)}</b><input type="range" min={0} max={1} step={0.01} value={c.severity} onChange={(e) => edit(i, { severity: Number(e.target.value) })} /></label>
             <label>Duration <b>{c.months} mo</b><input type="range" min={1} max={36} step={1} value={c.months} onChange={(e) => edit(i, { months: Number(e.target.value) })} /></label>
-            <button className="btn" disabled={c.commodities.length === 0} onClick={() => { onAdd(candidateToThreat(c, ctx, `user-${Date.now()}-${i}`, '2026-09')); setCands((p) => p ? p.filter((_, k) => k !== i) : p); }}>Add</button>
+            <button className="btn" disabled={c.commodities.length === 0} onClick={() => { onAdd(candidateToThreat(c, ctx, `user-${Date.now()}-${i}`, '2026-09')); setCands((p) => { const rest = p ? p.filter((_, k) => k !== i) : []; return rest.length > 0 ? rest : null; }); setText(''); }}>Add</button>
           </div>
         </div>
       ))}

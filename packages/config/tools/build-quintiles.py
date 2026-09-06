@@ -17,7 +17,9 @@ def latest(series):
     txt = urllib.request.urlopen(url, timeout=60).read().decode()
     rows = [l.split(',') for l in txt.strip().split('\n')[1:] if ',' in l and not l.endswith(',.')]
     return (rows[-1][0][:4], float(rows[-1][1])) if rows else (None, None)
-out = {'source': 'BLS Consumer Expenditure Survey via FRED (CXU… LB0102M–LB0106M, quintiles of income before taxes), latest year', 'year': None, 'categories': {}, 'byCommodity': {}}
+CONSUMER_UNITS = 134.6e6
+commodities = json.load(open(os.path.join(ROOT, 'packages/config/data/commodities.json')))
+out = {'source': 'Shape across income quintiles from BLS CEX via FRED (CXU… LB0102M–LB0106M, latest year), scaled to each commodity\'s average household spending from its config baseline (annual quantity × retail price ÷ 134.6M consumer units)', 'year': None, 'categories': {}, 'byCommodity': {}}
 for cat, stem in CATS.items():
     vals = []
     for q in range(2, 7):
@@ -27,6 +29,11 @@ for cat, stem in CATS.items():
     if len(vals) == 5: out['categories'][cat] = vals
     print(cat, vals, file=sys.stderr)
 for cid, cat in MAP.items():
-    if cat in out['categories']: out['byCommodity'][cid] = out['categories'][cat]
+    if cat not in out['categories'] or cid not in commodities: continue
+    shape = out['categories'][cat]
+    mean = sum(shape) / len(shape)
+    c = commodities[cid]['baseline']
+    avg = c['annualQuantity'] * c['retailPrice'] / CONSUMER_UNITS
+    out['byCommodity'][cid] = [round(avg * v / mean, 2) for v in shape]
 json.dump(out, open(os.path.join(ROOT, 'packages/config/data/quintile-spending.json'), 'w'), indent=1)
 print('wrote', len(out['byCommodity']), 'commodities, year', out['year'], file=sys.stderr)
