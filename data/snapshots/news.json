@@ -1,10 +1,10 @@
 {
-  "fetchedAt": "2026-09-06T14:43:08.158Z",
+  "fetchedAt": "2026-09-06T16:19:02.632Z",
   "result": {
     "items": [
       {
         "id": "news-disease-uruguay",
-        "name": "Uruguay declares emergency over bird flu — Anadolu Agency",
+        "name": "Uruguay declares nationwide health emergency over bird flu outbreak",
         "category": "disease",
         "kind": "natural",
         "regionId": "uruguay",
@@ -13,28 +13,28 @@
         "lng": -56.1,
         "commodities": [
           {
-            "id": "beef",
+            "id": "chicken",
             "relevance": 1
           }
         ],
-        "severity": 0.1,
+        "severity": 0.15,
         "months": 6,
         "status": "breaking",
         "confidence": 0.9200000000000002,
-        "text": "UA.NEWS · 5 matching headlines from 5 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMipAFBVV95cUxORW9xZjZ3cVdJX2ppYXBXZ0NIV1RXS213RV93cDVqTHQ2ZDcwNDB5cDJJS2xVLWZyanRhUk9HVU1pU0dGRUxXU2VBN0VBVzBwUVdOaHE5SG5vbzZzN3E5OS1helVkRzQwR1czX1NNblI4d0xuaDVyUFh0bFF1N0JYMHJuYW5FcWpGNXVUeEpxcWhVWXUwVkpaSUlXa21uLWYtODVaeg?oc=5",
-        "summary": "Uruguay has declared a health emergency due to a bird flu outbreak affecting livestock.",
+        "text": "Türkiye Today · 5 matching headlines from 5 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMitAFBVV95cUxOTG5HcTVYRjYxaUxIbnhvaDRkUFc0VHFHRHpBU0JtWGFhMFlyWUwwNnl0MlpsaEVoSXJYVTM0Wk9KMnR0Sk9meE1iVXNSTUpLM3NmUGJhWTgxdkJpSjQ4SVY5UTRGMHE5N2ZKSTd6VFg5WERzZjNLdHNQaXpfNWpQemhOM0h6MXhrdnFrWFNrcFZoN1dkLU9wamIxenFzNjd6ckNTaDg0RmtWUWdHQXZTc0Q1emo?oc=5",
+        "summary": "Uruguay has declared a health emergency due to a bird flu outbreak.",
         "links": [
-          {
-            "title": "Uruguay declares emergency over bird flu — Anadolu Agency",
-            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxORW9xZjZ3cVdJX2ppYXBXZ0NIV1RXS213RV93cDVqTHQ2ZDcwNDB5cDJJS2xVLWZyanRhUk9HVU1pU0dGRUxXU2VBN0VBVzBwUVdOaHE5SG5vbzZzN3E5OS1helVkRzQwR1czX1NNblI4d0xuaDVyUFh0bFF1N0JYMHJuYW5FcWpGNXVUeEpxcWhVWXUwVkpaSUlXa21uLWYtODVaeg?oc=5",
-            "outlet": "UA.NEWS",
-            "date": "Sat, 05 Sep 2026 02:12:56 GMT"
-          },
           {
             "title": "Uruguay declares nationwide health emergency over bird flu outbreak",
             "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOTG5HcTVYRjYxaUxIbnhvaDRkUFc0VHFHRHpBU0JtWGFhMFlyWUwwNnl0MlpsaEVoSXJYVTM0Wk9KMnR0Sk9meE1iVXNSTUpLM3NmUGJhWTgxdkJpSjQ4SVY5UTRGMHE5N2ZKSTd6VFg5WERzZjNLdHNQaXpfNWpQemhOM0h6MXhrdnFrWFNrcFZoN1dkLU9wamIxenFzNjd6ckNTaDg0RmtWUWdHQXZTc0Q1emo?oc=5",
             "outlet": "Türkiye Today",
             "date": "Sat, 05 Sep 2026 08:06:04 GMT"
+          },
+          {
+            "title": "Uruguay declares emergency over bird flu — Anadolu Agency",
+            "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxORW9xZjZ3cVdJX2ppYXBXZ0NIV1RXS213RV93cDVqTHQ2ZDcwNDB5cDJJS2xVLWZyanRhUk9HVU1pU0dGRUxXU2VBN0VBVzBwUVdOaHE5SG5vbzZzN3E5OS1helVkRzQwR1czX1NNblI4d0xuaDVyUFh0bFF1N0JYMHJuYW5FcWpGNXVUeEpxcWhVWXUwVkpaSUlXa21uLWYtODVaeg?oc=5",
+            "outlet": "UA.NEWS",
+            "date": "Sat, 05 Sep 2026 02:12:56 GMT"
           },
           {
             "title": "Uruguay declares nationwide health emergency over bird flu",
@@ -45,7 +45,7 @@
           {
             "title": "Uruguay declares a health emergency throughout the country due to an outbreak of H5 avian influenza in Colonia",
             "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNcnBYRENMVDRIb1dNYWR5eHRwTXpaYjJDTmNKYlhUU2tkcXRnNlVKWmVUWURjOUhWamlKOXRYM0FnZkVRMXc3NkVlM0xDRTQwM25mZXdjOFh2UXl2cXhiTHZnV0JtZUJhYmVsTzRKVGRFZUNIaEZ0QVN1QVk2VkFqSFVBQ2lJVG0yNkpXZXNiMUNuMHJFS2syUlpGWVhUZlVVeFlORXJKTmwyYkNPRVZtS0stOUdqd0NxcW1MN2UzMF9wTEIxWkstR18yTFpYVHI5bGJpSFgybmttaFFQei1EMDl1TFNZZ9IB6wFBVV95cUxPcDJJZGdOak85dWtQZjc0WjExU2F2b3RSTmdGcmhWUnhTbDdtSjhhZTdNbl9PS2ZjZmVvYXk4OGZ5cGJjNkNYd0VkaFF4Q3pYaUdEN0k5VzZwUk9jeERkMUxjc2NHQ2FPOVFrS1RKMmJ4Q2ozSG1OZHI2U3FCQlNBdXpOaTQwc0hrcFdJTWFfdnlHVFNmTEs0SjRzT0NVNXVtSU4wMEh3eVdXUHdIMG14Vkl4TElGUlVLYVNLNUJtcG1DbGd4aHMzRWF0bkVERjdZMDk2X3V3YU5CSE5tQzluUjA0cnNKdG4tS1g4?oc=5",
-            "outlet": "Demócrata",
+            "outlet": "democrata.es",
             "date": "Sat, 05 Sep 2026 07:41:50 GMT"
           },
           {
@@ -74,11 +74,11 @@
           }
         ],
         "severity": 0.15,
-        "months": 6,
+        "months": 4,
         "status": "breaking",
         "confidence": 0.7700000000000001,
         "text": "Yahoo · 2 matching headlines from 2 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiowFBVV95cUxNOUF3aHIzLWhWTzhUSzZzMV9FTEt1Vmc2WE9JWGw5SjJpbFhzb2RUWWF4dGdTWDIxTlpMRHRYdHU1enNrTWp3cTFRbGhpRGxDb3hMcU1HWXlIdThybFZlVC1EVDZEYUFCYTJrZ2pQeE1kMU1oUmtkWUZzRFNxaHhfNjhtMmlSamhRMVhMM0JZMHZ1X3BUdGl4Q3JWVXUyVGZnb2dJ?oc=5",
-        "summary": "Severe drought in Montana is impacting cattle water access and ranching operations.",
+        "summary": "Severe drought in Montana is drying up water sources for cattle, impacting livestock operations.",
         "links": [
           {
             "title": "Eastern Montana rancher turns to 'sketchy' portable tanks as D3 drought dries up cattle water",
@@ -115,7 +115,7 @@
         "status": "breaking",
         "confidence": 0.7700000000000001,
         "text": "Successful Farming · 2 matching headlines from 2 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMilgFBVV95cUxPcnJyY2xQUmZnOG5BTjl5QTdCdnNhd1laUlIzVHpGRmpsOFJmWWJ2Y09WTGxRaFQ2T2hvZnlQMkZRNjh0S185bHJETU1SZmxSY0l4NkpEeDNrNHNzZXNfd2N1R2NtNWh2NktPamUtal9Lc1ZxdjRjUkFXSzVpUi1vM1prRnZ6VzRaelc2eHVhSE41YTRmQ3c?oc=5",
-        "summary": "Drought in Wisconsin is forcing an early corn harvest and reducing yields.",
+        "summary": "Drought in Wisconsin is forcing an early corn harvest, potentially reducing overall yield.",
         "links": [
           {
             "title": "Wisconsin Corn Crop Faces Early Harvest as Drought Takes Toll",
@@ -133,8 +133,81 @@
         "start": "2026-09"
       },
       {
+        "id": "news-war-hormuz",
+        "name": "live U.S. and Iran exchange fire after missile attack on US Navy ships",
+        "category": "war",
+        "kind": "geopolitical",
+        "regionId": "hormuz",
+        "admin": "Strait of Hormuz",
+        "lat": 26.6,
+        "lng": 56.3,
+        "commodities": [
+          {
+            "id": "energy",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 1,
+        "text": "AnewZ · 22 matching headlines from 21 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiowFBVV95cUxOSUxfMTdCbXdJTUpzUGtiRUtuTFdjb1hIRHN3ZGNQNXgzSUpfZno5bUtsSndjREYtQWE4ZHlhOFplU2t0RlZORTdvdUJhc3JrVXFIdlFGQVF4b0xKa0RqWklvMGN1cGE3Q2pJVlVPMW0yMFBOVC1veDI3LWpvWU1WNWkweG1FLW92ZnZYZE8wYnlnR0k5eHFMVUdpQ0ZjSkQ4VzIw?oc=5",
+        "summary": "Active military exchange of fire in the Strait of Hormuz is halting shipping traffic.",
+        "links": [
+          {
+            "title": "Iran attacks US ship in Strait of Hormuz",
+            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQSkZRQjVFR09xQ3BaSVdBR3N6TnQxQ1d1Njd1RnhXX3FOcEdmNHFWZGNDOTBmMjhRVk9DYVpCYWtORWt2ZlBGLThya3RvbkNWanVhY0JCTm14Tjdpc044dDNkTlZHMmp4STBWVnhDYkVhb1FrLUo2dzN0MjF1blRUNjBRek9PcUZaaGZNcW1yNNIBlAFBVV95cUxPUlRuamVFbkhTT090WXBOODUxZGNXVEpiWFE3ZWJCWE44OGV1dEU5THpsSld5UVJKaVMxWkxWT3hpYmRpcFpKU0VrNFhYZW1nMy1kTTFMejdiZDdwSFY2Y0pqZmZuS282cWtaZTE1NWVKaEVfd3FRV3ZCTV9Ua2x0b1FEQjRFYmhEX0thaFlFNW42SUcy?oc=5",
+            "outlet": "thehill.com",
+            "date": "Sun, 06 Sep 2026 12:10:00 GMT"
+          },
+          {
+            "title": "Iran’s Attacks Keep the Strait of Hormuz in a Lethal Stalemate",
+            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNUkI5S3doOWVtUHhfdEU2d2RqTVZvakc1bTN2QUdmUEhQSmx1WThYQWoteGpjSGJLU1FMbmc4LWU5R20xLVBER182eG1FZm11ZHFWY1pvdEIzMlo2ZkFpeTlBQi1xd01UMUswenhqTXhCa2Ftd29nZ1RpUFo4REU0MFVoX3Y4RzJKd1E?oc=5",
+            "outlet": "The New York Times",
+            "date": "Sun, 06 Sep 2026 09:02:15 GMT"
+          },
+          {
+            "title": "US, Iran engaged in tanker war: Where is the months-long conflict headed?",
+            "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQYl9iXzAxY2Jyd3FvVE1aa1V3TmVHd19wcDNad1RSUG13VTFFZ1BINnpIWjBQa1lwRVdsZXBFa1NFeGZnbzZpQWN3Ul8zeEx2aGs0cFQwUVZIamljSEVBMDZUNmJQdWhlSDREZU5Xcmh5emh5dFNMZm1RTTloNkxoeG9VWjhual9jYXZyMkQ5NTBXZnZuemFJeGRYd1ZWQmFSN3JtTDJLV0lXTWw1MUtZ0gG0AUFVX3lxTE5scDhDRzVfdkhnVkpIMF9pbkYxNFphWVdKd19fZ0phU0Q4QkFsZFctaDk4SmxiVWVvMDhFM1R3R1l6T2dfWlJtaUJ6TVR1WUtXaUhjY05jc1NKaTVrVUlORlZBXzhVUDhZZ1Rabmpnb0ZiZ0UtZlFOeFdnUkVzTWpPdW84YUF6NkVneF9tMU0tUDVaaTQ1bmNweGI4UkZSVFZVX2hFbHZlVmltYTFDd0pteUc4YQ?oc=5",
+            "outlet": "Al Jazeera",
+            "date": "Sun, 06 Sep 2026 10:50:58 GMT"
+          },
+          {
+            "title": "Iran attacks naval drone near Hormuz after US strikes 3 oil tankers",
+            "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOTGpKTUlGbVpDTVlGbjdkS3hwdV9SNUk5Snd0ZmRNNEtSNVFVYWx4VFlFb2c5eUVpUU1DYjRhZ3pJZV91V1N3RFMyQ2NuNjg1cWcteU51a1VVWmVsTEpYSzRuOUFkRW5yMHNkTW5jTGppOXZKUU1DUlJCMHUwS2x0eVIzenFtVE91NTFicHVnaUUxbHlPWlI3dDh0ODVyQjdxOUo2LU1xVEVDa1BVWkJaejAxc3lxM1ZiSHMxLUxoYzRlUXFHVWfSAcYBQVVfeXFMTkhfSi1MYzg5V254U0RGVzdLTDRwdU9fV3IzSmJkYmtBQ0tILU1KVWZvc0dwa0NCZVhVWGxlTnVvRnJqc2VVTjBFYU5vdkh3T1R4N2p5WDNOeDJ1dnhVc2xSM2FMaG1NUURLLUhzcXVCaUhlTllwRkhiUVNzNmxVVGRTMHUwU05mZFVQcldwY254Q3hfZU1wNGFqd2NxSjgteWpPbENTZGc1SFg3THdlVGE1Zl9xMVBCZGRWeG40d1gxQW9uUHRn?oc=5",
+            "outlet": "South China Morning Post",
+            "date": "Sun, 06 Sep 2026 06:45:50 GMT"
+          },
+          {
+            "title": "Iran says it hit US ship, Israeli strikes kill 4 in Lebanon, and other Mideast news",
+            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPOEVhN002R3p3SGdYb3lWMjBwNU5vUUFQN0drNXQ0NFNmaWgxLUNPdDlsajhVUDBnc2V3T2xzM0d6Rml5Z0VsRFJiaWowaWRKWjl4bVNPM2FnallXZG43YnlGbzltVFJrSUp2ME5oLW1NS0FxWlBHS3JlS1ppUDFqQUhZTXRYN29OcWdXV01BX05WYlFrZzRtTU0ySQ?oc=5",
+            "outlet": "The Boston Globe",
+            "date": "Sun, 06 Sep 2026 11:47:16 GMT"
+          },
+          {
+            "title": "Oman played both sides — until it didn’t. How a secret shipping deal ignited the Strait of Hormuz",
+            "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNcm5GMkh0NVUtMUVCZEdvdW1xckZsWkJiUUhJZ24tWGpJb1BTb1F0djZpOHp2bnk5UmdfSG0wLUw3Vjg2Nk1DR1dFRzBuWkhkTG5tb2hBQVhPc0hZMGFHcko5b2xVZGFGaWNSWTEwVGhDTGk2b2VTV0hFelVOeV9fTlNQX1FuNFJZQjBTM1RaaWtUZEE?oc=5",
+            "outlet": "Washington Examiner",
+            "date": "Sun, 06 Sep 2026 11:00:00 GMT"
+          },
+          {
+            "title": "Strait of Hormuz Under Iran’s Maritime Sanctions Pressure",
+            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxORkE1cVhMaTdtd2lFQVR1amIwamsxRW5wQkZtbFJwbWNJRXNQMFByZTUzSmc4ZXpwa3V3X0dMN0w0cWsxMVJsZ0IzWHFPMWJ3WTB4Rzd3b1lsWmlSM241UVRFVG5SOWRmVWxSWWl6NW9ObHktR3ZPYzBzWkJqOThNQU9B?oc=5",
+            "outlet": "WANA News Agency",
+            "date": "Sun, 06 Sep 2026 06:45:39 GMT"
+          },
+          {
+            "title": "Iran retaliates after US strikes oil tankers in Hormuz escalation",
+            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOdXFrc3RVUWk1UzZtc05lbTJwTFN4TkFSSlFFMjhGalppa2x3dExEdE96Z3RsaXNUclVucmplYmFUMmtlbTA1OVVBbnFHa0cxN0NyLXJ3bWtsNHFTRnhfQ0lYaG9DQ2hlQkstYnBLZm0xOGtENHkzV3FvUno5d0JKSkJ2M0g2dUdjUWRxWVVrczVqZnNrcDFLaTVkLWNZUzJvQ1VGZkxIazNpdWF2WUE?oc=5",
+            "outlet": "Türkiye Today",
+            "date": "Sun, 06 Sep 2026 07:37:53 GMT"
+          }
+        ],
+        "start": "2026-09"
+      },
+      {
         "id": "news-chokepoint-hormuz",
-        "name": "Iran attacks US ship in Strait of Hormuz",
+        "name": "CMG on-site exclusive: Low shipping traffic in Strait of Hormuz as US hits Iranian oil …",
         "category": "chokepoint",
         "kind": "geopolitical",
         "regionId": "hormuz",
@@ -147,117 +220,24 @@
             "relevance": 1
           }
         ],
-        "severity": 0.3,
-        "months": 3,
-        "status": "breaking",
-        "confidence": 1,
-        "text": "The Hill · 24 matching headlines from 22 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMijwFBVV95cUxQSkZRQjVFR09xQ3BaSVdBR3N6TnQxQ1d1Njd1RnhXX3FOcEdmNHFWZGNDOTBmMjhRVk9DYVpCYWtORWt2ZlBGLThya3RvbkNWanVhY0JCTm14Tjdpc044dDNkTlZHMmp4STBWVnhDYkVhb1FrLUo2dzN0MjF1blRUNjBRek9PcUZaaGZNcW1yNNIBlAFBVV95cUxPUlRuamVFbkhTT090WXBOODUxZGNXVEpiWFE3ZWJCWE44OGV1dEU5THpsSld5UVJKaVMxWkxWT3hpYmRpcFpKU0VrNFhYZW1nMy1kTTFMejdiZDdwSFY2Y0pqZmZuS282cWtaZTE1NWVKaEVfd3FRV3ZCTV9Ua2x0b1FEQjRFYmhEX0thaFlFNW42SUcy?oc=5",
-        "summary": "A direct attack on a US ship in the Strait of Hormuz creates a significant shipping disruption risk.",
-        "links": [
-          {
-            "title": "Iran’s Attacks Keep the Strait of Hormuz in a Lethal Stalemate",
-            "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNUkI5S3doOWVtUHhfdEU2d2RqTVZvakc1bTN2QUdmUEhQSmx1WThYQWoteGpjSGJLU1FMbmc4LWU5R20xLVBER182eG1FZm11ZHFWY1pvdEIzMlo2ZkFpeTlBQi1xd01UMUswenhqTXhCa2Ftd29nZ1RpUFo4REU0MFVoX3Y4RzJKd1E?oc=5",
-            "outlet": "The New York Times",
-            "date": "Sun, 06 Sep 2026 13:28:53 GMT"
-          },
-          {
-            "title": "Iran attacks US ship in Strait of Hormuz",
-            "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQSkZRQjVFR09xQ3BaSVdBR3N6TnQxQ1d1Njd1RnhXX3FOcEdmNHFWZGNDOTBmMjhRVk9DYVpCYWtORWt2ZlBGLThya3RvbkNWanVhY0JCTm14Tjdpc044dDNkTlZHMmp4STBWVnhDYkVhb1FrLUo2dzN0MjF1blRUNjBRek9PcUZaaGZNcW1yNNIBlAFBVV95cUxPUlRuamVFbkhTT090WXBOODUxZGNXVEpiWFE3ZWJCWE44OGV1dEU5THpsSld5UVJKaVMxWkxWT3hpYmRpcFpKU0VrNFhYZW1nMy1kTTFMejdiZDdwSFY2Y0pqZmZuS282cWtaZTE1NWVKaEVfd3FRV3ZCTV9Ua2x0b1FEQjRFYmhEX0thaFlFNW42SUcy?oc=5",
-            "outlet": "The Hill",
-            "date": "Sun, 06 Sep 2026 12:10:00 GMT"
-          },
-          {
-            "title": "Iran claims strike on US ship in Strait of Hormuz as fighting escalates - ABC News",
-            "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNanoydFBiWDdnemIzQnF1X3VWVnlOVG0zbld6M2gxaVNrODNCeDdKTE9QUXpqUllaOC0xZTZmOWFPMnUwZVdYNnctT3VvQ1J5SUlNZERxRTExd2RzNmNRZExJemlvVm50M0hxWld6cnRsMmplcnNudUo0aFJ1dVdYTVVzVzdpWEdqUUtpWkVNMG0tUVo3c21n0gGcAUFVX3lxTFBWNXhzYTNXTkhON3owWnQzcXBmU09IMFNCSGhrYURXdEhCdGtKS2JXZTFhMERCYVpNdjFxelA0bHRrbzE3SVc1QzVGUDNKZmJTQklkYVlQN0s3bVR5dS02TXFqQXVEVDFROFg4ZjNfbFVyamNLVGVWZDdVdENNOXRmOThtRE1LcEVlV3RjTUJmTlNBU1pTbVYzaHFjQg?oc=5",
-            "outlet": "ABC News - Breaking News, Latest News and Videos",
-            "date": "Sun, 06 Sep 2026 08:02:31 GMT"
-          },
-          {
-            "title": "Iran claims a strike on a US ship in the Strait of Hormuz but the US denies it",
-            "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNeXpPTUJjVll0WEd0Wk90aXMyTzltVWQwNXk2Y0hXZ1JsWVZmeFpLMTN0VG9CdlVrdjFKRXlRWWpkczdkOVk4blJKOVZNYUYtbi1fLUpqOXBnN25hdFZDQWN1S3BtWGxJM3NRdHg2a3VPTUVYZzkzUjFTc1JGQkZPd0FwR3dRdUFXeV91UWJyZURPTFZwWXJTYjRXNS1hdw?oc=5",
-            "outlet": "AP News",
-            "date": "Sun, 06 Sep 2026 12:29:00 GMT"
-          },
-          {
-            "title": "US disputes Iran strike on Navy ship trying to enter Strait of Hormuz",
-            "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPTHF2aGZrUWtzaXA1YmNxUk9hV3p3bHBxX1NsLXFZWHJkWnpXeFA1VmNmYVZ1NjF2NGNkMl9oTGppX0VNbXN2QUtZamwzdXBzSWxIYjVKZW9MVzZXV0VXNGlpY2JaV3dBLURmQjV5ZDE5U0laNlQ2aWVxUFNmSEhMQlMzeDJORUJ6ZkxzdDZoMnpXVi1IeWlab1hZa3pDclRjM0E?oc=5",
-            "outlet": "Washington Examiner",
-            "date": "Sun, 06 Sep 2026 13:18:00 GMT"
-          },
-          {
-            "title": "Iran attacks naval drone near Hormuz after US strikes 3 oil tankers",
-            "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOTGpKTUlGbVpDTVlGbjdkS3hwdV9SNUk5Snd0ZmRNNEtSNVFVYWx4VFlFb2c5eUVpUU1DYjRhZ3pJZV91V1N3RFMyQ2NuNjg1cWcteU51a1VVWmVsTEpYSzRuOUFkRW5yMHNkTW5jTGppOXZKUU1DUlJCMHUwS2x0eVIzenFtVE91NTFicHVnaUUxbHlPWlI3dDh0ODVyQjdxOUo2LU1xVEVDa1BVWkJaejAxc3lxM1ZiSHMxLUxoYzRlUXFHVWfSAcYBQVVfeXFMTkhfSi1MYzg5V254U0RGVzdLTDRwdU9fV3IzSmJkYmtBQ0tILU1KVWZvc0dwa0NCZVhVWGxlTnVvRnJqc2VVTjBFYU5vdkh3T1R4N2p5WDNOeDJ1dnhVc2xSM2FMaG1NUURLLUhzcXVCaUhlTllwRkhiUVNzNmxVVGRTMHUwU05mZFVQcldwY254Q3hfZU1wNGFqd2NxSjgteWpPbENTZGc1SFg3THdlVGE1Zl9xMVBCZGRWeG40d1gxQW9uUHRn?oc=5",
-            "outlet": "scmp.com",
-            "date": "Sun, 06 Sep 2026 06:45:50 GMT"
-          },
-          {
-            "title": "Iran says it hit US ship, Israeli strikes kill 4 in Lebanon, and other Mideast news",
-            "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPOEVhN002R3p3SGdYb3lWMjBwNU5vUUFQN0drNXQ0NFNmaWgxLUNPdDlsajhVUDBnc2V3T2xzM0d6Rml5Z0VsRFJiaWowaWRKWjl4bVNPM2FnallXZG43YnlGbzltVFJrSUp2ME5oLW1NS0FxWlBHS3JlS1ppUDFqQUhZTXRYN29OcWdXV01BX05WYlFrZzRtTU0ySQ?oc=5",
-            "outlet": "The Boston Globe",
-            "date": "Sun, 06 Sep 2026 11:47:16 GMT"
-          },
-          {
-            "title": "Strait of Hormuz Under Iran’s Maritime Sanctions Pressure",
-            "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxORkE1cVhMaTdtd2lFQVR1amIwamsxRW5wQkZtbFJwbWNJRXNQMFByZTUzSmc4ZXpwa3V3X0dMN0w0cWsxMVJsZ0IzWHFPMWJ3WTB4Rzd3b1lsWmlSM241UVRFVG5SOWRmVWxSWWl6NW9ObHktR3ZPYzBzWkJqOThNQU9B?oc=5",
-            "outlet": "WANA News Agency",
-            "date": "Sun, 06 Sep 2026 06:45:39 GMT"
-          }
-        ],
-        "start": "2026-09"
-      },
-      {
-        "id": "news-war-hormuz",
-        "name": "US-Iran ship attacks open dangerous new phase in battle for Strait of Hormuz",
-        "category": "war",
-        "kind": "geopolitical",
-        "regionId": "hormuz",
-        "admin": "Strait of Hormuz",
-        "lat": 26.6,
-        "lng": 56.3,
-        "commodities": [
-          {
-            "id": "fats-oils",
-            "relevance": 1
-          },
-          {
-            "id": "coffee",
-            "relevance": 1
-          },
-          {
-            "id": "sugar",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.15,
+        "severity": 0.2,
         "months": 6,
         "status": "breaking",
-        "confidence": 0.8700000000000001,
-        "text": "Gulf News · 4 matching headlines from 4 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMi0wFBVV95cUxQSFQ3WXJQdFl0UF9XTVU5dUktTUVWNXpUUTJjQm12ZFphWjdsRkhta1N4djViQVJDbGtmXzYwakJteGNqY2hTRkR0ZzUzc1RhTURPM2FiSjgwWmp6akVyNVp6MUtNNlA2T0xzZGlmYXZhWWdldWY2RTBKV2tidkxmRDMwS2hkSnZjRHdlcXVyck1YVFdMY29zcXRLX0ZYdk84cnRPSXFCSkIzYjVMWnNDTzZqTjFOcS02UXB5NDJDcEM2ZWxZX0NNYlB6M0tGbDRIaS1B?oc=5",
-        "summary": "Military attacks in the Strait of Hormuz are creating a significant shipping disruption for global food supplies.",
+        "confidence": 0.7700000000000001,
+        "text": "Modern Ghana · 2 matching headlines from 2 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiYEFVX3lxTFBXak8xZHoxZFNtTl9qWU9UYXFPbnpEX0xpZGlodHdMVVN4Y0tqRXZnd1FJaG5aM2xsVHNQTWpPNWk5OHJkNGRnZ19FNkJZN1pTZVJTMjZmVEtUSzNSTmlxMdIBXEFVX3lxTE1yZTVqdnlfSXY5VG02UVRTakRTTTREY2d1d3Vpd0NqWjRsWG9vNHJRSkxzWUdOSkNsZVBOeEZrVlpVTFpLeTBGZW9xemEySDFuX2tUQnlQcVF2R0df?oc=5",
+        "summary": "US strikes on Iranian tankers and resulting shipping disruptions in the Strait of Hormuz threaten energy supplies.",
         "links": [
           {
-            "title": "US-Iran ship attacks open dangerous new phase in battle for Strait of Hormuz",
-            "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQSFQ3WXJQdFl0UF9XTVU5dUktTUVWNXpUUTJjQm12ZFphWjdsRkhta1N4djViQVJDbGtmXzYwakJteGNqY2hTRkR0ZzUzc1RhTURPM2FiSjgwWmp6akVyNVp6MUtNNlA2T0xzZGlmYXZhWWdldWY2RTBKV2tidkxmRDMwS2hkSnZjRHdlcXVyck1YVFdMY29zcXRLX0ZYdk84cnRPSXFCSkIzYjVMWnNDTzZqTjFOcS02UXB5NDJDcEM2ZWxZX0NNYlB6M0tGbDRIaS1B?oc=5",
-            "outlet": "Gulf News",
-            "date": "Sun, 06 Sep 2026 01:01:00 GMT"
+            "title": "Gulf shipping traffic via Hormuz keeps below 10-day average, data shows",
+            "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOSmJxV2JuVVpNSWV4QTRZZktncFBvaUQtcXZVaDZHdkJfV1JkZFhoeU0ybFRIU19qYmZKUkt1VXZZaFlaR2FKY2dxZFN0U2NkRjZYZWt1dlh2N21aN092aEpVdmZ2MmlvMVNDeThDZ1p4aHJpR0x6NV9MREtJb3dFeXY3ZktVbTFJZVZXNzd1ZkFaTWg0TWtQM1dzRlVVeHlUcTYtSFA3UEFPTEQ4ckc0TFRTcEUtQUpzTUFRWWVHd09ZUQ?oc=5",
+            "outlet": "Reuters",
+            "date": "Fri, 04 Sep 2026 06:09:00 GMT"
           },
           {
-            "title": "US strikes three Iranian tankers in retaliation for attacks",
-            "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPbWhGVnhkU1pjOWJKYUZqSFlpbmhYeWxDTXBIWmUzTUloV1Rra18wYmg5cV9CQm5Sc0U4eXpIcVU2Wk1LbnFjQVI4cGNLa2hqMmkzVGx1dGFCOHYwS0FwLUd0bTVXQVlpX1NkLW5DbHI2ek1CN01ZZWVyWGNmMG92bkFZRmNjQlUwemQzZnl6cEZTMEdFN05xcklRNF9KXzU1OGtkZHZWZw?oc=5",
-            "outlet": "Luxembourg Times",
-            "date": "Sun, 06 Sep 2026 09:42:33 GMT"
-          },
-          {
-            "title": "Iran Strikes Six Ships After U.S. Hits Three in Hormuz Spiral",
-            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTlM4MW90NXNTME9YeWN6R244bkJQa0pGaG1ROThrUDhoMHd3VG1PYVR2Zk82Wi1TaFBOX0x2RG5VN3duSmpNV3ZrOUZKVVQ4SkpsMV9IX2hHUFlVZnFHcjNDQi0xVUNfQ1pVcUdJdUoxNDZqTU9nTlRyaGt1ZlRGRnI0bEkwdmhQc1hGVVpEODJ2ZEJ6bnVqU3ByYXdYNW1FTGtkRUozVXpUTm8?oc=5",
-            "outlet": "Seoul Economic Daily",
-            "date": "Sun, 06 Sep 2026 09:46:27 GMT"
-          },
-          {
-            "title": "US, Iran Locked In Fresh Counter Strikes After Vessel Attacks Off Hormuz And Kharg Island",
-            "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPMGZ4Yms3bVpyeWptQVVMWUtUZ0M3SXRRYVJvS0ctdE9RaG9JaUh6b1hOQ3oySUgzMW53bkgtQkFSR3JWU2VqVDVTRmhpaWRxX2s5cjZiVzgyVHY2cUNPR0tBMlZDSjhNdkNuTkhQREgxN1NtNE5JMjlDc0tvMG1xOHhNS1pKMGJZTU95WnA4d09ET2ViNGtrWlZRXzc0VWZBYWxXeUJhcHhLSWxJeVdwaVVvTdIBuwFBVV95cUxPSXlwbWVUT2VJcjZkemFIWEwxNWVJWHVyWVlMWDl1ajZjZW9ablZibDFWcTFiTU1Vb0h6d041THpIQTNwakhrYllFRnBmeFFIVGI4TUFGTEo2b2hxaVFQeVZ1ckp1R1cxd0k2R1hnZ1lNY2lsT0F6WDJFZU5vYk9xamV6QlA4U1RoOTJUdjRqd1BJemRjOEd2TVdIaENsSHhaTEFQWUVmeDVacXhLc01kekhhbEoxbW14Y0RB?oc=5",
-            "outlet": "NDTV Profit",
-            "date": "Sun, 06 Sep 2026 02:57:30 GMT"
+            "title": "CMG on-site exclusive: Low shipping traffic in Strait of Hormuz as US hits Iranian oil tankers",
+            "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBXak8xZHoxZFNtTl9qWU9UYXFPbnpEX0xpZGlodHdMVVN4Y0tqRXZnd1FJaG5aM2xsVHNQTWpPNWk5OHJkNGRnZ19FNkJZN1pTZVJTMjZmVEtUSzNSTmlxMdIBXEFVX3lxTE1yZTVqdnlfSXY5VG02UVRTakRTTTREY2d1d3Vpd0NqWjRsWG9vNHJRSkxzWUdOSkNsZVBOeEZrVlpVTFpLeTBGZW9xemEySDFuX2tUQnlQcVF2R0df?oc=5",
+            "outlet": "Modern Ghana",
+            "date": "Sun, 06 Sep 2026 10:42:01 GMT"
           }
         ],
         "start": "2026-09"
@@ -277,13 +257,19 @@
             "relevance": 1
           }
         ],
-        "severity": 0.2,
+        "severity": 0.15,
         "months": 6,
         "status": "breaking",
-        "confidence": 0.8700000000000001,
-        "text": "KNSI · 4 matching headlines from 3 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMif0FVX3lxTFBMMUtieUdiLVduRGF2Y1Zkc2FjYTRKLWhGY1l5WWpXd1gwQVVzNEEwRjUxbE1sbGt5UzlYUXhfRndxY0tBV1BpYXMwN2JEeGF5SGYzT0lqbC1oRkl3MUJQdFFHQVZkRlJ6ZXgtUzRBb2pJakJPLXFqVjhDRGlsS0k?oc=5",
-        "summary": "Record-high diesel prices are increasing operational costs for US farmers.",
+        "confidence": 0.9200000000000002,
+        "text": "KNSI · 5 matching headlines from 5 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMif0FVX3lxTFBMMUtieUdiLVduRGF2Y1Zkc2FjYTRKLWhGY1l5WWpXd1gwQVVzNEEwRjUxbE1sbGt5UzlYUXhfRndxY0tBV1BpYXMwN2JEeGF5SGYzT0lqbC1oRkl3MUJQdFFHQVZkRlJ6ZXgtUzRBb2pJakJPLXFqVjhDRGlsS0k?oc=5",
+        "summary": "Record high diesel prices are increasing operational costs for US farmers.",
         "links": [
+          {
+            "title": "Rising Fuel Costs Put U.S. Farm Margins Back in Focus",
+            "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNMnN2dWNkUVJmVnZvTUFmN2Z2eVBZUUxuWmtoQlR6N2lwS3ZXNHBtRVdPMDF1QURhQXVXN3RTN0JYWGdUQ3NxYjhTNk5YNml1dkpkODFTQzRrU1JMYVJJUzFmRm1MNkFkQ0tkQ1psaTBZcnpMeDlXMzJFN1BjSzRTMXR4a1M5dUQw?oc=5",
+            "outlet": "AgroLatam",
+            "date": "Sun, 06 Sep 2026 14:32:14 GMT"
+          },
           {
             "title": "2026 Farm Income Outlook Brightens While Fuel and Fertilizer Costs Surge",
             "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNSExIRTRCYjNReWRzQXZNclUwVkR1bFE4X0VfYXBkc3RoVW1lM0tZR3VpTDRGaTNDVjRXZ0xVOXRmRFVBZU5YVExvZ09iQjBsVFNOVHRwS1NoOGl0ejBCeWJ1TTlkcS00X3YyN2ZZSWFTdEJQbTl0NGpFcldJMHlVcjRsU0FBdFJlQUUwZE42Z21rZDhzZ01Qa1JlUDRGNUtkRUdCRkNpTEp5TjJlYnc?oc=5",
@@ -297,55 +283,16 @@
             "date": "Thu, 03 Sep 2026 22:02:08 GMT"
           },
           {
-            "title": "USDA farm income forecast: Expenses up $21B — record farm debt predicted",
-            "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQWUs1ZmdWY3Y0VzMzTDlpc1d6NXJzTldUb2tCRnZnWFJ4NDVxMmxORDdPaERET0JjTHdHeDBrbU41WWRRMjRUckVyRmpOSGdPcEdvZW9mR3BaUU5hYy04OVh5aHpjN3JRdDFlNGszOTFjZ0hHR25UdzlWdnFqYUFzV2FJSkZpb3IyNGNXcmZlQ1FPcUlaTDlOc0J0Rk95MlB1UXFrWlVyRktIUk5IbU9JMTdRbmxRZw?oc=5",
-            "outlet": "michiganfarmnews.com",
-            "date": "Fri, 04 Sep 2026 17:47:44 GMT"
-          },
-          {
             "title": "Diesel fuel prices poised to set new records as harvest season begins",
             "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQVFNGbUpwQUtkeTZLdVE2bURlWHpGZXRncUltbHNLWmQxWk01Snc4ODctNUJFdzJsdVIxZWUwU01EQmM2ZmhDLVFtaExJamFHSHRxMElaUW5zTnE1Rms0dm5RMF9CWjF3TlU5Nzdjd21aQk05b25zUG83ck5keUp4QnEzMGNrT05DUC15TTlQdHBNY1lqVHdncXVIWFFBWmpQX2x5ZFNGNkFLTm9FS3ZHTm9RTQ?oc=5",
-            "outlet": "michiganfarmnews.com",
+            "outlet": "Michigan Farm News",
             "date": "Thu, 03 Sep 2026 18:06:42 GMT"
-          }
-        ],
-        "start": "2026-09"
-      },
-      {
-        "id": "news-disease-us-national",
-        "name": "Detections of Highly Pathogenic Avian Influenza in Mammals | Animal and Plant Health In…",
-        "category": "disease",
-        "kind": "natural",
-        "regionId": "us-national",
-        "admin": "United States (national)",
-        "lat": 39.8,
-        "lng": -98.6,
-        "commodities": [
-          {
-            "id": "chicken",
-            "relevance": 1
           },
           {
-            "id": "turkey",
-            "relevance": 1
-          },
-          {
-            "id": "eggs",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.03,
-        "months": 6,
-        "status": "breaking",
-        "confidence": 0.6400000000000001,
-        "text": "aphis.usda.gov · 1 matching headline from 1 outlet, wire or official source in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMinwFBVV95cUxNN2NINmUzMzY3dVl0WE5MVDB3enI1VU9hSHllTWJVa19XcW9tcmtGZzFtZjhleDBHT2x1M2VVRFdxbVlmRmszZjZkUjFVUmg1LXpMZnhja2Z1dFYybk9LeGJDTC1adFBCU3E5UXhGYm52Smc4ZXg5SVdMZFVmRFpsWmxRZ2dVZDg1YjVqN0N6dG9lZDJsWG03dFhMUzdhSGs?oc=5",
-        "summary": "Highly pathogenic avian influenza is being detected in mammals across the United States.",
-        "links": [
-          {
-            "title": "Detections of Highly Pathogenic Avian Influenza in Mammals | Animal and Plant Health Inspection Service",
-            "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNN2NINmUzMzY3dVl0WE5MVDB3enI1VU9hSHllTWJVa19XcW9tcmtGZzFtZjhleDBHT2x1M2VVRFdxbVlmRmszZjZkUjFVUmg1LXpMZnhja2Z1dFYybk9LeGJDTC1adFBCU3E5UXhGYm52Smc4ZXg5SVdMZFVmRFpsWmxRZ2dVZDg1YjVqN0N6dG9lZDJsWG03dFhMUzdhSGs?oc=5",
-            "outlet": "aphis.usda.gov",
-            "date": "Fri, 04 Sep 2026 07:00:00 GMT"
+            "title": "US diesel price hits new high on Iran war, squeezing voters",
+            "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQaFIteFVSUGJ3RXpnMlF1QmFPYjhPQ0M1Wkl3N2FnODV3dk51ajdxRklrTktOQTdDUENYc0NueU1DSHRfV2JWM3ByaUJlTTJrQkZXNk53M3llbDRCZ3VOTm5lQ1A3ZXFuMWJwbWFra2hlSVZjd0VWbGdyQzJ6NW9GRklTSG96ZEwtbnJfU2dQMW5GRjhmWEc3UEk2Um02bk0tR0JaZlJ2NTU?oc=5",
+            "outlet": "France 24",
+            "date": "Fri, 04 Sep 2026 13:51:12 GMT"
           }
         ],
         "start": "2026-09"
