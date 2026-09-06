@@ -42,7 +42,7 @@ export function Settings({ settings, onSave, onClose, ctx, focus: focus0, commod
     <div className="modal-back" onClick={onClose}>
       <div className="modal narrow" onClick={(e) => e.stopPropagation()}>
         <div className="modal-head"><h3>Email alerts</h3><button className="iconbtn" onClick={onClose}>×</button></div>
-        <label className="field"><span>Email</span><input type="email" value={email} placeholder="staffer@house.gov" onChange={(e) => setEmail(e.target.value)} /></label>
+        <label className="field"><span>Email</span><input type="email" value={email} placeholder="you@gmail.com" onChange={(e) => setEmail(e.target.value)} /></label>
         <label className="field row"><input type="checkbox" checked={alerts} onChange={(e) => setAlerts(e.target.checked)} /><span>Email me about new threats that match the filters below</span></label>
         <div className="field"><span>Only these threats</span>
           <div className="alert-filters"><Filters ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} /></div>
