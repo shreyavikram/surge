@@ -1,31 +1,7 @@
 {
-  "fetchedAt": "2026-09-06T13:24:08.424Z",
+  "fetchedAt": "2026-09-06T14:39:17.222Z",
   "result": {
     "items": [
-      {
-        "id": "news-export-ban-brazil",
-        "name": "Factbox-EU ban on animal products affects $1.8 billion in Brazilian exports",
-        "category": "export_ban",
-        "kind": "geopolitical",
-        "regionId": "brazil",
-        "admin": "Brazil",
-        "lat": -14.2,
-        "lng": -51.9,
-        "commodities": [
-          {
-            "id": "beef",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.5,
-        "months": 12,
-        "status": "breaking",
-        "confidence": 0.7700000000000001,
-        "text": "Yahoo Finance · 2 matching headlines in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMimwFBVV95cUxNU19FYjczeGJ2bDBSdVpwWTNrVExzbkNnTHJrcy1QTERMaFpBd1M3cktoR1pLS0pKMHZieW9IRWZCTjIwczJCd2ZRMmlyVXVfUXVvTFJqek9DZW1nbS1PUm1GUEx5aXI1VndxYkFvb1RvZTR6a2hoWm55NnVFZEpaVk13cTBLeU5xWER5NTc5bWlBZzQ4aDJXQUV1bw?oc=5",
-        "summary": "The European Union has implemented a ban on certain Brazilian animal products, impacting export volumes.",
-        "start": "2026-09",
-        "iso3": "BRA"
-      },
       {
         "id": "news-disease-uruguay",
         "name": "Uruguay declares nationwide health emergency over bird flu outbreak",
@@ -37,100 +13,18 @@
         "lng": -56.1,
         "commodities": [
           {
-            "id": "chicken",
+            "id": "beef",
             "relevance": 1
           }
         ],
         "severity": 0.15,
         "months": 6,
         "status": "breaking",
-        "confidence": 0.8200000000000001,
-        "text": "Türkiye Today · 3 matching headlines in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMitAFBVV95cUxOTG5HcTVYRjYxaUxIbnhvaDRkUFc0VHFHRHpBU0JtWGFhMFlyWUwwNnl0MlpsaEVoSXJYVTM0Wk9KMnR0Sk9meE1iVXNSTUpLM3NmUGJhWTgxdkJpSjQ4SVY5UTRGMHE5N2ZKSTd6VFg5WERzZjNLdHNQaXpfNWpQemhOM0h6MXhrdnFrWFNrcFZoN1dkLU9wamIxenFzNjd6ckNTaDg0RmtWUWdHQXZTc0Q1emo?oc=5",
-        "summary": "Uruguay has declared a national health emergency due to an outbreak of bird flu.",
+        "confidence": 0.9200000000000002,
+        "text": "Türkiye Today · 5 matching headlines from 5 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMitAFBVV95cUxOTG5HcTVYRjYxaUxIbnhvaDRkUFc0VHFHRHpBU0JtWGFhMFlyWUwwNnl0MlpsaEVoSXJYVTM0Wk9KMnR0Sk9meE1iVXNSTUpLM3NmUGJhWTgxdkJpSjQ4SVY5UTRGMHE5N2ZKSTd6VFg5WERzZjNLdHNQaXpfNWpQemhOM0h6MXhrdnFrWFNrcFZoN1dkLU9wamIxenFzNjd6ckNTaDg0RmtWUWdHQXZTc0Q1emo?oc=5",
+        "summary": "Uruguay has declared a health emergency due to a bird flu outbreak, threatening beef and poultry supply chains.",
         "start": "2026-09",
         "iso3": "URY"
-      },
-      {
-        "id": "news-drought-us-state-co",
-        "name": "Grand County rancher says drought and rising costs outweigh beef tariff concerns",
-        "category": "drought",
-        "kind": "natural",
-        "regionId": "us-state-CO",
-        "admin": "Colorado",
-        "lat": 39,
-        "lng": -105.5,
-        "commodities": [
-          {
-            "id": "beef",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.15,
-        "months": 12,
-        "status": "breaking",
-        "confidence": 0.6400000000000001,
-        "text": "SkyHiNews.com · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMisgFBVV95cUxNMzBxSmpHVXB2S3NuSFFHdmVGVXgtSi01Nzd1VHluUEpkbjZHX1B0dDhQekxneTI3aXF5eW85OGNSc3BLVUhfNmo0SEZqYWptV1lyZ05YQ2VZOUxMTk80aHROZ2dZVzZPUXg3U1kyWTJENjdHNHlLTTdqdUltOG84Y0pLUl9CZUhLdF9vdkFqUVpvQXM3ZWk4WFh2bUZHZ21FdndfTzNFempfaEx3SE1HZ0lB?oc=5",
-        "summary": "Drought conditions in Colorado are impacting cattle ranching operations.",
-        "start": "2026-09"
-      },
-      {
-        "id": "news-tariff-canada",
-        "name": "Trump’s Price Relief on Beef Imports Is Overshadowed by New Wave of Tariffs on Canadian…",
-        "category": "tariff",
-        "kind": "geopolitical",
-        "regionId": "canada",
-        "admin": "Canada",
-        "lat": 56.1,
-        "lng": -106.3,
-        "commodities": [
-          {
-            "id": "beef",
-            "relevance": 1
-          },
-          {
-            "id": "pork",
-            "relevance": 1
-          },
-          {
-            "id": "wheat",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.1,
-        "months": 12,
-        "status": "breaking",
-        "confidence": 0.6400000000000001,
-        "text": "The New York Sun · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMivwFBVV95cUxOZ2pJakFrQ25wX0JxYjFKaDRqTjNNcXNJVFN3TFlnR18wS1pOY0NVWFJfOWhMNVRhWkVQMXpHVmM2SEdxZTVVSmtEVzhmd1pjbGpBU2VCTnp5cW94UmNfZ2lFYW1yX1VBLTR1bU8xaGZ6eXlfd2Q5QWFia243VXJrdnppM0RzQXRvMFBxelNKRVlhTEwzUnktcDJSY3pVcloyajBYZWhCd2xIZVRReUhCUE5uZE9IOEQ3a2hnTEozRQ?oc=5",
-        "summary": "New tariffs on Canadian goods may increase costs for imported food products.",
-        "start": "2026-09",
-        "iso3": "CAN"
-      },
-      {
-        "id": "news-drought-us-midwest-corn-belt",
-        "name": "Drought threatens crops in western, northwestern Corn Belt",
-        "category": "drought",
-        "kind": "natural",
-        "regionId": "us-midwest-corn-belt",
-        "admin": "Corn Belt (IL, IN, NE, MN, OH)",
-        "lat": 41,
-        "lng": -90,
-        "commodities": [
-          {
-            "id": "corn",
-            "relevance": 1
-          },
-          {
-            "id": "soybeans",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.15,
-        "months": 3,
-        "status": "breaking",
-        "confidence": 0.7200000000000001,
-        "text": "brownfieldagnews.com · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMinAFBVV95cUxNUGFJbEE2Z3lmeW9pbHpfN2hXN0k3NGExOEFBSmhrUlZreU5lS1lYYzNneG5IUVAyT3g5Vi1MQ0ZzX2QzQm1lRi1pNG1ici10ZWFkRE1pREpRQVo3SE1qcnJXc01HOEtQZ1NjWTdHckswRE1lNmQtZ1FURlcyWGE4YnJtbURtNDNHWlNZOTk2QkdOTGZTYmpEaWtLcGs?oc=5",
-        "summary": "Drought conditions are threatening crop yields in the Corn Belt.",
-        "start": "2026-09"
       },
       {
         "id": "news-drought-us-state-mt",
@@ -151,7 +45,7 @@
         "months": 4,
         "status": "breaking",
         "confidence": 0.7700000000000001,
-        "text": "Yahoo · 2 matching headlines in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiowFBVV95cUxNOUF3aHIzLWhWTzhUSzZzMV9FTEt1Vmc2WE9JWGw5SjJpbFhzb2RUWWF4dGdTWDIxTlpMRHRYdHU1enNrTWp3cTFRbGhpRGxDb3hMcU1HWXlIdThybFZlVC1EVDZEYUFCYTJrZ2pQeE1kMU1oUmtkWUZzRFNxaHhfNjhtMmlSamhRMVhMM0JZMHZ1X3BUdGl4Q3JWVXUyVGZnb2dJ?oc=5",
+        "text": "Yahoo · 2 matching headlines from 2 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiowFBVV95cUxNOUF3aHIzLWhWTzhUSzZzMV9FTEt1Vmc2WE9JWGw5SjJpbFhzb2RUWWF4dGdTWDIxTlpMRHRYdHU1enNrTWp3cTFRbGhpRGxDb3hMcU1HWXlIdThybFZlVC1EVDZEYUFCYTJrZ2pQeE1kMU1oUmtkWUZzRFNxaHhfNjhtMmlSamhRMVhMM0JZMHZ1X3BUdGl4Q3JWVXUyVGZnb2dJ?oc=5",
         "summary": "Severe drought in Montana is limiting water access for cattle herds.",
         "start": "2026-09"
       },
@@ -170,137 +64,13 @@
             "relevance": 1
           }
         ],
-        "severity": 0.1,
+        "severity": 0.15,
         "months": 2,
         "status": "breaking",
         "confidence": 0.7700000000000001,
-        "text": "Successful Farming · 2 matching headlines in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMilgFBVV95cUxPcnJyY2xQUmZnOG5BTjl5QTdCdnNhd1laUlIzVHpGRmpsOFJmWWJ2Y09WTGxRaFQ2T2hvZnlQMkZRNjh0S185bHJETU1SZmxSY0l4NkpEeDNrNHNzZXNfd2N1R2NtNWh2NktPamUtal9Lc1ZxdjRjUkFXSzVpUi1vM1prRnZ6VzRaelc2eHVhSE41YTRmQ3c?oc=5",
-        "summary": "Drought in Wisconsin is forcing early corn harvests and reducing yields.",
+        "text": "Successful Farming · 2 matching headlines from 2 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMilgFBVV95cUxPcnJyY2xQUmZnOG5BTjl5QTdCdnNhd1laUlIzVHpGRmpsOFJmWWJ2Y09WTGxRaFQ2T2hvZnlQMkZRNjh0S185bHJETU1SZmxSY0l4NkpEeDNrNHNzZXNfd2N1R2NtNWh2NktPamUtal9Lc1ZxdjRjUkFXSzVpUi1vM1prRnZ6VzRaelc2eHVhSE41YTRmQ3c?oc=5",
+        "summary": "Drought in Wisconsin is forcing an early corn harvest and reducing yields.",
         "start": "2026-09"
-      },
-      {
-        "id": "news-drought-us-state-ne",
-        "name": "Drought and Feed Shortages Continue to Challenge Nebraska Cattle Herds",
-        "category": "drought",
-        "kind": "natural",
-        "regionId": "us-state-NE",
-        "admin": "Nebraska",
-        "lat": 41.5,
-        "lng": -99.8,
-        "commodities": [
-          {
-            "id": "beef",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.15,
-        "months": 6,
-        "status": "breaking",
-        "confidence": 0.7200000000000001,
-        "text": "Farms.com · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiugFBVV95cUxOdGhLTU5meTdvM05Lb01xbXROWXFQZzJVN2M2d3VodnRMUlptd0NacGNPMDNQOW5GVE5KU01Jc1ZudXUtbE9fNlFBaWFDbXplN0h3OElBMXU3VGtSZm9LWUV6Slp0WThlRTktemFxREtKZWtMdUNpR0s0aVhUZUVBSHNINW5ZRGktS3JidEh1YUdaWDlsNU1ndS04LUtzTy0tWFVyMlBrZ0NjMm5GUWtKbk5yUWpvLXluV3c?oc=5",
-        "summary": "Drought and feed shortages are impacting cattle herds in Nebraska.",
-        "start": "2026-09"
-      },
-      {
-        "id": "news-drought-us-state-mo",
-        "name": "The severe drought impacting cattle farmers in the Ozarks",
-        "category": "drought",
-        "kind": "natural",
-        "regionId": "us-state-MO",
-        "admin": "Missouri",
-        "lat": 38.4,
-        "lng": -92.5,
-        "commodities": [
-          {
-            "id": "beef",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.15,
-        "months": 4,
-        "status": "breaking",
-        "confidence": 0.7200000000000001,
-        "text": "KY3 · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMijAFBVV95cUxOTFZ4UXF6YUJiY0NWak5GdFU2STc3dlpiclA1UnpDNUxNQ3ZCNkdES0Q4QzlvVUQwQkI1NkpGd2xxUnZQa3kxNFFKRDZyWDRMdWw0MG1HOE84LWM5bDJ1ZFRMOVB5TF9DejRFVFJmOUpfVDh2ODdwZm1iQzVlSVFrNUlISTh4UkI3VmQ2Ug?oc=5",
-        "summary": "Severe drought is impacting cattle farmers in the Ozarks region.",
-        "start": "2026-09"
-      },
-      {
-        "id": "news-drought-us-state-mi",
-        "name": "Dry weather, variable rain take toll on Michigan corn yield potential",
-        "category": "drought",
-        "kind": "natural",
-        "regionId": "us-state-MI",
-        "admin": "Michigan",
-        "lat": 44.3,
-        "lng": -85.4,
-        "commodities": [
-          {
-            "id": "corn",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.1,
-        "months": 3,
-        "status": "breaking",
-        "confidence": 0.6400000000000001,
-        "text": "brownfieldagnews.com · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiqwFBVV95cUxQbDhVQnc0QVpaNU51cXZ6RTRyS0hYcnBsZzIydno4UHVtMTRWSkRYeWdTckc5Q09kVm9ZSmdFcVkwamVqbmlmc2ZwWlpnSnZsWDJUS2tWYndEeHhFdVVnbXM2WHpWc0ZpeGNnRDZDTkpsT1RQcGFmWDV4NjNKZmNWWk9MdE5QaWVXeFRFZ1FaZWR1X0Rkb2U2eVV1OEt5Z2JyN0N0dnoxZG9SQWM?oc=5",
-        "summary": "Dry weather in Michigan is reducing corn yield potential.",
-        "start": "2026-09"
-      },
-      {
-        "id": "news-drought-us-plains-wheat",
-        "name": "Flash drought expands from Southern Plains into Ozarks",
-        "category": "drought",
-        "kind": "natural",
-        "regionId": "us-plains-wheat",
-        "admin": "Wheat Plains (KS, OK, TX, NE, CO)",
-        "lat": 38.5,
-        "lng": -99,
-        "commodities": [
-          {
-            "id": "corn",
-            "relevance": 1
-          },
-          {
-            "id": "soybeans",
-            "relevance": 1
-          },
-          {
-            "id": "beef",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.15,
-        "months": 3,
-        "status": "breaking",
-        "confidence": 0.7200000000000001,
-        "text": "brownfieldagnews.com · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMimAFBVV95cUxPTlYwcEJiVVU3bnM4SUNnMmJ3TmxNM09QS095TzN6WnRqV2tvZXllUmpBMVo4Si1GYVdMdHZENlNZM0pxVkd1SmpmQ1V5OFlwMV9rZnJoa1dpTGZkdXBLZkY3YXVoNFNYbl9OSnp5aGp1cXdCY01sYkRSeERCR2NyVlcxYzFpMVhXdkt4clF4cHZuY3JHSkxDMA?oc=5",
-        "summary": "A flash drought is spreading across the Southern Plains and Ozarks.",
-        "start": "2026-09"
-      },
-      {
-        "id": "news-drought-honduras",
-        "name": "Honduras Counts Empty Corn Rows as Drought Steals the Final Planting Season",
-        "category": "drought",
-        "kind": "natural",
-        "regionId": "honduras",
-        "admin": "Honduras",
-        "lat": 15,
-        "lng": -86.5,
-        "commodities": [
-          {
-            "id": "corn",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.15,
-        "months": 6,
-        "status": "breaking",
-        "confidence": 0.7200000000000001,
-        "text": "LatinAmerican Post · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiuAFBVV95cUxPMkpvTmVENVFUekRxQmlJRE9NYUtvc19kQWRNbkZaRk5HVk45RGxCdl9BM0h1WlFKTXRrUmFLNkpRam1sQTdIeklJTGkzNC0yNGdVMVkweVRMTThpSk0xdEZ2aTFubUs4ZWxVZzhQR2FoMHQ0X1p0Ri14VlVIakE2WjNBaWl0MjJkN3FOMGhFWFZUUnl3eDJRVUNoSFZleV9CbGRRRjBkRV9ObUpCSFpxQjhpZUxNTV9Z?oc=5",
-        "summary": "Drought in Honduras is destroying corn crops during the planting season.",
-        "start": "2026-09",
-        "iso3": "HND"
       },
       {
         "id": "news-drought-us-national",
@@ -324,14 +94,37 @@
         "severity": 0.03,
         "months": 3,
         "status": "breaking",
-        "confidence": 0.7200000000000001,
-        "text": "agrolatam.com · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMijAFBVV95cUxQQWZMUXRlR0lsMll3al8ydmN5UTB2RzdOa1NHcFRlU1V3M0tyNzhSUW4wenpQR2JfOUlPcWtoY253VkVUMTl4QnBRNjE5b1VoZDRKTGFBOEZJV3IxUlJNR0xhUHdILVQxQVhZb2pTSy1JaEowaWd4b2VUUDREUzZYc1U1M2l5TWFkdXV5YQ?oc=5",
-        "summary": "Heat and drought are threatening crop margins across U.S. farms.",
+        "confidence": 0.7700000000000001,
+        "text": "AgroLatam · 2 matching headlines from 2 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMijAFBVV95cUxQQWZMUXRlR0lsMll3al8ydmN5UTB2RzdOa1NHcFRlU1V3M0tyNzhSUW4wenpQR2JfOUlPcWtoY253VkVUMTl4QnBRNjE5b1VoZDRKTGFBOEZJV3IxUlJNR0xhUHdILVQxQVhZb2pTSy1JaEowaWd4b2VUUDREUzZYc1U1M2l5TWFkdXV5YQ?oc=5",
+        "summary": "Extreme heat and drought are threatening crop margins across the United States.",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-chokepoint-hormuz",
+        "name": "Iran Strikes Six Ships After U.S. Hits Three in Hormuz Spiral",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "regionId": "hormuz",
+        "admin": "Strait of Hormuz",
+        "lat": 26.6,
+        "lng": 56.3,
+        "commodities": [
+          {
+            "id": "energy",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.4,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 1,
+        "text": "Seoul Economic Daily · 9 matching headlines from 9 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTlM4MW90NXNTME9YeWN6R244bkJQa0pGaG1ROThrUDhoMHd3VG1PYVR2Zk82Wi1TaFBOX0x2RG5VN3duSmpNV3ZrOUZKVVQ4SkpsMV9IX2hHUFlVZnFHcjNDQi0xVUNfQ1pVcUdJdUoxNDZqTU9nTlRyaGt1ZlRGRnI0bEkwdmhQc1hGVVpEODJ2ZEJ6bnVqU3ByYXdYNW1FTGtkRUozVXpUTm8?oc=5",
+        "summary": "Escalating attacks on vessels in the Strait of Hormuz significantly disrupt energy shipping routes.",
         "start": "2026-09"
       },
       {
         "id": "news-war-hormuz",
-        "name": "Iran’s Attacks Keep the Strait of Hormuz in a Lethal Stalemate",
+        "name": "Iran attacks US ship in Strait of Hormuz",
         "category": "war",
         "kind": "geopolitical",
         "regionId": "hormuz",
@@ -345,159 +138,98 @@
           }
         ],
         "severity": 0.15,
-        "months": 6,
-        "status": "breaking",
-        "confidence": 1,
-        "text": "The New York Times · 15 matching headlines in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiigFBVV95cUxNUkI5S3doOWVtUHhfdEU2d2RqTVZvakc1bTN2QUdmUEhQSmx1WThYQWoteGpjSGJLU1FMbmc4LWU5R20xLVBER182eG1FZm11ZHFWY1pvdEIzMlo2ZkFpeTlBQi1xd01UMUswenhqTXhCa2Ftd29nZ1RpUFo4REU0MFVoX3Y4RzJKd1E?oc=5",
-        "summary": "Ongoing military tensions and attacks in the Strait of Hormuz threaten global energy and food shipping lanes.",
-        "start": "2026-09"
-      },
-      {
-        "id": "news-embargo-hormuz",
-        "name": "Strait of Hormuz Under Iran’s Maritime Sanctions Pressure",
-        "category": "embargo",
-        "kind": "geopolitical",
-        "regionId": "hormuz",
-        "admin": "Strait of Hormuz",
-        "lat": 26.6,
-        "lng": 56.3,
-        "commodities": [
-          {
-            "id": "energy",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.2,
-        "months": 6,
-        "status": "breaking",
-        "confidence": 0.5599999999999999,
-        "text": "WANA News Agency · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiggFBVV95cUxORkE1cVhMaTdtd2lFQVR1amIwamsxRW5wQkZtbFJwbWNJRXNQMFByZTUzSmc4ZXpwa3V3X0dMN0w0cWsxMVJsZ0IzWHFPMWJ3WTB4Rzd3b1lsWmlSM241UVRFVG5SOWRmVWxSWWl6NW9ObHktR3ZPYzBzWkJqOThNQU9B?oc=5",
-        "summary": "Maritime sanctions and pressure in the Strait of Hormuz are restricting normal shipping operations.",
-        "start": "2026-09"
-      },
-      {
-        "id": "news-chokepoint-panama-canal",
-        "name": "Middle East tensions, Panama Canal limits can further tighten global shipping",
-        "category": "chokepoint",
-        "kind": "geopolitical",
-        "regionId": "panama-canal",
-        "admin": "Panama Canal",
-        "lat": 9.1,
-        "lng": -79.7,
-        "commodities": [
-          {
-            "id": "fats-oils",
-            "relevance": 1
-          },
-          {
-            "id": "corn",
-            "relevance": 1
-          },
-          {
-            "id": "soybeans",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.15,
-        "months": 6,
-        "status": "breaking",
-        "confidence": 0.7700000000000001,
-        "text": "digitimes · 2 matching headlines in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMioAFBVV95cUxQYU8zVGl3MEQ4di1fRU1lazZDN1RhTEVGSUtjX01kMnpGSXUzaDk3UVRTalJXX0NNMlRJR1J1VWhBcHhtSnpITGZ5UmMwN3U1Y0dEZG5GQnJyUWdBdkg5YUZKWFJ1OTBSV1ZJaTlkTUtvSWN2MWxfLUJEOGhpRWF1Q0hGZHk1dVNpb0F2VVJpb3FQLW9tTFhMSEktNzVyUzhu?oc=5",
-        "summary": "Combined Middle East tensions and Panama Canal transit restrictions are tightening global shipping capacity.",
-        "start": "2026-09"
-      },
-      {
-        "id": "news-chokepoint-hormuz",
-        "name": "Gulf shipping traffic via Hormuz keeps below 10-day average, data shows",
-        "category": "chokepoint",
-        "kind": "geopolitical",
-        "regionId": "hormuz",
-        "admin": "Strait of Hormuz",
-        "lat": 26.6,
-        "lng": 56.3,
-        "commodities": [
-          {
-            "id": "energy",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.2,
         "months": 3,
         "status": "breaking",
-        "confidence": 0.6900000000000002,
-        "text": "Reuters · 2 matching headlines in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiwgFBVV95cUxOSmJxV2JuVVpNSWV4QTRZZktncFBvaUQtcXZVaDZHdkJfV1JkZFhoeU0ybFRIU19qYmZKUkt1VXZZaFlaR2FKY2dxZFN0U2NkRjZYZWt1dlh2N21aN092aEpVdmZ2MmlvMVNDeThDZ1p4aHJpR0x6NV9MREtJb3dFeXY3ZktVbTFJZVZXNzd1ZkFaTWg0TWtQM1dzRlVVeHlUcTYtSFA3UEFPTEQ4ckc0TFRTcEUtQUpzTUFRWWVHd09ZUQ?oc=5",
-        "summary": "Reduced shipping traffic through the Strait of Hormuz indicates supply chain disruption due to regional conflict.",
+        "confidence": 1,
+        "text": "thehill.com · 19 matching headlines from 18 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMijwFBVV95cUxQSkZRQjVFR09xQ3BaSVdBR3N6TnQxQ1d1Njd1RnhXX3FOcEdmNHFWZGNDOTBmMjhRVk9DYVpCYWtORWt2ZlBGLThya3RvbkNWanVhY0JCTm14Tjdpc044dDNkTlZHMmp4STBWVnhDYkVhb1FrLUo2dzN0MjF1blRUNjBRek9PcUZaaGZNcW1yNNIBlAFBVV95cUxPUlRuamVFbkhTT090WXBOODUxZGNXVEpiWFE3ZWJCWE44OGV1dEU5THpsSld5UVJKaVMxWkxWT3hpYmRpcFpKU0VrNFhYZW1nMy1kTTFMejdiZDdwSFY2Y0pqZmZuS282cWtaZTE1NWVKaEVfd3FRV3ZCTV9Ua2x0b1FEQjRFYmhEX0thaFlFNW42SUcy?oc=5",
+        "summary": "Military conflict in the Strait of Hormuz disrupts critical energy shipping lanes.",
         "start": "2026-09"
       },
       {
-        "id": "news-input-cost-india",
-        "name": "'Fertilizer bag may get Rs700 costlier'",
+        "id": "news-input-cost-us-national",
+        "name": "2026 Farm Income Outlook Brightens While Fuel and Fertilizer Costs Surge",
         "category": "input_cost",
         "kind": "geopolitical",
-        "regionId": "india",
-        "admin": "India",
-        "lat": 22,
-        "lng": 79,
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
         "commodities": [
+          {
+            "id": "energy",
+            "relevance": 1
+          },
           {
             "id": "fertilizer",
             "relevance": 1
           }
         ],
         "severity": 0.1,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.9200000000000002,
+        "text": "Successful Farming · 5 matching headlines from 5 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMirgFBVV95cUxNSExIRTRCYjNReWRzQXZNclUwVkR1bFE4X0VfYXBkc3RoVW1lM0tZR3VpTDRGaTNDVjRXZ0xVOXRmRFVBZU5YVExvZ09iQjBsVFNOVHRwS1NoOGl0ejBCeWJ1TTlkcS00X3YyN2ZZSWFTdEJQbTl0NGpFcldJMHlVcjRsU0FBdFJlQUUwZE42Z21rZDhzZ01Qa1JlUDRGNUtkRUdCRkNpTEp5TjJlYnc?oc=5",
+        "summary": "Surging fuel and fertilizer costs continue to pressure US farm operating margins.",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-disease-us-national",
+        "name": "Detections of Highly Pathogenic Avian Influenza in Mammals | Animal and Plant Health In…",
+        "category": "disease",
+        "kind": "natural",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "chicken",
+            "relevance": 1
+          },
+          {
+            "id": "turkey",
+            "relevance": 1
+          },
+          {
+            "id": "eggs",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.03,
         "months": 6,
         "status": "breaking",
-        "confidence": 0.5599999999999999,
-        "text": "The Express Tribune · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMif0FVX3lxTFBQTWxtUV9rcGhPYkR3a2pXd3BSNERDaVVCdGFJZG1RVXc4b2RiYzcwUjktOGNkeVZFY0NaWjV0WHI5NXR0YnlnTFZIQkxTUmpLRGY0c2VzZTFNMHdtWkpJUU9fbU9IdFY5ZkNrTENrR0ZQX0NKb0hjSTZtVHFBYVnSAYcBQVVfeXFMTkowU0hNSHpXaVpsa2x6aFMyQkhBdk5DT29iblpqUTZ5STFaUnJtWTB2VlR2OU1jc216dWpubXdma3pfRmVnUUg5QVRIa01VU1NCRUR0OEdCNE8wQVltTU0zTi11U1RQMk4yMG9WVmhzVnNic1M0R1pjdHZYcjZLXzZ2Sk5SUDhV?oc=5",
-        "summary": "Rising fertilizer costs in India may increase production expenses for agricultural commodities.",
+        "confidence": 0.6400000000000001,
+        "text": "aphis.usda.gov · 1 matching headline from 1 outlet, wire or official source in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMinwFBVV95cUxNN2NINmUzMzY3dVl0WE5MVDB3enI1VU9hSHllTWJVa19XcW9tcmtGZzFtZjhleDBHT2x1M2VVRFdxbVlmRmszZjZkUjFVUmg1LXpMZnhja2Z1dFYybk9LeGJDTC1adFBCU3E5UXhGYm52Smc4ZXg5SVdMZFVmRFpsWmxRZ2dVZDg1YjVqN0N6dG9lZDJsWG03dFhMUzdhSGs?oc=5",
+        "summary": "Highly Pathogenic Avian Influenza is being detected in mammals across the United States.",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-disease-south-africa",
+        "name": "Foot-and-mouth disease: South Africa’s quiet business crisis",
+        "category": "disease",
+        "kind": "natural",
+        "regionId": "south-africa",
+        "admin": "South Africa",
+        "lat": -28.6,
+        "lng": 24.7,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          },
+          {
+            "id": "milk-farm",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.7700000000000001,
+        "text": "African Farming · 2 matching headlines from 2 outlets in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiowFBVV95cUxORGkwbVcxdDhCYjNpVl9pUXhhWlVsUjFlRGRXSUtPbzRDSkxrS0tmSmJOajZ1TjlHbzFpaWRicm5BYWc4WXFkbE83bFk4alZuUFltSUw1ekMtUEphbEk5S3gwUlJKQUdnSXAxand4cmpBN091YXJHOHF3d3BicGdxYThtX25jcjJnUVF2SVBtZEI3eWdKX2RmSXVpcXI5Sml4M0VZ?oc=5",
+        "summary": "Foot-and-mouth disease is causing a significant business crisis in South Africa.",
         "start": "2026-09",
-        "iso3": "IND"
-      },
-      {
-        "id": "news-wildfire-us-state-mt",
-        "name": "Montana ranching family rescues cattle herd from the path of two southwest Montana wild…",
-        "category": "wildfire",
-        "kind": "natural",
-        "regionId": "us-state-MT",
-        "admin": "Montana",
-        "lat": 47,
-        "lng": -109.6,
-        "commodities": [
-          {
-            "id": "beef",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.05,
-        "months": 1,
-        "status": "breaking",
-        "confidence": 0.6400000000000001,
-        "text": "KBZK News · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMiugFBVV95cUxNWXpnVExVaFNJRVBvMUpGbGlmRUdkQks3Njk3ZlJVbWlVLVlUckt3djdtN3pFOERfelEwM0JQS2FFTkp5b3VNSHFRdkR3dHRlYXRlNjdwa29nVEhycm43Y2JBa2o5RGh2cW1uNWRudmdMdDhjRzlFblByR29HekFyQ25SQWswdzBGS1NELW9KRjBvSnFEUGk1VEVDMDZzbTQ1MWJQY2N5TFhDMENkZFE4T3NHMDVMU09uZHc?oc=5",
-        "summary": "Wildfires in Montana are threatening cattle herds and ranching operations.",
-        "start": "2026-09"
-      },
-      {
-        "id": "news-wildfire-us-state-or",
-        "name": "Wildfire burns grazing land for Warm Springs ranch’s untamed horse herd",
-        "category": "wildfire",
-        "kind": "natural",
-        "regionId": "us-state-OR",
-        "admin": "Oregon",
-        "lat": 43.9,
-        "lng": -120.6,
-        "commodities": [
-          {
-            "id": "beef",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.05,
-        "months": 1,
-        "status": "breaking",
-        "confidence": 0.6400000000000001,
-        "text": "OregonLive.com · 1 matching headline in 3 days · classified by Gemini, validated · https://news.google.com/rss/articles/CBMizgFBVV95cUxPMGJJNU1ONWpMbDRsMFBsYUtlMEk5bnJLb25uRFdXVXp2N2xjWTBURXBBeHpham9hTGV5Tzh6Y2VXMTVLTmUxZXFfblFhZkNHdnJoYlVRc0s3QldDWXJNbFhpMnpaNnB2eml5V0d3QzNMeWZGWGt2LU1SR0pydzBTR05qUmxnQmM0VThzQ1lMejhmaU44OWwtaWFHNFVWeWljaVdrZkFLczE5NUJ6Zkdac29XX0lrbkVHenk0MWxlQmpuZ1RTelNhU3JnRmttUQ?oc=5",
-        "summary": "Wildfires are destroying grazing land in Oregon, impacting livestock feed availability.",
-        "start": "2026-09"
+        "iso3": "ZAF"
       }
     ],
     "source": {
