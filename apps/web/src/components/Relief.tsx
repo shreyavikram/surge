@@ -18,6 +18,7 @@ export function Relief({ entry, ctx }: { entry: RankedEntry; ctx: EngineContext;
   const months = entry.impact.months.slice(0, plan.gap.length);
   const unit = plan.unit;
   const fmtUnits = (v: number) => compactNum(v);
+  const monthlyBaseline = Math.max(1e-9, (ctx.commodities[plan.commodity]?.baseline.annualQuantity ?? 0) / 12);
   return (
     <>
       <div className="section">
@@ -31,14 +32,18 @@ export function Relief({ entry, ctx }: { entry: RankedEntry; ctx: EngineContext;
       </div>
 
       <div className="section">
-        <h4>Monthly gap and relief delivered <span className="faint">· {unit} per month</span></h4>
-        <LineChart months={months} series={[{ label: 'gap', values: plan.gap, color: 'var(--bad)' }, { label: 'relief', values: plan.covered, color: 'var(--good)' }]} baseline={{ value: 0, label: 'no gap' }} yFormat={fmtUnits} yMin={0} />
-        <div className="legend-inline"><span><i style={{ background: 'var(--bad)' }} /> gap</span><span><i style={{ background: 'var(--good)' }} /> relief delivered</span></div>
-      </div>
-
-      <div className="section">
-        <h4>Coverage<Info term="coverage" /> <span className="faint">· share of each month's gap closed</span></h4>
-        <LineChart months={months} series={[{ label: 'coverage', values: plan.coverage, color: 'var(--good)' }]} baseline={{ value: 1, label: 'fully closed' }} yFormat={(y) => `${Math.round(y * 100)}%`} yMin={0} />
+        <h4>Supply compared with normal<Info term="shortfall" /> <span className="faint">· {plan.offset ? 'price-equivalent for a tariff' : unit + ' per month'}</span></h4>
+        <LineChart
+          months={months}
+          series={[
+            { label: 'without relief', values: plan.gap.map((g) => 1 - g / monthlyBaseline), color: 'var(--text-faint)', dashed: true },
+            { label: 'supply', values: plan.gap.map((g, t) => 1 - Math.max(0, g - (plan.covered[t] ?? 0)) / monthlyBaseline), color: 'var(--bad)' },
+          ]}
+          baseline={{ value: 1, label: 'normal supply' }}
+          yFormat={(y) => `${Math.round(y * 100)}%`}
+          height={170}
+        />
+        <div className="legend-inline"><span><i style={{ background: 'var(--bad)' }} /> supply with relief</span><span><i style={{ background: 'var(--text-faint)' }} /> without relief</span></div>
       </div>
 
       <div className="section">
