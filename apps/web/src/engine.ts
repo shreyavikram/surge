@@ -3,13 +3,13 @@
 import { loadContext, loadCase, type CaseId } from '@surge/config';
 import {
   runThreat, runScenario, compareScenarios, interpretScenario, candidateToThreat, validateCandidate,
-  areaLoss, threatAffectsArea, perCapitaLossByArea, getArea,
+  areaLoss, threatAffectsArea, perCapitaLossByArea, producerChangeByArea, getArea,
   type EngineContext, type Threat, type ThreatCategory, type ImpactResult, type CaseFile, type MitigationPlan, type AreaLoss, type ThreatCandidate, type Scenario, type AreaInfo,
 } from '@surge/engine';
 import { SEED_THREATS } from './seed.js';
 import type { TabDef, Focus } from './state.js';
 
-export { runThreat, runScenario, compareScenarios, interpretScenario, candidateToThreat, validateCandidate, areaLoss, perCapitaLossByArea, getArea, loadCase };
+export { runThreat, runScenario, compareScenarios, interpretScenario, candidateToThreat, validateCandidate, areaLoss, perCapitaLossByArea, producerChangeByArea, getArea, loadCase };
 export type { EngineContext, Threat, ThreatCategory, ImpactResult, CaseFile, CaseId, MitigationPlan, AreaLoss, ThreatCandidate, Scenario };
 
 let _ctx: EngineContext | null = null;

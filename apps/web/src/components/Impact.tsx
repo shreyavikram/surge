@@ -36,7 +36,7 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
           </div>
         </div>
         <div className="subfig">
-          {observed ? <Chip kind="observed" title="From the observed FRED retail price path × attribution share">observed</Chip> : <Chip kind="modeled" title="Second-order Hicksian compensating variation over the ERR-139 demand system">modeled</Chip>}
+          {observed ? <Chip kind="observed" title="Uses the actual store-price history for this event (FRED), with the share attributed to this cause">observed</Chip> : <Chip kind="modeled" title="Calculated by the model from its stated assumptions; open the assumptions list below to see them">modeled</Chip>}
           <span> range {compactUsd(w.band.low * scale)} – {compactUsd(w.band.high * scale)}<Info term="band" /></span>
         </div>
         <div className="stat-pair" style={{ marginTop: 10 }}>
@@ -102,7 +102,7 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
                 <tr key={s.commodity}>
                   <td>{commodityName(ctx, s.commodity) === s.commodity ? ctx.demand.items.find((i) => i.id === s.commodity)?.label ?? s.commodity : commodityName(ctx, s.commodity)}</td>
                   <td className="r" style={{ color: s.quantityPct >= 0 ? 'var(--good)' : 'var(--bad)' }}>{signedPct(s.quantityPct)}</td>
-                  <td className="r">{s.significant ? <Chip kind="measured" title="Statistically distinguishable from zero in ERR-139">significant</Chip> : <span className="faint">not significant</span>}</td>
+                  <td className="r">{s.significant ? <Chip kind="measured" title="The government study behind this number was confident the effect is real">significant</Chip> : <span className="faint" title="Could just as well be zero">not significant</span>}</td>
                 </tr>
               ))}
             </tbody>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { geoAlbersUsa, geoPath, geoArea } from 'd3-geo';
 import type { EngineContext } from '@surge/engine';
-import { type RankedEntry, perCapitaLossByArea, focusView, focusAreas } from '../engine.js';
+import { type RankedEntry, perCapitaLossByArea, producerChangeByArea, focusView, focusAreas } from '../engine.js';
 import type { Focus } from '../state.js';
 import { compactUsd, usd2 } from '../format.js';
 import { Info } from './Info.js';
@@ -36,19 +36,34 @@ function ramp(t: number): string {
   return `#${a.map((x, j) => Math.round(x + (b[j]! - x) * f).toString(16).padStart(2, '0')).join('')}`;
 }
 
+/** Diverging scale for producers: losses red, gains green, white at zero. */
+function diverge(t: number): string {
+  // t in [-1, 1]
+  const k = Math.max(-1, Math.min(1, t));
+  const mixc = (a: [number, number, number], b: [number, number, number], f: number) => `#${a.map((x, i) => Math.round(x + (b[i]! - x) * f).toString(16).padStart(2, '0')).join('')}`;
+  const white: [number, number, number] = [245, 247, 250], red: [number, number, number] = [165, 15, 21], green: [number, number, number] = [11, 79, 48];
+  return k < 0 ? mixc(white, red, -k) : mixc(white, green, k);
+}
+
 export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineContext; focus: Focus }) {
   const hasDistricts = (ctx.focus?.areas ?? []).some((a) => a.kind === 'district');
   const [level, setLevel] = useState<'state' | 'district'>(focus.kind === 'district' ? 'district' : 'state');
+  const [who, setWho] = useState<'consumers' | 'producers'>('consumers');
+  const [horizon, setHorizon] = useState<'annual' | 'total'>('total');
   const [geo, setGeo] = useState<FC | null>(null);
   const [hover, setHover] = useState<string | null>(null);
   useEffect(() => { let on = true; void loadGeo(level === 'state' ? 'states' : 'cd119').then((g) => { if (on) setGeo(rewind(g)); }); return () => { on = false; }; }, [level]);
 
-  const rows = useMemo(() => perCapitaLossByArea(entry.impact, ctx, level), [entry, ctx, level]);
+  const rows = useMemo(() => perCapitaLossByArea(entry.impact, ctx, level, horizon), [entry, ctx, level, horizon]);
+  const prod = useMemo(() => (who === 'producers' ? producerChangeByArea(entry.impact, ctx, level) : []), [entry, ctx, level, who]);
   const byId = useMemo(() => Object.fromEntries(rows.map((r) => [r.areaId, r])), [rows]);
+  const prodById = useMemo(() => Object.fromEntries(prod.map((r) => [r.areaId, horizon === 'annual' ? r.annual : r.total])), [prod, horizon]);
   const vals = rows.map((r) => r.perCapita).filter((v) => v > 0);
   const max = Math.max(1e-9, ...vals);
   const min = vals.length ? Math.min(...vals) : 0;
   const scale = (v: number) => (max > min ? (v - min) / (max - min) : 0.5);
+  const pvals = Object.values(prodById) as number[];
+  const pmax = Math.max(1e-9, ...pvals.map((v) => Math.abs(v)));
   const path = useMemo(() => {
     const proj = geoAlbersUsa();
     if (geo && geo.features.length > 0) proj.fitSize([W, H], geo as never);
@@ -64,37 +79,60 @@ export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: E
   return (
     <>
       <div className="section">
-        <h4>Where the consumer loss lands<Info term="perCapita" />
+        <h4>Where the {who === 'consumers' ? 'consumer loss' : 'producer gain or loss'} lands<Info term={who === 'consumers' ? 'perCapita' : 'producer'} /></h4>
+        <div className="dist-controls">
+          <span className="seg small">
+            <button className={who === 'consumers' ? 'on' : ''} onClick={() => setWho('consumers')}>Consumers</button>
+            <button className={who === 'producers' ? 'on' : ''} onClick={() => setWho('producers')}>Producers</button>
+          </span>
+          <span className="seg small">
+            <button className={horizon === 'annual' ? 'on' : ''} onClick={() => setHorizon('annual')}>Annual</button>
+            <button className={horizon === 'total' ? 'on' : ''} onClick={() => setHorizon('total')}>Total · {entry.impact.durationMonths} mo</button>
+          </span>
           {hasDistricts && (
-            <span className="seg small" style={{ marginLeft: 8 }}>
+            <span className="seg small">
               <button className={level === 'state' ? 'on' : ''} onClick={() => setLevel('state')}>States</button>
               <button className={level === 'district' ? 'on' : ''} onClick={() => setLevel('district')}>Districts</button>
             </span>
           )}
-        </h4>
+        </div>
         <div className="usmap-wrap">
           <svg viewBox={`0 0 ${W} ${H}`} className="usmap" style={{ width: '100%', height: 'auto', display: 'block' }}>
             {geo?.features.map((f) => {
               const id = (f.id as string | undefined) ?? (f.properties as { id?: string } | null)?.id ?? '';
               const r = byId[id];
               const t = r ? scale(r.perCapita) : 0;
+              const pv = prodById[id];
+              const fill = who === 'producers' ? (pv === undefined ? 'var(--panel-3)' : diverge(pv / pmax)) : (r ? ramp(t) : 'var(--panel-3)');
               const isFocus = focusIds.has(id) || (focus.kind === 'state' && level === 'district' && focusStates.has(id.split('-')[0]!));
-              return <path key={id} d={path(f as never) ?? undefined} fill={r ? ramp(t) : 'var(--panel-3)'} stroke={isFocus ? 'var(--accent)' : 'var(--bg)'} strokeWidth={isFocus ? 1.5 : 0.4} onMouseEnter={() => setHover(id)} onMouseLeave={() => setHover(null)} />;
+              return <path key={id} d={path(f as never) ?? undefined} fill={fill} stroke={isFocus ? 'var(--accent)' : 'var(--bg)'} strokeWidth={isFocus ? 1.5 : 0.4} onMouseEnter={() => setHover(id)} onMouseLeave={() => setHover(null)} />;
             })}
           </svg>
-          <div className="usmap-legend">
-            <span>{usd2(min)}</span>
-            <span className="ramp" style={{ background: `linear-gradient(90deg, ${ramp(0)}, ${ramp(0.25)}, ${ramp(0.5)}, ${ramp(0.75)}, ${ramp(0.99)})` }} />
-            <span>{usd2(max)} / person</span>
-          </div>
+          {who === 'consumers' ? (
+            <div className="usmap-legend">
+              <span>{usd2(min)}</span>
+              <span className="ramp" style={{ background: `linear-gradient(90deg, ${ramp(0)}, ${ramp(0.25)}, ${ramp(0.5)}, ${ramp(0.75)}, ${ramp(0.99)})` }} />
+              <span>{usd2(max)} per person · {horizon === 'annual' ? 'first 12 months' : `total over ${entry.impact.durationMonths} months`}</span>
+            </div>
+          ) : (
+            <div className="usmap-legend">
+              <span>−{compactUsd(pmax)}</span>
+              <span className="ramp" style={{ background: `linear-gradient(90deg, ${diverge(-1)}, ${diverge(0)}, ${diverge(1)})` }} />
+              <span>+{compactUsd(pmax)} producer revenue · {horizon === 'annual' ? 'first 12 months' : `total over ${entry.impact.durationMonths} months`}</span>
+            </div>
+          )}
           <div className="usmap-hover">
-            {hovered && hoverArea ? <><b>{hoverArea.name}</b> · {usd2(hovered.perCapita)} per person · {compactUsd(hovered.cv)} total</> : <span className="faint">hover an area · focus: {v.label}</span>}
+            {hovered && hoverArea
+              ? (who === 'consumers'
+                ? <><b>{hoverArea.name}</b> · {usd2(hovered.perCapita)} per person · {compactUsd(hovered.cv)} in total</>
+                : <><b>{hoverArea.name}</b> · producers {(prodById[hover!] ?? 0) >= 0 ? 'gain' : 'lose'} {compactUsd(Math.abs(prodById[hover!] ?? 0))}</>)
+              : <span className="faint">hover an area · focus: {v.label}</span>}
           </div>
         </div>
       </div>
 
       <div className="section">
-        <h4>Loss per household by income quintile<Info term="quintile" /></h4>
+        <h4>Cost per household by income group<Info term="quintile" /></h4>
         <div className="bars">
           {entry.impact.welfare.incidence.map((q) => {
             const scale = entry.impact.welfare.cv > 0 ? v.cv / entry.impact.welfare.cv : 0;
@@ -109,7 +147,7 @@ export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: E
             );
           })}
         </div>
-        <div className="subfig">household spending on the worst-hit commodity by income fifth (CEX)</div>
+        <div className="subfig">based on what households in each income group spend on the hardest-hit item (Consumer Expenditure Survey)</div>
       </div>
     </>
   );

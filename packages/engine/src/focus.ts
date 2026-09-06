@@ -54,6 +54,7 @@ export interface AreaLoss {
   perCapita: number;
   byCommodity: Record<string, number>;
   producerRevenueChange: Record<string, number>;
+  producerRevenueChangeAnnual: Record<string, number>;
   consumptionShare: number;
 }
 
@@ -72,16 +73,17 @@ export function areaLoss(impact: ImpactResult, areaId: string, ctx: EngineContex
   const byCommodity: Record<string, number> = {};
   for (const [id, v] of Object.entries(impact.welfare.byCommodity)) byCommodity[id] = v * cs;
   const producerRevenueChange: Record<string, number> = {};
+  const producerRevenueChangeAnnual: Record<string, number> = {};
   for (const id of impact.commodities) {
     const c = ctx.commodities[id];
     if (!c) continue;
     const pa = productionShare(cfg, id, areaId);
-    if (pa === 0) { producerRevenueChange[id] = 0; continue; }
+    if (pa === 0) { producerRevenueChange[id] = 0; producerRevenueChangeAnnual[id] = 0; continue; }
     const domShare = Math.max(1e-9, 1 - c.trade.importShare);
     const monthlyQ = c.baseline.annualQuantity / 12;
     const Xdom = (monthlyQ * c.baseline.retailPrice) * domShare;
     const pw = impact.price.wholesalePct[id] ?? [];
-    let total = 0;
+    let total = 0, annual = 0;
     for (let t = 0; t < pw.length; t++) {
       // this area's own lost fraction of its output this month
       let lostFrac = 0;
@@ -94,21 +96,35 @@ export function areaLoss(impact: ImpactResult, areaId: string, ctx: EngineContex
         lostFrac += regionFrac / pR;
       }
       lostFrac = Math.min(1, lostFrac);
-      total += pa * Xdom * ((1 + (pw[t] ?? 0)) * (1 - lostFrac) - 1);
+      const d = pa * Xdom * ((1 + (pw[t] ?? 0)) * (1 - lostFrac) - 1);
+      total += d;
+      if (t < 12) annual += d;
     }
     producerRevenueChange[id] = total;
+    producerRevenueChangeAnnual[id] = annual;
   }
   const cv = impact.welfare.cv * cs;
-  return { areaId, cv, cvAnnual: impact.welfare.cvAnnual * cs, perCapita: area.population > 0 ? cv / area.population : 0, byCommodity, producerRevenueChange, consumptionShare: cs };
+  return { areaId, cv, cvAnnual: impact.welfare.cvAnnual * cs, perCapita: area.population > 0 ? cv / area.population : 0, byCommodity, producerRevenueChange, producerRevenueChangeAnnual, consumptionShare: cs };
+}
+
+/** Producer revenue change for every area of a kind (the Distribution map, producers view). */
+export function producerChangeByArea(impact: ImpactResult, ctx: EngineContext, kind: 'state' | 'district'): { areaId: string; total: number; annual: number }[] {
+  const cfg = ctx.focus;
+  if (!cfg) return [];
+  return cfg.areas.filter((a) => a.kind === kind).map((a) => {
+    const r = areaLoss(impact, a.id, ctx);
+    return { areaId: a.id, total: Object.values(r.producerRevenueChange).reduce((x, y) => x + y, 0), annual: Object.values(r.producerRevenueChangeAnnual).reduce((x, y) => x + y, 0) };
+  });
 }
 
 /** Per-capita consumer loss for every area of a kind (the Distribution map). */
-export function perCapitaLossByArea(impact: ImpactResult, ctx: EngineContext, kind: 'state' | 'district'): { areaId: string; perCapita: number; cv: number }[] {
+export function perCapitaLossByArea(impact: ImpactResult, ctx: EngineContext, kind: 'state' | 'district', horizon: 'annual' | 'total' = 'total'): { areaId: string; perCapita: number; cv: number }[] {
   const cfg = ctx.focus;
   if (!cfg) return [];
   const shares = consumptionShares(cfg, kind);
+  const base = horizon === 'annual' ? impact.welfare.cvAnnual : impact.welfare.cv;
   return cfg.areas.filter((a) => a.kind === kind).map((a) => {
-    const cv = impact.welfare.cv * (shares[a.id] ?? 0);
+    const cv = base * (shares[a.id] ?? 0);
     return { areaId: a.id, cv, perCapita: a.population > 0 ? cv / a.population : 0 };
   });
 }
