@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { makeMailer, diffNewThreats, deliver } from '../src/alerts.js';
+import { makeMailer, diffNewThreats, deliver, AlertStore, memoryBackend, upstashBackend, subscribe, confirmSubscription } from '../src/alerts.js';
 import { loadContext } from '@surge/config';
 import type { Threat } from '@surge/engine';
 
@@ -18,7 +18,7 @@ describe('alerts', () => {
   it('diffs new threats against a store and respects the focus area', () => {
     const ctx = loadContext();
     const t: Threat = { id: 'n1', name: 'Iowa layers', category: 'disease', kind: 'natural', location: { lat: 42, lng: -93.5, regionId: 'us-iowa' }, commodities: [{ id: 'eggs', relevance: 1 }], severity: 0.3, start: '2026-09', source: { feed: 't', kind: 'user' } };
-    const store = { subscriptions: [{ email: 'ia@x.co', enabled: true, focus: 'Iowa', createdAt: '' }, { email: 'ny@x.co', enabled: true, focus: 'New York', createdAt: '' }], seen: [], pending: [] };
+    const store = { subscriptions: [{ email: 'ia@x.co', enabled: true, focus: 'Iowa', createdAt: '' }, { email: 'ny@x.co', enabled: true, focus: 'New York', createdAt: '' }], seen: ['baseline'], pending: [] };
     const out = diffNewThreats([t], ctx, store);
     expect(out.map((p) => p.email)).toEqual(['ia@x.co']);
     expect(store.seen).toContain('n1');
@@ -34,7 +34,7 @@ describe('alert filters and digests', () => {
       { email: 'eggs-ia@x.co', enabled: true, focus: 'Iowa', createdAt: '', filters: { focus: { kind: 'state' as const, ids: ['IA'] }, commodities: ['eggs'], families: [] } },
       { email: 'trade@x.co', enabled: true, focus: 'United States', createdAt: '', filters: { focus: { kind: 'us' as const, ids: [] }, commodities: [], families: ['geopolitical'] } },
       { email: 'all@x.co', enabled: true, focus: 'United States', createdAt: '', filters: { focus: { kind: 'us' as const, ids: [] }, commodities: [], families: [] } },
-    ], seen: [], pending: [] };
+    ], seen: ['baseline'], pending: [] };
     const out = diffNewThreats([egg, coffee], ctx, store);
     const byEmail = (e: string) => out.filter((p) => p.email === e).map((p) => p.threatId).sort();
     expect(byEmail('eggs-ia@x.co')).toEqual(['e1']);
@@ -59,5 +59,53 @@ describe('alert filters and digests', () => {
     expect(n2).toBe(1);
     expect(sent[1]).toContain('weekly digest');
     expect(store.subscriptions[1]!.lastSentAt).toBe('2026-09-12T00:00:00.000Z');
+  });
+});
+
+describe('alert store', () => {
+  const ctx = loadContext();
+  const t: Threat = { id: 'n9', name: 'Iowa layers', category: 'disease', kind: 'natural', location: { lat: 42, lng: -93.5, regionId: 'us-iowa' }, commodities: [{ id: 'eggs', relevance: 1 }], severity: 0.3, start: '2026-09', source: { feed: 't', kind: 'user' } };
+  it('the first run on an empty store is a baseline: nothing is alerted, everything is marked seen', () => {
+    const store = { subscriptions: [{ email: 'a@x.co', enabled: true, focus: 'United States', createdAt: '' }], seen: [], pending: [] };
+    expect(diffNewThreats([t], ctx, store)).toEqual([]);
+    expect(store.seen).toEqual(['n9']);
+    const t2 = { ...t, id: 'n10' };
+    expect(diffNewThreats([t, t2], ctx, store).map((p) => p.threatId)).toEqual(['n10']);
+  });
+  it('subscribe replaces an earlier subscription for the same address and keeps its last-sent time', () => {
+    const store = { subscriptions: [{ email: 'a@x.co', enabled: true, focus: 'Iowa', createdAt: '', lastSentAt: '2026-09-01T00:00:00.000Z' }], seen: ['x'], pending: [] };
+    const sub = subscribe(store, 'a@x.co', true, 'Texas', { frequency: 'weekly' });
+    expect(store.subscriptions.length).toBe(1);
+    expect(sub.focus).toBe('Texas');
+    expect(sub.lastSentAt).toBe('2026-09-01T00:00:00.000Z');
+  });
+  it('persists through the Upstash REST API when configured', async () => {
+    const kv = new Map<string, string>();
+    const fetchImpl = (async (_url: string, init?: RequestInit) => {
+      const [cmd, key, value] = JSON.parse(String(init?.body)) as [string, string, string?];
+      if (cmd === 'SET') { kv.set(key, value!); return new Response(JSON.stringify({ result: 'OK' })); }
+      return new Response(JSON.stringify({ result: kv.get(key) ?? null }));
+    }) as unknown as typeof fetch;
+    const backend = upstashBackend('https://kv.example', 'tok', fetchImpl);
+    const st = await AlertStore.open(backend);
+    expect(st.data.subscriptions).toEqual([]);
+    subscribe(st.data, 'a@x.co', true, 'United States');
+    await st.save();
+    const again = await AlertStore.open(backend);
+    expect(again.data.subscriptions[0]!.email).toBe('a@x.co');
+    const mem = await AlertStore.open(memoryBackend());
+    expect(mem.backend.name).toBe('memory');
+  });
+  it('confirms a subscription with the threats that already match', async () => {
+    const sent: string[] = [];
+    const mailer = { async send(to: string, subject: string, body: string) { sent.push(`${to}|${subject}|${body}`); } };
+    const sub = { email: 'a@x.co', enabled: true, focus: 'Iowa', createdAt: '', filters: { focus: { kind: 'state' as const, ids: ['IA'] }, commodities: ['eggs'], families: [] } };
+    const r = await confirmSubscription(sub, [t], ctx, mailer, 'http://x');
+    expect(r.sent).toBe(true);
+    expect(r.matches).toBe(1);
+    expect(sent[0]).toContain('you are subscribed');
+    expect(sent[0]).toContain('Iowa layers');
+    const none = await confirmSubscription(sub, [t], ctx, null, 'http://x');
+    expect(none.sent).toBe(false);
   });
 });

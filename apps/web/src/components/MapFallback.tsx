@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { geoMercator, geoPath, geoArea } from 'd3-geo';
 import type { EngineContext, AreaHeat } from '@surge/engine';
 import { countryHeat, stateHeat, threatAffectsArea } from '@surge/engine';
-import { type RankedEntry, focusView, focusAreas } from '../engine.js';
+import { type RankedEntry, focusView, focusAreas, focusLabel } from '../engine.js';
 import type { Focus } from '../state.js';
 import { heatColor, NEUTRAL } from '../heat-colors.js';
 import { HeatLegend } from './HeatLegend.js';
@@ -108,7 +108,9 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason,
             const isState = !!sh[hover];
             const share = hh.baseline > 0 && hh.baseline < 0.0005 ? 'less than 0.1%' : `${(hh.baseline * 100).toFixed(1)}%`;
             const what = lens.size > 0 ? [...lens].map((id) => (ctx.commodities[id]?.name ?? ctx.inputs[id]?.name ?? id).toLowerCase()).join(', ') : 'food';
-            const supplies = isState ? `produces about ${share} of the ${what} the US grows and raises` : `supplies about ${share} of the ${what} the US imports`;
+            // imports are only measured at the national border, so a state's imported food is its share of the national pool
+            const focusName = areas.length > 0 ? focusLabel(focus, ctx) : '';
+            const supplies = isState ? `produces about ${share} of the ${what} the US grows and raises` : `supplies about ${share} of the ${what} the US imports${focusName && focusName !== 'United States' ? `, the pool ${focusName} draws its imported ${what} from` : ''}`;
             // yellow and red popups carry only the threat's own text; the supply share is a short footnote
             const why = hh.status === 'none'
               ? `No measurable ${what} supply to the United States comes from here.`

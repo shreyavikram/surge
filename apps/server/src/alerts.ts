@@ -12,19 +12,70 @@ export const DIGEST_DAYS: Record<AlertFrequency, number> = { immediate: 0, weekl
 export interface PendingAlert { email: string; threatId: string; name: string; at: string; sent: boolean }
 interface Store { subscriptions: Subscription[]; seen: string[]; pending: PendingAlert[] }
 
-const FILE = fileURLToPath(new URL('../../../data/alerts.json', import.meta.url));
+interface Store { subscriptions: Subscription[]; seen: string[]; pending: PendingAlert[] }
+export type { Store as AlertStoreData };
+export const emptyStore = (): Store => ({ subscriptions: [], seen: [], pending: [] });
 
-export function loadStore(): Store {
-  if (!existsSync(FILE)) return { subscriptions: [], seen: [], pending: [] };
-  try { return JSON.parse(readFileSync(FILE, 'utf8')) as Store; } catch { return { subscriptions: [], seen: [], pending: [] }; }
+/**
+ * Where subscriptions live. Render's free instances have no disk, so a file there is wiped by every deploy;
+ * with UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN set (free tier) the store survives deploys.
+ */
+export interface StoreBackend { name: string; load(): Promise<Store>; save(s: Store): Promise<void> }
+
+const FILE = fileURLToPath(new URL('../../../data/alerts-store.json', import.meta.url));
+export function fileBackend(file = FILE): StoreBackend {
+  return {
+    name: 'file',
+    async load() {
+      if (!existsSync(file)) return emptyStore();
+      try { return { ...emptyStore(), ...(JSON.parse(readFileSync(file, 'utf8')) as Partial<Store>) }; } catch { return emptyStore(); }
+    },
+    async save(s) {
+      const dir = file.slice(0, file.lastIndexOf('/'));
+      if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+      writeFileSync(file, JSON.stringify(s, null, 2));
+    },
+  };
 }
-export function saveStore(s: Store): void {
-  const dir = FILE.slice(0, FILE.lastIndexOf('/'));
-  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-  writeFileSync(FILE, JSON.stringify(s, null, 2));
+export function memoryBackend(initial: Store = emptyStore()): StoreBackend {
+  let data = initial;
+  return { name: 'memory', async load() { return data; }, async save(s) { data = s; } };
+}
+/** Upstash Redis over its REST API (one key holding the JSON store). */
+export function upstashBackend(url: string, token: string, fetchImpl: typeof fetch = fetch, key = 'greenfield:alerts'): StoreBackend {
+  const call = async (cmd: unknown[]): Promise<unknown> => {
+    const res = await fetchImpl(url.replace(/\/$/, ''), { method: 'POST', headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' }, body: JSON.stringify(cmd) });
+    if (!res.ok) throw new Error(`upstash ${res.status}: ${(await res.text()).slice(0, 120)}`);
+    return ((await res.json()) as { result?: unknown }).result;
+  };
+  return {
+    name: 'upstash',
+    async load() {
+      const raw = await call(['GET', key]);
+      if (typeof raw !== 'string' || !raw) return emptyStore();
+      try { return { ...emptyStore(), ...(JSON.parse(raw) as Partial<Store>) }; } catch { return emptyStore(); }
+    },
+    async save(s) { await call(['SET', key, JSON.stringify(s)]); },
+  };
 }
 
-export function subscribe(email: string, enabled: boolean, focus: string, store = loadStore(), prefs: { filters?: AlertFilters; frequency?: AlertFrequency } = {}): Store {
+/** The in-memory working copy plus its backend; call save() after every change. */
+export class AlertStore {
+  constructor(public backend: StoreBackend, public data: Store = emptyStore()) {}
+  static async open(backend: StoreBackend): Promise<AlertStore> {
+    const st = new AlertStore(backend);
+    try { st.data = await backend.load(); } catch (e) { console.error(`alert store (${backend.name}) failed to load: ${(e as Error).message}`); }
+    return st;
+  }
+  /** Picks Upstash when configured, else the local file. */
+  static async fromEnv(env: { UPSTASH_REDIS_REST_URL?: string; UPSTASH_REDIS_REST_TOKEN?: string }): Promise<AlertStore> {
+    const backend = env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN ? upstashBackend(env.UPSTASH_REDIS_REST_URL, env.UPSTASH_REDIS_REST_TOKEN) : fileBackend();
+    return AlertStore.open(backend);
+  }
+  async save(): Promise<void> { await this.backend.save(this.data); }
+}
+
+export function subscribe(store: Store, email: string, enabled: boolean, focus: string, prefs: { filters?: AlertFilters; frequency?: AlertFrequency } = {}): Subscription {
   const prev = store.subscriptions.find((s) => s.email === email);
   const rest = store.subscriptions.filter((s) => s.email !== email);
   const sub: Subscription = { email, enabled, focus, createdAt: new Date().toISOString() };
@@ -32,16 +83,17 @@ export function subscribe(email: string, enabled: boolean, focus: string, store 
   if (prefs.frequency) sub.frequency = prefs.frequency;
   if (prev?.lastSentAt) sub.lastSentAt = prev.lastSentAt;
   store.subscriptions = [...rest, sub];
-  saveStore(store);
-  return store;
+  return sub;
 }
 
 /** Threats not seen before that reach a subscriber's focus (a state name, district id, or "United States"). */
 export function diffNewThreats(threats: Threat[], ctx: EngineContext, store: Store): PendingAlert[] {
   const seen = new Set(store.seen);
+  const at = new Date().toISOString();
+  // first run on a fresh store: everything on the map is the baseline, not news to anyone
+  if (seen.size === 0 && threats.length > 0) { store.seen = threats.map((t) => t.id).slice(-5000); return []; }
   const fresh = threats.filter((t) => !seen.has(t.id));
   const out: PendingAlert[] = [];
-  const at = new Date().toISOString();
   for (const sub of store.subscriptions.filter((s) => s.enabled)) {
     for (const t of fresh) {
       if (!matchesSubscription(t, sub, ctx)) continue;
@@ -50,7 +102,6 @@ export function diffNewThreats(threats: Threat[], ctx: EngineContext, store: Sto
   }
   store.seen = [...seen, ...fresh.map((t) => t.id)].slice(-5000);
   store.pending = [...store.pending, ...out].slice(-500);
-  saveStore(store);
   return out;
 }
 
@@ -103,8 +154,18 @@ export async function deliver(store: Store, mailer: Mailer | null, publicUrl: st
     const subject = freq === 'immediate' ? `Greenfield: ${list.length} new food-supply threat${list.length > 1 ? 's' : ''}` : `Greenfield ${freq} digest: ${list.length} new food-supply threat${list.length > 1 ? 's' : ''}`;
     try { await mailer.send(email, subject, body); list.forEach((p) => { p.sent = true; }); n += list.length; if (sub) sub.lastSentAt = now.toISOString(); } catch { /* stays pending */ }
   }
-  saveStore(store);
   return n;
 }
 
 export { getArea };
+
+/** What a new subscriber gets straight away: proof that delivery works, and the threats that already match their filters. */
+export async function confirmSubscription(sub: Subscription, threats: Threat[], ctx: EngineContext, mailer: Mailer | null, publicUrl: string): Promise<{ sent: boolean; reason?: string; matches: number }> {
+  const matches = threats.filter((t) => matchesSubscription(t, sub, ctx));
+  if (!mailer) return { sent: false, reason: 'no mail provider is configured on the server', matches: matches.length };
+  const cadence = sub.frequency === 'weekly' ? 'a weekly digest' : sub.frequency === 'monthly' ? 'a monthly digest' : 'an email as each new threat appears';
+  const lines = matches.slice(0, 12).map((t) => `• ${t.name}${t.summary ? ` — ${t.summary}` : ''}`);
+  const body = `You are subscribed to Greenfield alerts: ${cadence}, filtered to ${sub.focus}${sub.filters?.commodities.length ? `, ${sub.filters.commodities.join(', ')}` : ', all commodities'}${sub.filters?.families.length ? `, ${sub.filters.families.join(', ')}` : ', all threat types'}.\n\n${matches.length ? `${matches.length} threat${matches.length > 1 ? 's' : ''} on the map match your filters right now:\n\n${lines.join('\n')}${matches.length > 12 ? `\n… and ${matches.length - 12} more` : ''}` : 'Nothing on the map matches your filters right now.'}\n\n${publicUrl}`;
+  try { await mailer.send(sub.email, 'Greenfield: you are subscribed to food-supply alerts', body); return { sent: true, matches: matches.length }; }
+  catch (e) { return { sent: false, reason: (e as Error).message, matches: matches.length }; }
+}

@@ -1,0 +1,17 @@
+name: Run email alerts
+
+# Every 30 minutes: diff the live threats against what subscribers have seen and send what is due
+# (immediate alerts, and weekly/monthly digests once their interval has passed). Also keeps the free
+# Render instance awake. The endpoint only sends new threats, so calling it more often is harmless.
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger the alert run
+        run: |
+          curl -sS -m 120 -X POST "${{ vars.PUBLIC_URL || 'https://surge-bafg.onrender.com' }}/api/alerts/run" -H 'content-type: application/json' | head -c 400; echo

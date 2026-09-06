@@ -31,7 +31,11 @@ export function Settings({ settings, onSave, onClose, ctx, focus: focus0, commod
     try {
       const body = { email, enabled: alerts, focus: label, filters: { focus, commodities: [...commodities], families: [...families] }, frequency };
       const r = await fetch('/api/alerts', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
-      setStatus(r.ok ? (frequency === 'immediate' ? 'Saved. New threats that match these filters will be emailed as they appear.' : `Saved. You will get a ${frequency} digest of new threats that match these filters.`) : 'Saved locally; the server could not store the subscription.');
+      const d = (await r.json().catch(() => ({}))) as { stored?: boolean; confirmation?: { sent: boolean; reason?: string; matches: number } };
+      if (!r.ok) setStatus('Saved locally; the server could not store the subscription.');
+      else if (!alerts) setStatus('Saved. Alerts are off.');
+      else if (d.confirmation?.sent) setStatus(`Saved. A confirmation email is on its way${d.confirmation.matches ? ` with the ${d.confirmation.matches} threat${d.confirmation.matches > 1 ? 's' : ''} that match right now` : ''}; ${frequency === 'immediate' ? 'new matches follow as they appear' : `a ${frequency} digest follows`}.`);
+      else setStatus(`Saved, but the confirmation email could not be sent${d.confirmation?.reason ? `: ${d.confirmation.reason}` : ''}.`);
     } catch { setStatus('Saved locally; alerts send when the server is reachable.'); }
   };
   return (

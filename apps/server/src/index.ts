@@ -18,11 +18,18 @@ import { readEnv } from './env.js';
 import { FeedRegistry } from './feeds/registry.js';
 import { allAdapters } from './feeds/index.js';
 
+import { AlertStore } from './alerts.js';
+
 const env = readEnv();
 const registry = new FeedRegistry(allAdapters);
 registry.warm(env);
-const app = createApp({ env, registry });
+const alerts = await AlertStore.fromEnv(env);
+console.log(`alert store: ${alerts.backend.name} (${alerts.data.subscriptions.length} subscriptions)`);
+const app = createApp({ env, registry, alerts });
 setInterval(() => registry.warm(env), 15 * 60 * 1000).unref();
+// Alerts run every 30 minutes while the process is up; .github/workflows/alerts.yml also calls /api/alerts/run.
+const runAlerts = (app as unknown as { runAlerts?: () => Promise<unknown> }).runAlerts;
+if (runAlerts) setTimeout(() => { setInterval(() => { runAlerts().catch((e) => console.error(`alert run failed: ${(e as Error).message}`)); }, 30 * 60 * 1000).unref(); runAlerts().catch(() => undefined); }, 90 * 1000).unref();
 
 // Serve the built web client when present (single-container deploy).
 const distDir = fileURLToPath(new URL('../../web/dist/', import.meta.url));

@@ -19,6 +19,8 @@ export interface Env {
   GEMINI_API_KEY?: string;
   RESEND_API_KEY?: string;
   CENSUS_API_KEY?: string;
+  UPSTASH_REDIS_REST_URL?: string;
+  UPSTASH_REDIS_REST_TOKEN?: string;
 }
 
 function opt(v: string | undefined): string | undefined {
@@ -44,6 +46,8 @@ export function readEnv(src: NodeJS.ProcessEnv = process.env): Env {
     GEMINI_API_KEY: opt(src.GEMINI_API_KEY),
     RESEND_API_KEY: opt(src.RESEND_API_KEY),
     CENSUS_API_KEY: opt(src.CENSUS_API_KEY),
+    UPSTASH_REDIS_REST_URL: opt(src.UPSTASH_REDIS_REST_URL),
+    UPSTASH_REDIS_REST_TOKEN: opt(src.UPSTASH_REDIS_REST_TOKEN),
   };
 }
 

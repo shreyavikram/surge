@@ -12,19 +12,25 @@ import { priceStress, applyPriceStress } from './price-stress.js';
 import { ANOMALY_SERIES } from './feeds/fred.js';
 import { TRADE_THRESHOLDS } from './feeds/trade.js';
 import { checkVetted, redactThreat } from './gate.js';
-import { loadStore, subscribe, diffNewThreats, deliver, makeMailer } from './alerts.js';
+import { AlertStore, fileBackend, subscribe, diffNewThreats, deliver, makeMailer, confirmSubscription, type Mailer } from './alerts.js';
 import { proposeWithGemini, mergeCandidates } from './ai/llm.js';
 
 export interface AppDeps {
   env: Env;
   ctx: EngineContext;
   registry: FeedRegistry;
+  alerts: AlertStore;
+  mailer: Mailer | null;
 }
 
 export function createApp(deps: Partial<AppDeps> = {}): Hono {
   const env = deps.env ?? readEnv();
   const ctx = deps.ctx ?? loadContext();
   const registry = deps.registry ?? new FeedRegistry(allAdapters);
+  const alerts = deps.alerts ?? new AlertStore(fileBackend());
+  let mailer: Mailer | null | undefined = deps.mailer;
+  const getMailer = async (): Promise<Mailer | null> => { if (mailer === undefined) mailer = await makeMailer(env.SMTP_URL, env.RESEND_API_KEY); return mailer; };
+  const liveThreats = async () => { const feeds = registry.list().filter((a) => a.producesThreats !== false); const results = await Promise.all(feeds.map((a) => registry.get(a.id, env))); return threatsFromResults(results, ctx); };
   const app = new Hono();
 
   app.use('/api/*', cors());
@@ -94,19 +100,23 @@ export function createApp(deps: Partial<AppDeps> = {}): Hono {
     const kind = body.filters?.focus?.kind;
     const filters = body.filters ? { focus: { kind: (kind === 'state' || kind === 'district' ? kind : 'us') as 'us' | 'state' | 'district', ids: strings(body.filters.focus?.ids) }, commodities: strings(body.filters.commodities), families: strings(body.filters.families) } : undefined;
     const frequency = body.frequency === 'weekly' || body.frequency === 'monthly' ? body.frequency : 'immediate';
-    const store = subscribe(body.email, body.enabled ?? true, body.focus ?? 'United States', undefined, { ...(filters ? { filters } : {}), frequency });
-    return c.json({ ok: true, subscriptions: store.subscriptions.length, delivery: env.RESEND_API_KEY ? 'resend' : env.SMTP_URL ? 'smtp' : 'queued (no mail provider set)' });
+    const sub = subscribe(alerts.data, body.email, body.enabled ?? true, body.focus ?? 'United States', { ...(filters ? { filters } : {}), frequency });
+    let stored = true;
+    try { await alerts.save(); } catch { stored = false; }
+    const confirmation = sub.enabled ? await confirmSubscription(sub, await liveThreats(), ctx, await getMailer(), env.PUBLIC_URL ?? 'http://localhost:5173') : { sent: false, matches: 0 };
+    return c.json({ ok: true, stored, store: alerts.backend.name, subscriptions: alerts.data.subscriptions.length, delivery: env.RESEND_API_KEY ? 'resend' : env.SMTP_URL ? 'smtp' : 'queued (no mail provider set)', confirmation });
   });
-  app.get('/api/alerts', (c) => { const s = loadStore(); return c.json({ subscriptions: s.subscriptions.map((x) => ({ email: x.email.replace(/(.).+(@.*)/, '$1***$2'), focus: x.focus, enabled: x.enabled, frequency: x.frequency ?? 'immediate', filters: x.filters })), pending: s.pending.filter((p) => !p.sent).length, delivery: env.RESEND_API_KEY ? 'resend' : env.SMTP_URL ? 'smtp' : 'queued' }); });
-  app.post('/api/alerts/run', async (c) => {
-    const feeds = registry.list().filter((a) => a.producesThreats !== false);
-    const results = await Promise.all(feeds.map((a) => registry.get(a.id, env)));
-    const threats = threatsFromResults(results, ctx);
-    const store = loadStore();
-    const fresh = diffNewThreats(threats, ctx, store);
-    const sent = await deliver(store, await makeMailer(env.SMTP_URL, env.RESEND_API_KEY), env.PUBLIC_URL ?? 'http://localhost:5173');
-    return c.json({ newAlerts: fresh.length, sent });
-  });
+  app.get('/api/alerts', (c) => { const s = alerts.data; return c.json({ store: alerts.backend.name, subscriptions: s.subscriptions.map((x) => ({ email: x.email.replace(/(.).+(@.*)/, '$1***$2'), focus: x.focus, enabled: x.enabled, frequency: x.frequency ?? 'immediate', filters: x.filters })), pending: s.pending.filter((p) => !p.sent).length, delivery: env.RESEND_API_KEY ? 'resend' : env.SMTP_URL ? 'smtp' : 'queued' }); });
+  /** Diff the live threats against what subscribers have seen and send what is due. Called by the scheduler and by the alerts workflow. */
+  const runAlerts = async () => {
+    const threats = await liveThreats();
+    const fresh = diffNewThreats(threats, ctx, alerts.data);
+    const sent = await deliver(alerts.data, await getMailer(), env.PUBLIC_URL ?? 'http://localhost:5173');
+    try { await alerts.save(); } catch (e) { console.error(`alert store save failed: ${(e as Error).message}`); }
+    return { newAlerts: fresh.length, sent, subscribers: alerts.data.subscriptions.filter((s) => s.enabled).length, pending: alerts.data.pending.filter((p) => !p.sent).length };
+  };
+  app.post('/api/alerts/run', async (c) => c.json(await runAlerts()));
+  (app as Hono & { runAlerts?: typeof runAlerts }).runAlerts = runAlerts;
 
   app.post('/api/vetted', async (c) => {
     const body = (await c.req.json().catch(() => ({}))) as { key?: string };
