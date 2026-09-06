@@ -233,6 +233,16 @@ function stateTerms(ctx: EngineContext): Record<string, string[]> {
   return out;
 }
 
+/** Every single-country supplier region is matchable by its English name (the measured Census origins add ~36 countries). */
+function countryTerms(ctx: EngineContext): Record<string, string[]> {
+  const out: Record<string, string[]> = {};
+  for (const r of Object.values(ctx.regions)) {
+    if (r.countries?.length !== 1 || REGION_TERMS[r.id]) continue;
+    out[r.id] = [r.name.toLowerCase()];
+  }
+  return out;
+}
+
 function interpretClause(text: string, ctx: EngineContext): ThreatCandidate[] {
   const t = norm(text);
   const matched: string[] = [];
@@ -241,7 +251,7 @@ function interpretClause(text: string, ctx: EngineContext): ThreatCandidate[] {
     for (const re of CATEGORY_PATTERNS[c] ?? []) { const m = t.match(re); if (m) h.push(m[0].trim()); }
     return { c, h };
   }).filter((x) => x.h.length > 0);
-  const terms: Record<string, string[]> = { ...stateTerms(ctx), ...REGION_TERMS };
+  const terms: Record<string, string[]> = { ...stateTerms(ctx), ...countryTerms(ctx), ...REGION_TERMS };
   let regions = Object.keys(terms).map((r) => ({ r, h: hits(t, terms[r]!) })).filter((x) => x.h.length > 0 && ctx.regions[x.r]);
   // a named state is more specific than the multi-state region it belongs to, and any sub-national region
   // is more specific than the national catch-all ("the U.S. corn belt" is the corn belt, not the whole country)

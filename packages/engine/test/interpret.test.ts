@@ -145,3 +145,14 @@ describe('clause splitting protects abbreviations and decimals', () => {
     expect(c.find((x) => x.category === 'drought')!.regionId).toBe('us-state-IA');
   });
 });
+
+describe('measured supplier countries are addressable by name', () => {
+  it('reads "Drought in Chile" onto the chile region with the commodities Chile ships to the US', () => {
+    const c = interpretScenario('Drought in Chile', ctx);
+    expect(c.length).toBeGreaterThan(0);
+    expect(c[0]!.regionId).toBe('chile');
+    const ids = c[0]!.commodities.map((x) => x.id);
+    expect(ids).toContain('apples');
+    expect(ids).not.toContain('pork'); // 0.6% of US pork imports: below the 5% floor
+  });
+});
