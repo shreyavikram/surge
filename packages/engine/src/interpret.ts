@@ -160,6 +160,17 @@ export function interpretScenario(text: string, ctx: EngineContext): ThreatCandi
   return out.length > 0 ? out : interpretClause(text, ctx);
 }
 
+/** State names from the focus config map to their `us-state-XX` regions; "Washington" alone is ambiguous and needs "state". */
+function stateTerms(ctx: EngineContext): Record<string, string[]> {
+  const out: Record<string, string[]> = {};
+  for (const a of ctx.focus?.areas ?? []) {
+    if (a.kind !== 'state' || !ctx.regions[`us-state-${a.id}`]) continue;
+    const n = a.name.toLowerCase();
+    out[`us-state-${a.id}`] = n === 'washington' ? ['washington state'] : n === 'district of columbia' ? ['washington dc', 'district of columbia'] : [n];
+  }
+  return out;
+}
+
 function interpretClause(text: string, ctx: EngineContext): ThreatCandidate[] {
   const t = norm(text);
   const matched: string[] = [];
@@ -168,7 +179,10 @@ function interpretClause(text: string, ctx: EngineContext): ThreatCandidate[] {
     for (const re of CATEGORY_PATTERNS[c] ?? []) { const m = t.match(re); if (m) h.push(m[0].trim()); }
     return { c, h };
   }).filter((x) => x.h.length > 0);
-  const regions = Object.keys(REGION_TERMS).map((r) => ({ r, h: hits(t, REGION_TERMS[r]!) })).filter((x) => x.h.length > 0 && ctx.regions[x.r]);
+  const terms: Record<string, string[]> = { ...stateTerms(ctx), ...REGION_TERMS };
+  let regions = Object.keys(terms).map((r) => ({ r, h: hits(t, terms[r]!) })).filter((x) => x.h.length > 0 && ctx.regions[x.r]);
+  // a named state is more specific than the multi-state region it belongs to
+  if (regions.some((x) => x.r.startsWith('us-state-'))) regions = regions.filter((x) => x.r.startsWith('us-state-') || !x.r.startsWith('us-'));
   const comms = Object.keys(COMMODITY_TERMS).map((id) => ({ id, h: hits(t, COMMODITY_TERMS[id]!) })).filter((x) => x.h.length > 0 && (ctx.commodities[x.id] || ctx.inputs[x.id]));
   if (cats.length === 0 && comms.length === 0) return [];
   // pick the category with the most/longest matches; chokepoint terms beat war when a strait is named

@@ -122,7 +122,7 @@ export function App() {
         )}
         {mapMode === 'webgl' ? (
           <ErrorBoundary label="Map" onError={(e) => { setFallbackReason(e.message.slice(0, 80)); setMapMode('svg'); }}>
-            <MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} lens={commodities} onFail={(why) => { setFallbackReason(why); setMapMode('svg'); }} />
+            <MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} lens={commodities} onFail={(why) => { setFallbackReason(why); setMapMode('svg'); }} onPickRegion={editable ? pickRegion : undefined} />
           </ErrorBoundary>
         ) : (
           <MapFallback entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} reason={fallbackReason} lens={commodities} resetKey={activeTab} onPickRegion={editable ? pickRegion : undefined} />

@@ -6,6 +6,22 @@ import { cvSecondOrder, evApprox, csConstantElasticity, substitutionPct, inciden
 import { monthRange, monthIndex } from './months.js';
 import { SHOCK_CONSTANTS } from './shock.js';
 
+/** The demand-system preparation (Slutsky symmetrization and the eigenvalue check) is the costly part of a run and
+ * depends only on the configuration, so it is computed once per demand config. */
+const prepared = new WeakMap<object, { ds: ReturnType<typeof buildDemandSystem>; sym: ReturnType<typeof symmetrize>; nsd: ReturnType<typeof checkNSD>; numeraire: Set<number> }>();
+function prepareDemand(demand: EngineContext['demand']) {
+  const hit = prepared.get(demand);
+  if (hit) return hit;
+  const ds = buildDemandSystem(demand);
+  const numeraire = new Set<number>();
+  if (ds.index['nonfood'] !== undefined) numeraire.add(ds.index['nonfood']);
+  const sym = symmetrize(toHicksian(ds), ds.w, ds.se, numeraire);
+  const nsd = checkNSD(slutskyMatrix(sym.epsC, ds.w));
+  const out = { ds, sym, nsd, numeraire };
+  prepared.set(demand, out);
+  return out;
+}
+
 interface Merged { supply: number[]; cost: number[]; domestic: number[]; imports: number[]; byRegion: Record<string, number[]>; n: number }
 
 /** Sum shocks per commodity onto a common monthly axis starting at the earliest shock month. */
@@ -42,11 +58,7 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
   const usePath: 'modeled' | 'observed' = ctx.overrides?.pricePath === 'observed' && opts?.observed ? 'observed' : 'modeled';
   const households = ctx.consumerUnits?.value ?? 134.6e6;
 
-  const ds = buildDemandSystem(ctx.demand);
-  const numeraire = new Set<number>();
-  if (ds.index['nonfood'] !== undefined) numeraire.add(ds.index['nonfood']);
-  const sym = symmetrize(toHicksian(ds), ds.w, ds.se, numeraire);
-  const nsd = checkNSD(slutskyMatrix(sym.epsC, ds.w));
+  const { ds, sym, nsd, numeraire } = prepareDemand(ctx.demand);
   const eps = ds.eps.map((r) => r.slice());
   const epsC = sym.epsC.map((r) => r.slice());
 

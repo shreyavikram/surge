@@ -20,7 +20,7 @@ describe('usdm adapter', () => {
     expect(ks).toBeDefined();
     expect(ks.category).toBe('drought');
     expect(ks.alertScore).toBe(true);
-    expect(ks.regionId).toBe('us-plains-wheat');
+    expect(ks.regionId).toBe('us-state-KS');
     expect(ks.severity!).toBeGreaterThan(0);
     expect(ks.severity!).toBeLessThan(1);
   });
@@ -101,7 +101,7 @@ describe('gdelt adapter', () => {
     const ids = r.items.map((i) => i.id);
     expect(r.items.every((i) => i.status === 'breaking' && (i.confidence ?? 0) > 0)).toBe(true);
     expect(ids.some((i) => i.includes('export-ban-india'))).toBe(true);
-    expect(ids.some((i) => i.includes('disease-us-iowa'))).toBe(true);
+    expect(ids.some((i) => i.includes('disease-us-state-ia'))).toBe(true);
     expect(r.items.some((i) => /Paris/.test(i.name))).toBe(false);
     const threats = feedItemsToThreats(r.items, r.source, ctx);
     expect(threats.every((t) => t.status === 'breaking')).toBe(true);

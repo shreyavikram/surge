@@ -45,7 +45,7 @@ export const gdelt: FeedAdapter = {
       const r = ctx.regions[c.regionId]!;
       const seen = a.seendate ? `${a.seendate.slice(0, 4)}-${a.seendate.slice(4, 6)}` : undefined;
       const item: FeedItem = {
-        id: `news-${key.replace(/[^a-z0-9]+/gi, '-')}`,
+        id: `news-${key.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`,
         name: a.title.length > 90 ? a.title.slice(0, 87) + '…' : a.title,
         category: c.category, kind: ctx.threatTypes[c.category]?.kind ?? 'natural',
         regionId: c.regionId, admin: r.name, lat: r.lat, lng: r.lng,

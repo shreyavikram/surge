@@ -79,8 +79,16 @@ export function entriesForTab(base: ThreatEntry[], tab: TabDef): ThreatEntry[] {
   return out;
 }
 
+const runCache = new Map<string, ReturnType<typeof runThreat>>();
+/** Runs are pure functions of the threat and the context overrides, so they are cached by content. */
 export function runEntry(entry: ThreatEntry, ctx: EngineContext) {
-  return runThreat(entry.threat, ctx, undefined, entry.observed ? { observed: entry.observed } : undefined);
+  const key = `${JSON.stringify(entry.threat)}|${JSON.stringify(ctx.overrides ?? {})}|${entry.observed ? 'obs' : ''}`;
+  const hit = runCache.get(key);
+  if (hit) return hit;
+  const r = runThreat(entry.threat, ctx, undefined, entry.observed ? { observed: entry.observed } : undefined);
+  if (runCache.size > 400) runCache.delete(runCache.keys().next().value as string);
+  runCache.set(key, r);
+  return r;
 }
 
 export interface RankedEntry extends ThreatEntry {

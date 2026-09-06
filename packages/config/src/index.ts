@@ -1,4 +1,4 @@
-import type { EngineContext, FocusConfig, CountriesConfig, CommodityConfig, InputConfig, DemandSystemConfig, ThreatTypeConfig, RegionConfig, LeverConfig, PlateConfig, CaseFile, ThreatCategory } from '@surge/engine';
+import type { EngineContext, FocusConfig, CountriesConfig, RegionConfig, CommodityConfig, InputConfig, DemandSystemConfig, ThreatTypeConfig, LeverConfig, PlateConfig, CaseFile, ThreatCategory } from '@surge/engine';
 import commodities from '../data/commodities.json' with { type: 'json' };
 import inputs from '../data/inputs.json' with { type: 'json' };
 import demand from '../data/demand-system.json' with { type: 'json' };
@@ -10,6 +10,7 @@ import focus from '../data/focus.json' with { type: 'json' };
 import focusDistricts from '../data/focus-districts.json' with { type: 'json' };
 import countries from '../data/countries.json' with { type: 'json' };
 import quintiles from '../data/quintile-spending.json' with { type: 'json' };
+import stateBboxes from '../data/state-bboxes.json' with { type: 'json' };
 import egg2024 from '../data/cases/egg-2024-calibration.json' with { type: 'json' };
 import egg2022 from '../data/cases/egg-2022.json' with { type: 'json' };
 import formula2022 from '../data/cases/formula-2022.json' with { type: 'json' };
@@ -33,13 +34,30 @@ function mergeFocus(base: FocusConfig, d: { source: string; areas: FocusConfig['
   return { ...base, source: `${base.source}; districts: ${d.source}`, areas: [...base.areas, ...d.areas], production };
 }
 
+/** One production region per state (`us-state-XX`) from the county-built shares, so threats can land on a single state. */
+function stateRegions(focusCfg: FocusConfig): Record<string, RegionConfig> {
+  const out: Record<string, RegionConfig> = {};
+  const boxes = (stateBboxes as unknown as { bbox: Record<string, [number, number, number, number]> }).bbox;
+  for (const a of focusCfg.areas) {
+    if (a.kind !== 'state') continue;
+    const share: Record<string, number> = {};
+    for (const [cid, byArea] of Object.entries(focusCfg.production)) { const v = byArea[a.id]; if (v && v > 0) share[cid] = v; }
+    out[`us-state-${a.id}`] = { id: `us-state-${a.id}`, name: a.name, lat: a.lat, lng: a.lng, bbox: boxes[a.id] ?? [a.lng - 3, a.lat - 2, a.lng + 3, a.lat + 2], usSupplyShare: share, countries: [], source: 'NASS 2022 Census of Agriculture county series summed to the state (see focus-districts.json); bounding box from Census TIGERweb' };
+  }
+  return out;
+}
+
 export function loadContext(): EngineContext {
+  const focusCfg = mergeFocus(focus as unknown as FocusConfig, focusDistricts as unknown as { source: string; areas: FocusConfig['areas']; production: FocusConfig['production'] });
+  const regionsAll: Record<string, RegionConfig> = { ...(regions as unknown as Record<string, RegionConfig>), ...stateRegions(focusCfg) };
+  const regionStates: Record<string, string[]> = { ...focusCfg.regionStates };
+  for (const a of focusCfg.areas) if (a.kind === 'state') regionStates[`us-state-${a.id}`] = [a.id];
   return {
     commodities: commodities as unknown as Record<string, CommodityConfig>,
     inputs: inputs as unknown as Record<string, InputConfig>,
     demand: demand as unknown as DemandSystemConfig,
     threatTypes: threatTypes as unknown as Record<ThreatCategory, ThreatTypeConfig>,
-    regions: regions as unknown as Record<string, RegionConfig>,
+    regions: regionsAll,
     levers: levers as unknown as LeverConfig[],
     plate: plate as unknown as PlateConfig,
     population: POPULATION,
@@ -47,7 +65,7 @@ export function loadContext(): EngineContext {
     consumerUnits: CONSUMER_UNITS,
     countries: countries as unknown as CountriesConfig,
     quintileSpending: (quintiles as { byCommodity: Record<string, number[]> }).byCommodity,
-    focus: mergeFocus(focus as unknown as FocusConfig, focusDistricts as unknown as { source: string; areas: FocusConfig['areas']; production: FocusConfig['production'] }),
+    focus: { ...focusCfg, regionStates },
   };
 }
 

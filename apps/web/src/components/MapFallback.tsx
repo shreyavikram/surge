@@ -85,6 +85,11 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason,
           return <path key={iso} d={path(f as never) ?? undefined} fill={colorFor(h, false)} fillOpacity={(areas.length > 0 && (h?.status ?? 'stable') === 'stable') || (h?.status ?? 'none') === 'none' ? 0.3 : 0.85} stroke="var(--bg)" strokeWidth={0.4}
             onMouseEnter={() => setHover(iso)} onMouseLeave={() => setHover(null)} onClick={() => { const t = h?.threats[0]; if (t) onSelect(t); else if (onPickRegion) { const rid = regionOfIso(iso); if (rid) onPickRegion(rid); } }} style={{ cursor: h?.threats.length || (onPickRegion && regionOfIso(iso)) ? 'pointer' : 'default' }} />;
         })}
+        {view.k >= 1.6 && countries?.features.filter((f) => f.id !== 'USA').map((f) => {
+          const c = path.centroid(f as never); const a = path.area(f as never);
+          if (!Number.isFinite(c[0]) || a < 150 / view.k) return null;
+          return <text key={`lbl-${String(f.id)}`} x={c[0]} y={c[1]} className="map-label" fontSize={11 / Math.sqrt(view.k)} textAnchor="middle">{(f.properties as { name?: string } | null)?.name ?? ''}</text>;
+        })}
         {states?.features.map((f) => {
           const id = String(f.id); const h = sh[id]; const own = ownStates.has(id);
           return <path key={id} d={path(f as never) ?? undefined} fill={colorFor(h, own)} fillOpacity={areas.length > 0 && !own && (h?.status ?? 'stable') === 'stable' ? 0.25 : 0.85} stroke={own ? 'var(--accent)' : 'var(--bg)'} strokeWidth={own ? 1.2 : 0.4}

@@ -380,3 +380,5 @@ details.assumptions .assump { margin-top: 6px; }
 .fab:hover { filter: brightness(1.08); }
 .svg-zoom.mini { top: 6px; left: 6px; }
 .svg-zoom.mini button { width: 24px; height: 24px; font-size: 15px; }
+.chart .now { stroke: var(--accent); stroke-width: 1; stroke-dasharray: 3 2; }
+.map-label { fill: var(--text); opacity: 0.75; pointer-events: none; font-family: var(--sans); paint-order: stroke; stroke: var(--bg); stroke-width: 2px; }

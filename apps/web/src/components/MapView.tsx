@@ -39,6 +39,7 @@ interface Props {
   focus: Focus;
   lens: Set<string>;                 // commodity filter: shades refer to these commodities
   onFail?: (why: string) => void;
+  onPickRegion?: (regionId: string) => void;   // scenario tabs: click a supplier with no threat to add one
 }
 
 type FC = GeoJSON.FeatureCollection;
@@ -59,7 +60,9 @@ function circle(lng: number, lat: number, km: number): GeoJSON.Polygon {
 
 const STATUS_LABEL: Record<AreaHeat['status'], string> = { none: 'no US food supply', stable: 'stable', anticipated: 'anticipated instability', unstable: 'unstable' };
 
-export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, lens, onFail }: Props) {
+export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, lens, onFail, onPickRegion }: Props) {
+  const onPickRef = useRef(onPickRegion);
+  onPickRef.current = onPickRegion;
   const lensRef = useRef(lens);
   lensRef.current = lens;
   const onFailRef = useRef(onFail);
@@ -201,8 +204,12 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, lens
       map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; pop.remove(); });
       map.on('click', layer, (ev) => {
         const f = ev.features?.[0];
-        const top = (f?.properties as { top?: string } | undefined)?.top;
-        if (top) onSelectRef.current(top);
+        const p = f?.properties as { top?: string; iso3?: string } | undefined;
+        if (p?.top) { onSelectRef.current(p.top); return; }
+        if (p?.iso3 && onPickRef.current) {
+          const rid = Object.values(ctx.regions).find((r) => (r.countries ?? []).includes(p.iso3!))?.id;
+          if (rid) onPickRef.current(rid);
+        }
       });
     }
     return () => { clearTimeout(loadWatch); ro.disconnect(); pop.remove(); map.remove(); mapRef.current = null; };

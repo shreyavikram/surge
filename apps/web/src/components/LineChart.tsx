@@ -7,6 +7,10 @@ interface Props {
   yFormat: (v: number) => string;
   height?: number;
   yMin?: number;
+  /** YYYY-MM to mark as "now" */
+  now?: string;
+  /** index at which to mark the end of the shock */
+  endIndex?: number;
 }
 
 const W = 320, PAD = { l: 44, r: 8, t: 8, b: 22 };
@@ -30,7 +34,7 @@ function niceTicks(min: number, max: number, n = 4): number[] {
 }
 
 /** Line chart with a month axis, a value axis, and an optional dashed reference baseline. */
-export function LineChart({ months, series, baseline, yFormat, height = 150, yMin }: Props) {
+export function LineChart({ months, series, baseline, yFormat, height = 150, yMin, now, endIndex }: Props) {
   const n = months.length;
   if (n === 0) return null;
   const all = series.flatMap((s) => s.values).concat(baseline ? [baseline.value] : []);
@@ -56,6 +60,15 @@ export function LineChart({ months, series, baseline, yFormat, height = 150, yMi
       {months.map((m, i) => (i % every === 0 || i === n - 1) && (
         <text key={m} x={x(i)} y={H - 6} className="tick" textAnchor={i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle'}>{monthLabel(m)}</text>
       ))}
+      {now && months.includes(now) && (
+        <g>
+          <line x1={x(months.indexOf(now))} x2={x(months.indexOf(now))} y1={PAD.t} y2={H - PAD.b} className="now" />
+          <text x={x(months.indexOf(now)) + 3} y={PAD.t + 9} className="tick">now</text>
+        </g>
+      )}
+      {endIndex !== undefined && endIndex > 0 && endIndex < n && (
+        <text x={x(endIndex)} y={PAD.t + 9} className="tick" textAnchor="end">shock ends</text>
+      )}
       {baseline && (
         <g>
           <line x1={PAD.l} x2={W - PAD.r} y1={y(baseline.value)} y2={y(baseline.value)} className="baseline" />

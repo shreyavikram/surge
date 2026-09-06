@@ -7,7 +7,7 @@ import { regionForState, STATE_FIPS } from './regions.js';
  * US Drought Monitor, weekly, by state. Alert score = (0.5·D2 + 0.8·D3 + 1.0·D4) area share; ingestion
  * applies the drought damage cap. A state inside a multi-state region carries 1/n of the region's severity.
  */
-const STATES = ['IA', 'IL', 'IN', 'OH', 'MN', 'NE', 'MO', 'WI', 'SD', 'KS', 'ND', 'MT', 'OK', 'CO', 'TX', 'WA', 'CA', 'FL', 'OR', 'ID', 'GA', 'AL', 'AR', 'NC', 'MS'];
+const STATES = ['IA', 'IL', 'IN', 'OH', 'MN', 'NE', 'MO', 'WI', 'SD', 'KS', 'ND', 'MT', 'OK', 'CO', 'TX', 'WA', 'CA', 'FL', 'OR', 'ID', 'GA', 'AL', 'AR', 'NC', 'MS', 'MI', 'PA', 'NY', 'KY', 'TN', 'SC', 'VA', 'LA', 'NM', 'AZ', 'UT', 'NV', 'WY'];
 const MIN_D2_SHARE = 20; // percent of state area in D2 or worse before a threat is emitted
 
 export interface UsdmRow { MapDate: string; StateAbbreviation: string; D0: number; D1: number; D2: number; D3: number; D4: number; ValidStart: string }
@@ -52,19 +52,9 @@ export const usdm: FeedAdapter = {
     for (const [st, r] of latest) {
       const d2plus = r.D2; // USDM columns are cumulative: D2 = area in D2 or worse
       if (!(d2plus >= MIN_D2_SHARE)) continue;
-      const region = regionForState(ctx, st);
+      const region = ctx.regions[`us-state-${st}`] ?? regionForState(ctx, st);
       if (!region) continue;
-      // this state's share of the region's production (average over the region's commodities), so a drought in one
-      // state of a multi-state region scales to the region the engine models
-      const members = ctx.focus?.regionStates[region.id] ?? [st];
-      const comms = Object.keys(region.usSupplyShare ?? {});
-      let frac = 0;
-      for (const cid of comms) {
-        const ps = ctx.focus?.production[cid]?.[st] ?? 0;
-        const pr = members.reduce((a, m) => a + (ctx.focus?.production[cid]?.[m] ?? 0), 0);
-        frac += pr > 0 ? ps / pr : 0;
-      }
-      frac = comms.length > 0 ? frac / comms.length : 1 / Math.max(1, members.length);
+      const frac = 1; // the state is its own region
       const score = ((0.4 * (r.D2 - r.D3)) + (0.7 * (r.D3 - r.D4)) + (1.0 * r.D4)) / 100;
       const area = ctx.focus?.areas.find((a) => a.id === st);
       const item: FeedItem = {

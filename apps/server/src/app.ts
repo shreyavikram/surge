@@ -26,7 +26,7 @@ export function createApp(deps: Partial<AppDeps> = {}): Hono {
 
   app.use('/api/*', cors());
 
-  app.get('/api/health', (c) => c.json({ ok: true, feeds: registry.healthRows() }));
+  app.get('/api/health', (c) => c.json({ ok: true, feeds: registry.healthRows().map(({ requiresKey: _k, note: _n, ...row }) => row) }));
 
   // Config bundle for the browser engine (so the web can run without bundling config).
   app.get('/api/context', (c) => c.json({

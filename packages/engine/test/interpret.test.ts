@@ -26,7 +26,7 @@ describe('interpretScenario', () => {
   it('reads a domestic disease event with a state', () => {
     const c = interpretScenario('Bird flu wipes out a quarter of Iowa layers', ctx);
     expect(c[0]!.category).toBe('disease');
-    expect(c[0]!.regionId).toBe('us-iowa');
+    expect(c[0]!.regionId).toBe('us-state-IA');
     expect(c[0]!.commodities.map((x) => x.id)).toEqual(['eggs']);
     expect(c[0]!.severity).toBe(0.25);
   });
