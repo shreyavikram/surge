@@ -1,265 +1,246 @@
 {
- "source": "USDA FAS GATS, US agricultural imports by country of origin, 2023 (approximate shares of ~$195B; EU shown by member); refresh via FAS GATS export",
+ "source": "US Census Bureau International Trade API, general imports customs value, HS chapters 01 02 03 04 07 08 09 10 11 12 15 16 17 18 19 20 21 22 (food for people), 2025-08 to 2026-07 (measured value shares); refresh with packages/config/tools/build-origin-shares.py",
+ "totalUsd": 208352176274,
  "countries": {
   "MEX": {
    "iso3": "MEX",
    "name": "Mexico",
-   "usFoodImportShare": 0.23
+   "usFoodImportShare": 0.2053
   },
   "CAN": {
    "iso3": "CAN",
    "name": "Canada",
-   "usFoodImportShare": 0.2
-  },
-  "ITA": {
-   "iso3": "ITA",
-   "name": "Italy",
-   "usFoodImportShare": 0.035
-  },
-  "CHN": {
-   "iso3": "CHN",
-   "name": "China",
-   "usFoodImportShare": 0.035
-  },
-  "BRA": {
-   "iso3": "BRA",
-   "name": "Brazil",
-   "usFoodImportShare": 0.03
-  },
-  "CHL": {
-   "iso3": "CHL",
-   "name": "Chile",
-   "usFoodImportShare": 0.03
-  },
-  "FRA": {
-   "iso3": "FRA",
-   "name": "France",
-   "usFoodImportShare": 0.03
+   "usFoodImportShare": 0.2005
   },
   "AUS": {
    "iso3": "AUS",
    "name": "Australia",
-   "usFoodImportShare": 0.025
+   "usFoodImportShare": 0.0355
   },
-  "IND": {
-   "iso3": "IND",
-   "name": "India",
-   "usFoodImportShare": 0.02
+  "ITA": {
+   "iso3": "ITA",
+   "name": "Italy",
+   "usFoodImportShare": 0.0354
   },
-  "VNM": {
-   "iso3": "VNM",
-   "name": "Vietnam",
-   "usFoodImportShare": 0.02
+  "BRA": {
+   "iso3": "BRA",
+   "name": "Brazil",
+   "usFoodImportShare": 0.0297
   },
-  "THA": {
-   "iso3": "THA",
-   "name": "Thailand",
-   "usFoodImportShare": 0.02
+  "CHL": {
+   "iso3": "CHL",
+   "name": "Chile",
+   "usFoodImportShare": 0.0269
   },
   "IDN": {
    "iso3": "IDN",
    "name": "Indonesia",
-   "usFoodImportShare": 0.02
-  },
-  "NZL": {
-   "iso3": "NZL",
-   "name": "New Zealand",
-   "usFoodImportShare": 0.02
+   "usFoodImportShare": 0.0261
   },
   "PER": {
    "iso3": "PER",
    "name": "Peru",
-   "usFoodImportShare": 0.02
+   "usFoodImportShare": 0.0259
+  },
+  "FRA": {
+   "iso3": "FRA",
+   "name": "France",
+   "usFoodImportShare": 0.0247
+  },
+  "VNM": {
+   "iso3": "VNM",
+   "name": "Vietnam",
+   "usFoodImportShare": 0.0244
+  },
+  "CHN": {
+   "iso3": "CHN",
+   "name": "China",
+   "usFoodImportShare": 0.0208
+  },
+  "ECU": {
+   "iso3": "ECU",
+   "name": "Ecuador",
+   "usFoodImportShare": 0.0207
+  },
+  "IND": {
+   "iso3": "IND",
+   "name": "India",
+   "usFoodImportShare": 0.0205
   },
   "COL": {
    "iso3": "COL",
    "name": "Colombia",
-   "usFoodImportShare": 0.02
+   "usFoodImportShare": 0.0198
   },
-  "NLD": {
-   "iso3": "NLD",
-   "name": "Netherlands",
-   "usFoodImportShare": 0.02
+  "NZL": {
+   "iso3": "NZL",
+   "name": "New Zealand",
+   "usFoodImportShare": 0.0188
+  },
+  "THA": {
+   "iso3": "THA",
+   "name": "Thailand",
+   "usFoodImportShare": 0.0185
   },
   "ESP": {
    "iso3": "ESP",
    "name": "Spain",
-   "usFoodImportShare": 0.02
-  },
-  "DEU": {
-   "iso3": "DEU",
-   "name": "Germany",
-   "usFoodImportShare": 0.02
+   "usFoodImportShare": 0.0167
   },
   "GTM": {
    "iso3": "GTM",
    "name": "Guatemala",
    "usFoodImportShare": 0.015
   },
-  "CRI": {
-   "iso3": "CRI",
-   "name": "Costa Rica",
-   "usFoodImportShare": 0.015
+  "ARG": {
+   "iso3": "ARG",
+   "name": "Argentina",
+   "usFoodImportShare": 0.012
   },
-  "ECU": {
-   "iso3": "ECU",
-   "name": "Ecuador",
-   "usFoodImportShare": 0.015
+  "NLD": {
+   "iso3": "NLD",
+   "name": "Netherlands",
+   "usFoodImportShare": 0.0117
+  },
+  "KOR": {
+   "iso3": "KOR",
+   "name": "South Korea",
+   "usFoodImportShare": 0.0099
   },
   "GBR": {
    "iso3": "GBR",
    "name": "United Kingdom",
-   "usFoodImportShare": 0.015
+   "usFoodImportShare": 0.0098
   },
-  "IRL": {
-   "iso3": "IRL",
-   "name": "Ireland",
-   "usFoodImportShare": 0.015
+  "CRI": {
+   "iso3": "CRI",
+   "name": "Costa Rica",
+   "usFoodImportShare": 0.0098
   },
-  "ARG": {
-   "iso3": "ARG",
-   "name": "Argentina",
-   "usFoodImportShare": 0.01
+  "DEU": {
+   "iso3": "DEU",
+   "name": "Germany",
+   "usFoodImportShare": 0.0091
   },
-  "PHL": {
-   "iso3": "PHL",
-   "name": "Philippines",
-   "usFoodImportShare": 0.01
+  "JPN": {
+   "iso3": "JPN",
+   "name": "Japan",
+   "usFoodImportShare": 0.0085
   },
   "TUR": {
    "iso3": "TUR",
    "name": "Turkey",
-   "usFoodImportShare": 0.01
-  },
-  "MYS": {
-   "iso3": "MYS",
-   "name": "Malaysia",
-   "usFoodImportShare": 0.01
+   "usFoodImportShare": 0.0084
   },
   "CIV": {
    "iso3": "CIV",
-   "name": "C\u00f4te d'Ivoire",
-   "usFoodImportShare": 0.01
-  },
-  "BEL": {
-   "iso3": "BEL",
-   "name": "Belgium",
-   "usFoodImportShare": 0.01
+   "name": "Ivory Coast",
+   "usFoodImportShare": 0.0083
   },
   "HND": {
    "iso3": "HND",
    "name": "Honduras",
    "usFoodImportShare": 0.008
   },
-  "JPN": {
-   "iso3": "JPN",
-   "name": "Japan",
-   "usFoodImportShare": 0.005
+  "MYS": {
+   "iso3": "MYS",
+   "name": "Malaysia",
+   "usFoodImportShare": 0.0078
   },
-  "KOR": {
-   "iso3": "KOR",
-   "name": "South Korea",
-   "usFoodImportShare": 0.005
+  "NOR": {
+   "iso3": "NOR",
+   "name": "Norway",
+   "usFoodImportShare": 0.0076
+  },
+  "PHL": {
+   "iso3": "PHL",
+   "name": "Philippines",
+   "usFoodImportShare": 0.0076
+  },
+  "IRL": {
+   "iso3": "IRL",
+   "name": "Ireland",
+   "usFoodImportShare": 0.006
+  },
+  "BEL": {
+   "iso3": "BEL",
+   "name": "Belgium",
+   "usFoodImportShare": 0.0058
   },
   "CHE": {
    "iso3": "CHE",
    "name": "Switzerland",
-   "usFoodImportShare": 0.005
+   "usFoodImportShare": 0.0057
   },
   "NIC": {
    "iso3": "NIC",
    "name": "Nicaragua",
-   "usFoodImportShare": 0.005
+   "usFoodImportShare": 0.0055
   },
-  "DOM": {
-   "iso3": "DOM",
-   "name": "Dominican Republic",
-   "usFoodImportShare": 0.005
-  },
-  "GHA": {
-   "iso3": "GHA",
-   "name": "Ghana",
-   "usFoodImportShare": 0.005
+  "URY": {
+   "iso3": "URY",
+   "name": "Uruguay",
+   "usFoodImportShare": 0.0051
   },
   "POL": {
    "iso3": "POL",
    "name": "Poland",
-   "usFoodImportShare": 0.005
-  },
-  "UKR": {
-   "iso3": "UKR",
-   "name": "Ukraine",
-   "usFoodImportShare": 0.003
-  },
-  "PAN": {
-   "iso3": "PAN",
-   "name": "Panama",
-   "usFoodImportShare": 0.002
-  },
-  "EGY": {
-   "iso3": "EGY",
-   "name": "Egypt",
-   "usFoodImportShare": 0.002
-  },
-  "RUS": {
-   "iso3": "RUS",
-   "name": "Russia",
-   "usFoodImportShare": 0.002
-  },
-  "PAK": {
-   "iso3": "PAK",
-   "name": "Pakistan",
-   "usFoodImportShare": 0.002
-  },
-  "ZAF": {
-   "iso3": "ZAF",
-   "name": "South Africa",
-   "usFoodImportShare": 0.004
-  },
-  "MAR": {
-   "iso3": "MAR",
-   "name": "Morocco",
-   "usFoodImportShare": 0.003
-  },
-  "ISR": {
-   "iso3": "ISR",
-   "name": "Israel",
-   "usFoodImportShare": 0.003
+   "usFoodImportShare": 0.0045
   },
   "GRC": {
    "iso3": "GRC",
    "name": "Greece",
-   "usFoodImportShare": 0.004
+   "usFoodImportShare": 0.0039
   },
-  "PRT": {
-   "iso3": "PRT",
-   "name": "Portugal",
-   "usFoodImportShare": 0.003
+  "DOM": {
+   "iso3": "DOM",
+   "name": "Dominican Republic",
+   "usFoodImportShare": 0.0037
   },
-  "SAU": {
-   "iso3": "SAU",
-   "name": "Saudi Arabia",
-   "usFoodImportShare": 0.001
+  "TWN": {
+   "iso3": "TWN",
+   "name": "Taiwan",
+   "usFoodImportShare": 0.0029
   },
-  "ROU": {
-   "iso3": "ROU",
-   "name": "Romania",
-   "usFoodImportShare": 0.001
+  "EGY": {
+   "iso3": "EGY",
+   "name": "Egypt",
+   "usFoodImportShare": 0.0026
   },
-  "BGR": {
-   "iso3": "BGR",
-   "name": "Bulgaria",
-   "usFoodImportShare": 0.001
+  "DNK": {
+   "iso3": "DNK",
+   "name": "Denmark",
+   "usFoodImportShare": 0.0026
   },
-  "MDA": {
-   "iso3": "MDA",
-   "name": "Moldova",
-   "usFoodImportShare": 0.0005
+  "GHA": {
+   "iso3": "GHA",
+   "name": "Ghana",
+   "usFoodImportShare": 0.0026
   },
-  "IRN": {
-   "iso3": "IRN",
-   "name": "Iran",
-   "usFoodImportShare": 0.0
+  "TUN": {
+   "iso3": "TUN",
+   "name": "Tunisia",
+   "usFoodImportShare": 0.0023
+  },
+  "PRY": {
+   "iso3": "PRY",
+   "name": "Paraguay",
+   "usFoodImportShare": 0.0021
+  },
+  "ZAF": {
+   "iso3": "ZAF",
+   "name": "South Africa",
+   "usFoodImportShare": 0.002
+  },
+  "SLV": {
+   "iso3": "SLV",
+   "name": "El Salvador",
+   "usFoodImportShare": 0.002
+  },
+  "ISR": {
+   "iso3": "ISR",
+   "name": "Israel",
+   "usFoodImportShare": 0.002
   }
  }
 }
