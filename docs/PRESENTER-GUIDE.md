@@ -108,3 +108,21 @@ A scenario copies the live picture. Add a hypothetical threat by describing it (
 **What are the limits?** Import declines are measured by customs value, not quantity; a GDACS event is scaled by population, not cropland; chokepoint shares use a modeled routing table; headline severities are defaults. All of this is written down with a confidence rating.
 
 **What would you build next?** Quantity-based trade data from the 10-digit lines, cropland intersections for hazards, a regional price stress view, and a verified email domain so alerts reach anyone.
+
+## 10. Where the AI is, and why it is built this way
+
+**The design in one line: the model reads, the code decides.** AI does the two jobs that deterministic code cannot: reading unstructured reporting into structured threat candidates, and reading a typed scenario into economic shocks. Everything after that is deterministic and tested, so a hallucination can never become a dollar figure without passing a validator.
+
+**Is it removable?** Take the model out and two things disappear: the yellow layer (every possible disruption from reporting) and natural-language scenarios. The rule-only path catches 38 of every 100 real disruptions in the labelled set; with the model proposing first, the raw catch rate is 79 of 100 before the guards trim it for precision. The model doubles what the system sees.
+
+**What is technically there, beyond a wrapper:**
+
+- Constrained generation on a closed vocabulary (categories, 54+ regions, 26 commodities) returning a typed record: type, place, commodities, severity as a fraction of a channel, duration, confidence, one plain sentence.
+- A hybrid interpreter: the rule-based parser and the model both propose; proposals are merged and validated by the same code path, so the app degrades gracefully to rules-only without a key or during an outage.
+- A guard stack after the model: relief actions, reference pages, third-country trade actions, nationwide-placement wording, state relocation, corroboration (two outlets, a quoted loss, or an official source), severity caps (3% national, 15% regional), and measured-beats-reported de-duplication.
+- Model operations: gemini-3.6-flash with two fallback models, batches of 40 headlines, retries with back-off on 429/503, snapshot fallback when everything fails.
+- Evaluation as a test: 337 hand-labelled headlines (100 real disruptions) with a precision/recall test pinned in CI (rule path 0.93 / 0.38) and a live evaluation script for the model path (raw 0.62 / 0.79 before guards).
+- Prompt-injection hygiene: headline text sits inside a data block the prompt tells the model to treat as data; the validator, not the model, has the last word; keys never leave the server.
+- Agentic engineering in the build itself: an independent review agent red-teamed the engine and found thirteen logic errors, each now a regression test; other agents built the labelled set and the feed improvements.
+
+**What we would say about the limits:** no fine-tuning (the vocabulary and validator do the work a fine-tune would); the guarded pipeline trades recall for precision on purpose; the evaluation set is small and labelled by us; the model is a third-party API, so the rules-only path exists.
