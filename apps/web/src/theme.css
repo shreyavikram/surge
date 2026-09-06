@@ -331,3 +331,4 @@ details.assumptions .assump { margin-top: 6px; }
 .dd-list { max-height: 260px; overflow-y: auto; }
 .dd-group { margin-bottom: 6px; }
 .dd-gh { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); margin: 6px 0 2px; }
+.dd-all { font-weight: 600; border-bottom: 1px solid var(--border-solid); margin-bottom: 4px; padding-bottom: 5px !important; }

@@ -79,6 +79,14 @@ describe('threatToShocks', () => {
     const bread = shocks.find((s) => s.commodity === 'bread')!;
     expect(bread.costPath![0]).toBeCloseTo(0.28 * 0.5 * 0.45 * 0.06, 6);
   });
+  it('a hazard in a foreign supplier region cuts US imports from it (import share × origin share)', () => {
+    const t = base({ category: 'drought', commodities: [{ id: 'tomatoes', relevance: 1 }], location: { lat: 23, lng: -102, regionId: 'mexico' }, severity: 0.2, months: 12 });
+    const [s] = threatToShocks(t, ctx);
+    expect(s).toBeDefined();
+    // 20% of Mexican output lost × (US tomato import share 0.6 × Mexico's origin share 0.9) × stocks buffer
+    expect(Math.max(...s!.supplyPath)).toBeCloseTo(0.2 * 0.6 * 0.9 * (1 - Math.min(0.5, ctx.commodities['tomatoes']!.supply.stocksToUse ?? 0)), 6);
+    expect(s!.origin).toBe('import');
+  });
   it('import_dependence produces no shock', () => {
     expect(threatToShocks(base({ category: 'import_dependence', kind: 'geopolitical' }), ctx)).toEqual([]);
   });

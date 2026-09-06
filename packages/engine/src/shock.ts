@@ -91,16 +91,19 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
       }
       case 'crop_hazard':
       case 'livestock_hazard': {
-        // severity = fraction of the region's production lost (feeds map alert levels to this at ingestion)
+        // severity = fraction of the region's production lost (feeds map alert levels to this at ingestion).
+        // A foreign supplier region's share of US supply is its origin share of US imports × the commodity's import share.
         const damage = sev * rel;
-        const share = region ? (region.usSupplyShare?.[id] ?? 0) : 1;
+        const importShare = c?.trade.importShare ?? inp?.trade.importShare ?? 0;
+        const share = region ? (region.usSupplyShare?.[id] ?? (region.usImportOriginShare?.[id] !== undefined ? importShare * region.usImportOriginShare[id]! : 0)) : 1;
         if (share === 0 || damage === 0) break;
         if (inp) {
           const supplyPath = cropPathFor(id, ctx, damage, share, n);
           out.push(...propagateInput(threat, id, inputPricePath(inp, supplyPath), ctx, threat.name));
         } else if (c) {
           const path = c.supply.model === 'livestock' ? new Array<number>(n).fill(damage * share) : cropPathFor(id, ctx, damage, share, n);
-          out.push(supplyShock(threat, c, path, threat.name));
+          const foreign = !!region && region.usSupplyShare?.[id] === undefined;
+          out.push(supplyShock(threat, c, path, threat.name, foreign ? 'import' : 'domestic'));
         }
         break;
       }

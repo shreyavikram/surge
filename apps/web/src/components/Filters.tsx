@@ -67,6 +67,7 @@ export function Filters({ ctx, focus, setFocus, commodities, setCommodities, fam
       </Dropdown>
       <Dropdown label="Commodities" summary={commSummary}>
         <div className="dd-list">
+          <label className="dd-all"><input type="radio" checked={commodities.size === 0} onChange={() => setCommodities(new Set())} /> All commodities</label>
           {[...groups.entries()].map(([g, ids]) => (
             <div key={g} className="dd-group">
               <div className="dd-gh">{ctx.demand.items.find((i) => i.id === g)?.label ?? g}</div>
@@ -78,13 +79,12 @@ export function Filters({ ctx, focus, setFocus, commodities, setCommodities, fam
             {inputIds.map((id) => <label key={id}><input type="checkbox" checked={commodities.has(id)} onChange={() => setCommodities(toggle(commodities, id))} /> {commodityName(ctx, id)}</label>)}
           </div>
         </div>
-        {commodities.size > 0 && <button className="linkbtn" onClick={() => setCommodities(new Set())}>clear</button>}
       </Dropdown>
       <Dropdown label="Kind" summary={famSummary}>
         <div className="dd-list">
+          <label className="dd-all"><input type="radio" checked={families.size === 0} onChange={() => setFamilies(new Set())} /> All kinds</label>
           {FAMILIES.map((f) => <label key={f.id}><input type="checkbox" checked={families.has(f.id)} onChange={() => setFamilies(toggle(families, f.id))} /> {f.label}</label>)}
         </div>
-        {families.size > 0 && <button className="linkbtn" onClick={() => setFamilies(new Set())}>clear</button>}
       </Dropdown>
     </div>
   );

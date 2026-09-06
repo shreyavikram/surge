@@ -16,6 +16,8 @@ export interface Env {
   ACLED_PASSWORD?: string;
   SMTP_URL?: string;
   PUBLIC_URL?: string;
+  GEMINI_API_KEY?: string;
+  RESEND_API_KEY?: string;
 }
 
 function opt(v: string | undefined): string | undefined {
@@ -38,6 +40,8 @@ export function readEnv(src: NodeJS.ProcessEnv = process.env): Env {
     ACLED_PASSWORD: opt(src.ACLED_PASSWORD),
     SMTP_URL: opt(src.SMTP_URL),
     PUBLIC_URL: opt(src.PUBLIC_URL),
+    GEMINI_API_KEY: opt(src.GEMINI_API_KEY),
+    RESEND_API_KEY: opt(src.RESEND_API_KEY),
   };
 }
 

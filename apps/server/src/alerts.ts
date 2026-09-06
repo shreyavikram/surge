@@ -48,13 +48,21 @@ export function diffNewThreats(threats: Threat[], ctx: EngineContext, store: Sto
 
 export interface Mailer { send(to: string, subject: string, body: string): Promise<void> }
 
-/** nodemailer over SMTP_URL when available; otherwise a queue-only mailer. */
-export async function makeMailer(smtpUrl: string | undefined): Promise<Mailer | null> {
+/** Resend's HTTP API when RESEND_API_KEY is set; else nodemailer over SMTP_URL; else a queue-only (null) mailer. */
+export async function makeMailer(smtpUrl: string | undefined, resendKey?: string, fetchImpl: typeof fetch = fetch): Promise<Mailer | null> {
+  const from = process.env['ALERT_FROM'] ?? 'SURGE <onboarding@resend.dev>';
+  if (resendKey) {
+    return {
+      async send(to, subject, body) {
+        const res = await fetchImpl('https://api.resend.com/emails', { method: 'POST', headers: { authorization: `Bearer ${resendKey}`, 'content-type': 'application/json' }, body: JSON.stringify({ from, to, subject, text: body }) });
+        if (!res.ok) throw new Error(`resend ${res.status}: ${(await res.text()).slice(0, 200)}`);
+      },
+    };
+  }
   if (!smtpUrl) return null;
   try {
     const nm = await import('nodemailer');
     const transport = nm.createTransport(smtpUrl);
-    const from = process.env['ALERT_FROM'] ?? 'SURGE <alerts@surge.local>';
     return { async send(to, subject, body) { await transport.sendMail({ from, to, subject, text: body }); } };
   } catch { return null; }
 }

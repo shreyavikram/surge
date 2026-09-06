@@ -134,7 +134,17 @@ function regionCommodities(ctx: EngineContext, regionId: string): string[] {
   return [...new Set([...Object.keys(r.usSupplyShare ?? {}), ...Object.keys(r.usImportOriginShare ?? {}), ...Object.keys(r.worldExportShare ?? {}), ...Object.keys(r.chokepointImportShare ?? {})])];
 }
 
+/** Split on sentence and clause boundaries so "India bans rice exports; drought in Iowa" yields two candidates. */
 export function interpretScenario(text: string, ctx: EngineContext): ThreatCandidate[] {
+  const clauses = text.split(/[.;\n]+|\s+(?:and then|meanwhile|while|plus)\s+/i).map((x) => x.trim()).filter((x) => x.length > 3);
+  if (clauses.length <= 1) return interpretClause(text, ctx);
+  const out: ThreatCandidate[] = [];
+  const seen = new Set<string>();
+  for (const cl of clauses) for (const c of interpretClause(cl, ctx)) { const k = `${c.category}|${c.regionId}`; if (!seen.has(k)) { seen.add(k); out.push(c); } }
+  return out.length > 0 ? out : interpretClause(text, ctx);
+}
+
+function interpretClause(text: string, ctx: EngineContext): ThreatCandidate[] {
   const t = norm(text);
   const matched: string[] = [];
   const cats = (Object.keys(CATEGORY_TERMS) as ThreatCategory[]).map((c) => {

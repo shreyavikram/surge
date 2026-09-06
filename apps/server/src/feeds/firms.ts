@@ -3,8 +3,8 @@ import type { FeedAdapter, FeedResult, FeedItem } from './types.js';
 import { httpText } from './http.js';
 import { usRegions, inBbox } from './regions.js';
 
-/** NASA FIRMS VIIRS hotspots over CONUS (2 days). Alert score = hotspots in a production region ÷ 500 (modeled); wildfire cap applies. */
-const MIN_HOTSPOTS = 40;
+/** NASA FIRMS VIIRS hotspots over CONUS (2 days). Alert score = hotspots in a production region ÷ 2000 (modeled; September counts include field burns); wildfire cap applies. */
+const MIN_HOTSPOTS = 100;
 
 export const firms: FeedAdapter = {
   id: 'firms',
@@ -40,8 +40,8 @@ export const firms: FeedAdapter = {
       items.push({
         id: `firms-${rid}`, name: `Wildfire hotspots, ${r.name} (${n} in 48 h)`, category: 'wildfire', kind: 'natural',
         regionId: rid, admin: r.name, iso3: 'USA', lat: r.lat, lng: r.lng,
-        severity: Math.min(1, n / 500), alertScore: true, start: date ? date.slice(0, 7) : undefined,
-        text: `${n} VIIRS hotspots in the region bbox over 48 hours (${date})`,
+        severity: Math.min(1, n / 2000), alertScore: true, start: date ? date.slice(0, 7) : undefined,
+        text: `${n} VIIRS hotspots in the region bbox over 48 hours (${date}); hotspot counts include agricultural burning`,
       } as FeedItem);
     }
     return { items, source: { feed: 'NASA FIRMS', url: 'https://firms.modaps.eosdis.nasa.gov', kind: 'live' } };

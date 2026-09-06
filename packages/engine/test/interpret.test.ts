@@ -37,6 +37,11 @@ describe('interpretScenario', () => {
     expect(c[0]!.severity).toBeCloseTo(0.3, 9);
     expect(c[0]!.commodities.map((x) => x.id).sort()).toEqual(['fresh-vegetables', 'tomatoes']);
   });
+  it('splits a multi-clause description into separate candidates', () => {
+    const c = interpretScenario('India bans rice exports; drought in Iowa cuts corn 20%', ctx);
+    expect(c.map((x) => x.category).sort()).toEqual(['drought', 'export_ban']);
+    expect(c.find((x) => x.category === 'drought')!.severity).toBeCloseTo(0.2, 9);
+  });
   it('returns nothing for text with no food-supply content', () => {
     expect(interpretScenario('The weather is nice today', ctx)).toEqual([]);
   });

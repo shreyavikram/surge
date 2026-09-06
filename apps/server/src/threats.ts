@@ -31,14 +31,13 @@ function contains(b: RegionConfig['bbox'], lng: number, lat: number): boolean {
   return lng >= b[0] && lng <= b[2] && lat >= b[1] && lat <= b[3];
 }
 
-/** Region whose share map is relevant and whose bbox contains the point; smallest (most specific) wins. */
+/** Region whose share map is relevant and whose bbox contains the point; smallest (most specific) wins.
+ * Hazards may also land in a foreign supplier region (import-origin shares), where they cut US imports. */
 function findRegion(item: FeedItem, ctx: EngineContext, field: ShareField): RegionConfig | undefined {
   if (item.regionId) return ctx.regions[item.regionId];
   if (item.lat == null || item.lng == null) return undefined;
-  const candidates = Object.values(ctx.regions).filter((r) => {
-    const shares = r[field];
-    return shares && Object.keys(shares).length > 0 && contains(r.bbox, item.lng!, item.lat!);
-  });
+  const fields: ShareField[] = field === 'usSupplyShare' ? ['usSupplyShare', 'usImportOriginShare'] : [field];
+  const candidates = Object.values(ctx.regions).filter((r) => r.id !== 'us-national' && fields.some((f) => { const shares = r[f]; return shares && Object.keys(shares).length > 0; }) && contains(r.bbox, item.lng!, item.lat!));
   return candidates.sort((a, b) => bboxArea(a.bbox) - bboxArea(b.bbox))[0];
 }
 
@@ -67,7 +66,7 @@ export function feedItemsToThreats(items: FeedItem[], source: SourceStamp, ctx: 
     // Commodities the region is relevant for, restricted to configured commodities/inputs.
     let commodities = item.commodities;
     if (!commodities) {
-      const shares = region[field] ?? {};
+      const shares = region[field] ?? (field === 'usSupplyShare' ? region.usImportOriginShare : undefined) ?? {};
       commodities = Object.keys(shares)
         .filter((id) => ctx.commodities[id] || ctx.inputs[id])
         .map((id) => ({ id, relevance: 1 }));
