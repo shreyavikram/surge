@@ -69,7 +69,7 @@
    "source": {
     "feed": "USDA APHIS confirmed detections, dashboard export (Commercial Table Egg Layer, by month of confirmation; birds rounded to 0.1M by the export)",
     "kind": "archive",
-    "note": "severity = 43.1M layers depopulated \u00f7 325M table-egg layers"
+    "note": "severity = 43.1M layers depopulated ÷ 325M table-egg layers"
    }
   }
  ],
@@ -88,10 +88,21 @@
    "2022-10",
    "2022-11",
    "2022-12",
-   "2023-01"
+   "2023-01",
+   "2023-02",
+   "2023-03",
+   "2023-04",
+   "2023-05",
+   "2023-06",
+   "2023-07",
+   "2023-08",
+   "2023-09",
+   "2023-10",
+   "2023-11",
+   "2023-12"
   ],
   "retailPrice": [
-   1.93,
+   1.929,
    2.005,
    2.046,
    2.52,
@@ -103,9 +114,31 @@
    3.419,
    3.589,
    4.25,
-   4.823
+   4.823,
+   4.211,
+   3.446,
+   3.27,
+   2.666,
+   2.219,
+   2.094,
+   2.043,
+   2.065,
+   2.072,
+   2.138,
+   2.507
   ],
   "counterfactualPrice": [
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
+   1.93,
    1.93,
    1.93,
    1.93,
@@ -121,7 +154,7 @@
    1.93
   ],
   "attributionShare": 0.5,
-  "source": "FRED APU0000708111 monthly 2022 (values approximate to 3 dp; Plan 2 fetches live); counterfactual = Jan 2022 level; attribution 0.5 spans Mitchell (7-9% avg) and Ferrier (22-24% Q2/Q4)"
+  "source": "FRED APU0000708111 monthly, Jan 2022 to Dec 2023 (BLS average price, grade A large, per dozen); counterfactual = Jan 2022 level held flat; attribution 0.5 spans Mitchell (7-9% avg) and Ferrier (22-24% Q2/Q4)"
  },
  "expected": {
   "quarterlyShortfallQ2": 0.057,

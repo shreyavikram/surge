@@ -11,9 +11,10 @@ describe('egg 2022 end to end', () => {
     expect(r.impact.price.path).toBe('observed');
     expect(Math.max(...r.impact.price.retailPct['eggs']!)).toBeGreaterThan(0.5);
   });
-  it('lands the welfare loss between the two published estimates for 2022', () => {
-    expect(r.impact.welfare.cv).toBeGreaterThan(0.93e9);
-    expect(r.impact.welfare.cv).toBeLessThan(4.1e9);
+  it('lands the 2022 welfare loss between the two published estimates for 2022', () => {
+    // the observed series now runs through 2023 (the Jan 2023 peak and the fall back); the published figures are for calendar 2022
+    expect(r.impact.welfare.cvAnnual).toBeGreaterThan(0.93e9);
+    expect(r.impact.welfare.cvAnnual).toBeLessThan(4.1e9);
   });
   it('shows the physical shortfall and a mitigation plan dominated by biology', () => {
     expect(Math.max(...r.impact.shortfall['eggs']!.units)).toBeGreaterThan(20e6);
