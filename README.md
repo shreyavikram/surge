@@ -12,6 +12,7 @@ commodity in the configuration flows through the same engine.
 - `packages/engine` — pure TypeScript engine: biology, price stage, welfare, mitigation, scenarios. Zero runtime dependencies, tested with vitest.
 - `packages/config` — cited configuration: commodities, inputs, ERS ERR-139 demand system (extracted by `tools/extract-err139.py`), threat rules, regions, levers, plate, cases.
 - `apps/web` — Vite + React + MapLibre client. Runs the engine in the browser over the config and the calibrated cases; no server needed for the prototype. Live threat map, CV-ranked watchlist, Impact / Plate / Relief drawer, and a Simulator.
+- `apps/site` — the public marketing site: hand-written HTML/CSS/JS, no framework, no build step. Its two maps are generated from the same geodata and cited sources the terminal uses (`tools/build-graphics.mjs`), and `test/claims.test.ts` pins every count it prints to the file that count came from.
 - `docs/economics` — literature review, methodology derivations, extracted source texts.
 - `docs/superpowers` — design spec and implementation plans.
 - `DECISIONS.md` — notable decisions and why.
@@ -31,6 +32,15 @@ PATH="$HOME/.local/bin:$PATH" npm install && PATH="$HOME/.local/bin:$PATH" npm r
 Then open the printed localhost URL (default `http://localhost:5173`) — best viewed at ≥1200px wide.
 Build a production bundle with `npm run build -w @surge/web` (output in `apps/web/dist`).
 
+### Run the marketing site
+
+```bash
+python3 -m http.server 4318 --directory apps/site
+```
+
+It is static, so any file server works. Regenerate the maps after changing the commodity,
+origin-share, or district data with `npm run graphics -w @surge/site`.
+
 ### Demo script (2 minutes)
 
 1. **Live** view: the watchlist is ranked by consumer welfare loss; click the top threat (a California
@@ -47,6 +57,9 @@ are honestly-labeled **seeds**; the live feed layer lands in the next stage.
 
 - **Render (static site):** `render.yaml` builds `apps/web` and serves `apps/web/dist` with SPA
   routing — connect the repo and click "New Blueprint".
+- **Marketing site:** `render.yaml` also declares `greenfield-site`, a second static service
+  publishing `apps/site` as-is. It is deliberately a separate service, so the terminal's URL is
+  unaffected by anything the site does.
 - **Docker:** `Dockerfile` builds the client and serves it with a zero-dep Node server (`docker build -t surge . && docker run -p 8080:8080 surge`).
 
 The public URL needs the team's GitHub repo + Render account (see `docs/TEAM-TASKS.md §5`).

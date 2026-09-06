@@ -33,3 +33,14 @@ services:
         sync: false
       - key: PUBLIC_URL
         sync: false
+
+  # Marketing site (apps/site). Static, no build step: the two maps are generated from the
+  # config by apps/site/tools/build-graphics.mjs and committed, and apps/site/test pins the
+  # counts it prints to the data they came from. Separate service so the terminal's URL is
+  # untouched by anything the site does.
+  - type: web
+    name: greenfield-site
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: ./apps/site
+    pullRequestPreviewsEnabled: false

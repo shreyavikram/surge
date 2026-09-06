@@ -1,0 +1,14 @@
+{
+  "name": "@surge/site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "graphics": "node tools/build-graphics.mjs",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "d3-geo": "^3.1.1",
+    "vitest": "^3.0.0"
+  }
+}
