@@ -19,15 +19,8 @@ export function getContext(): EngineContext {
 }
 
 // ---- Category → color family --------------------------------------------------
-export type CategoryFamily = 'geopolitical' | 'natural' | 'biological' | 'supply';
-export function categoryFamily(cat: ThreatCategory): CategoryFamily {
-  switch (cat) {
-    case 'tariff': case 'embargo': case 'export_ban': case 'import_decline': case 'war': case 'instability': case 'chokepoint': case 'import_dependence': return 'geopolitical';
-    case 'drought': case 'heat': case 'flood': case 'storm': case 'wildfire': return 'natural';
-    case 'pest': case 'disease': return 'biological';
-    case 'input_cost': case 'facility': return 'supply';
-  }
-}
+export { categoryFamily, type CategoryFamily } from '@surge/engine';
+import { categoryFamily, type CategoryFamily } from '@surge/engine';
 export const FAMILY_COLOR: Record<CategoryFamily, string> = { geopolitical: '#f5a623', natural: '#ff6a5b', biological: '#b57bff', supply: '#2dd4bf' };
 export function categoryColor(cat: ThreatCategory): string { return FAMILY_COLOR[categoryFamily(cat)]; }
 export const CATEGORY_LABEL: Record<ThreatCategory, string> = {

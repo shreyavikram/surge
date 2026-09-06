@@ -396,3 +396,8 @@ details.assumptions .assump { margin-top: 6px; }
 .ps-chip.low1 span, .ps-chip.low2 span { color: var(--text-dim); }
 .ps-chip.on { border-color: var(--accent-dim); background: color-mix(in srgb, var(--accent) 14%, transparent); }
 .ps-chip:hover { border-color: var(--accent-dim); }
+
+/* alert filters inside the email-alerts modal */
+.alert-filters .wl-filters { padding: 6px 0; border-bottom: 0; }
+.radio-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+.radio { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }

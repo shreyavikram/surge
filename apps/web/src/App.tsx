@@ -138,7 +138,7 @@ export function App() {
       </div>
       <button className="fab" onClick={() => setShowSettings(true)} title="Email alerts and settings"><span className="fab-ico">🔔</span> Alerts</button>
       {showCompare && <Compare ctx={ctx} tabs={tabs} base={base} entriesFor={entriesFor} focus={focus} onClose={() => setShowCompare(false)} />}
-      {showSettings && <Settings settings={settings} onSave={setSettings} onClose={() => setShowSettings(false)} focusLabel={fLabel} />}
+      {showSettings && <Settings settings={settings} onSave={setSettings} onClose={() => setShowSettings(false)} ctx={ctx} focus={focus} commodities={commodities} families={families} />}
     </div>
   );
 }

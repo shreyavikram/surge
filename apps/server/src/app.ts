@@ -88,12 +88,16 @@ export function createApp(deps: Partial<AppDeps> = {}): Hono {
 
   // Email alerts: subscribe, list pending, and (on each threats refresh) diff new threats against the store.
   app.post('/api/alerts', async (c) => {
-    const body = (await c.req.json().catch(() => ({}))) as { email?: string; enabled?: boolean; focus?: string };
+    const body = (await c.req.json().catch(() => ({}))) as { email?: string; enabled?: boolean; focus?: string; filters?: { focus?: { kind?: string; ids?: unknown }; commodities?: unknown; families?: unknown }; frequency?: string };
     if (!body.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(body.email)) return c.json({ error: 'valid email required' }, 400);
-    const store = subscribe(body.email, body.enabled ?? true, body.focus ?? 'United States');
+    const strings = (x: unknown): string[] => (Array.isArray(x) ? x.filter((v): v is string => typeof v === 'string').slice(0, 100) : []);
+    const kind = body.filters?.focus?.kind;
+    const filters = body.filters ? { focus: { kind: (kind === 'state' || kind === 'district' ? kind : 'us') as 'us' | 'state' | 'district', ids: strings(body.filters.focus?.ids) }, commodities: strings(body.filters.commodities), families: strings(body.filters.families) } : undefined;
+    const frequency = body.frequency === 'weekly' || body.frequency === 'monthly' ? body.frequency : 'immediate';
+    const store = subscribe(body.email, body.enabled ?? true, body.focus ?? 'United States', undefined, { ...(filters ? { filters } : {}), frequency });
     return c.json({ ok: true, subscriptions: store.subscriptions.length, delivery: env.RESEND_API_KEY ? 'resend' : env.SMTP_URL ? 'smtp' : 'queued (no mail provider set)' });
   });
-  app.get('/api/alerts', (c) => { const s = loadStore(); return c.json({ subscriptions: s.subscriptions.map((x) => ({ email: x.email.replace(/(.).+(@.*)/, '$1***$2'), focus: x.focus, enabled: x.enabled })), pending: s.pending.filter((p) => !p.sent).length, delivery: env.RESEND_API_KEY ? 'resend' : env.SMTP_URL ? 'smtp' : 'queued' }); });
+  app.get('/api/alerts', (c) => { const s = loadStore(); return c.json({ subscriptions: s.subscriptions.map((x) => ({ email: x.email.replace(/(.).+(@.*)/, '$1***$2'), focus: x.focus, enabled: x.enabled, frequency: x.frequency ?? 'immediate', filters: x.filters })), pending: s.pending.filter((p) => !p.sent).length, delivery: env.RESEND_API_KEY ? 'resend' : env.SMTP_URL ? 'smtp' : 'queued' }); });
   app.post('/api/alerts/run', async (c) => {
     const feeds = registry.list().filter((a) => a.producesThreats !== false);
     const results = await Promise.all(feeds.map((a) => registry.get(a.id, env)));

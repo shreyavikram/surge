@@ -15,3 +15,4 @@ export * from './focus.js';
 export * from './interpret.js';
 export * from './heat.js';
 export * from './anomaly.js';
+export * from './families.js';

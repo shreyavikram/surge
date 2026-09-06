@@ -53,7 +53,7 @@ export function useRead() {
   return { readIds: new Set(read_), markRead };
 }
 
-export interface Settings { email: string; alerts: boolean; theme: 'dark' | 'light'; basemap?: 'simple' | 'tiles' }
+export interface Settings { email: string; alerts: boolean; theme: 'dark' | 'light'; basemap?: 'simple' | 'tiles'; frequency?: 'immediate' | 'weekly' | 'monthly' }
 export function useSettings() {
   const [settings, setSettings] = useState<Settings>(() => read<Settings>('surge-settings', { email: '', alerts: false, theme: 'dark' }));
   useEffect(() => write('surge-settings', settings), [settings]);

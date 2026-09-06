@@ -48,7 +48,7 @@ export function Filters({ ctx, focus, setFocus, commodities, setCommodities, fam
   const famSummary = families.size === 0 ? 'All threat types' : families.size === 1 ? FAMILIES.find((f) => f.id === [...families][0])!.label : `${families.size} kinds`;
   return (
     <div className="filters">
-      <Dropdown label="Area" summary={areaSummary}>
+      <Dropdown label="Importer" summary={areaSummary}>
         <div className="dd-kind">
           {(['us', 'state', 'district'] as const).map((k) => (
             (k !== 'district' || hasDistricts) && <label key={k}><input type="radio" name="focus-kind" checked={focus.kind === k} onChange={() => setFocus({ kind: k, ids: [] })} /> {k === 'us' ? 'United States' : k === 'state' ? 'States' : 'Congressional districts'}</label>
