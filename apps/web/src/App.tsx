@@ -111,7 +111,7 @@ export function App() {
   return (
     <div className="app">
       <TopBar tabs={tabs} activeTab={activeTab} onSelectTab={(id) => { setActiveTab(id); setSelectedId(null); setDrawerOpen(false); }} onNewTab={newTab} onRenameTab={rename} onCloseTab={closeTab}
-        feedStatus={feedStatus} onSettings={() => setShowSettings(true)} onCompare={() => setShowCompare(true)} theme={theme} toggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
+        feedStatus={feedStatus} onCompare={() => setShowCompare(true)} theme={theme} toggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
       {editable && (
         <div className="scenario-bar">
           <Describe ctx={ctx} onAdd={onAdd} />
@@ -136,7 +136,7 @@ export function App() {
           <button className="edge-toggle right" onClick={() => setDrawerOpen(true)} title="Show analysis"><span className="chev">‹</span><span className="edge-lbl">Analysis</span></button>
         ) : null}
       </div>
-      <button className="fab" onClick={() => setShowSettings(true)} title="Email alerts"><span className="fab-ico">🔔</span> Alerts</button>
+      <button className="fab" onClick={() => setShowSettings(true)} title="Email alerts and settings"><span className="fab-ico">🔔</span> Alerts</button>
       {showCompare && <Compare ctx={ctx} tabs={tabs} base={base} entriesFor={entriesFor} focus={focus} onClose={() => setShowCompare(false)} />}
       {showSettings && <Settings settings={settings} onSave={setSettings} onClose={() => setShowSettings(false)} focusLabel={fLabel} />}
     </div>

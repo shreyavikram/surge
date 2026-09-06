@@ -17,7 +17,7 @@ export function Settings({ settings, onSave, onClose, focusLabel }: { settings: 
   return (
     <div className="modal-back" onClick={onClose}>
       <div className="modal narrow" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-head"><h3>Settings</h3><button className="iconbtn" onClick={onClose}>×</button></div>
+        <div className="modal-head"><h3>Alerts and settings</h3><button className="iconbtn" onClick={onClose}>×</button></div>
         <label className="field"><span>Email for alerts</span><input type="email" value={email} placeholder="staffer@house.gov" onChange={(e) => setEmail(e.target.value)} /></label>
         <label className="field row"><input type="checkbox" checked={alerts} onChange={(e) => setAlerts(e.target.checked)} /><span>Email me when a new threat appears that reaches <b>{focusLabel}</b></span></label>
         <label className="field"><span>Map style</span>

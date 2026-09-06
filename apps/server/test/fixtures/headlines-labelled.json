@@ -1,0 +1,2155 @@
+[
+ {
+  "title": "Factbox-EU ban on animal products affects $1.8 billion in Brazilian exports",
+  "source": "Yahoo Finance",
+  "isEvent": false,
+  "note": "factbox/explainer on the EU ban"
+ },
+ {
+  "title": "Brazil Loses Premium Beef Price Anchor After EU Export Ban",
+  "source": "theagribiz.com",
+  "isEvent": true,
+  "category": "embargo",
+  "regionId": "brazil",
+  "note": "EU import ban on Brazilian beef; the US channel may even gain supply"
+ },
+ {
+  "title": "Brazil claims 'progress' on EU poultry and honey export ban",
+  "source": "Agriland",
+  "isEvent": false,
+  "note": "negotiation progress"
+ },
+ {
+  "title": "Egypt allows sugar exports to ease surplus as producers struggle with rising stocks",
+  "source": "ChiniMandi",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "The luxury of being ordinary | Business Standard - newspaper",
+  "source": "Magzter",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Chaman Lal Setia Exports Posts Rs 114.78 Crore Profit, Declares Rs 3 Dividend",
+  "source": "Whalesbook",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Mohanlal announces Operation Ganga with striking first poster, Arjun Rampal and Bhagyashri Borse on board",
+  "source": "Business Upturn",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Texas A&M AgriLife tests far-ultraviolet light to prevent bird flu in poultry",
+  "source": "AgriLife Today",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Uruguay declares nationwide health emergency over bird flu outbreak",
+  "source": "Türkiye Today",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "uruguay"
+ },
+ {
+  "title": "Uruguay declares nationwide health emergency over bird flu",
+  "source": "Latest news from Azerbaijan",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "uruguay"
+ },
+ {
+  "title": "Balticovo penetrates U.S. market in wake of bird flu crisis",
+  "source": "The Baltic Course",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Shock as second dolphin killed by bird flu, chickens ‘eventually’ to go",
+  "source": "Adelaide Now",
+  "isEvent": false,
+  "note": "wildlife, not a food channel"
+ },
+ {
+  "title": "H5 Bird Flu Hits Port Kembla, Warriewood, Coffs Harbour",
+  "source": "Mirage News",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "australia",
+  "note": "NSW towns; country not named in the headline"
+ },
+ {
+  "title": "Experts say cats at risk from deadly bird flu spread in WA",
+  "source": "The West Australian",
+  "isEvent": false,
+  "note": "wildlife, not a food channel"
+ },
+ {
+  "title": "Knowns and Unknowns on the Presidential Beef Proclamation",
+  "source": "American Farm Bureau Federation",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Trump reveals Brazil, Argentina involved in controversial beef deal",
+  "source": "The Hill",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Trump has serious beef with American farmers",
+  "source": "spectator.com",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Here’s How To Tell Whether Beef Is From The U.S.",
+  "source": "Forbes",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Tariffs: The beef over beef imports",
+  "source": "The Week",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Trump’s tariff moves threaten America’s struggling beef industry, rancher says",
+  "source": "The Michigan Independent",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Local farmers say imported beef tariff could impact American beef cattle industry",
+  "source": "WJHL",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Trump’s Beef Tariff Plan Protects the Largest Driver of Global Deforestation",
+  "source": "Green Queen Media",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Ala. congressman introduces bill to reverse Trump beef import order",
+  "source": "AGDAILY",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Grand County rancher says drought and rising costs outweigh beef tariff concerns",
+  "source": "SkyHiNews.com",
+  "isEvent": false,
+  "note": "county-level; single rancher quote"
+ },
+ {
+  "title": "Why Beef Prices Are Still So High: More Imports Won’t Fix America’s Cattle Crisis",
+  "source": "Coalition For A Prosperous America",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Trump Expected to Sign a Beef-Related Executive Order on Friday, Sources Say",
+  "source": "Successful Farming",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Tariff pause on beef imports already pressuring cattle prices",
+  "source": "koamnewsnow.com",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Will Trump’s beef plan actually lower prices for consumers?",
+  "source": "The Hill",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Billionaire-Backed Beef: Trump Lifts Tariffs on Brazilian Meat Banned by Europe",
+  "source": "Forbes",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Trump Says Tariff-Free Beef From Brazil, Argentina Coming — Also Targets 'Monopoly' in Industry",
+  "source": "TradingView",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Trump Signs Orders to Allow Ranchers to Protect Herds From Wolves, Expand Meat Processing",
+  "source": "Successful Farming",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "House Agriculture Chairman Shares Concerns Over President’s Beef Import Plan",
+  "source": "WZMQ 19 News",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Trump’s Price Relief on Beef Imports Is Overshadowed by New Wave of Tariffs on Canadian Goods",
+  "source": "The New York Sun",
+  "isEvent": true,
+  "category": "tariff",
+  "regionId": "canada",
+  "note": "mixed: beef tariff relief plus new tariffs on Canadian goods"
+ },
+ {
+  "title": "Think your beef is American? Here’s what could really be in your burger",
+  "source": "New York Post",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Ashley Hinson’s Chances in Iowa Senate Race Amid Beef Backlash: Poll",
+  "source": "Newsweek",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Rhoden Not a Fan of Trump’s Beef Import Plan",
+  "source": "Go Watertown Radio",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Trump’s beef import move draws new pushback from Iowa Republicans",
+  "source": "thegazette.com",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Contributor: Will Americans get price relief or a Canadian trade war?",
+  "source": "Los Angeles Times",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Costco, Aldi among grocers who received letters from DOJ as beef price investigation expands",
+  "source": "KSAT",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Trump Says Cheaper Brazilian and Argentine Beef Is Coming Under 90‑Day US Tariff Pause to Cut Prices",
+  "source": "inkl",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Trump Proposes Tariff Relief on Beef Imports to Combat Soaring US Meat Prices",
+  "source": "Vocal",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Adverse weather, lower Brazil output, India’s duty-free imports push global sugar prices up 11.9%: FAO",
+  "source": "BusinessLine",
+  "isEvent": false,
+  "note": "'prices up 11.9%' price story with duty-free (relief) imports"
+ },
+ {
+  "title": "Donald Trump Hosts Rose Garden BBQ As Beef Prices Rise",
+  "source": "wonderwall.com",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Business News",
+  "source": "LatestLY",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Drought threatens crops in western, northwestern Corn Belt",
+  "source": "Brownfield Ag News",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-midwest-corn-belt"
+ },
+ {
+  "title": "Eastern Montana rancher turns to 'sketchy' portable tanks as D3 drought dries up cattle water",
+  "source": "Yahoo",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-MT"
+ },
+ {
+  "title": "Wisconsin Corn Crop Faces Early Harvest as Drought Takes Toll",
+  "source": "Successful Farming",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-WI"
+ },
+ {
+  "title": "Drought adds to pastureland challenges",
+  "source": "South Dakota News Watch",
+  "isEvent": true,
+  "category": "drought",
+  "note": "no place in the headline; South Dakota only from the outlet"
+ },
+ {
+  "title": "Wisconsin Drought Slashes Corn Potential as Early Harvest Raises Farm Risks",
+  "source": "agrolatam.com",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-WI"
+ },
+ {
+  "title": "High temps, low rainfall hit crops, pastures",
+  "source": "Standard Democrat",
+  "isEvent": true,
+  "category": "drought",
+  "note": "no place; southeast Missouri local paper"
+ },
+ {
+  "title": "Drought and Feed Shortages Continue to Challenge Nebraska Cattle Herds",
+  "source": "Farms.com",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-NE"
+ },
+ {
+  "title": "After drought, sudden rain and chill threaten local tomato crops as farms adapt",
+  "source": "KCBY",
+  "isEvent": false,
+  "note": "single local farm feature; no state"
+ },
+ {
+  "title": "The severe drought impacting cattle farmers in the Ozarks",
+  "source": "KY3",
+  "isEvent": true,
+  "category": "drought",
+  "note": "Ozarks spans MO/AR; no state id"
+ },
+ {
+  "title": "Amid drought, New Mexico ranchers eying cattle movement at border, Trump beef plan",
+  "source": "Santa Fe New Mexican",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-NM"
+ },
+ {
+  "title": "Dry weather, variable rain take toll on Michigan corn yield potential",
+  "source": "Brownfield Ag News",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-MI",
+  "note": "'dry weather', no drought word"
+ },
+ {
+  "title": "Flash drought expands from Southern Plains into Ozarks",
+  "source": "Brownfield Ag News",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-plains-wheat"
+ },
+ {
+  "title": "World food prices at highest since 2022 as supply risks mount, FAO says",
+  "source": "Reuters",
+  "isEvent": false,
+  "note": "world price index story"
+ },
+ {
+  "title": "Honduras Counts Empty Corn Rows as Drought Steals the Final Planting Season",
+  "source": "LatinAmerican Post",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "honduras"
+ },
+ {
+  "title": "How Does Heat Stress Affect Cattle Conception and Pregnancy Rates?",
+  "source": "drovers.com",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Heat Dome Tightens Grip on U.S. Farms as Drought Threatens Crop Margins",
+  "source": "agrolatam.com",
+  "isEvent": true,
+  "category": "heat",
+  "regionId": "us-national"
+ },
+ {
+  "title": "Gianforte announces drought designation in 5 counties",
+  "source": "High Plains Journal",
+  "isEvent": false,
+  "note": "disaster designation is a relief action; no state in the headline"
+ },
+ {
+  "title": "FEFAC calls for emergency action as drought strains EU feed supplies",
+  "source": "Aquafeed.com",
+  "isEvent": false,
+  "note": "trade-body appeal, no place"
+ },
+ {
+  "title": "Drought-proofing Britain’s harvest is a job for buyers as well as farmers",
+  "source": "Sustainable Views",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Drought deepen food crisis in northern Ethiopia as livestock die and crops fail",
+  "source": "Ethiopia Observer",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "ethiopia"
+ },
+ {
+  "title": "Drought cuts Serbia’s corn and soybean yields, threatens higher meat prices",
+  "source": "UkrAgroConsult",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Drought pushes corn harvests in Central and Eastern Europe to multi-year lows",
+  "source": "UkrAgroConsult",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Hunger claims 3 lives in Eastern Equatoria as drought destroys crops",
+  "source": "Eye Radio",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Crops destroyed in 1.93 lakh hectares, yet Vijayanagar district not drought-hit",
+  "source": "Deccan Herald",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "india",
+  "note": "district-level Karnataka"
+ },
+ {
+  "title": "Resilience now for future droughts",
+  "source": "Deccan Herald",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Kenya maize, wheat import demand rises on failed crop",
+  "source": "Daily Nation",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Kampong Speu governor inspects drought-hit rice fields",
+  "source": "Khmer Times",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Compensation for drought-affected crops to commence today",
+  "source": "Ada Derana",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "El Niño-driven drought damages over 8,000 acres of crops in Sri Lanka",
+  "source": "Ada Derana",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "‘Crops have failed’: Karnataka CM Shivakumar conducts drought survey in Bagalkot",
+  "source": "Social News XYZ",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "india",
+  "note": "Karnataka; crops failed"
+ },
+ {
+  "title": "Iran’s Attacks Keep the Strait of Hormuz in a Lethal Stalemate",
+  "source": "The New York Times",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Iran claims a strike on a US ship in the Strait of Hormuz but the US denies it",
+  "source": "AP News",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Iran attacks US ship in Strait of Hormuz",
+  "source": "The Hill",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Iran attacks naval drone near Hormuz after US strikes 3 oil tankers",
+  "source": "South China Morning Post",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Oman played both sides — until it didn’t. How a secret shipping deal ignited the Strait of Hormuz",
+  "source": "washingtonexaminer.com",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Strait of Hormuz Under Iran’s Maritime Sanctions Pressure",
+  "source": "WANA News Agency",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Iran claims hitting 3 oil tankers, 3 US-linked ships in Hormuz",
+  "source": "Türkiye Today",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "U.S. strikes 3 Iranian oil tankers after saying warships were targeted with ballistic missiles",
+  "source": "PBS",
+  "isEvent": true,
+  "category": "war",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Middle East tensions, Panama Canal limits can further tighten global shipping",
+  "source": "digitimes",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "Iran targets three US ships, three oil tankers in Hormuz in retaliation for US strikes, IRGC claims",
+  "source": "The Jerusalem Post",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Panama Canal Pushes Back Planned Draft Cut for Big Ships",
+  "source": "The Maritime Executive",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Gulf shipping traffic via Hormuz keeps below 10-day average, data shows",
+  "source": "Reuters",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "CMG on-site exclusive: Low shipping traffic in Strait of Hormuz as US hits Iranian oil tankers",
+  "source": "Modern Ghana",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Live view of Strait of Hormuz ship traffic",
+  "source": "news.cgtn.com",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "In Hormuz, Iran only needs to keep ships guessing",
+  "source": "Iran International",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Hormuz: The bill for America's strategic miscalculation",
+  "source": "Mehr News Agency",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Panama Canal restricts traffic amid Hormuz crisis: Why this matters",
+  "source": "Al Jazeera",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "panama-canal"
+ },
+ {
+  "title": "JD Vance blames Iran for high gas prices, criticizes Europe over Strait of Hormuz",
+  "source": "The Jerusalem Post",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "How much oil is going through Hormuz? Why data doesn’t match US claims",
+  "source": "Al Jazeera",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "How Much Oil Is Really Getting Through the Strait of Hormuz",
+  "source": "Crude Oil Prices Today | OilPrice.com",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Panama Canal Scraps Planned October Draft Cut—for Now",
+  "source": "gCaptain",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Red Sea Coastal Battles Intensify Raising New Concerns for Shipping",
+  "source": "The Maritime Executive",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "suez-red-sea"
+ },
+ {
+  "title": "U.S. 'Economic Outcast’ operation gains momentum as EU joins sanctions; South Korea weighs military backing",
+  "source": "cnbc.com",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Korea Paving Way to Send Naval Ship to Hormuz, Reports Say",
+  "source": "gCaptain",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "South Korea Paving Way to Send Troops to Hormuz, Reports Say",
+  "source": "Bloomberg.com",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "How El Nino is choking the Panama Canal",
+  "source": "Phys.org",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "War Risk Claims Top $2 Billion as Shipping Attacks Spread Beyond Hormuz",
+  "source": "gCaptain",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "Video shows ships near Strait of Hormuz",
+  "source": "AP News",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "EU signs up to US ‘Economic Outcast’ pressure campaign on Iran",
+  "source": "tradewindsnews.com",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Maritime patrol aircraft, support ship among Korea's options for Strait of Hormuz mission",
+  "source": "The Korea Times",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "VP Vance says US will not talk to Iran unless Hormuz shipping attacks stop",
+  "source": "Modern Ghana",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Liberian-flagged tanker carrying 2 million barrels of Saudi crude hit by 3 unknown projectiles in Strait of Hormuz as Africa faces fuel pressure",
+  "source": "Business Insider Africa",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "El Niño drought forces Panama Canal to reduce ship numbers",
+  "source": "NZ Herald",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "panama-canal"
+ },
+ {
+  "title": "Saudi oil exports sink to nine-year-low: Report",
+  "source": "thecradle.co",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "Traffic through Strait of Hormuz plummets to 5 vessels daily amid security threats",
+  "source": "Data Portuaria",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Suez Canal Traffic Rebounds as Vessel Numbers Rise 40%, Dollar Revenues Jump 50%",
+  "source": "Sada Elbalad english",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "US CENTCOM: 1,600 merchant ships, 800 million barrels of oil cleared through Hormuz amid Iran tension",
+  "source": "Business Upturn",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "Vance: Iran’s Control of Hormuz ‘Effectively Gone,’ Strait Becoming a ‘Diminishing Asset’",
+  "source": "breitbart.com",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "NACHURS Helps Farmers Looking to Improve Fertilizer Efficiency into 2027 - RFD-TV",
+  "source": "RFD-TV",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Trade tensions between US-Canada could change how farmers grow crops",
+  "source": "Wisconsin Farmer",
+  "isEvent": false,
+  "note": "trade tensions, hypothetical"
+ },
+ {
+  "title": "2026 Farm Income Outlook Brightens While Fuel and Fertilizer Costs Surge",
+  "source": "Successful Farming",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Record High Diesel Prices Affect Farmers",
+  "source": "KNSI",
+  "isEvent": true,
+  "category": "input_cost",
+  "note": "no place"
+ },
+ {
+  "title": "Farmer optimism for the future grows, AI insights revealed in latest Purdue survey",
+  "source": "Michigan Farm News",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "How climate change and food insecurity could fuel conflicts",
+  "source": "dw.com",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Food Prices Surge to 2022 High as Supply Risks Threaten Farm Margins",
+  "source": "agrolatam.com",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Diesel fuel prices poised to set new records as harvest season begins",
+  "source": "Michigan Farm News",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Record-high diesel prices impact North Alabama farmers",
+  "source": "WAFF",
+  "isEvent": true,
+  "category": "input_cost",
+  "regionId": "us-state-AL"
+ },
+ {
+  "title": "US Fertilizer Prices Ease as CHS, OCP Break Ground on First New Phosphate Plant in Four Decades",
+  "source": "Global Agriculture",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "USDA Forecast Shows Fertilizer Costs Jumping 15.3 Percent as Farm Expenses Outpace Income Gains",
+  "source": "Global Agriculture",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Nutrien Stock Jumps 3.14% as Fertilizer Demand, Potash Strength and Global Food Security Support Momentum",
+  "source": "kalkine.ca",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "France pledges €1 billion to support drought-hit farmers",
+  "source": "Latest news from Azerbaijan",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Yara stock falls as Barclays starts bearish coverage on nitrogen price risk",
+  "source": "AD HOC NEWS",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Verde AgriTech Stock Jumps 6.02% as Fertilizer Demand and Sustainable Agriculture Potential Lift Momentum",
+  "source": "kalkine.ca",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "More than 300 Asturian farmers will receive 209,505 euros in aid for fertilizers.",
+  "source": "democrata.es",
+  "isEvent": false,
+  "note": "vigil, donation, aid or appeal"
+ },
+ {
+  "title": "Fertilizer, Fuel Costs Threaten 20 Million in Africa",
+  "source": "News Ghana",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "The Government grants more than twelve million in aid for fertilizers to 12,066 farmers from Granada",
+  "source": "democrata.es",
+  "isEvent": false,
+  "note": "vigil, donation, aid or appeal"
+ },
+ {
+  "title": "US diesel price hits new high",
+  "source": "Business Recorder",
+  "isEvent": true,
+  "category": "input_cost",
+  "regionId": "us-national"
+ },
+ {
+  "title": "Skewed fertiliser use continues in India as farmers buy more urea",
+  "source": "BusinessLine",
+  "isEvent": false,
+  "note": "fertiliser-use policy"
+ },
+ {
+  "title": "India’s Fertilizer Challenge: Import Dependence, Imbalanced Use and the Road to Self-Reliance",
+  "source": "Newstrack English",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Foot-and-mouth disease confirmed in Cyprus",
+  "source": "Vet Times",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "North Gyeongsang Province mobilizes against foot-and-mouth outbreak at Yecheon cattle farm",
+  "source": "mbiz.heraldcorp.com",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Foot-and-mouth disease is a supply chain crisis, not just a farming problem",
+  "source": "Moneyweb",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Greek Army Joins Effort to Contain Foot-and-mouth Disease Spread on Aegean Island of Lesvos",
+  "source": "БТА",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "greece",
+  "note": "containment effort during an active outbreak"
+ },
+ {
+  "title": "Foot-and-mouth crisis hits SA dairy industry with R1-billion loss",
+  "source": "Food For Mzansi",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "south-africa",
+  "note": "'SA' abbreviation"
+ },
+ {
+  "title": "Uruguay: Nationwide Sanitary Emergency Following H5 HPAI Detection",
+  "source": "PoultryMed",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "uruguay"
+ },
+ {
+  "title": "Two more farms in Yecheon-gun hit by foot-and-mouth disease as county reimposes movement restrictions",
+  "source": "mbiz.heraldcorp.com",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Homeowner says his experiences with flood-prone well are cautionary tale about lax regulations in Alamance Co.",
+  "source": "alamancenews.com",
+  "isEvent": false,
+  "note": "county well story"
+ },
+ {
+  "title": "Disaster relief reaches Nepal. See your love in action!",
+  "source": "lwr.org",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Fresno State vigil honors victims of deadly Nepal flash flood",
+  "source": "ABC30 Fresno",
+  "isEvent": false,
+  "note": "vigil, donation, aid or appeal"
+ },
+ {
+  "title": "Montana ranching family rescues cattle herd from the path of two southwest Montana wildfires",
+  "source": "KBZK News",
+  "isEvent": false,
+  "note": "herd rescued"
+ },
+ {
+  "title": "Wildfire burns grazing land for Warm Springs ranch’s untamed horse herd",
+  "source": "OregonLive.com",
+  "isEvent": false,
+  "note": "horses, not a food channel"
+ },
+ {
+  "title": "Walmart and Major Retailers Face DOJ Antitrust Probe Over Rising Beef Prices",
+  "source": "KVOM 101.7",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "5 Indigenous Rice Varieties That Can Survive Extreme Rainfall & Floods",
+  "source": "The Better India",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Atlantic has no hurricanes yet, but forecasters say one late storm can still hit hard",
+  "source": "thecooldown.com",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Federal government matches donations made to the Canadian Red Cross 2026 flood appeal",
+  "source": "CityNews Winnipeg",
+  "isEvent": false,
+  "note": "vigil, donation, aid or appeal"
+ },
+ {
+  "title": "Okanagan culinary community hosting fundraising evening to support farmers impacted by wildfire",
+  "source": "Castanet",
+  "isEvent": false,
+  "note": "vigil, donation, aid or appeal"
+ },
+ {
+  "title": "Olympic host Pyeongchang-gun sends volunteers, spending to flood-hit Geoje",
+  "source": "mbiz.heraldcorp.com",
+  "isEvent": false,
+  "note": "vigil, donation, aid or appeal"
+ },
+ {
+  "title": "Deloitte Anjin and Nonghyup Support Recovery for Flood-Affected Grape Farms in Geoje",
+  "source": "아시아경제",
+  "isEvent": false,
+  "note": "vigil, donation, aid or appeal"
+ },
+ {
+  "title": "Bihar rivers swell after Nepal floods, Diara residents flee with cattle, children as water enters homes",
+  "source": "Big News Network.com",
+  "isEvent": true,
+  "category": "flood",
+  "regionId": "india"
+ },
+ {
+  "title": "Arrangements made to distribute Rs 4 lakh to flood-affected families within 24 hours in Varanasi: CM Yogi Adityanath",
+  "source": "Big News Network.com",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Bihar Flood Situation Worsens as Ganges Crosses Danger Mark Across Multiple Districts",
+  "source": "LatestLY",
+  "isEvent": true,
+  "category": "flood",
+  "regionId": "india",
+  "note": "Bihar; country not named"
+ },
+ {
+  "title": "Bihar Floods: Ganga Crosses Danger Mark Across 13 Districts",
+  "source": "Whalesbook",
+  "isEvent": true,
+  "category": "flood",
+  "regionId": "india"
+ },
+ {
+  "title": "India Lifts Wheat Export Ban in Boost to War-Hit World Trade",
+  "source": "Bloomberg.com",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "India lifts 4-year wheat export ban in bid to boost farmers' earnings",
+  "source": "India Today",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "India Has Lifted Its Wheat Export Ban. Why Aren’t Global Buyers Rushing In?",
+  "source": "outlookbusiness.com",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Wheat export ban lifted, but high prices may limit shipments | India News",
+  "source": "Hindustan Times",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "India Scraps Four-Year Wheat Export Ban To Boost Farmers' Incomes As Domestic Prices Fall",
+  "source": "Swarajya",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "EU talks with Brazil 'ongoing' as export ban deadline looms",
+  "source": "Agriland",
+  "isEvent": false,
+  "note": "talks; deadline looms"
+ },
+ {
+  "title": "MEP: Total Brazil beef ban 'confirmed' by EU health chief's office",
+  "source": "Agriland",
+  "isEvent": true,
+  "category": "embargo",
+  "regionId": "brazil",
+  "note": "EU ban on Brazilian beef confirmed"
+ },
+ {
+  "title": "Why has India lifted wheat export ban now? Here's what it means",
+  "source": "dnaindia.com",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Govt frees wheat, flour exports",
+  "source": "financialexpress.com",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "USDA confirms new H5N1 avian flu cases in poultry, dairy cattle",
+  "source": "CIDRAP",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "us-national"
+ },
+ {
+  "title": "Backyard hen boom on the cards amid bird flu fears, seller says",
+  "source": "ABC News & Headlines – Australian Broadcasting Corporation",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Bird Flu Detected in Several Poultry Flocks in South Dakota - KELO-AM",
+  "source": "KELO-AM",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "us-state-SD"
+ },
+ {
+  "title": "More than 150K birds affected by bird flu in SD",
+  "source": "keloland.com",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "us-state-SD",
+  "note": "state only as 'SD'"
+ },
+ {
+  "title": "Bird Flu Detections Resume in US Dairy Herds and Poultry Flocks After a Month Without Federal Updates",
+  "source": "Medical Daily",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "us-national"
+ },
+ {
+  "title": "Alveo partners with AgriNerds on bird flu surveillance",
+  "source": "Farms.com",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Stark price warning amid bird flu crisis",
+  "source": "Yahoo Finance Australia",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "ADM Converts Iowa Tanks for Precision Fermentation Egg Protein: Demand Up 550% Amid Bird Flu",
+  "source": "Tech Times",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Poultry farmer nervous as Christmas turkeys face bird flu threat",
+  "source": "ABC News & Headlines – Australian Broadcasting Corporation",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Cost of chicken to rise soon, even if bird flu doesn't spread",
+  "source": "ABC News & Headlines – Australian Broadcasting Corporation",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Chicken sales plummet amid bird flu spread, Perth butcher says",
+  "source": "ABC News & Headlines – Australian Broadcasting Corporation",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Free-range hens likely to go in and out of lockdown as bird flu cases continue to emerge",
+  "source": "RNZ",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "new-zealand",
+  "note": "country not named in the headline"
+ },
+ {
+  "title": "Australia to evacuate sub-Antarctic research base over bird flu fears",
+  "source": "The Straits Times",
+  "isEvent": false,
+  "note": "wildlife, not a food channel"
+ },
+ {
+  "title": "Bird flu could close down some poultry farms for good",
+  "source": "farmersweekly.co.nz",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Deadly bird flu could decimate our wildlife. Experts say we’re doing almost nothing to stop it",
+  "source": "SMH.com.au",
+  "isEvent": false,
+  "note": "wildlife, not a food channel"
+ },
+ {
+  "title": "New York City shuts live poultry markets over bird flu cases",
+  "source": "The Guardian Nigeria News",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "us-state-NY"
+ },
+ {
+  "title": "Bird flu reaches Tasmania’s north and north-east as cases hit 25",
+  "source": "Pulse Tasmania",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "australia",
+  "note": "Tasmania; country not named"
+ },
+ {
+  "title": "‘Extinction-level’: Expert’s chilling bird flu warning; ‘luxury’ eggs fears",
+  "source": "The Daily Telegraph",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Poultry chiefs warn of inevitable price hikes",
+  "source": "The Mercury",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Bird flu detected in Frankston",
+  "source": "Bayside News",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "australia",
+  "note": "Melbourne suburb; place not inferable from the headline"
+ },
+ {
+  "title": "Bird flu vaccination call made for vulnerable birds at Cleland Wildlife Park",
+  "source": "Glam Adelaide",
+  "isEvent": false,
+  "note": "wildlife, not a food channel"
+ },
+ {
+  "title": "Australia's largest chicken producer warns bird flu could send egg and poultry prices rising",
+  "source": "Daily Mail",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Trump faces backlash from Republicans over plan to lift tariffs on beef imports | Trump administration",
+  "source": "The Guardian",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Will Trump's latest beef plan make your hamburger cheaper? Not much, experts say",
+  "source": "npr.org",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Trump signs order expanding imports to lower 'unreasonably' high beef prices",
+  "source": "Reuters",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Some Republican lawmakers skewer Trump's beef imports, slam Canada trade war - ABC News",
+  "source": "ABC News - Breaking News, Latest News and Videos",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Is It Safe To Eat Beef? What To Know About Major Recall, Imports And Trump’s Tariff-Free Meat",
+  "source": "Forbes",
+  "isEvent": false,
+  "note": "explainer"
+ },
+ {
+  "title": "JBS co-owner lobbied Trump to lower beef import tariffs, WSJ reports",
+  "source": "Reuters",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "House Republicans press Trump trade official over beef imports, Canada",
+  "source": "The Hill",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Tariffs, diesel prices and beef imports add pressure for U.S. farmers and ranchers",
+  "source": "KSJD",
+  "isEvent": false,
+  "note": "roundup of pressures"
+ },
+ {
+  "title": "Is recalled Argentine beef connected to Trump’s beef import plan?",
+  "source": "The Hill",
+  "isEvent": false,
+  "note": "question explainer"
+ },
+ {
+  "title": "How much beef does the US import, and where does it come from?",
+  "source": "NewsNation",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Cattle prices plummet in wake of Trump tariff policy",
+  "source": "Talk Business & Politics",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "G.O.P. Lawmakers Rebuke Trump on Plan to Increase Beef Imports",
+  "source": "The New York Times",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Trump’s Tactics to Lower Beef Prices and Appease Ranchers Fall Short",
+  "source": "The New York Times",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Brazilian Beef Stands to Benefit From US Import Tariff Suspension: Market",
+  "source": "Morning Ag Clips",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Trump pauses tariffs on 300,000 metric tons of imported ground beef starting Sept. 1",
+  "source": "WHO13.com",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "I source meat from US ranchers. Here's why Trump's plan to lower beef prices worries me.",
+  "source": "Business Insider",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Who Gets the Savings From Trump’s Imported Beef?",
+  "source": "Farm Action",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Figures files bill seeking to block Trump beef import order",
+  "source": "Alabama Political Reporter",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "Beef prices, tariffs and uncertainty: What a Tenn. farmer says is at stake for your wallet",
+  "source": "News Channel 5 Nashville",
+  "isEvent": false,
+  "note": "no place; reaction"
+ },
+ {
+  "title": "Iowa GOP Congress members urge Trump to expand domestic beef markets",
+  "source": "desmoinesregister.com",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "A-State Leads $2.2M NSF Project on Drought-Resilient Rice, Wheat",
+  "source": "Arkansas State University",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "‘Ground was so dry’: Drought strains South Carolina farm’s crops",
+  "source": "WMBF",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-SC",
+  "note": "single farm feature"
+ },
+ {
+  "title": "Climate shocks hit EU maize heartland in Hungary and Romania",
+  "source": "Reuters",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Wisconsin crops advance while drought deepens in northwest region",
+  "source": "Wisconsin Farmer",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-WI"
+ },
+ {
+  "title": "Nebraska feedlot owner says beef imports won’t solve drought-driven supply problem",
+  "source": "KOLN | Nebraska Local News, Weather, Sports | Lincoln, NE",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-NE",
+  "note": "reaction piece; the drought-driven supply problem is the event"
+ },
+ {
+  "title": "Central Plains drought takes toll on pasture, cattle herds",
+  "source": "Brownfield Ag News",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-plains-wheat"
+ },
+ {
+  "title": "El Niño drives mass crop failures, food crisis in Central America, Oxfam warns",
+  "source": "Reuters",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "guatemala",
+  "note": "Central America; Oxfam warning about current crop failures"
+ },
+ {
+  "title": "Drought concerns prompt Northern Plains farmers to slow some crop sales",
+  "source": "Brownfield Ag News",
+  "isEvent": false,
+  "note": "marketing decision on drought concerns"
+ },
+ {
+  "title": "Nebraska Corn Yields Slide as Drought Threatens Farm Revenue",
+  "source": "agrolatam.com",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-NE"
+ },
+ {
+  "title": "South Plains Drought Forces Ranchers into Winter Planning - RFD-TV",
+  "source": "RFD-TV",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-plains-wheat"
+ },
+ {
+  "title": "Study: Warming climate could triple wheat prices",
+  "source": "World Grain",
+  "isEvent": false,
+  "note": "study"
+ },
+ {
+  "title": "U.S. Crops Face Heat and Drought as Plains Soil Moisture Shrinks",
+  "source": "agrolatam.com",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-plains-wheat"
+ },
+ {
+  "title": "OSU specialist studying heat impacts on cattle production",
+  "source": "KOKH",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Drought strains South Carolina farm’s crops",
+  "source": "WMBF",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-SC",
+  "note": "same outlet as the other SC headline"
+ },
+ {
+  "title": "Record drought grips Europe as rivers and crops dry up",
+  "source": "Al Jazeera",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Champagne growers, forced by heat and drought, race the clock during earliest-ever harvest",
+  "source": "OregonLive.com",
+  "isEvent": false,
+  "note": "wine, not a food commodity"
+ },
+ {
+  "title": "How food companies can prepare for the next drought",
+  "source": "FoodNavigator.com",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Gov. Spanberger meets Botetourt County farmers as 90-day imported beef tariff cut begins",
+  "source": "WSET",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Kansas Corn and Soybean Yields Are Expected to Drop in 2026",
+  "source": "Successful Farming",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Prickly Pear Research Targets Markets for Drought-Ready Crop - RFD-TV",
+  "source": "RFD-TV",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "France Eases Rules on Top Cheeses as Droughts Hurt Cattle Feed",
+  "source": "Bloomberg.com",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "El Salvador Farmers Watch El Niño Turn Corn into Dust",
+  "source": "LatinAmerican Post",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "el-salvador"
+ },
+ {
+  "title": "Tropical Storm Edouard Threatens Texas as Plains Drought Deepens",
+  "source": "agrolatam.com",
+  "isEvent": true,
+  "category": "storm",
+  "regionId": "us-state-TX"
+ },
+ {
+  "title": "Drought shrinks Belgian potato harvest to fraction of normal",
+  "source": "Türkiye Today",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "belgium",
+  "note": "'Belgian' adjective"
+ },
+ {
+  "title": "A nearly 25% drop in the hop harvest is forecast in the Czech Republic due to drought",
+  "source": "Українські Національні Новини (УНН)",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Dutch farmers report fewer crops, smaller carrots, onions and potatoes after drought",
+  "source": "NL Times",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "netherlands",
+  "note": "'Dutch' adjective"
+ },
+ {
+  "title": "Wisconsin's drought means farmers, and families, face a crunch - Leader-Telegram",
+  "source": "Leader-Telegram",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "us-state-WI"
+ },
+ {
+  "title": "Midwest Weather Shock: Flash Drought Turns Into Heavy Rain Threat This Week (2026 Forecast)",
+  "source": "Farms.com",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Rats, drought compound woes for farmers in Indonesia’s Central Java",
+  "source": "Asia News Network",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "indonesia"
+ },
+ {
+  "title": "Drought forces Czech farmers to cut cattle herds",
+  "source": "UkrAgroConsult",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "UK arable farmers lose billions after three years of ‘devastating’ harvests",
+  "source": "Energy & Climate Intelligence Unit | ECIU",
+  "isEvent": false,
+  "note": "retrospective"
+ },
+ {
+  "title": "Belgium’s beloved fries face supply crunch as heat, drought shrink potato harvest",
+  "source": "Malay Mail",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "belgium"
+ },
+ {
+  "title": "Drought and heat cut yields of key crops in Germany by 7–12%",
+  "source": "UkrAgroConsult",
+  "isEvent": true,
+  "category": "drought",
+  "regionId": "germany",
+  "note": "quotes a 7-12% yield loss"
+ },
+ {
+  "title": "Serbia's Drought Halves Crop Yields, Few Farms Insured",
+  "source": "srpske.rs",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Could Britain run out of cider? Why the drought is threatening next year’s pints",
+  "source": "The Independent",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Egypt, China develop strategic crop varieties resilient to drought and salinity",
+  "source": "Egypt Today",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Drought and heat hit summer crops in the EU: corn decreases by 7%, soybeans by 14%, and fodder becomes a problem in the west and center of the continent.",
+  "source": "Informat.ro",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "How a 95 percent drop in Hormuz traffic changed global shipping",
+  "source": "Al Jazeera",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Shipping Oil Through Hormuz Costs $20 Million, Total CEO Says",
+  "source": "Yahoo Finance",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "US clears Strait of Hormuz as 50,000 troops maintain blockade of Iran, CENTCOM chief says",
+  "source": "The Jerusalem Post",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "El Niño-Induced Drought Will Reduce Shipping Through Panama Canal — Likely Raising Consumer Costs Even More",
+  "source": "Truthout",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Trump: Mines fully removed from Strait of Hormuz",
+  "source": "Axios",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Iran threatens 46 ships in Strait of Hormuz transit crackdown",
+  "source": "Financial Times",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Tracking ship traffic through the Strait of Hormuz. Updated regularly.",
+  "source": "NBC News",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "Tehran engages in renewed diplomatic push, touts proposal to reopen Strait of Hormuz",
+  "source": "CBS News",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "Shipping traffic through Strait of Hormuz rises slightly, data shows",
+  "source": "Reuters",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Shipping traffic via Strait of Hormuz stays below 10-day average, data shows",
+  "source": "Reuters",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Why Hormuz remains high risk for ships despite US claims of mine-clearing",
+  "source": "Al Jazeera",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "US Commander, in Video, Declares Hormuz Shipping Lanes Mine-Free",
+  "source": "Bloomberg.com",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "India's Crude Import Bill Surges as Hormuz Shipping Rates Soar",
+  "source": "Crude Oil Prices Today | OilPrice.com",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Saudi Arabia says Iran attacked vessel in Hormuz, killing two sailors",
+  "source": "Reuters",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Iran and Oman hold talks on managing the Strait of Hormuz and other news from around the Middle East",
+  "source": "AP News",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "U.S. says pipelines will make Strait of Hormuz irrelevant. Energy experts disagree",
+  "source": "npr.org",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Strait of Hormuz shipping traffic remains low as fuel prices rise",
+  "source": "The Times of Israel",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Iran’s IRGC says 2 oil tankers hit mines in Strait of Hormuz, warns shipping companies",
+  "source": "aa.com.tr",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Another Tanker Struck as Hormuz Shipping Crisis Deepens",
+  "source": "Crude Oil Prices Today | OilPrice.com",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "CENTCOM says Strait of Hormuz is open, shipping companies not convinced as Iran war hits 6 months",
+  "source": "CBS News",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Panama Canal transit auction reaches record $5.3 million",
+  "source": "Kuehne+Nagel",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Jordan's Aqaba port sees transit cargo boost amid Hormuz disruption",
+  "source": "Reuters",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "$5.3 million a new record for Panama Canal transit",
+  "source": "freightwaves.com",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Hormuz Shipping Remains in Limbo Six Months into Middle East Conflict",
+  "source": "czapp.com",
+  "isEvent": false,
+  "note": "Hormuz coverage without a disruption"
+ },
+ {
+  "title": "Japan’s Mitsui OSK Sees Risk to Hormuz Shipping Through Year-End",
+  "source": "gCaptain",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Strait of Hormuz shipping disruption delays Boston food waste collection",
+  "source": "BBC",
+  "isEvent": false,
+  "note": "downstream trivia about the Hormuz disruption"
+ },
+ {
+  "title": "Houthi attacks intensify near key Red Sea shipping route",
+  "source": "WQAD",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "suez-red-sea"
+ },
+ {
+  "title": "Strait of Hormuz Shipping Drops to Four Vessels as U.S. Blockade Halts Iranian Exports: how 19 outlets framed it",
+  "source": "NewsCord",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "CT shipping company orders three vessels for $345M as Hormuz closure causes shipping rates to soar",
+  "source": "Hartford Business Journal",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Attacks flare between the U.S. and Iran after a monthlong pause",
+  "source": "npr.org",
+  "isEvent": true,
+  "category": "war",
+  "regionId": "hormuz",
+  "note": "'after a monthlong pause' is the opposite of relief"
+ },
+ {
+  "title": "U.S. Attacks Island in Strait of Hormuz; Iran Retaliates With Missile Fire",
+  "source": "The New York Times",
+  "isEvent": true,
+  "category": "war",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "Hormuz Traffic Craters to Four Ships as Iran-U.S. Strikes Escalate",
+  "source": "Crude Oil Prices Today | OilPrice.com",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "El Niño Strengthens, Raising New Concerns for Panama Canal",
+  "source": "gCaptain",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Hormuz shipping back in firing line as US-Iran strikes resume",
+  "source": "Splash247",
+  "isEvent": true,
+  "category": "chokepoint",
+  "regionId": "hormuz"
+ },
+ {
+  "title": "US strikes Iran’s Larak Island",
+  "source": "Politico",
+  "isEvent": true,
+  "category": "war",
+  "regionId": "iran"
+ },
+ {
+  "title": "Containers Red Sea and Suez return – a surge in ship size",
+  "source": "Seatrade Maritime News",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Why the US-Canada trade war could change how American farmers grow their crops for years",
+  "source": "The Conversation",
+  "isEvent": false,
+  "note": "figurative 'trade war'"
+ },
+ {
+  "title": "Fertilizer Prices Fall as UAN28, Urea Lead the Way Lower",
+  "source": "DTN Progressive Farmer",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Higher Fertilizer Prices Here To Stay",
+  "source": "Citrus Industry Magazine",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Sulfur Shortages and Global Shocks Drive Phosphate Fertilizer Prices Higher Ahead of Fall Application",
+  "source": "Oklahoma Farm Report",
+  "isEvent": true,
+  "category": "input_cost",
+  "note": "market report on a supply-driven spike; no place"
+ },
+ {
+  "title": "Fertilizer Prices Expected To Stay Elevated Through 2028",
+  "source": "AG INFORMATION NETWORK OF THE WEST",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "CHS, OCP to build U.S. phosphate fertilizer plant in Louisiana",
+  "source": "Farm Progress",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Four scenarios for a looming global food crisis",
+  "source": "Atlantic Council",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Gov. Pritzker Demands Relief For Farmers Facing Soaring Fertilizer Costs From Trump’s War With Iran",
+  "source": "RiverBender.com",
+  "isEvent": false,
+  "note": "politics or diplomacy without a supply effect"
+ },
+ {
+  "title": "CHS to build one of America’s first phosphate fertilizer plants in decades amid global disruptions",
+  "source": "Star Tribune",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "India turns to natural farming, ammonia as Iran war jolts urea market",
+  "source": "Nikkei Asia",
+  "isEvent": false,
+  "note": "adaptation story"
+ },
+ {
+  "title": "Farmers warned of fertiliser supply crunch as Iran war drags on",
+  "source": "The Times",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Wheat Prices Jump, but Montana Farmers Say Profits Are Still Hard to Find",
+  "source": "agrolatam.com",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Farmers face $31B in losses amid Iran war",
+  "source": "moneywise.com",
+  "isEvent": false,
+  "note": "loss estimate, not an event"
+ },
+ {
+  "title": "U.S. Farms Rely on Canadian Potash as Trump Escalates Trade Fight With Canada",
+  "source": "agrolatam.com",
+  "isEvent": false,
+  "note": "analysis of dependence"
+ },
+ {
+  "title": "Global fertilizer prices to remain high through 2028 — CoBank",
+  "source": "UkrAgroConsult",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "U.S. Farmers Face Worst Losses in 40 Years: Iran War Drives Up Costs, Industry Expected to Lose $31 Billion This Year",
+  "source": "finance.biggo.com",
+  "isEvent": false,
+  "note": "loss estimate, not an event"
+ },
+ {
+  "title": "Europe’s No 2 fertilizer producer warns of ammonia cuts as gas and carbon costs surge",
+  "source": "Indian Chemical News",
+  "isEvent": false,
+  "note": "forecast or warning"
+ },
+ {
+  "title": "Fertilizer crisis: What is driving shortages and price hikes?",
+  "source": "Dhaka Tribune",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Grain, Diesel, and Fertilizer Prices Surge Together... U.S. Food Inflation Pressures Rise Again",
+  "source": "아시아경제",
+  "isEvent": true,
+  "category": "input_cost",
+  "regionId": "us-national"
+ },
+ {
+  "title": "Fertiliser prices soar amid ‘artificial crisis’",
+  "source": "thedailystar.net",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Global Price Surge Depletes 58% of India's FY27 Fertiliser Subsidy Budget",
+  "source": "Rediff",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Sugarcane Farmers Are Squeezed from Many Sides",
+  "source": "Kompas.id",
+  "isEvent": false,
+  "note": "price story"
+ },
+ {
+  "title": "Closer to US ‘Fertilizer Independence’: $3.7B Ammonia Plant Set to Open in Louisiana in 2029",
+  "source": "wwbl.com",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "China to ship at least 1.2 million tons of urea to India after easing export controls",
+  "source": "Crypto Briefing",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Urea Fertilizer Shortage in Khuzdar Raises Concerns as Farmers Allege Black Marketing",
+  "source": "dailyindependent.com.pk",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Scheffler says he played BMW Championship with hand, foot and mouth disease",
+  "source": "AP News",
+  "isEvent": false,
+  "note": "human hand, foot and mouth disease"
+ },
+ {
+  "title": "African swine fever outbreak spreads in Finland",
+  "source": "Caliber.Az",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Foot-and-Mouth Disease Kills 90,000 Animals on Lesbos",
+  "source": "tovima.com",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "greece",
+  "note": "Lesbos; country not named"
+ },
+ {
+  "title": "Croatia eases African swine fever restrictions as outbreak situation improves",
+  "source": "Peoples Gazette Nigeria",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "H5N1 Bird Flu Outbreak: Impact on Australian Wildlife and Conservation",
+  "source": "India News Network",
+  "isEvent": false,
+  "note": "wildlife, not a food channel"
+ },
+ {
+  "title": "Xayaboury Detects African Swine Fever, Suspends Pork Sales and Consumption",
+  "source": "ຂ່າວສານປະເທດລາວ",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "How foot and mouth disease ran amok",
+  "source": "GroundUp",
+  "isEvent": false,
+  "note": "opinion or explainer"
+ },
+ {
+  "title": "Vihiga Reports Suspected African Swine Fever Outbreak in Sabatia",
+  "source": "Kilimo News",
+  "isEvent": false,
+  "note": "country or bloc with no region id / does not supply the US"
+ },
+ {
+  "title": "Gauteng records dramatic decline in new foot-and-mouth disease outbreaks",
+  "source": "Jacaranda FM",
+  "isEvent": false,
+  "note": "relief action"
+ },
+ {
+  "title": "Vinh Long hand, foot and mouth disease increases 2 times, risk of outbreak before the new school year",
+  "source": "Laodong.vn",
+  "isEvent": false,
+  "note": "human hand, foot and mouth disease"
+ },
+ {
+  "title": "3,000 children get hand, foot and mouth disease every week, Ministry of Health warns of outbreak risk",
+  "source": "Laodong.vn",
+  "isEvent": false,
+  "note": "human hand, foot and mouth disease"
+ },
+ {
+  "title": "African Swine Fever confirmed in three Kohima villages",
+  "source": "Eastern Mirror",
+  "isEvent": true,
+  "category": "disease",
+  "regionId": "india",
+  "note": "village-level, Nagaland"
+ },
+ {
+  "title": "H5N1 avian influenza outbreak poses severe risks to Australia’s wildlife",
+  "source": "SSBCrack",
+  "isEvent": false,
+  "note": "wildlife, not a food channel"
+ },
+ {
+  "title": "Hawaii Coffee Farms Face Long Recovery After Hurricane Lala",
+  "source": "Daily Coffee News by Roast Magazine",
+  "isEvent": true,
+  "category": "storm",
+  "regionId": "us-state-HI"
+ },
+ {
+  "title": "Environment Northwest: Wildfire smoke threatens cattle health & milk production in Pacific Northwest",
+  "source": "KGW",
+  "isEvent": true,
+  "category": "wildfire",
+  "regionId": "us-pacific-northwest"
+ },
+ {
+  "title": "Hawaii Island farmers, ranchers struggle to recover after Hurricane Lala destroys crops, water lines",
+  "source": "Hawaii News Now",
+  "isEvent": true,
+  "category": "storm",
+  "regionId": "us-state-HI"
+ },
+ {
+  "title": "Update: Citrus Fire in Riverside County remains 100% contained by Tuesday evening",
+  "source": "Sacramento Bee",
+  "isEvent": false,
+  "note": "a fire named 'Citrus', contained"
+ },
+ {
+  "title": "‘It’s going to be a big loss’: Lala devastates Ka‘u coffee farms right before harvest time - Hawaii Tribune-Herald",
+  "source": "Hawaii Tribune-Herald",
+  "isEvent": true,
+  "category": "storm",
+  "regionId": "us-state-HI",
+  "note": "storm named only as 'Lala'"
+ },
+ {
+  "title": "Texas ag officials activate wildfire relief funds as Ross Wildfire burns 80,000 acres",
+  "source": "KCBD",
+  "isEvent": true,
+  "category": "wildfire",
+  "regionId": "us-state-TX",
+  "note": "mixed: relief funds and an 80,000-acre fire"
+ },
+ {
+  "title": "Update: Citrus Fire burns 20 acres in Riverside County",
+  "source": "Fresno Bee",
+  "isEvent": false,
+  "note": "a fire named 'Citrus'"
+ },
+ {
+  "title": "Rural Texans step up to help as Ross fire burns multiple counties",
+  "source": "Dallas News",
+  "isEvent": true,
+  "category": "wildfire",
+  "regionId": "us-state-TX",
+  "note": "'fire' without 'wildfire'"
+ },
+ {
+  "title": "Hurricane Lala crop damage triggers food shortages for Hawaii restaurants",
+  "source": "Hawaii News Now",
+  "isEvent": true,
+  "category": "storm",
+  "regionId": "us-state-HI"
+ },
+ {
+  "title": "Meadowlark Farms and Orchard",
+  "source": "kake.com",
+  "isEvent": false,
+  "note": "research, corporate or unrelated"
+ },
+ {
+  "title": "Colombia's farmers watch crops burn in El Nino-fueled wildfires",
+  "source": "news.cgtn.com",
+  "isEvent": true,
+  "category": "wildfire",
+  "regionId": "colombia"
+ },
+ {
+  "title": "JN Foundation helps entrepreneurs rebuild livelihoods after Hurricane Melissa",
+  "source": "Caribbean National Weekly",
+  "isEvent": false,
+  "note": "vigil, donation, aid or appeal"
+ },
+ {
+  "title": "Farmers face huge losses as flood damages paddy crops",
+  "source": "The Times of India",
+  "isEvent": true,
+  "category": "flood",
+  "regionId": "india",
+  "note": "no place in the headline"
+ },
+ {
+  "title": "Typhoon Narra wreaks havoc in China, Vietnam as rains lead to floods",
+  "source": "The Straits Times",
+  "isEvent": true,
+  "category": "storm",
+  "regionId": "china",
+  "note": "also Vietnam"
+ },
+ {
+  "title": "Flash Floods Damage Crops, Roads and Infrastructure in Rajouri",
+  "source": "Kashmir Life",
+  "isEvent": true,
+  "category": "flood",
+  "regionId": "india",
+  "note": "Rajouri, J&K"
+ },
+ {
+  "title": "Floodwaters of Indravati river submerge 3,000 hectare cropland in Koraput district",
+  "source": "The New Indian Express",
+  "isEvent": true,
+  "category": "flood",
+  "regionId": "india",
+  "note": "district-level"
+ },
+ {
+  "title": "‘48 hrs or we march to Guwahati’: Akhil Gogoi warns Assam govt over flood aid",
+  "source": "The Assam Tribune",
+  "isEvent": false,
+  "note": "vigil, donation, aid or appeal"
+ },
+ {
+  "title": "Balasore flood havoc: Acres of vegetable crops destroyed, farmers buried in debt",
+  "source": "Odisha TV",
+  "isEvent": true,
+  "category": "flood",
+  "regionId": "india"
+ },
+ {
+  "title": "Flash flood triggered by glacial burst kills dozens of cattle in Diamer",
+  "source": "MM News",
+  "isEvent": false,
+  "note": "dozens of cattle in Gilgit-Baltistan; not a supply channel"
+ }
+]
