@@ -85,6 +85,14 @@ export function App() {
   });
   const onRemove = (threatId: string) => { update(tab.id, (t) => ({ ...t, removed: [...t.removed, threatId], added: t.added.filter((a) => a.id !== threatId) })); setSelectedId(null); setDrawerOpen(false); };
   const onAdd = (t: Threat) => { update(tab.id, (x) => ({ ...x, added: [...x.added, t] })); select(t.id); };
+  // a dialed live threat becomes one of the scenario's own threats; the live original leaves this scenario so nothing is counted twice
+  const onSaveAsHypothetical = (t: Threat) => {
+    const id = `user-${Date.now()}`;
+    const hyp: Threat = { ...t, id, name: `${t.name} (what-if)`, source: { feed: `Adapted from ${t.source.feed}`, kind: 'user', note: 'A live threat copied into this scenario with your dials; the live original is left out of this scenario' } };
+    delete hyp.status; delete hyp.confidence;
+    update(tab.id, (x) => { const overrides = { ...x.overrides }; delete overrides[t.id]; return { ...x, overrides, added: [...x.added, hyp], removed: [...x.removed, t.id] }; });
+    select(id);
+  };
   /** Scenario tabs: clicking a supplier country adds a disruption there (export cut-off by default) covering everything it sends the US. */
   const pickRegion = (regionId: string) => {
     const r = ctx.regions[regionId]; if (!r) return;
@@ -115,7 +123,7 @@ export function App() {
           <MapFallback entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} reason={settings.basemap === 'tiles' ? `simplified map (${fallbackReason})` : ''} lens={commodities} resetKey={activeTab} onPickRegion={editable ? pickRegion : undefined} />
         )}
         {drawerOpen && selectedEntry ? (
-          <ErrorBoundary label="Analysis"><Drawer entry={selectedEntry} ctx={ctx} focus={focus} tab={tab} editable={editable} onDial={onDial} onRemove={onRemove} onCollapse={() => setDrawerOpen(false)} /></ErrorBoundary>
+          <ErrorBoundary label="Analysis"><Drawer entry={selectedEntry} ctx={ctx} focus={focus} tab={tab} editable={editable} onDial={onDial} onRemove={onRemove} onSaveAsHypothetical={editable ? onSaveAsHypothetical : undefined} onCollapse={() => setDrawerOpen(false)} /></ErrorBoundary>
         ) : selectedEntry ? (
           <button className="edge-toggle right" onClick={() => setDrawerOpen(true)} title="Show analysis"><span className="chev">‹</span><span className="edge-lbl">Analysis</span></button>
         ) : null}

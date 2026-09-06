@@ -262,7 +262,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 .dials { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; font-size: 12px; color: var(--text-dim); }
 .dials label { display: flex; flex-direction: column; gap: 4px; }
 .dials label b { color: var(--text); }
-.dial-actions { grid-column: 1 / -1; display: flex; gap: 14px; }
+.dial-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
 .linkbtn { background: none; border: 0; color: var(--accent); cursor: pointer; font-size: 12px; padding: 0; }
 .linkbtn.danger { color: var(--bad); }
 .stat-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { EngineContext } from '@surge/engine';
-import { type RankedEntry, categoryColor, CATEGORY_LABEL } from '../engine.js';
+import { type RankedEntry, categoryColor, CATEGORY_LABEL, type Threat } from '../engine.js';
 import type { Focus, TabDef } from '../state.js';
 import { pct } from '../format.js';
 import { Chip } from './Chip.js';
@@ -19,10 +19,12 @@ interface Props {
   editable: boolean;
   onDial: (threatId: string, patch: { severity?: number; months?: number }) => void;
   onRemove: (threatId: string) => void;
+  /** copy a live threat, with its dials, into the scenario's own list and drop the live original from this scenario */
+  onSaveAsHypothetical?: (t: Threat) => void;
   onCollapse: () => void;
 }
 
-export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onCollapse }: Props) {
+export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onSaveAsHypothetical, onCollapse }: Props) {
   const [view, setView] = useState<Tab>('impact');
   if (!entry) return null;
   const t = entry.threat;
@@ -58,6 +60,7 @@ export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onC
             </label>
             <div className="dial-actions">
               {tab.overrides[t.id] && <button className="linkbtn" onClick={() => onDial(t.id, { severity: undefined, months: undefined })}>reset</button>}
+              {entry.origin !== 'user' && onSaveAsHypothetical && <button className="btn" title="Keep this dialed version as one of the scenario's own threats; the live original leaves this scenario" onClick={() => onSaveAsHypothetical(t)}>Save as hypothetical</button>}
               <button className="btn danger" onClick={() => onRemove(t.id)}>Remove from scenario</button>
             </div>
           </div>
