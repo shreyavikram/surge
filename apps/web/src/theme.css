@@ -401,3 +401,4 @@ details.assumptions .assump { margin-top: 6px; }
 .alert-filters .wl-filters { padding: 6px 0; border-bottom: 0; }
 .radio-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
 .radio { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
+.radio span { text-transform: none; letter-spacing: 0; font-size: 12px; color: var(--text); }
