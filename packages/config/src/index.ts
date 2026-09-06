@@ -9,6 +9,7 @@ import plate from '../data/plate.json' with { type: 'json' };
 import focus from '../data/focus.json' with { type: 'json' };
 import focusDistricts from '../data/focus-districts.json' with { type: 'json' };
 import countries from '../data/countries.json' with { type: 'json' };
+import quintiles from '../data/quintile-spending.json' with { type: 'json' };
 import egg2024 from '../data/cases/egg-2024-calibration.json' with { type: 'json' };
 import egg2022 from '../data/cases/egg-2022.json' with { type: 'json' };
 import formula2022 from '../data/cases/formula-2022.json' with { type: 'json' };
@@ -45,6 +46,7 @@ export function loadContext(): EngineContext {
     totalExpenditure: TOTAL_EXPENDITURE,
     consumerUnits: CONSUMER_UNITS,
     countries: countries as unknown as CountriesConfig,
+    quintileSpending: (quintiles as { byCommodity: Record<string, number[]> }).byCommodity,
     focus: mergeFocus(focus as unknown as FocusConfig, focusDistricts as unknown as { source: string; areas: FocusConfig['areas']; production: FocusConfig['production'] }),
   };
 }
