@@ -46,9 +46,12 @@ export const gdacs: FeedAdapter = {
       if (!category) continue; // skip EQ/VO and anything unmodeled
       const coords = f.geometry?.coordinates;
       if (!coords) continue;
+      const label: Record<string, string> = { FL: 'Flooding', TC: 'Tropical cyclone', WF: 'Wildfire', DR: 'Drought' };
+      const countries = (p.country ?? '').split(',').map((x) => x.trim()).filter(Boolean);
+      const where = countries.length === 0 ? 'unknown location' : countries.length <= 2 ? countries.join(' and ') : `${countries[0]} and ${countries.length - 1} other countries`;
       const item: FeedItem = {
         id: `gdacs-${p.eventid}`,
-        name: p.name || `${p.eventtype} in ${p.country ?? 'unknown'}`,
+        name: `${label[p.eventtype] ?? p.eventtype}, ${where}`,
         category,
         kind: 'natural',
         lng: coords[0],

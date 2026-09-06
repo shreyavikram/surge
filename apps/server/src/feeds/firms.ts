@@ -38,7 +38,7 @@ export const firms: FeedAdapter = {
       if (n < MIN_HOTSPOTS) continue;
       const r = ctx.regions[rid]!;
       items.push({
-        id: `firms-${rid}`, name: `Wildfire hotspots, ${r.name} (${n} in 48 h)`, category: 'wildfire', kind: 'natural',
+        id: `firms-${rid}`, name: `Wildfire activity, ${r.name.split(' (')[0]} (${n} satellite hotspots in 48 h)`, category: 'wildfire', kind: 'natural',
         regionId: rid, admin: r.name, iso3: 'USA', lat: r.lat, lng: r.lng,
         severity: Math.min(1, n / 2000), alertScore: true, start: date ? date.slice(0, 7) : undefined,
         text: `${n} VIIRS hotspots in the region bbox over 48 hours (${date}); hotspot counts include agricultural burning`,

@@ -3,6 +3,7 @@ import { type RankedEntry, categoryColor, CATEGORY_LABEL, commodityName, focusVi
 import type { Focus } from '../state.js';
 import { compactUsd } from '../format.js';
 import { Filters } from './Filters.js';
+import { Info } from './Info.js';
 
 interface Props {
   entries: RankedEntry[];
@@ -28,6 +29,10 @@ export function Watchlist({ entries, selectedId, onSelect, ctx, focus, setFocus,
         <button className="collapse" onClick={onCollapse} title="Collapse watchlist">◀</button>
       </div>
       <Filters ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} />
+      <div className="wl-cols">
+        <span>Threat</span>
+        <span className="r">Consumer welfare loss<Info term="cv" /><br /><small>total over the shock · {rows[0]?.v.label ?? 'United States'}</small></span>
+      </div>
       <div className="wl-list">
         {rows.map(({ e, v }) => {
           const t = e.threat;
@@ -41,7 +46,7 @@ export function Watchlist({ entries, selectedId, onSelect, ctx, focus, setFocus,
               </div>
               <div className="wl-loss">
                 {compactUsd(v.cv)}
-                <small>{e.worstCommodity ? commodityName(ctx, e.worstCommodity) : '—'}</small>
+                <small>{e.worstCommodity ? `mostly ${commodityName(ctx, e.worstCommodity).toLowerCase()}` : '—'}</small>
               </div>
             </div>
           );

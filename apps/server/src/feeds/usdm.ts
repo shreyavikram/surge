@@ -69,13 +69,13 @@ export const usdm: FeedAdapter = {
       const area = ctx.focus?.areas.find((a) => a.id === st);
       const item: FeedItem = {
         id: `usdm-${st}`,
-        name: `Drought, ${area?.name ?? st} (${r.D2.toFixed(0)}% in D2+)`,
+        name: `${r.D4 >= 10 ? 'Exceptional' : r.D3 >= 20 ? 'Extreme' : 'Severe'} drought across ${r.D2.toFixed(0)}% of ${area?.name ?? st}`,
         category: 'drought', kind: 'natural',
         regionId: region.id, admin: area?.name ?? st, iso3: 'USA',
         lat: area?.lat ?? region.lat, lng: area?.lng ?? region.lng,
         severity: score * frac, alertScore: true,
         start: `${r.MapDate.slice(0, 4)}-${r.MapDate.slice(4, 6)}`,
-        text: `USDM ${r.ValidStart}: D2 ${r.D2.toFixed(1)}%, D3 ${r.D3.toFixed(1)}%, D4 ${r.D4.toFixed(1)}% of state area`,
+        text: `US Drought Monitor, week of ${r.ValidStart}: ${r.D2.toFixed(1)}% of the state in severe drought or worse (D2+), ${r.D3.toFixed(1)}% extreme (D3+), ${r.D4.toFixed(1)}% exceptional (D4)`,
         raw: r,
       };
       items.push(item);

@@ -50,7 +50,7 @@ export const eia: FeedAdapter = {
       const inp = ctx.inputs[s.input];
       const eps = Math.abs(inp?.demand.totalElasticity ?? 0.3);
       items.push({
-        id: `eia-${s.input}`, name: `${s.label} +${(rise * 100).toFixed(0)}% vs trailing mean`, category: 'input_cost', kind: 'geopolitical',
+        id: `eia-${s.input}`, name: `${s.label} up ${(rise * 100).toFixed(0)}% on its 12-month average`, category: 'input_cost', kind: 'geopolitical',
         regionId: 'us-national', admin: 'United States', iso3: 'USA', lat: 39.8, lng: -98.6,
         commodities: [{ id: s.input, relevance: 1 }],
         severity: Math.min(1, rise * eps), start: rows[0]!.period.slice(0, 7), months: 6,
