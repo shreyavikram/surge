@@ -1,5 +1,5 @@
 import type { EngineContext } from '@surge/engine';
-import { type RankedEntry, commodityName } from '../engine.js';
+import { type RankedEntry, commodityName, chartLimit, chartCutoff } from '../engine.js';
 import type { Focus } from '../state.js';
 import { compactUsd, compactNum, pct } from '../format.js';
 import { Chip } from './Chip.js';
@@ -15,7 +15,11 @@ export function Relief({ entry, ctx }: { entry: RankedEntry; ctx: EngineContext;
     return <div className="section"><h4>Relief</h4><div className="faint">No gap to close for this threat.</div></div>;
   }
   const active = plan.levers.filter((l) => l.classification !== 'unused');
-  const months = entry.impact.months.slice(0, plan.gap.length);
+  // the chart stops where measurement stops (now, or the end of a replay's observed series); the numbers above cover the full modeled horizon
+  const allMonths = entry.impact.months.slice(0, plan.gap.length);
+  const cut = chartLimit(allMonths, entry);
+  const months = allMonths.slice(0, cut);
+  const cutoff = chartCutoff(entry);
   const unit = plan.unit;
   const fmtUnits = (v: number) => compactNum(v);
   const monthlyBaseline = Math.max(1e-9, (ctx.commodities[plan.commodity]?.baseline.annualQuantity ?? 0) / 12);
@@ -32,12 +36,12 @@ export function Relief({ entry, ctx }: { entry: RankedEntry; ctx: EngineContext;
       </div>
 
       <div className="section">
-        <h4>{plan.offset ? 'Extra supply that would cancel the price rise' : 'How much supply is missing, month by month'}<Info term={plan.offset ? 'offset' : 'shortfall'} /></h4>
+        <h4>{plan.offset ? 'Extra supply that would cancel the price rise' : 'How much supply is missing, month by month'}{cutoff && cut < allMonths.length ? <span className="faint"> · shown through {cutoff}; the rest is modeled, not measured</span> : null}<Info term={plan.offset ? 'offset' : 'shortfall'} /></h4>
         <LineChart
           months={months}
           series={[
-            { label: 'without relief', values: plan.gap.map((g) => 1 - g / monthlyBaseline), color: 'var(--text-faint)', dashed: true },
-            { label: 'supply', values: plan.gap.map((g, t) => 1 - Math.max(0, g - (plan.covered[t] ?? 0)) / monthlyBaseline), color: 'var(--bad)' },
+            { label: 'without relief', values: plan.gap.slice(0, cut).map((g) => 1 - g / monthlyBaseline), color: 'var(--text-faint)', dashed: true },
+            { label: 'supply', values: plan.gap.slice(0, cut).map((g, t) => 1 - Math.max(0, g - (plan.covered[t] ?? 0)) / monthlyBaseline), color: 'var(--bad)' },
           ]}
           baseline={{ value: 1, label: 'normal supply' }}
           yFormat={(y) => `${Math.round(y * 100)}%`}

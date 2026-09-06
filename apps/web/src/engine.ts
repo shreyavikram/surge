@@ -155,3 +155,18 @@ export function commodityName(ctx: EngineContext, id: string): string {
 export function tabToScenario(tab: TabDef, entries: ThreatEntry[]): Scenario {
   return { id: tab.id, name: tab.name, threats: entries.map((e) => e.threat), createdAt: tab.createdAt || '', updatedAt: tab.updatedAt || '' };
 }
+
+// ---- Charts stop where measurement stops ----------------------------------------
+/** Last month a time chart may show: now for live threats, the end of the observed series for replays,
+ * and no limit for hypotheticals (a what-if is a projection by definition). */
+export function chartCutoff(entry: RankedEntry): string | null {
+  if (entry.origin === 'user') return null;
+  if (entry.observed && entry.observed.months.length > 0) return entry.observed.months[entry.observed.months.length - 1]!;
+  return new Date().toISOString().slice(0, 7);
+}
+/** How many leading months of `months` fall on or before the cutoff (at least one). */
+export function chartLimit(months: string[], entry: RankedEntry): number {
+  const cut = chartCutoff(entry);
+  if (!cut) return months.length;
+  return Math.max(1, months.filter((m) => m <= cut).length);
+}

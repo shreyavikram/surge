@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import type { EngineContext } from '@surge/engine';
-import { type RankedEntry, commodityName, focusView } from '../engine.js';
+import { type RankedEntry, commodityName, focusView, chartLimit } from '../engine.js';
 import type { Focus } from '../state.js';
 import { compactUsd, signedPct, peak } from '../format.js';
 import { Chip } from './Chip.js';
@@ -71,8 +71,8 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
               const pctSeriesAll = [...pi, ...new Array<number>(tail).fill(0)];
               // a live threat's chart stops at the current month: what has happened, not a projection
               const nowYm = new Date().toISOString().slice(0, 7);
-              const toDate = entry.origin !== 'user';
-              const cut = toDate ? Math.max(1, chartMonths.filter((m) => m <= nowYm).length) : chartMonths.length;
+              const cut = chartLimit(chartMonths, entry);
+              const toDate = cut < chartMonths.length;
               const shownMonths = chartMonths.slice(0, cut);
               const pctSeries = pctSeriesAll.slice(0, cut);
               const isOpen = open === r.id;
