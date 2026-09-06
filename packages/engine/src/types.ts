@@ -8,6 +8,8 @@ export interface SourceStamp {
   kind: SourceKind;
   stale?: boolean;
   note?: string;
+  /** the reports behind a possible (news-derived) threat: outlet, headline, link */
+  links?: { title: string; url: string; outlet?: string; date?: string }[];
 }
 
 export interface Assumption {

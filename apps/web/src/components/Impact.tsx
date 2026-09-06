@@ -116,6 +116,16 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
 
       <details className="section assumptions">
         <summary>Assumptions and sources<Info term="modeled" /></summary>
+        {entry.threat.source.links && entry.threat.source.links.length > 0 && (
+          <div className="reports">
+            <div className="a-l">Reports behind this possible disruption ({entry.threat.source.feed})</div>
+            <ul>
+              {entry.threat.source.links.map((l) => (
+                <li key={l.url}><a href={l.url} target="_blank" rel="noreferrer noopener">{l.title}</a>{l.outlet ? <span className="faint"> · {l.outlet}</span> : null}{l.date ? <span className="faint"> · {new Date(l.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span> : null}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         {impact.assumptions.map((a) => (
           <div className="assump" key={a.key}>
             <span className="a-l">{a.label}</span>

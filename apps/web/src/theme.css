@@ -408,3 +408,10 @@ details.assumptions .assump { margin-top: 6px; }
 :root[data-theme="light"] .btn.ghost:hover { background: #eaf3df; }
 /* map labels: small, light halo only */
 .map-label { opacity: 0.85; stroke-width: 0.8px; }
+/* reports behind a possible disruption */
+.reports { margin: 6px 0 10px; }
+.reports ul { margin: 4px 0 0; padding-left: 16px; }
+.reports li { font-size: 12px; line-height: 1.4; margin: 2px 0; }
+.reports a { color: var(--accent-dim); text-decoration: none; }
+:root[data-theme="light"] .reports a { color: #2f6b12; }
+.reports a:hover { text-decoration: underline; }

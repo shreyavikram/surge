@@ -29,6 +29,8 @@ export interface FeedItem {
   months?: number;
   /** commodities the adapter maps directly (e.g. a chokepoint's transiting goods) */
   commodities?: { id: string; relevance: number }[];
+  /** the reports behind a news-derived item */
+  links?: { title: string; url: string; outlet?: string; date?: string }[];
   /** unstructured description, for the AI extractor */
   text?: string;
   raw?: unknown;

@@ -246,7 +246,7 @@ export const news: FeedAdapter = {
       return Math.min(c.severity, c.regionId === 'us-national' ? HEADLINE_CAP_NATIONAL : HEADLINE_CAP_REGIONAL);
     };
     const items: FeedItem[] = [];
-    for (const [key, { c, a, n, why, description }] of best) {
+    for (const [key, { c, a, n, why, description, articles: reports }] of best) {
       const r = ctx.regions[c.regionId]!;
       const item: FeedItem = {
         id: `news-${key.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`,
@@ -258,6 +258,7 @@ export const news: FeedAdapter = {
         text: `${a.source || 'news'} · ${n} matching headline${n > 1 ? 's' : ''} from ${why} in 3 days · ${c.source === 'llm' ? 'classified by Gemini, validated' : `matched: ${c.matched.join(', ')}`} · ${a.link}`,
       };
       if (description) item.summary = description;
+      item.links = reports.slice(0, 8).map((r) => ({ title: r.title, url: r.link, ...(r.source ? { outlet: r.source } : {}), ...(r.pubDate ? { date: r.pubDate } : {}) }));
       const start = ym(a.pubDate);
       if (start) item.start = start;
       if (r.countries?.length === 1) item.iso3 = r.countries[0]!;
