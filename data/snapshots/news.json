@@ -1,0 +1,1172 @@
+{
+  "fetchedAt": "2026-09-06T01:29:32.160Z",
+  "result": {
+    "items": [
+      {
+        "id": "news-export-ban-brazil",
+        "name": "Brazil Loses Premium Beef Price Anchor After EU Export Ban",
+        "category": "export_ban",
+        "kind": "geopolitical",
+        "regionId": "brazil",
+        "admin": "Brazil",
+        "lat": -14.2,
+        "lng": -51.9,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.8,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.9,
+        "text": "The AgriBiz · 3 matching headlines in 3 days · matched: export ban, brazil, beef · https://news.google.com/rss/articles/CBMiogFBVV95cUxQUTZvVXFfNmlDVURSUE5ySE9RdWY1NC1RY1pXUTE2QVE1LWVIVl9JcUY2SXdBM3ZmYldXZXE3QS1iTG8ycHdpbGlhRHdmMFNxVUVJRzVwQWl3RERUWVoxWHdYSlhsbkktazFmVEpndFQxRk5DQ0VVMU85YVNEWGtXV3JDaVlkN1Y2cTJ4TGRXaC0xbzc1bFg2NHk2LXBiQXJoX0E?oc=5",
+        "start": "2026-09",
+        "iso3": "BRA"
+      },
+      {
+        "id": "news-export-ban-us-national",
+        "name": "Here’s How To Tell Whether Beef Is From The U.S.",
+        "category": "export_ban",
+        "kind": "geopolitical",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.8,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 1,
+        "text": "Forbes · 29 matching headlines in 3 days · matched: u.s., beef · https://news.google.com/rss/articles/CBMiowFBVV95cUxPTmRtYlpncEhJeFBMLVZZcjhIbzdJSmRGRnpzTU9RcnZlY0V1Vk1LbzY4SXlIWGVRY1NJc1kxMGNFdk55T0h0aVpMLTVDSllhR2tDMWY0QWRkM2hVNUdlWExVRE9HWlhqdUVLamFXUlprMkg1aUNwNVdxb0dfR2FQeWJSMTlmOXJnRnBJUV9xT08zYmpWUE01UDlEaVBIWkUybWZN?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-disease-us-national",
+        "name": "Texas A&M AgriLife tests far-ultraviolet light to prevent bird flu in poultry",
+        "category": "disease",
+        "kind": "natural",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "chicken",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 24,
+        "status": "breaking",
+        "confidence": 1,
+        "text": "agrilifetoday.tamu.edu · 22 matching headlines in 3 days · matched: bird flu, poultry · https://news.google.com/rss/articles/CBMiuwFBVV95cUxOVjlBbFZPbDZMTWFPdXhqU3BQZ04wQ053RUNfb3pmcS1vLXhERWkzQk9jMEptLW5wOE0xbndOZWJfQjA3SmZHd3dHM1B5OGw2X0Z4ODVseEJVaUhKMUE4V05QYzk3ODRHNzFoUDNtbzlDRWhEWkhZY3ZrMk1VMlo2dnh5d2dIUjJWYUNFVjFESWtYcEozZlJ5cnlmWHcxcXlUaF9zS2F5SmVwTzF0aVpHekgyODdYRHQwam5r?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-tariff-brazil",
+        "name": "Brazil And Argentina Will Send Tariff-Free Beef To U.S.—Despite Quality Concerns",
+        "category": "tariff",
+        "kind": "geopolitical",
+        "regionId": "brazil",
+        "admin": "Brazil",
+        "lat": -14.2,
+        "lng": -51.9,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.25,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.9500000000000001,
+        "text": "Forbes · 4 matching headlines in 3 days · matched: tariff, brazil, beef · https://news.google.com/rss/articles/CBMi4gFBVV95cUxQaUxFVXhmYlV4VnFRMEtwOHpfZDNIUUtqMDY2b3hHZ0h2cmxreVY0WUdJVllLbmxFME1aVGhKQlpBRkJ0bkZHQWs1OHZDQUtXdmc5TW9ZZ3BISEE4SF8tTUdzMEJpVWhYY3pUR0lQcDRnTVgwb1hKQ2pzVGEyVWI4VldjU2ttcnhQZmI5bzQ1RDA1NmhSYzQ3UVcybHFucUlTTFNWaW5hQmF6dWFyd0RwSkM0N1pmb0dvNlU4Ul9IX0tCcmpUeGxveGJ1LVVlSW1mbjVRQW9OQUFSbGh3SEVxYnJ3?oc=5",
+        "start": "2026-09",
+        "iso3": "BRA"
+      },
+      {
+        "id": "news-war-canada",
+        "name": "Some Republican lawmakers skewer Trump's beef imports, slam Canada trade war - ABC News",
+        "category": "war",
+        "kind": "geopolitical",
+        "regionId": "canada",
+        "admin": "Canada",
+        "lat": 56.1,
+        "lng": -106.3,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.5,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.8,
+        "text": "ABC News - Breaking News, Latest News and Videos · 1 matching headline in 3 days · matched: war, canada, beef · https://news.google.com/rss/articles/CBMiqwFBVV95cUxOeUYyS05relNIU1VLMUdYajFkcHROQTh3Q3hudTF6S0VNeDJ6bGpqRWxlckpPYmRVUXQtVC1GaEdUOWItZk9XY0ZkbFQyZm9LbklPaXh0U2hYb0xCa3hVNFYtbE5jYUIwX3M1dEpEd2ZVYllIekw3eGFrR3Z5ZnZGOU1zV3FLS09IbC11YUdjUG15UXhobkR6Nm12c19tMjd2aHF3WXpMVXBReGvSAbABQVVfeXFMUDRCRU5IcDVoTU9UMm1sTmNwZnd1cTdYQ2I3V1hiLW1pUDZTUDY1djFpU1ExeHF3TjlGMUVlMlhTRjdQXzhQU25HcUpDN0VEdHRYblQxZ042OTVpaWV6UkVXT2tWaDh3QWRPZDRLZTN1Wk9oOGdyRURRN1ZVOHg2cld4X003TC1ZZnlROVNEeU1NbkZUZjNyZzNBNUppZUd6bi1MUUI0STlfVVltUVpUMWk?oc=5",
+        "start": "2026-09",
+        "iso3": "CAN"
+      },
+      {
+        "id": "news-tariff-us-national",
+        "name": "Local farmers say imported beef tariff could impact American beef cattle industry",
+        "category": "tariff",
+        "kind": "geopolitical",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.25,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 1,
+        "text": "WJHL · 13 matching headlines in 3 days · matched: tariff, america, beef, cattle · https://news.google.com/rss/articles/CBMitAFBVV95cUxNLWp0MTNTQkVMTk5ONUdra2JoU05kUVotVWt1SVI5aXRwQnRMZUViVDIwQjd5VmRiaVhLLWo4Q2dXaFAzY2VFN0QybTVxZS02T2RTUGt2endGYmI0X09MdU5GNmZYQ2pQTWRtdHV0Y3psWERleTduZDBVNnI0dEZMZzltREMzUUZrM05jWGo2YnRnY1l2VEJid1pCSGd5ZFJCOGNoaW5RMWJEU1ZJQ2xHNmZDQjfSAboBQVVfeXFMTkg2V0hUOVpqUU9ocTU3MkxVWWVaQXZ6OUw5cDMzZERKMktZN3BiQ3F6Ym5xY1ZySlVMMWdOUjdfblplTmNydGNSUTF2M2k2Tnh3SDZEenVuclNoTmZNWDM2OXNGZFlfR1Y3dE9ZUHpWMl9ldXFPdHlpNXlaX3F3WElQOGZVVl9UNTFXblFRQndvYURFbXo0ZlA5WUotbU5oUGJXZk8xRkJzbTdjbjctRU5UOWY1MndBUGVR?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-tariff-canada",
+        "name": "Trump’s Price Relief on Beef Imports Is Overshadowed by New Wave of Tariffs on Canadian…",
+        "category": "tariff",
+        "kind": "geopolitical",
+        "regionId": "canada",
+        "admin": "Canada",
+        "lat": 56.1,
+        "lng": -106.3,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.25,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.8,
+        "text": "The New York Sun · 1 matching headline in 3 days · matched: tariff, canadian, beef · https://news.google.com/rss/articles/CBMivwFBVV95cUxOZ2pJakFrQ25wX0JxYjFKaDRqTjNNcXNJVFN3TFlnR18wS1pOY0NVWFJfOWhMNVRhWkVQMXpHVmM2SEdxZTVVSmtEVzhmd1pjbGpBU2VCTnp5cW94UmNfZ2lFYW1yX1VBLTR1bU8xaGZ6eXlfd2Q5QWFia243VXJrdnppM0RzQXRvMFBxelNKRVlhTEwzUnktcDJSY3pVcloyajBYZWhCd2xIZVRReUhCUE5uZE9IOEQ3a2hnTEozRQ?oc=5",
+        "start": "2026-09",
+        "iso3": "CAN"
+      },
+      {
+        "id": "news-war-us-national",
+        "name": "‘Why would he do this to us?’: Trump's foreign beef push is hurting his base, Republica…",
+        "category": "war",
+        "kind": "geopolitical",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.5,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.7500000000000001,
+        "text": "Fox News · 4 matching headlines in 3 days · matched: war, beef · https://news.google.com/rss/articles/CBMirwFBVV95cUxQREJza0l0cnZFTzhlcWIyZ29PMkNUSUJVRkZjaHNzSWJxSkNtbkR4T2ZLVEotT0FCOHBzcGdFSHZLNU9lX1BHZHlyS1JVVmg1X2s2YjNTcTNiZWZwRXVna2JvRTR2ckJmbEROM1Rnb0dWMmFXbVFhUm5pRk1pNmUxeDNnY0xIdjVjU0NjQmlrbU9iNFpVQllNalh6WExyWjI5Skg1QVg2TlJtZ3U1T25R0gG0AUFVX3lxTE5qNHBwbmdHMmc2UFNpdEo5OU9nUWR2cDBBYXhsNVBMTGRZV3Q0eFp4R2NVeHdvWll6cUQ1VjVabU0yaERqeXBGSlhmWGNxeGQ2Mnc3QkZQWnppRUx5MGg1R2FQSjhOWGYzc0dGR1JmSGQtbGZYLTB6MFBWWm1mazZZbEtYSkJjS0ZucUxXTWp3TDN1aDlDUC1jTGl6VWdsS2NmbS1IcmFXWFVMN2lNYnRYVkE3NQ?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-drought-us-national",
+        "name": "After drought, sudden rain and chill threaten local tomato crops as farms adapt",
+        "category": "drought",
+        "kind": "natural",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "tomatoes",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 1,
+        "text": "KCBY · 20 matching headlines in 3 days · matched: drought, tomato · https://news.google.com/rss/articles/CBMiwAFBVV95cUxOWHRrQVJRM2xOUE10Nzd1cHo4ZU4yTUhVQ2ljTFFjOUEwekQ3WkR0X3N3WGZPUDZDNjBHNko1ZHRTODVTNy1qSGpHQTRQbHJqTE9QV1VBVUhxLU5PcXBOcUYtTUo3WXVMRG5PMUJMWGptblM1LVBaRkoxU0NSQUczUi1IbmtaTkd0YktZY3JPeWJXRW5LN0lRT1Jtd0ZSS1Uxb2ZfSEFQUzVxMkxLejBINkxVeWhOTVFpYnRJXzc1YkQ?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-drought-us-midwest-corn-belt",
+        "name": "Drought threatens crops in western, northwestern Corn Belt",
+        "category": "drought",
+        "kind": "natural",
+        "regionId": "us-midwest-corn-belt",
+        "admin": "Corn Belt (IL, IN, NE, MN, OH)",
+        "lat": 41,
+        "lng": -90,
+        "commodities": [
+          {
+            "id": "corn",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 1,
+        "text": "Brownfield Ag News · 5 matching headlines in 3 days · matched: drought, corn belt, corn · https://news.google.com/rss/articles/CBMinAFBVV95cUxNUGFJbEE2Z3lmeW9pbHpfN2hXN0k3NGExOEFBSmhrUlZreU5lS1lYYzNneG5IUVAyT3g5Vi1MQ0ZzX2QzQm1lRi1pNG1ici10ZWFkRE1pREpRQVo3SE1qcnJXc01HOEtQZ1NjWTdHckswRE1lNmQtZ1FURlcyWGE4YnJtbURtNDNHWlNZOTk2QkdOTGZTYmpEaWtLcGs?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-drought-us-plains-wheat",
+        "name": "Eastern Montana rancher turns to 'sketchy' portable tanks as D3 drought dries up cattle…",
+        "category": "drought",
+        "kind": "natural",
+        "regionId": "us-plains-wheat",
+        "admin": "Wheat Plains (KS, OK, TX, NE, CO)",
+        "lat": 38.5,
+        "lng": -99,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.9,
+        "text": "The Cool Down · 3 matching headlines in 3 days · matched: drought, montana, cattle, ranch · https://news.google.com/rss/articles/CBMigAFBVV95cUxPUTdUUHdEZEU5VEZOUmxrSDduMlUwVDM1QmNxNGhvdXZrVDNnemNhM3k3ci1NMDNRbjZ1bW5yUnBJamswUkpWdjVRUktJam1jc2FUc00zd1RqUFBrVTFYNWVpMlhsR0xjRkxQS1FQSGZpb1lsb1ZSSnRYa1BLV1k4dA?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-chokepoint-us-national",
+        "name": "Continuing Coverage: Receding shores at Lake McConaughy reveal submerged cattle shippin…",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.5,
+        "months": 3,
+        "status": "breaking",
+        "confidence": 0.7500000000000001,
+        "text": "KSNB · 4 matching headlines in 3 days · matched: shipping, cattle · https://news.google.com/rss/articles/CBMixgFBVV95cUxQTmZ2NWRGdGZYMm9PR2ozMWVpR3NqUmVPVlM5dWl5dkxYRC1OTnNSNjVqWnFlZGxaY3VYTF9fZXFPM3VONUQ1U251ZmcxSnNLTmpYd2FDdmhNWng1Vl9ISlpZQ19md21SVXFVVndoYkZTLUpKS1FXYzZnRllSRmhteE0tYU0yejM4WUN4cHZBakxKd1daVlJqWUlVMnlCUjJ5VWtrbTFkQXhndDY0b3lrOU1FYTJiVHZ3akdnUVEtRW1SQkR5SEHSAdoBQVVfeXFMUDZwRzhUeTNjc0NkNDZkMkRyMGo3WVB5T2ZMUlRRZHJmbWo0UFUyQXNJNlBSTHRNcHFNWWpfa2dqaWppWDdybjdDamNweVFJMmM1T1pSLXcteXFiY1pnQlpkYkxJRVBoemlVVjRyTGc3ZEg4QkxqcmhoR012Uk9BUS04YV93WDZ6dFdFbW9DS3pVbWkxYmpicDB1ZnlheFRiUVU1MjFlcWhHVGtYa0h2MzVpLUtYN3RfcFdUT24yRGJRYVEwREhrQmlaeVpKRjJmNmZlNVMyWm9qQXc?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-drought-mexico",
+        "name": "Amid drought, New Mexico ranchers eying cattle movement at border, Trump beef plan",
+        "category": "drought",
+        "kind": "natural",
+        "regionId": "mexico",
+        "admin": "Mexico",
+        "lat": 23.6,
+        "lng": -102.5,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.8,
+        "text": "Santa Fe New Mexican · 1 matching headline in 3 days · matched: drought, mexico, beef, cattle, ranch · https://news.google.com/rss/articles/CBMijAJBVV95cUxPa1l5bEpkVC0zWHY2dzFLTEFNbThvaXBubGVQWTUzaVRiZ01DblZGcWlxT21PMkNKSGJfYnNNSFdjd3F5dTZRVjh3ODRmSGs0THdoRGVSeTA1emdXYWdKNXk5Q28xcVhIcjYtTC0tbHgxUDd3Z2Y2U0l2SUdoNGNRTkNLMS1kLVlVWThvMWtJVmMwV3VzTjQtS1F1TG1KQnJ2bWtpMi1KUHJLYl9QZDhyZXNWZEdLVGRla1loNVo2X1FuR1RyaXNSdS1HU2FSaFhwZWY1SEZXVi13UExYbTB3azJEeGs0bnFlNXNaZ1ZzdTRFdkh0YklpWXVySTZUWGpSZGFFNU44dGpYU09N?oc=5",
+        "start": "2026-09",
+        "iso3": "MEX"
+      },
+      {
+        "id": "news-export-ban-us-midwest-corn-belt",
+        "name": "What’s Going on With Nebraska Corn and Soybeans?",
+        "category": "export_ban",
+        "kind": "geopolitical",
+        "regionId": "us-midwest-corn-belt",
+        "admin": "Corn Belt (IL, IN, NE, MN, OH)",
+        "lat": 41,
+        "lng": -90,
+        "commodities": [
+          {
+            "id": "corn",
+            "relevance": 1
+          },
+          {
+            "id": "soybeans",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.8,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.6400000000000001,
+        "text": "Successful Farming · 1 matching headline in 3 days · matched: nebraska, corn, soybean, soy · https://news.google.com/rss/articles/CBMijgFBVV95cUxNU0k4eE4zeGpFMnZVSU9wYzJGYzR1SFgtaHFQV01EUGZxbE1udDZ0T1lRLTJFZWxjcXNabzBVTlJzaXBOMkROUnM0ZjIwUjd2YzdJXzk0blcteTFUZm1nTzVzUElKcmc1dGNoNjBycE11Q0x3UUMta2JjcEo0cDF0czF0VUFpVi1HTXNXaExB?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-heat-us-national",
+        "name": "Heat Dome Tightens Grip on U.S. Farms as Drought Threatens Crop Margins",
+        "category": "heat",
+        "kind": "natural",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "eggs",
+            "relevance": 1
+          },
+          {
+            "id": "chicken",
+            "relevance": 1
+          },
+          {
+            "id": "turkey",
+            "relevance": 1
+          },
+          {
+            "id": "beef",
+            "relevance": 1
+          },
+          {
+            "id": "pork",
+            "relevance": 1
+          },
+          {
+            "id": "milk",
+            "relevance": 1
+          },
+          {
+            "id": "cheese",
+            "relevance": 1
+          },
+          {
+            "id": "bread",
+            "relevance": 1
+          },
+          {
+            "id": "rice",
+            "relevance": 1
+          },
+          {
+            "id": "potatoes",
+            "relevance": 1
+          },
+          {
+            "id": "lettuce",
+            "relevance": 1
+          },
+          {
+            "id": "tomatoes",
+            "relevance": 1
+          },
+          {
+            "id": "fresh-vegetables",
+            "relevance": 1
+          },
+          {
+            "id": "apples",
+            "relevance": 1
+          },
+          {
+            "id": "bananas",
+            "relevance": 1
+          },
+          {
+            "id": "citrus",
+            "relevance": 1
+          },
+          {
+            "id": "coffee",
+            "relevance": 1
+          },
+          {
+            "id": "sugar",
+            "relevance": 1
+          },
+          {
+            "id": "fats-oils",
+            "relevance": 1
+          },
+          {
+            "id": "infant-formula",
+            "relevance": 1
+          },
+          {
+            "id": "corn",
+            "relevance": 1
+          },
+          {
+            "id": "soybeans",
+            "relevance": 1
+          },
+          {
+            "id": "wheat",
+            "relevance": 1
+          },
+          {
+            "id": "fertilizer",
+            "relevance": 1
+          },
+          {
+            "id": "energy",
+            "relevance": 1
+          },
+          {
+            "id": "milk-farm",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.1,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.4,
+        "text": "AgroLatam · 1 matching headline in 3 days · matched: heat dome · https://news.google.com/rss/articles/CBMijAFBVV95cUxQQWZMUXRlR0lsMll3al8ydmN5UTB2RzdOa1NHcFRlU1V3M0tyNzhSUW4wenpQR2JfOUlPcWtoY253VkVUMTl4QnBRNjE5b1VoZDRKTGFBOEZJV3IxUlJNR0xhUHdILVQxQVhZb2pTSy1JaEowaWd4b2VUUDREUzZYc1U1M2l5TWFkdXV5YQ?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-drought-suez-red-sea",
+        "name": "Egypt, China develop strategic crop varieties resilient to drought and salinity",
+        "category": "drought",
+        "kind": "natural",
+        "regionId": "suez-red-sea",
+        "admin": "Suez Canal and Bab el-Mandeb",
+        "lat": 27,
+        "lng": 33,
+        "commodities": [
+          {
+            "id": "coffee",
+            "relevance": 1
+          },
+          {
+            "id": "rice",
+            "relevance": 1
+          },
+          {
+            "id": "fats-oils",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.6000000000000001,
+        "text": "egypttoday.com · 1 matching headline in 3 days · matched: drought, egypt · https://news.google.com/rss/articles/CBMiswFBVV95cUxOOVdpbnpCSnBTbFpwc3lCdXJVZTdtYkxJUmVjWXpoYVlRS3NjUVZmYUhNaUhkMzFEWkM2RW54Nlpwd1pOcUFLTV8xUkFqWm1sOXBkYjBmZ0kyVHlkLW5Na2RXMUFkeVZEUzViRUtLekViMXlhaGNxdFFpZ192aWs2RGU2RzUtb2ZiUnMycHplVXZZZ0cxcXljeEY3aUh6WXZMVGZXdEYxY2pDRUx6cjU2bTRXRQ?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-war-hormuz",
+        "name": "U.S. strikes 3 Iranian oil tankers after saying warships were targeted with ballistic m…",
+        "category": "war",
+        "kind": "geopolitical",
+        "regionId": "hormuz",
+        "admin": "Strait of Hormuz",
+        "lat": 26.6,
+        "lng": 56.3,
+        "commodities": [
+          {
+            "id": "fertilizer",
+            "relevance": 1
+          },
+          {
+            "id": "energy",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.5,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.9500000000000002,
+        "text": "PBS · 8 matching headlines in 3 days · matched: war, missile, strike, iran · https://news.google.com/rss/articles/CBMixAFBVV95cUxQdldJeUlGX01ldmlUUTlESmUxWjA3Z00zM3prX0NUOG0tV2hVSl9yWUkwQUFrazhtQmNYTGpIMUhsRkIzbDYwcENWUm4xaEhfdW05SnZMU2pqZDZfbUVxbW5lU1hkeW5sOEtVVWhTZXdkUzN2ekZfQXZJZWRPSnR2OUtBQ1N1YVRDMVF2elNtRmM3VzVjVndrMnM3SWduamdUZ1RHQkxrX2ZjZ2N3dEZrdXJBMm1WNS1VdS1HU1pYTjNYU2lB0gHKAUFVX3lxTFAydC1pWnB5TEpHM2lEc29sWTRSS2VkR05PamRWaFM1WlNaYWcxLW1fcG5FVXZWSnVySWNqQWZjLW4zVEdoN3hSQjhtU0Rvb2lpanB0cE1RSUUwUk1la29aLVN1czYtNHVCUWhJV19yU1NNYjFGYjJGdHJ4ZWEtMTFNWDJ6WERGaG5jWFU2ZTMzYU5PNTdON19JWDNfVkhFVjhOY0UxQlhtWUZTcXllZ2l5QzdDekc0Y3NiSVlMQ2N4WVZ4Y0VpWXhoT2c?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-chokepoint-panama-canal",
+        "name": "Panama Canal Pushes Back Planned Draft Cut for Big Ships",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "regionId": "panama-canal",
+        "admin": "Panama Canal",
+        "lat": 9.1,
+        "lng": -79.7,
+        "commodities": [
+          {
+            "id": "bananas",
+            "relevance": 1
+          },
+          {
+            "id": "coffee",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.5,
+        "months": 3,
+        "status": "breaking",
+        "confidence": 0.9000000000000001,
+        "text": "The Maritime Executive · 7 matching headlines in 3 days · matched: canal, panama · https://news.google.com/rss/articles/CBMimwFBVV95cUxOcEZsNFF5MTdHcnlLdklsbURsV2pkQV9uM2tCVDlJQzdHVWkyaV9rMWJGUkdlcGlMWUpFMEpSUWczWlVQMk1GN05UbWhMMXYxY0dpTkdoTXAxZi1hZ1VXSE9VY3hxWFZ0eWlKa1BjQlhPc3ZVaWl1ZXQ1aDZrWkFZVjdQRjV5YTE0QVhzNEVaZ3dLRWFNblhGUThhTQ?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-chokepoint-hormuz",
+        "name": "Strait of Hormuz shipping traffic remains low as fuel prices rise",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "regionId": "hormuz",
+        "admin": "Strait of Hormuz",
+        "lat": 26.6,
+        "lng": 56.3,
+        "commodities": [
+          {
+            "id": "energy",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.5,
+        "months": 3,
+        "status": "breaking",
+        "confidence": 1,
+        "text": "The Times of Israel · 22 matching headlines in 3 days · matched: strait, shipping, hormuz, fuel · https://news.google.com/rss/articles/CBMisAFBVV95cUxQQkJraHdlYXVYZ1lBS1M2R0xHcmZ5QUJGWXVWRGx0UjlkdGczUlhua0JPcm5BcUhWNWxJU2RxTHE1c2cyTnZiWWpVcDBSVGNmYkFsWDdkclpjcm5BMGx4cnVnU2NGdTdWamF4SVB4MG5aNFpfdTlkWVU2WkpEa1RyRkptU1ZHQTN1MUZEWnU0WXVWVWJES0Rvczdtd3BORFdGelpfeDJzNTlCa2phYmtobg?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-export-ban-hormuz",
+        "name": "Strait of Hormuz Shipping Drops to Four Vessels as U.S. Blockade Halts Iranian Exports:…",
+        "category": "export_ban",
+        "kind": "geopolitical",
+        "regionId": "hormuz",
+        "admin": "Strait of Hormuz",
+        "lat": 26.6,
+        "lng": 56.3,
+        "commodities": [
+          {
+            "id": "fertilizer",
+            "relevance": 1
+          },
+          {
+            "id": "energy",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.8,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.6000000000000001,
+        "text": "NewsCord · 1 matching headline in 3 days · matched: halts iranian export, iran · https://news.google.com/rss/articles/CBMi6gFBVV95cUxOUkR3WkNkeWtkaHFjbTdJcU5wUFJsaEd5eTRERnl4RVFQaG83cUdwUmlaNG1SWkFGZHVzaGl4Z2oxYlFPekI3NDNUN1VRYUFFaml0RUNIYWczbGt4NHBPOWNWMWJfbkM4VnN2TE9RMlhFNDVnbG10Y0dtV1MwWVhSTDVaOHhLSC1YUHp6dVAwMG9Mb0tJWkh0U2xuNTZKQmIxcy12X0pFcjUtV1JYTEpSajVoR0RaQktkenhzeHR4VV9LY0pHQjU4VmRKQV9fSG5CVlVyM0lmUm4wVFhaaWJEcGZMb1dkYW1pcGc?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-chokepoint-suez-red-sea",
+        "name": "Red Sea Coastal Battles Intensify Raising New Concerns for Shipping",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "regionId": "suez-red-sea",
+        "admin": "Suez Canal and Bab el-Mandeb",
+        "lat": 27,
+        "lng": 33,
+        "commodities": [
+          {
+            "id": "coffee",
+            "relevance": 1
+          },
+          {
+            "id": "rice",
+            "relevance": 1
+          },
+          {
+            "id": "fats-oils",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.5,
+        "months": 3,
+        "status": "breaking",
+        "confidence": 0.6500000000000001,
+        "text": "The Maritime Executive · 2 matching headlines in 3 days · matched: shipping, red sea · https://news.google.com/rss/articles/CBMiqgFBVV95cUxNd29aVktmbjE2YXFibnN5UEhlTHpxM2QtVllIYmZscnRjRDVJU3gwNDBTbzJ5eWN2ZXZNZ1gwdDlBYnpuYTQ2QVZmZm9QWHUtYmgyLW1QRzhYZk5KcEN6MWR3NzUxS1lpYlprUk1Qekh1UmlheEJvTFpIWGpqSGZ0VHFOV2ZvbnJhT0dRLWRCTFFIbnBYV3cxR1AweWxlR2lSN0lScWhSSzh0Zw?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-embargo-us-national",
+        "name": "U.S. 'Economic Outcast’ operation gains momentum as EU joins sanctions; South Korea wei…",
+        "category": "embargo",
+        "kind": "geopolitical",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "eggs",
+            "relevance": 1
+          },
+          {
+            "id": "chicken",
+            "relevance": 1
+          },
+          {
+            "id": "turkey",
+            "relevance": 1
+          },
+          {
+            "id": "beef",
+            "relevance": 1
+          },
+          {
+            "id": "pork",
+            "relevance": 1
+          },
+          {
+            "id": "milk",
+            "relevance": 1
+          },
+          {
+            "id": "cheese",
+            "relevance": 1
+          },
+          {
+            "id": "bread",
+            "relevance": 1
+          },
+          {
+            "id": "rice",
+            "relevance": 1
+          },
+          {
+            "id": "potatoes",
+            "relevance": 1
+          },
+          {
+            "id": "lettuce",
+            "relevance": 1
+          },
+          {
+            "id": "tomatoes",
+            "relevance": 1
+          },
+          {
+            "id": "fresh-vegetables",
+            "relevance": 1
+          },
+          {
+            "id": "apples",
+            "relevance": 1
+          },
+          {
+            "id": "bananas",
+            "relevance": 1
+          },
+          {
+            "id": "citrus",
+            "relevance": 1
+          },
+          {
+            "id": "coffee",
+            "relevance": 1
+          },
+          {
+            "id": "sugar",
+            "relevance": 1
+          },
+          {
+            "id": "fats-oils",
+            "relevance": 1
+          },
+          {
+            "id": "infant-formula",
+            "relevance": 1
+          },
+          {
+            "id": "corn",
+            "relevance": 1
+          },
+          {
+            "id": "soybeans",
+            "relevance": 1
+          },
+          {
+            "id": "wheat",
+            "relevance": 1
+          },
+          {
+            "id": "fertilizer",
+            "relevance": 1
+          },
+          {
+            "id": "energy",
+            "relevance": 1
+          },
+          {
+            "id": "milk-farm",
+            "relevance": 1
+          }
+        ],
+        "severity": 1,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.4,
+        "text": "CNBC · 1 matching headline in 3 days · matched: sanction · https://news.google.com/rss/articles/CBMiqwFBVV95cUxQX2J4YmRsQjhNWG93RGdSR0dsUlBxeDZNWkNteDhGSVJQenpxTWlVemUtVFdVNzk4RTBJa2lpaFhRdnk5QlNBUlByN3c1N1pYam9yTE83cHJhX1k1cFVNVUdpWlFiVHliQmd3Nzl4cUVlaGxMTzJjcVd6TC1DUHp5blZMRGEwdDZEbkVYa2JNc05rNVRsam1ZTGg5VVlkd0tGNlFMTmVQdDJxOGvSAbABQVVfeXFMUFF4OWRySnJuRWh1aTRFZ09OQlY3R2k5UzNuRGhjcWQwODZYWnctS0FlRzlIaVVMQVU5dHQwQk94c2prVTF2UXM0ZHhPRkdkanhkV0c1Sy1pZUtZdWRTVXBqYmpPMC1LQ0t2T1pRLWpHZmRQYmJackJyS0tHbTB6bHZCS1JUZWZ5T09uQV8zWl9acmxIaXA4RHNYYmJrcHVpX2lBT3VPVFVNNHpvQlVFUV8?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-input-cost-us-national",
+        "name": "Fuel & Fertilizer Price Tracker: Sept. 3, 2026",
+        "category": "input_cost",
+        "kind": "geopolitical",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "rice",
+            "relevance": 1
+          },
+          {
+            "id": "fertilizer",
+            "relevance": 1
+          },
+          {
+            "id": "energy",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.3,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 1,
+        "text": "Michigan Farm News · 19 matching headlines in 3 days · matched: fertilizer, fuel, rice · https://news.google.com/rss/articles/CBMib0FVX3lxTE5EVmd3Y2pLaDBpR0RMTC1zdnY0LUVOVWxoMTBmY29kYnB3Q0d1Q3dUOHpyQWhwQk1sSk9CX2VNcG9IV3RiQkx2QkY3T09ybjJ2b1E5OXRlcnZJYWEzd0dUX0FJWTI2a1pFR0Z1VnJiSQ?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-input-cost-hormuz",
+        "name": "Fertilizer prices ease from Iran war peaks but farmers remain stretched, Rabobank says",
+        "category": "input_cost",
+        "kind": "geopolitical",
+        "regionId": "hormuz",
+        "admin": "Strait of Hormuz",
+        "lat": 26.6,
+        "lng": 56.3,
+        "commodities": [
+          {
+            "id": "fertilizer",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.3,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.8,
+        "text": "Country Guide · 1 matching headline in 3 days · matched: fertilizer, iran · https://news.google.com/rss/articles/CBMivgFBVV95cUxPREJJODJJSWR0WFEtUUtEQU92cWRWelVvU3Jlb3ZqdC1JS0R1MVhla1JEQ2NtU0pZWnZmRU1Kc3dDMkxaX3lweVVFdEh3WUY1cUNBZzZhNEUtbXpPUnpkUXJmNEdqSTB1Z1Z1VUlyd0xaUXhPS09zVVdvNnBQY0hlN19ESDFQc2g0aFp3dVY5ODJ6TzF0WGs5N3N2aDMxQUpHMy1hSHlyMWNHdGV6Q2p2MTdlem4zZlV6ZVhRbnVR?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-storm-us-national",
+        "name": "Sharks are now carrying ocean sensors through storm-feeding waters and hurricane foreca…",
+        "category": "storm",
+        "kind": "natural",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "eggs",
+            "relevance": 1
+          },
+          {
+            "id": "chicken",
+            "relevance": 1
+          },
+          {
+            "id": "turkey",
+            "relevance": 1
+          },
+          {
+            "id": "beef",
+            "relevance": 1
+          },
+          {
+            "id": "pork",
+            "relevance": 1
+          },
+          {
+            "id": "milk",
+            "relevance": 1
+          },
+          {
+            "id": "cheese",
+            "relevance": 1
+          },
+          {
+            "id": "bread",
+            "relevance": 1
+          },
+          {
+            "id": "rice",
+            "relevance": 1
+          },
+          {
+            "id": "potatoes",
+            "relevance": 1
+          },
+          {
+            "id": "lettuce",
+            "relevance": 1
+          },
+          {
+            "id": "tomatoes",
+            "relevance": 1
+          },
+          {
+            "id": "fresh-vegetables",
+            "relevance": 1
+          },
+          {
+            "id": "apples",
+            "relevance": 1
+          },
+          {
+            "id": "bananas",
+            "relevance": 1
+          },
+          {
+            "id": "citrus",
+            "relevance": 1
+          },
+          {
+            "id": "coffee",
+            "relevance": 1
+          },
+          {
+            "id": "sugar",
+            "relevance": 1
+          },
+          {
+            "id": "fats-oils",
+            "relevance": 1
+          },
+          {
+            "id": "infant-formula",
+            "relevance": 1
+          },
+          {
+            "id": "corn",
+            "relevance": 1
+          },
+          {
+            "id": "soybeans",
+            "relevance": 1
+          },
+          {
+            "id": "wheat",
+            "relevance": 1
+          },
+          {
+            "id": "fertilizer",
+            "relevance": 1
+          },
+          {
+            "id": "energy",
+            "relevance": 1
+          },
+          {
+            "id": "milk-farm",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.45,
+        "text": "energiesmedia.com · 2 matching headlines in 3 days · matched: hurricane, storm · https://news.google.com/rss/articles/CBMieEFVX3lxTE01b2VabE52dm03cWFNckdjYjItaEdDcFZqMGFmQTRwbWhlN1RWc25xWFl3WXZmY2pwWmlIcEVzT293UmF3bkVyQlVpT0ZSelYzMnhYVUR1ajlKMk9IelNCblFKRkttVGVLVnI0a3dtSmpscVhOT0cyLQ?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-wildfire-us-plains-wheat",
+        "name": "Montana ranching family rescues cattle herd from the path of two southwest Montana wild…",
+        "category": "wildfire",
+        "kind": "natural",
+        "regionId": "us-plains-wheat",
+        "admin": "Wheat Plains (KS, OK, TX, NE, CO)",
+        "lat": 38.5,
+        "lng": -99,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.08,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.8,
+        "text": "KBZK News · 1 matching headline in 3 days · matched: wildfire, montana, cattle, ranch · https://news.google.com/rss/articles/CBMiugFBVV95cUxNWXpnVExVaFNJRVBvMUpGbGlmRUdkQks3Njk3ZlJVbWlVLVlUckt3djdtN3pFOERfelEwM0JQS2FFTkp5b3VNSHFRdkR3dHRlYXRlNjdwa29nVEhycm43Y2JBa2o5RGh2cW1uNWRudmdMdDhjRzlFblByR29HekFyQ25SQWswdzBGS1NELW9KRjBvSnFEUGk1VEVDMDZzbTQ1MWJQY2N5TFhDMENkZFE4T3NHMDVMU09uZHc?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-flood-us-california-central-valley",
+        "name": "Fresno State vigil honors victims of deadly Nepal flash flood",
+        "category": "flood",
+        "kind": "natural",
+        "regionId": "us-california-central-valley",
+        "admin": "California Central Valley",
+        "lat": 36.7,
+        "lng": -119.8,
+        "commodities": [
+          {
+            "id": "milk",
+            "relevance": 1
+          },
+          {
+            "id": "tomatoes",
+            "relevance": 1
+          },
+          {
+            "id": "lettuce",
+            "relevance": 1
+          },
+          {
+            "id": "fresh-vegetables",
+            "relevance": 1
+          },
+          {
+            "id": "citrus",
+            "relevance": 1
+          },
+          {
+            "id": "eggs",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.6000000000000001,
+        "text": "ABC30 Fresno · 1 matching headline in 3 days · matched: flood, fresno · https://news.google.com/rss/articles/CBMilgFBVV95cUxPVVczVVgzV0RTaTRrWloxTXJKWGVWMTVOVm9zTVI0QWZKeUtOT3JId19aOHhTV1lmcmdGWlJMcGwybWRmdVZtaEs1VzMzM0xQbDFRNTJGSG1sMU1rMUhFb3NBaE0ycUR6cmVzc2h6Ql9MNDU4TE82VkJTTFY4dG5ESk1IOURnbHp3YzRId1Rhb3VXbWNMUHfSAZsBQVVfeXFMTktVUV82U1FndlRqdEhzQVlpTGh2VHVaZnBFLUlUaG5iUWpCQmZuS2h1Z3VLX3R4NHVqUTdhdlVHY1h0M2I4R2YwaVZOLWlJclNSbUU5OFZ3UDFzbUZCRnQydFRmcVBnaWxfcFRreFlhbHJSM1dZcERjRTZpUXZuVzJnS0hmWVI5ZGxua1ptUGt6RjlJSUIyb3FMMW8?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-flood-us-national",
+        "name": "Cattle seen walking through floodwater",
+        "category": "flood",
+        "kind": "natural",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 1,
+        "text": "11Alive.com · 25 matching headlines in 3 days · matched: flood, cattle · https://news.google.com/rss/articles/CBMitwFBVV95cUxNWVNTR1Q5NXBvQW1CM3hFc0wxekJkTjhrREwtX2w2RWt3V1IzN1NRVTRyWWZJeEpic05HMEVfWW8xNV9Fbm92QWJpQ09XY3JGRW51RjhIZndTOUt1bmxRMjZmejlrSm90WDlWRW5zamJwVmVyQk1VZmVlbXFMZWhuLUQ3cTlkUnowM2dQaUlPRE9RdUZqR0JpSy0wUlVEUlFQTGJqTEhSVFp3a2xRdjRyT1JhZjZaSXc?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-wildfire-us-national",
+        "name": "Mixed grazing, controlled burns and collaboration can curb Mediterranean wildfire risks",
+        "category": "wildfire",
+        "kind": "natural",
+        "regionId": "us-national",
+        "admin": "United States (national)",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "eggs",
+            "relevance": 1
+          },
+          {
+            "id": "chicken",
+            "relevance": 1
+          },
+          {
+            "id": "turkey",
+            "relevance": 1
+          },
+          {
+            "id": "beef",
+            "relevance": 1
+          },
+          {
+            "id": "pork",
+            "relevance": 1
+          },
+          {
+            "id": "milk",
+            "relevance": 1
+          },
+          {
+            "id": "cheese",
+            "relevance": 1
+          },
+          {
+            "id": "bread",
+            "relevance": 1
+          },
+          {
+            "id": "rice",
+            "relevance": 1
+          },
+          {
+            "id": "potatoes",
+            "relevance": 1
+          },
+          {
+            "id": "lettuce",
+            "relevance": 1
+          },
+          {
+            "id": "tomatoes",
+            "relevance": 1
+          },
+          {
+            "id": "fresh-vegetables",
+            "relevance": 1
+          },
+          {
+            "id": "apples",
+            "relevance": 1
+          },
+          {
+            "id": "bananas",
+            "relevance": 1
+          },
+          {
+            "id": "citrus",
+            "relevance": 1
+          },
+          {
+            "id": "coffee",
+            "relevance": 1
+          },
+          {
+            "id": "sugar",
+            "relevance": 1
+          },
+          {
+            "id": "fats-oils",
+            "relevance": 1
+          },
+          {
+            "id": "infant-formula",
+            "relevance": 1
+          },
+          {
+            "id": "corn",
+            "relevance": 1
+          },
+          {
+            "id": "soybeans",
+            "relevance": 1
+          },
+          {
+            "id": "wheat",
+            "relevance": 1
+          },
+          {
+            "id": "fertilizer",
+            "relevance": 1
+          },
+          {
+            "id": "energy",
+            "relevance": 1
+          },
+          {
+            "id": "milk-farm",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.08,
+        "months": 6,
+        "status": "breaking",
+        "confidence": 0.45,
+        "text": "Phys.org · 2 matching headlines in 3 days · matched: wildfire · https://news.google.com/rss/articles/CBMilwFBVV95cUxNbkhPcXRRQWlzZnBzY2xja25YRTB2Y2o2N29SaklSNFJvaGRUbkV6TlFYaXZuekFPdFJTQ3o1WmgtZXJqVWRORHk4SDRubURER1BWeWt4WFlUTDg1X2U3STQwV2p1ZF8zUUlmMzJoQWJPanBaVjVNRlNQc05rM2gxeDRXaC00dGQ2S1NTNGJwcDJhMEYtRE1r0gGXAUFVX3lxTE1uSE9xdFFBaXNmcHNjbGNrblhFMHZjajY3b1JqSVI0Um9oZFRuRXpOUVhpdm56QU90UlNDejVaaC1lcmpVZE5EeThING5tRERHUFZ5a3hYWVRMODVfZTdJNDBXanVkXzNRSWYzMmhBYk9qcFpWNU1GU1BzTmszaDF4NFdoLTR0ZDZLU1M0YnBwMmEwRi1ETWs?oc=5",
+        "start": "2026-09"
+      },
+      {
+        "id": "news-flood-canada",
+        "name": "Federal government matches donations made to the Canadian Red Cross 2026 flood appeal",
+        "category": "flood",
+        "kind": "natural",
+        "regionId": "canada",
+        "admin": "Canada",
+        "lat": 56.1,
+        "lng": -106.3,
+        "commodities": [
+          {
+            "id": "beef",
+            "relevance": 1
+          },
+          {
+            "id": "pork",
+            "relevance": 1
+          },
+          {
+            "id": "wheat",
+            "relevance": 1
+          },
+          {
+            "id": "fats-oils",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.6000000000000001,
+        "text": "CityNews Winnipeg · 1 matching headline in 3 days · matched: flood, canadian · https://news.google.com/rss/articles/CBMixAFBVV95cUxQSDc2dGJ0SVJDYXFBSUQyd0NTZUpsVnBJTnk1UVNuQVAtQTlsOGlvaXpnMzVFV0xGRHlFc0JLeUJKcW5hWWJwWVNDMWtoRFNTQUFFeVNUX1dxelh5TlZyVEpUZDRxcGFVc0xGNS13ZU1CV2RzanJDVEhFclRBUjJENUxfOW9jWE5ITUxmemt4QUlueWVoa090OFdZNVdTRDFodUt0UlRKbUZqc2dJQ2dhVm9xeENiRVM3VFRzX3ZRVzhnTkR2?oc=5",
+        "start": "2026-09",
+        "iso3": "CAN"
+      },
+      {
+        "id": "news-flood-india-rice",
+        "name": "Flood sweeps away tree used to mark Nepal-India border in Susta",
+        "category": "flood",
+        "kind": "natural",
+        "regionId": "india-rice",
+        "admin": "India",
+        "lat": 22,
+        "lng": 79,
+        "commodities": [
+          {
+            "id": "rice",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.15,
+        "months": 12,
+        "status": "breaking",
+        "confidence": 0.6000000000000001,
+        "text": "Onlinekhabar English · 1 matching headline in 3 days · matched: flood, india · https://news.google.com/rss/articles/CBMiowFBVV95cUxOMU44Rm9VUVBMaFpUMTlPWU5GbTcwRldsaGlob25pcThaNHlyR0o2R01neFBxcE1PUEtvTHkzb3REazJwQjh6OWxkSGxCcnVkSUx2YVpLRktLV01sT0V2cmQ1OG5oazZyeXBCSWw4ZUNzQWVJNEEyTzVBdVk1QXQ3NzkzZlI5WGY1eU91Y2Jlb1I5YWJFcFJVNnZ4LXlkZTRjNzcw?oc=5",
+        "start": "2026-09"
+      }
+    ],
+    "source": {
+      "feed": "Google News RSS (interpreted; non-commercial use)",
+      "url": "https://news.google.com",
+      "kind": "live"
+    }
+  }
+}
