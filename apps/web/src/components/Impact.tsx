@@ -63,7 +63,12 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
               const pi = impact.price.retailPct[r.id] ?? [];
               const obs = entry.observed && entry.observed.commodity === r.id ? entry.observed : undefined;
               const base = obs && obs.counterfactualPrice.length > 0 ? obs.counterfactualPrice.reduce((a, b) => a + b, 0) / obs.counterfactualPrice.length : c?.baseline.retailPrice ?? 1;
-              const priceSeries = pi.map((p) => base * (1 + p));
+              // percent change from normal, with two months after the shock ends so the return to normal is visible
+              const tail = pi.length > 0 && (pi[pi.length - 1] ?? 0) > 1e-6 ? 2 : 0;
+              const nextMonth = (ym: string, k: number) => { const [y, m] = ym.split('-').map(Number); const t = (y! * 12 + (m! - 1)) + k; return `${Math.floor(t / 12)}-${String((t % 12) + 1).padStart(2, '0')}`; };
+              const lastMonth = impact.months[impact.months.length - 1] ?? '2026-01';
+              const chartMonths = [...impact.months, ...Array.from({ length: tail }, (_, k) => nextMonth(lastMonth, k + 1))];
+              const pctSeries = [...pi, ...new Array<number>(tail).fill(0)];
               const isOpen = open === r.id;
               return (
                 <Fragment key={r.id}>
@@ -76,11 +81,11 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
                   {isOpen && (
                     <tr className="chart-row">
                       <td colSpan={4}>
-                        <div className="chart-title">Retail price, {r.name} <span className="faint">USD per {c?.unit ?? 'unit'} · {observed && obs ? 'observed (FRED) vs counterfactual' : 'modeled vs baseline'}</span></div>
+                        <div className="chart-title">{observed && obs ? `Store price, ${r.name}` : `Store price change from normal, ${r.name}`} <span className="faint">{observed && obs ? `USD per ${c?.unit ?? 'unit'} · actual (FRED) vs. what it would have been` : `normal price $${base.toFixed(2)} per ${c?.unit ?? 'unit'} · modeled`}</span></div>
                         {observed && obs ? (
                           <LineChart months={obs.months} series={[{ label: 'observed', values: obs.retailPrice, color: 'var(--bad)' }, { label: 'counterfactual', values: obs.counterfactualPrice, color: 'var(--text-faint)', dashed: true }]} yFormat={(y) => `$${y.toFixed(2)}`} />
                         ) : (
-                          <LineChart months={impact.months} series={[{ label: 'modeled', values: priceSeries, color: 'var(--bad)' }]} baseline={{ value: base, label: `baseline $${base.toFixed(2)}` }} yFormat={(y) => `$${y.toFixed(2)}`} />
+                          <LineChart months={chartMonths} series={[{ label: 'modeled', values: pctSeries, color: 'var(--bad)' }]} baseline={{ value: 0, label: 'normal price' }} yFormat={(y) => `${y > 0 ? '+' : ''}${(y * 100).toFixed(Math.abs(y) < 0.02 ? 1 : 0)}%`} yMin={0} />
                         )}
                       </td>
                     </tr>
