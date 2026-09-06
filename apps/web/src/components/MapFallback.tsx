@@ -119,7 +119,8 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason,
               : '';
             const footnote = hh.status === 'anticipated' || hh.status === 'unstable' ? `${supplies[0]!.toUpperCase()}${supplies.slice(1)}.` : '';
             const names = hh.threats.map(nameOf);
-            const minor = ((hh as { minor?: string[] }).minor ?? []).map(nameOf);
+            const titleOf = (id: string) => entries.find((e) => e.threat.id === id)?.threat.name ?? id;
+            const minor = ((hh as { minor?: string[] }).minor ?? []).map(titleOf);
             const list = names.length > 5 ? [...names.slice(0, 5), `and ${names.length - 5} more`] : names;
             return <>{why ? <><br /><span className="why">{why}</span></> : null}{list.length ? <><br /><span className="why">{list.join(' · ')}</span></> : null}{footnote ? <><br /><span className="faint">{footnote}</span></> : null}{minor.length ? <><br /><span className="faint">Also here, too small to move US prices: {minor.join(' · ')}</span></> : null}{onPickRegion && !hh.threats.length && !isState && regionOfIso(hover) ? <><br /><span className="faint">click to add a disruption here</span></> : null}</>;
           })()}

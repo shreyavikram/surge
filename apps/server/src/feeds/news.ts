@@ -59,6 +59,8 @@ const RELIEF = /\b(tariff[- ]free|duty[- ]free|lifts?|lifted|lifting|allow(s|ing
 const NON_EVENT = /\b(vigils?|memorial|fundrais\w*|donat\w*|charity|honou?rs|anniversary|tribute|recipes?|stud(y|ies|ying)|research\w*|webinar|surveys?|polls?|opinion|explainer|explained|fact[- ]check|podcast|gallery|factbox|talks?|negotiat\w*|deadline|looms?|progress|rescu\w*|wildlife|dolphins?|penguins?|pets|cats|dogs|zoo|hand,? foot,? and mouth|(stocks?|shares) (jump|rise|fall|slide|rall|gain|drop|surge|plunge)\w*|what to know|why (it|this) matters|how to|tour|scheduled|analysts?|analysis|contributor|what'?s (going on|behind|at stake)|video shows|watch:|live view|tracking)\b|^(how|why|what|is|are|will|can|could|should|does|do)\b|\?$/i;
 
 /** Hypotheticals and forecasts: "could crush", "may cut", "if the ban holds", "fears", "outlook". */
+/** Reference pages and dashboards that surface in news search ("Detections of HPAI in Mammals | APHIS") are not events. */
+const REFERENCE_PAGE = /^(detections?|confirmed (cases|detections)|dashboard|data|table|list|map|overview|situation report|faq|about)\b|\|\s*(animal and plant health|aphis|usda|cdc|fda|who|fao|wikipedia|home)\b|\b(dashboard|fact sheet|frequently asked)\b/i;
 const HEDGE = /\b(could|may|might|would|can|if|fears?|expected|forecasts?|forecasters|outlook|poised|projected|likely|concerns?)\b/i;
 
 /** "Trade war", "price war", "beef with farmers" are not wars. */
@@ -166,7 +168,7 @@ export function screen(raw: unknown): Map<string, NewsSupport & { why: string }>
     for (const k of classified) {
       const a = arts[k.index]; if (!a) continue;
       if (k.confidence < 0.7) continue;
-      if (RELIEF.test(a.title) || RELIEF.test(k.description)) continue;
+      if (RELIEF.test(a.title) || RELIEF.test(k.description) || REFERENCE_PAGE.test(a.title)) continue;
       if (thirdCountryRestriction(a.title, k.category, k.regionId, ctx)) continue;
       // A nationwide placement needs nationwide words; a headline that names a state is about that state; a US story
       // with neither is not placeable (a county rancher's drought is not 3% of the national herd).
@@ -187,7 +189,7 @@ export function screen(raw: unknown): Map<string, NewsSupport & { why: string }>
       const t = a.title.trim().toLowerCase();
       if (seen.has(t)) continue;
       seen.add(t);
-      if (RELIEF.test(a.title) || NON_EVENT.test(a.title) || HEDGE.test(a.title)) continue;
+      if (RELIEF.test(a.title) || NON_EVENT.test(a.title) || REFERENCE_PAGE.test(a.title) || HEDGE.test(a.title)) continue;
       for (const c of interpretScenario(a.title, ctx)) {
         // a headline must name both the kind of threat and the place; no defaults, no weak matches
         if (!c.explicitCategory || !c.explicitRegion || c.confidence < 0.75) continue;

@@ -19,6 +19,13 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
   const w = impact.welfare;
   const v = focusView(entry, focus, ctx);
   const observed = impact.price.path === 'observed';
+  // does any commodity row have something to chart? (a live threat that started this month has none yet)
+  const nowYm0 = new Date().toISOString().slice(0, 7);
+  const anyChart = observed ? !!entry.observed : impact.commodities.some((id) => {
+    const pi = impact.price.retailPct[id] ?? [];
+    const cut = entry.origin === 'live' ? Math.max(1, impact.months.filter((m) => m <= nowYm0).length) : pi.length;
+    return cut >= 2 && pi.slice(0, cut).some((v) => Math.abs(v) > 1e-6);
+  });
   const scale = w.cv > 0 ? v.cv / w.cv : 0;
   const [open, setOpen] = useState<string | null>(null);
 
@@ -26,7 +33,9 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
     .map((id) => ({ id, name: commodityName(ctx, id), price: peak(impact.price.retailPct[id] ?? []), qty: peak(impact.quantity.pct[id] ?? []), cv: v.byCommodity[id] ?? 0 }))
     .sort((a, b) => Math.abs(b.price) - Math.abs(a.price));
 
-  const subs = w.substitution.filter((s) => Math.abs(s.quantityPct) > 0.0005).sort((a, b) => Math.abs(b.quantityPct) - Math.abs(a.quantityPct)).slice(0, 8);
+  // flour and soups carry positive own-price elasticities in ERR-139 (see docs/DATA-AUDIT.md B3); their cross terms are not shown
+  const UNRELIABLE_ITEMS = new Set(['flour', 'soups']);
+  const subs = w.substitution.filter((s) => Math.abs(s.quantityPct) > 0.0005 && !UNRELIABLE_ITEMS.has(s.commodity)).sort((a, b) => Math.abs(b.quantityPct) - Math.abs(a.quantityPct)).slice(0, 8);
 
   return (
     <>
@@ -59,7 +68,7 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
       </div>
 
       <div className="section">
-        <h4>Commodities <span className="faint">· click a row for its price path</span></h4>
+        <h4>Commodities <span className="faint">· {anyChart ? 'click a row for its price path' : 'price paths appear once the shock has been under way for a month'}</span></h4>
         <table className="tbl clickable">
           <thead>
             <tr><th>Commodity</th><th className="r">Peak price</th><th className="r">Peak qty</th><th className="r">Loss</th></tr>
@@ -89,7 +98,7 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
               return (
                 <Fragment key={r.id}>
                   <tr className={isOpen ? 'open' : ''} onClick={() => { if (hasChart) setOpen(isOpen ? null : r.id); }} style={{ cursor: hasChart ? 'pointer' : 'default' }} title={hasChart ? undefined : 'No price data to chart yet'}>
-                    <td><span className="caret">{hasChart ? (isOpen ? '▾' : '▸') : ''}</span>{r.name}{hasChart ? null : <span className="faint"> · no price data yet</span>}</td>
+                    <td><span className="caret">{hasChart ? (isOpen ? '▾' : '▸') : ''}</span>{r.name}{hasChart || !anyChart ? null : <span className="faint"> · no price data yet</span>}</td>
                     <td className="r" style={{ color: 'var(--bad)' }}>{signedPct(r.price)}</td>
                     <td className="r muted">{signedPct(r.qty)}</td>
                     <td className="r">{r.cv > 0 ? compactUsd(r.cv) : '—'}</td>

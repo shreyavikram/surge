@@ -59,7 +59,7 @@ export function PriceStress({ ctx, commodities, setCommodities }: { ctx: EngineC
             const name = ctx.commodities[r.commodity]?.name ?? r.name;
             return (
               <button key={r.commodity} className={`ps-chip ${cls}${commodities.has(r.commodity) ? ' on' : ''}`} onClick={() => toggle(r.commodity)}
-                title={`${name}: ${LEVEL_TEXT[a.level]} for the season (FAO anomaly score ${a.ifpa.toFixed(1)}; ${(a.cagr * 1200).toFixed(0)}% annualised over the last year). Click to show only this food.`}>
+                title={`${name}: ${LEVEL_TEXT[a.level]} for the season (FAO anomaly score ${a.ifpa.toFixed(1)}; ${Math.round(a.cagr * 1200) === 0 ? '0' : (a.cagr * 1200).toFixed(0)}% annualised over the last year). Click to show only this food.`}>
                 {name} <span>{LEVEL_TEXT[a.level].replace('moderately ', '').replace('abnormally ', 'very ')}</span>
               </button>
             );

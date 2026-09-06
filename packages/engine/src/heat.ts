@@ -26,6 +26,8 @@ export interface AreaHeat {
 /** A threat colours an area only when it disrupts at least this share of US food-import or food-production value
  * (0.05%): a small flood on a small rice supplier is listed as minor, not painted red. */
 export const MIN_COLOUR_SHARE = 0.0005;
+/** …or at least this share of the area's own supply to the US (5%): a place can be badly hit even when it is small. */
+export const MIN_RELATIVE_SHARE = 0.05;
 
 export const HEAT_SATURATION = { importShare: 0.25, disruption: 0.05, productionShare: 0.15, lensImportShare: 0.5, lensProductionShare: 0.3 };
 
@@ -67,8 +69,9 @@ function classify(baseline: number, disruption: number, anticipated: number, sat
   const shade = baseline > 0 ? clamp01(0.15 + 0.85 * Math.sqrt(baseline / satBase)) : 0.35;
   const minor: string[] = [];
   let active = ids.active, breaking = ids.breaking;
-  if (active.length > 0 && disruption < MIN_COLOUR_SHARE) { minor.push(...active); active = []; }
-  if (breaking.length > 0 && anticipated < MIN_COLOUR_SHARE) { minor.push(...breaking); breaking = []; }
+  const colours = (x: number): boolean => x >= MIN_COLOUR_SHARE || (baseline > 0 && x / baseline >= MIN_RELATIVE_SHARE);
+  if (active.length > 0 && !colours(disruption)) { minor.push(...active); active = []; }
+  if (breaking.length > 0 && !colours(anticipated)) { minor.push(...breaking); breaking = []; }
   const withMinor = (h: Omit<AreaHeat, 'id'>): Omit<AreaHeat, 'id'> => (minor.length ? { ...h, minor } : h);
   if (active.length > 0) return withMinor({ status: 'unstable', intensity: shade, baseline, disruption, anticipated, threats: [...active, ...breaking] });
   if (breaking.length > 0) return withMinor({ status: 'anticipated', intensity: shade, baseline, disruption, anticipated, threats: breaking });
@@ -164,8 +167,11 @@ export function stateHeat(threats: Threat[], ctx: EngineContext, lens?: string[]
       }
       if (share === 0) continue;
       const a = (acc[st] ??= { disruption: 0, anticipated: 0, active: [], breaking: [] });
-      if (t.status === 'breaking') { a.anticipated += share * (t.confidence ?? 0.5); a.breaking.push(t.id); }
-      else { a.disruption += share; a.active.push(t.id); }
+      const national = covered.length === 0;
+      const ownBase = baseline[st] ?? 0;
+      const listed = !national || share >= MIN_COLOUR_SHARE || (ownBase > 0 && share / ownBase >= MIN_RELATIVE_SHARE);
+      if (t.status === 'breaking') { a.anticipated += share * (t.confidence ?? 0.5); if (listed) a.breaking.push(t.id); }
+      else { a.disruption += share; if (listed) a.active.push(t.id); }
     }
   }
   const out: Record<string, AreaHeat> = {};

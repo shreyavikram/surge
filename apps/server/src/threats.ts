@@ -125,5 +125,17 @@ export function feedItemsToThreats(items: FeedItem[], source: SourceStamp, ctx: 
 
 /** Flatten several feed results into a single Threat list. */
 export function threatsFromResults(results: FeedResult[], ctx: EngineContext): Threat[] {
-  return results.flatMap((r) => feedItemsToThreats(r.items, r.source, ctx));
+  return dedupeReported(results.flatMap((r) => feedItemsToThreats(r.items, r.source, ctx)));
+}
+
+/** A reported (possible) threat is dropped when a measured, active threat of the same category already covers the
+ * same region and one of its commodities: the Drought Monitor beats a drought headline for the same state, and the
+ * EIA diesel series beats a diesel-price headline. */
+export function dedupeReported(threats: Threat[]): Threat[] {
+  const measured = threats.filter((t) => t.status !== 'breaking');
+  return threats.filter((t) => {
+    if (t.status !== 'breaking') return true;
+    const ids = new Set(t.commodities.map((c) => c.id));
+    return !measured.some((m) => m.category === t.category && m.location.regionId === t.location.regionId && m.commodities.some((c) => ids.has(c.id)));
+  });
 }

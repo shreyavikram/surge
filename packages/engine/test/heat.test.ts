@@ -71,8 +71,7 @@ describe('a commodity filter colours a state only for that commodity', () => {
     const beef = stateHeat([t], ctx, ['beef']);
     expect(beef['UT']!.status).toBe('unstable');
     const all = stateHeat([t], ctx);
-    expect(all['UT']!.status).not.toBe('unstable'); // 30% of Utah's beef is under 0.05% of US food value: listed as minor, not painted
-    expect(all['UT']!.minor).toEqual(['ut']);
+    expect(all['UT']!.status).toBe('unstable'); // small in US terms, but 30% of Utah's beef is a tenth of Utah's own food output
   });
 });
 

@@ -24,6 +24,7 @@ export function pct(x: number, digits = 1): string {
 }
 
 export function signedPct(x: number, digits = 1): string {
+  if (Math.abs(x) < 0.5 * Math.pow(10, -digits - 2)) x = 0; // no "-0.0%"
   const s = (x * 100).toFixed(digits);
   return `${x > 0 ? '+' : ''}${s}%`;
 }

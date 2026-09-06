@@ -1,5 +1,5 @@
 import type { EngineContext } from '@surge/engine';
-import { type RankedEntry, commodityName, chartLimit, chartCutoff } from '../engine.js';
+import { type RankedEntry, commodityName } from '../engine.js';
 import type { Focus } from '../state.js';
 import { compactUsd, compactNum, pct } from '../format.js';
 import { Chip } from './Chip.js';
@@ -15,11 +15,10 @@ export function Relief({ entry, ctx }: { entry: RankedEntry; ctx: EngineContext;
     return <div className="section"><h4>Relief</h4><div className="faint">No gap to close for this threat.</div></div>;
   }
   const active = plan.levers.filter((l) => l.classification !== 'unused');
-  // the chart stops where measurement stops (now, or the end of a replay's observed series); the numbers above cover the full modeled horizon
-  const allMonths = entry.impact.months.slice(0, plan.gap.length);
-  const cut = chartLimit(allMonths, entry);
-  const months = allMonths.slice(0, cut);
-  const cutoff = chartCutoff(entry);
+  // a relief plan is forward-looking by nature: the whole modeled path is drawn, with a 'now' marker for live threats
+  const months = entry.impact.months.slice(0, plan.gap.length);
+  const cut = months.length;
+  const nowMark = entry.origin === 'live' ? new Date().toISOString().slice(0, 7) : undefined;
   const unit = plan.unit;
   const fmtUnits = (v: number) => compactNum(v);
   const monthlyBaseline = Math.max(1e-9, (ctx.commodities[plan.commodity]?.baseline.annualQuantity ?? 0) / 12);
@@ -36,7 +35,7 @@ export function Relief({ entry, ctx }: { entry: RankedEntry; ctx: EngineContext;
       </div>
 
       <div className="section">
-        <h4>{plan.offset ? 'Extra supply that would cancel the price rise' : 'How much supply is missing, month by month'}{cutoff && cut < allMonths.length ? <span className="faint"> · shown through {cutoff}; the rest is modeled, not measured</span> : null}<Info term={plan.offset ? 'offset' : 'shortfall'} /></h4>
+        <h4>{plan.offset ? 'Extra supply that would cancel the price rise' : 'How much supply is missing, month by month'}{entry.origin === 'live' ? <span className="faint"> · modeled path</span> : null}<Info term={plan.offset ? 'offset' : 'shortfall'} /></h4>
         <LineChart
           months={months}
           series={[
@@ -46,6 +45,7 @@ export function Relief({ entry, ctx }: { entry: RankedEntry; ctx: EngineContext;
           baseline={{ value: 1, label: 'normal supply' }}
           yFormat={(y) => `${Math.round(y * 100)}%`}
           height={170}
+          now={nowMark}
         />
         <div className="legend-inline"><span><i style={{ background: 'var(--bad)' }} /> supply with relief</span><span><i style={{ background: 'var(--text-faint)' }} /> without relief</span></div>
       </div>

@@ -37,7 +37,7 @@ function toggle<T>(set: Set<T>, v: T): Set<T> { const n = new Set(set); n.has(v)
 
 export function Filters({ ctx, focus, setFocus, commodities, setCommodities, families, setFamilies }: Props) {
   const [q, setQ] = useState('');
-  const areas = (ctx.focus?.areas ?? []).filter((a) => a.kind === (focus.kind === 'district' ? 'district' : 'state'));
+  const areas = (ctx.focus?.areas ?? []).filter((a) => a.kind === (focus.kind === 'district' ? 'district' : 'state')).sort((a, b) => a.name.localeCompare(b.name));
   const shown = areas.filter((a) => !q || a.name.toLowerCase().includes(q.toLowerCase()) || a.id.toLowerCase().includes(q.toLowerCase())).sort((a, b) => a.id.localeCompare(b.id));
   const hasDistricts = (ctx.focus?.areas ?? []).some((a) => a.kind === 'district');
   const areaSummary = focus.kind === 'us' || focus.ids.length === 0 ? 'United States' : focus.ids.length <= 2 ? focus.ids.join(', ') : `${focus.ids.length} selected`;

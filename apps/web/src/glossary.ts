@@ -23,5 +23,5 @@ export const GLOSSARY: Record<string, { title: string; text: string }> = {
   heatStable: { title: 'Stable (green)', text: 'No active or reported threat here. The shade shows how much of America\'s food comes from this place: for countries, its share of what the US imports; for states, its share of what the US grows and raises. With a commodity filter on, the shares refer to that commodity.' },
   heatAnticipated: { title: 'Possible disruption (yellow)', text: 'Something that could cut supply from here has been reported, but it has not yet shown up in shipping, supply, or price data. The shade still shows how much of America\'s food comes from here, so a dark yellow country matters more than a pale one.' },
   heatNone: { title: 'Grey', text: 'No measurable food supply to the United States comes from here, so it does not affect US shoppers either way.' },
-  heatUnstable: { title: 'Unstable (red)', text: 'Supply from this place is already being cut. Darker red means a bigger share of America\'s food is affected right now.' },
+  heatUnstable: { title: 'Disruption under way (red)', text: 'Supply from this place is already being cut. Darker red means a bigger share of America\'s food is affected right now.' },
 };
