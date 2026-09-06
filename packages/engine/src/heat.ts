@@ -28,6 +28,8 @@ export interface AreaHeat {
 export const MIN_COLOUR_SHARE = 0.0005;
 /** …or at least this share of the area's own supply to the US (5%): a place can be badly hit even when it is small. */
 export const MIN_RELATIVE_SHARE = 0.05;
+/** A national threat colours the states that grow at least this share of the commodity (1% of US output). */
+export const MIN_PRODUCER_SHARE = 0.01;
 
 export const HEAT_SATURATION = { importShare: 0.25, disruption: 0.05, productionShare: 0.15, lensImportShare: 0.5, lensProductionShare: 0.3 };
 
@@ -167,11 +169,20 @@ export function stateHeat(threats: Threat[], ctx: EngineContext, lens?: string[]
       }
       if (share === 0) continue;
       const a = (acc[st] ??= { disruption: 0, anticipated: 0, active: [], breaking: [] });
+      // A national threat (HPAI across the country) is judged at the national scale: if it clears the colouring floor
+      // nationally, it colours every state that produces at least MIN_PRODUCER_SHARE of the commodity, and its share
+      // there is counted at the national rate so the state is painted rather than diluted across fifty states.
       const national = covered.length === 0;
-      const ownBase = baseline[st] ?? 0;
-      const listed = !national || share >= MIN_COLOUR_SHARE || (ownBase > 0 && share / ownBase >= MIN_RELATIVE_SHARE);
-      if (t.status === 'breaking') { a.anticipated += share * (t.confidence ?? 0.5); if (listed) a.breaking.push(t.id); }
-      else { a.disruption += share; if (listed) a.active.push(t.id); }
+      let counted = share;
+      let listed = true;
+      if (national) {
+        const nationalShare = t.commodities.reduce((acc2, { id, relevance }) => (lensSet && !lensSet.has(id)) ? acc2 : acc2 + t.severity * relevance * (region.usSupplyShare?.[id] ?? 0) * (w[id] ?? 0), 0);
+        const producesIt = t.commodities.some(({ id }) => (!lensSet || lensSet.has(id)) && (cfg.production[id]?.[st] ?? 0) >= MIN_PRODUCER_SHARE);
+        listed = nationalShare >= MIN_COLOUR_SHARE && producesIt;
+        counted = listed ? nationalShare : share;
+      }
+      if (t.status === 'breaking') { a.anticipated += counted * (t.confidence ?? 0.5); if (listed) a.breaking.push(t.id); }
+      else { a.disruption += counted; if (listed) a.active.push(t.id); }
     }
   }
   const out: Record<string, AreaHeat> = {};

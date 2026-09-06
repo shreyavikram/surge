@@ -85,3 +85,13 @@ describe('small threats do not colour a whole country', () => {
     expect(big['IND']!.status).toBe('unstable');
   });
 });
+
+describe('a national threat colours the states that produce the commodity', () => {
+  it('HPAI losses across the country paint Iowa (15% of layers) red and leave Nevada alone', () => {
+    const hpai: Threat = { id: 'hpai', name: 'HPAI losses in egg-laying flocks', category: 'disease', kind: 'natural', location: { lat: 39.8, lng: -98.6, regionId: 'us-national' }, commodities: [{ id: 'eggs', relevance: 1 }], severity: 0.07, start: '2026-09', status: 'active', source: { feed: 'test', kind: 'live' } };
+    const h = stateHeat([hpai], ctx);
+    expect(h['IA']!.status).toBe('unstable');
+    expect(h['NV']!.status).not.toBe('unstable');
+    expect(h['NV']!.minor ?? []).toEqual([]); // not listed on states that do not produce eggs
+  });
+});
