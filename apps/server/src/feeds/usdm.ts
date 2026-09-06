@@ -2,11 +2,22 @@ import { loadContext } from '@surge/config';
 import type { FeedAdapter, FeedResult, FeedItem } from './types.js';
 import { httpText } from './http.js';
 import { regionForState, STATE_FIPS } from './regions.js';
+import stateIrrigation from '../../../../packages/config/data/state-irrigation.json' with { type: 'json' };
 
 /**
- * US Drought Monitor, weekly, by state. Alert score = (0.4·D2-only + 0.7·D3-only + 1.0·D4) area share; ingestion
- * applies the drought damage cap. Each state is its own production region.
+ * US Drought Monitor, weekly, by state. Alert score = (0.4·D2-only + 0.7·D3-only + 1.0·D4) area share, then
+ * × (1 − IRRIGATION_RELIEF × irrigated share of harvested cropland): irrigated acres largely escape the yield loss
+ * dryland acres suffer at the same class (California's valleys versus dryland Kansas). Ingestion applies the drought
+ * damage cap. Each state is its own production region.
  */
+const IRRIGATION_RELIEF = 0.8;
+const IRRIGATED = (stateIrrigation as unknown as { irrigatedShare: Record<string, number> }).irrigatedShare;
+
+/** Irrigated share of harvested cropland for a state (0..1; 0 when unknown). */
+export function irrigatedShare(state: string): number {
+  const v = IRRIGATED[state];
+  return typeof v === 'number' && Number.isFinite(v) ? Math.max(0, Math.min(1, v)) : 0;
+}
 const STATES = ['IA', 'IL', 'IN', 'OH', 'MN', 'NE', 'MO', 'WI', 'SD', 'KS', 'ND', 'MT', 'OK', 'CO', 'TX', 'WA', 'CA', 'FL', 'OR', 'ID', 'GA', 'AL', 'AR', 'NC', 'MS', 'MI', 'PA', 'NY', 'KY', 'TN', 'SC', 'VA', 'LA', 'NM', 'AZ', 'UT', 'NV', 'WY'];
 const MIN_D2_SHARE = 20; // percent of state area in D2 or worse before a threat is emitted
 
@@ -54,7 +65,8 @@ export const usdm: FeedAdapter = {
       if (!(d2plus >= MIN_D2_SHARE)) continue;
       const region = ctx.regions[`us-state-${st}`] ?? regionForState(ctx, st);
       if (!region) continue;
-      const frac = 1; // the state is its own region
+      const irrigated = irrigatedShare(st);
+      const frac = 1 - IRRIGATION_RELIEF * irrigated; // the state is its own region; irrigated acreage is largely spared
       const score = ((0.4 * (r.D2 - r.D3)) + (0.7 * (r.D3 - r.D4)) + (1.0 * r.D4)) / 100;
       const area = ctx.focus?.areas.find((a) => a.id === st);
       const item: FeedItem = {
@@ -65,7 +77,7 @@ export const usdm: FeedAdapter = {
         lat: area?.lat ?? region.lat, lng: area?.lng ?? region.lng,
         severity: score * frac, alertScore: true,
         start: `${r.MapDate.slice(0, 4)}-${r.MapDate.slice(4, 6)}`,
-        text: `US Drought Monitor, week of ${r.ValidStart}: ${r.D2.toFixed(1)}% of the state in severe drought or worse (D2+), ${r.D3.toFixed(1)}% extreme (D3+), ${r.D4.toFixed(1)}% exceptional (D4)`,
+        text: `US Drought Monitor, week of ${r.ValidStart}: ${r.D2.toFixed(1)}% of the state in severe drought or worse (D2+), ${r.D3.toFixed(1)}% extreme (D3+), ${r.D4.toFixed(1)}% exceptional (D4); ${Math.round(irrigated * 100)}% of cropland irrigated (2022 Census of Agriculture), score reduced by ${Math.round(IRRIGATION_RELIEF * irrigated * 100)}%`,
         raw: r,
       };
       items.push(item);

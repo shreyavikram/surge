@@ -1,5 +1,6 @@
 import type { EngineContext, RegionConfig, Threat, ThreatCategory, SourceStamp } from '@surge/engine';
 import type { FeedItem, FeedResult } from './feeds/types.js';
+import { calendarWeight } from './crop-calendar.js';
 
 type ShareField = 'usSupplyShare' | 'usImportOriginShare' | 'worldExportShare' | 'chokepointImportShare';
 
@@ -75,11 +76,14 @@ export function feedItemsToThreats(items: FeedItem[], source: SourceStamp, ctx: 
       const floor = field === 'usSupplyShare' && region.usSupplyShare?.[Object.keys(shares)[0] ?? ''] !== undefined ? 0 : 0.02;
       // weather at home cannot destroy a manufactured or wholly imported good (the engine skips them too); keep the list honest
       const domesticHazard = field === 'usSupplyShare' && region.usSupplyShare !== undefined;
+      // a crop hazard only hurts a crop in the months it is in the ground (a January drought spares corn, not cattle);
+      // the calendar describes US production, so foreign supplier regions keep relevance 1
+      const cropHazard = domesticHazard && ctx.threatTypes[item.category]?.rule === 'crop_hazard';
       commodities = Object.entries(shares)
         .filter(([id, v]) => (ctx.commodities[id] || ctx.inputs[id]) && v >= floor)
         .filter(([id]) => { const m = ctx.commodities[id]?.supply.model; return !(domesticHazard && (m === 'manufacturing' || m === 'import')); })
         .sort((a, b) => b[1] - a[1])
-        .map(([id]) => ({ id, relevance: 1 }));
+        .map(([id]) => ({ id, relevance: cropHazard ? calendarWeight(id, item.start) : 1 }));
     }
     if (commodities.length === 0) continue;
 

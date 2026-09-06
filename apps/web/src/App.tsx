@@ -31,7 +31,10 @@ export function App() {
   const [showCompare, setShowCompare] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [live, setLive] = useState<Threat[] | undefined>(undefined);
-  const [mapMode, setMapMode] = useState<'webgl' | 'svg'>(() => (webglAvailable() ? 'webgl' : 'svg'));
+  // The simple map (our own geometry, English labels, no tile provider) is the default: CARTO's free tiles now
+  // print "API KEY REQUIRED" across the basemap. The tile map is opt-in from Settings.
+  const [mapMode, setMapMode] = useState<'webgl' | 'svg'>(() => (settings.basemap === 'tiles' && webglAvailable() ? 'webgl' : 'svg'));
+  useEffect(() => { setMapMode(settings.basemap === 'tiles' && webglAvailable() ? 'webgl' : 'svg'); }, [settings.basemap]);
   const [fallbackReason, setFallbackReason] = useState('WebGL is not available in this browser');
   const [feedStatus, setFeedStatus] = useState('seeds · 2 replays');
 

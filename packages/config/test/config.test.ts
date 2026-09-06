@@ -47,3 +47,23 @@ describe('config', () => {
     expect(loadCase('formula-2022').threats[0]!.category).toBe('facility');
   });
 });
+
+describe('measured origins and routed chokepoints', () => {
+  it('replaces hand-typed origin shares with Census value shares and adds supplier countries', () => {
+    const ctx = loadContext();
+    expect(ctx.regions['mexico']!.usImportOriginShare!['tomatoes']).toBeGreaterThan(0.6);
+    expect(ctx.regions['mexico']!.usImportOriginShare!['tomatoes']).toBeLessThan(0.95);
+    expect(ctx.regions['chile']).toBeDefined();
+    expect(ctx.regions['chile']!.countries).toEqual(['CHL']);
+    expect(ctx.regions['chile']!.usImportOriginShare!['apples']).toBeGreaterThan(0.3);
+  });
+  it('derives chokepoint shares from origins × routing (Suez carries Indian and Thai rice, not Mexican tomatoes)', () => {
+    const ctx = loadContext();
+    const suez = ctx.regions['suez-red-sea']!.chokepointImportShare!;
+    expect(suez['rice']).toBeGreaterThan(0.2);
+    expect(suez['tomatoes'] ?? 0).toBe(0);
+    const hormuz = ctx.regions['hormuz']!.chokepointImportShare!;
+    expect(hormuz['fertilizer']).toBeGreaterThan(0.05);
+    expect(hormuz['energy']).toBe(0.1); // hand value survives: energy is not in the Census pull
+  });
+});

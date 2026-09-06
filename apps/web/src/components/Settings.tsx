@@ -4,9 +4,10 @@ import type { Settings as S } from '../state.js';
 export function Settings({ settings, onSave, onClose, focusLabel }: { settings: S; onSave: (s: S) => void; onClose: () => void; focusLabel: string }) {
   const [email, setEmail] = useState(settings.email);
   const [alerts, setAlerts] = useState(settings.alerts);
+  const [basemap, setBasemap] = useState<'simple' | 'tiles'>(settings.basemap ?? 'simple');
   const [status, setStatus] = useState<string | null>(null);
   const save = async () => {
-    const next = { ...settings, email, alerts };
+    const next = { ...settings, email, alerts, basemap };
     onSave(next);
     try {
       const r = await fetch('/api/alerts', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, enabled: alerts, focus: focusLabel }) });
@@ -19,6 +20,12 @@ export function Settings({ settings, onSave, onClose, focusLabel }: { settings: 
         <div className="modal-head"><h3>Settings</h3><button className="iconbtn" onClick={onClose}>×</button></div>
         <label className="field"><span>Email for alerts</span><input type="email" value={email} placeholder="staffer@house.gov" onChange={(e) => setEmail(e.target.value)} /></label>
         <label className="field row"><input type="checkbox" checked={alerts} onChange={(e) => setAlerts(e.target.checked)} /><span>Email me when a new threat appears that reaches <b>{focusLabel}</b></span></label>
+        <label className="field"><span>Map style</span>
+          <select value={basemap} onChange={(e) => setBasemap(e.target.value as 'simple' | 'tiles')}>
+            <option value="simple">Simple map (our own outlines, English names, works offline)</option>
+            <option value="tiles">Street-map tiles (OpenStreetMap; needs internet)</option>
+          </select>
+        </label>
         <div className="modal-actions"><button className="btn" onClick={() => void save()} disabled={alerts && !email}>Save</button></div>
         {status && <div className="subfig">{status}</div>}
       </div>

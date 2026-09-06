@@ -13,6 +13,7 @@ import quintiles from '../data/quintile-spending.json' with { type: 'json' };
 import stateBboxes from '../data/state-bboxes.json' with { type: 'json' };
 import originShares from '../data/origin-shares.json' with { type: 'json' };
 import countryGeo from '../data/country-geo.json' with { type: 'json' };
+import chokepointRouting from '../data/chokepoint-routing.json' with { type: 'json' };
 import egg2024 from '../data/cases/egg-2024-calibration.json' with { type: 'json' };
 import egg2022 from '../data/cases/egg-2022.json' with { type: 'json' };
 import formula2022 from '../data/cases/formula-2022.json' with { type: 'json' };
@@ -81,6 +82,30 @@ function applyMeasuredOrigins(base: Record<string, RegionConfig>, shares: Origin
   return out;
 }
 
+interface RoutingFile { source: string; routes: Record<string, Record<string, number>> }
+
+/**
+ * A chokepoint's share of US imports of a commodity = Σ over origins of (measured origin share × the modeled
+ * fraction of that origin's US-bound shipments that transits the strait). Replaces the hand-typed per-commodity
+ * guesses for every measured commodity; hand values survive only for commodities the Census pull does not cover.
+ */
+function applyChokepointRouting(regions: Record<string, RegionConfig>, shares: OriginSharesFile, routing: RoutingFile): Record<string, RegionConfig> {
+  const out = { ...regions };
+  for (const [chokepoint, route] of Object.entries(routing.routes)) {
+    const r = out[chokepoint];
+    if (!r) continue;
+    const computed: Record<string, number> = {};
+    for (const [commodity, v] of Object.entries(shares.byCommodity)) {
+      let s = 0;
+      for (const [iso, o] of Object.entries(v.origins)) s += o.share * (route[iso] ?? 0);
+      if (s >= 0.005) computed[commodity] = Math.round(s * 1000) / 1000;
+    }
+    const kept = Object.fromEntries(Object.entries(r.chokepointImportShare ?? {}).filter(([c]) => !(c in shares.byCommodity)));
+    out[chokepoint] = { ...r, chokepointImportShare: { ...kept, ...computed }, source: `${r.source} | measured origin shares × modeled routing (chokepoint-routing.json)` };
+  }
+  return out;
+}
+
 /** One production region per state (`us-state-XX`) from the county-built shares, so threats can land on a single state. */
 function stateRegions(focusCfg: FocusConfig): Record<string, RegionConfig> {
   const out: Record<string, RegionConfig> = {};
@@ -96,7 +121,8 @@ function stateRegions(focusCfg: FocusConfig): Record<string, RegionConfig> {
 
 export function loadContext(): EngineContext {
   const focusCfg = mergeFocus(focus as unknown as FocusConfig, focusDistricts as unknown as { source: string; areas: FocusConfig['areas']; production: FocusConfig['production'] });
-  const regionsAll: Record<string, RegionConfig> = { ...applyMeasuredOrigins(regions as unknown as Record<string, RegionConfig>, originShares as unknown as OriginSharesFile, countryGeo as unknown as CountryGeoFile), ...stateRegions(focusCfg) };
+  const measured = applyMeasuredOrigins(regions as unknown as Record<string, RegionConfig>, originShares as unknown as OriginSharesFile, countryGeo as unknown as CountryGeoFile);
+  const regionsAll: Record<string, RegionConfig> = { ...applyChokepointRouting(measured, originShares as unknown as OriginSharesFile, chokepointRouting as unknown as RoutingFile), ...stateRegions(focusCfg) };
   const regionStates: Record<string, string[]> = { ...focusCfg.regionStates };
   for (const a of focusCfg.areas) if (a.kind === 'state') regionStates[`us-state-${a.id}`] = [a.id];
   return {

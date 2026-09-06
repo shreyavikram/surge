@@ -8,8 +8,10 @@ import type { Env } from '../env.js';
  * US Census Bureau monthly imports by country of origin (International Trade API, general imports
  * customs value). For every commodity, the last three reported months are compared with the same
  * three months a year earlier, origin by origin. An origin that supplied at least MIN_ORIGIN_SHARE of
- * the commodity's imports a year ago and whose shipments fell by MIN_DECLINE or more becomes an
- * "import decline" threat: severity = the measured fraction of that channel lost.
+ * the commodity's imports and whose shipments fell by MIN_DECLINE or more against the average of the same
+ * months in the previous BASELINE_YEARS years (a seasonal baseline) becomes an "import decline" threat:
+ * severity = the measured fraction of that channel lost. Origins whose shipments rose over the same window are
+ * named as the replacements.
  *
  * The threat starts as anticipated (yellow): official trade data show the channel shrinking, but the
  * shelf effect is not yet visible. price-stress.ts upgrades it to unstable (red) when the FAO price
@@ -41,8 +43,9 @@ export const CENSUS_NAME_ISO3: Record<string, string> = {
 export const TRADE_THRESHOLDS = {
   MIN_ORIGIN_SHARE: 0.10,   // of the commodity's imports a year earlier
   MIN_DECLINE: 0.20,        // fraction of the origin's shipments lost
-  MIN_VALUE_USD: 5e6,       // year-earlier window value below which month-to-month noise dominates
+  MIN_VALUE_USD: 5e6,       // baseline window value below which month-to-month noise dominates
   WINDOW_MONTHS: 3,
+  BASELINE_YEARS: 3,        // the same months in each of the previous N years, averaged (seasonal baseline)
 };
 
 const BASE = 'https://api.census.gov/data/timeseries/intltrade/imports/hs';
@@ -94,35 +97,56 @@ async function censusRows(code: string, from: string, to: string, key: string | 
 export interface ImportDecline {
   commodity: string; country: string; iso3?: string; regionId?: string;
   window: string[]; current: number; previous: number; decline: number; share: number;
+  /** baseline years actually available in the data */
+  years: number;
+  /** origins whose shipments rose against their own baseline over the same window (largest gains first) */
+  replacements: { country: string; gain: number }[];
 }
 
-/** Pure computation from raw rows: per commodity and origin, the three-month window versus a year earlier. */
+/** Pure computation from raw rows: per commodity and origin, the window versus the same months in earlier years. */
 export function importDeclines(raw: TradeRaw): { declines: ImportDecline[]; totals: Record<string, { months: string[]; values: number[] }>; unmapped: string[] } {
   const T = TRADE_THRESHOLDS;
   const window = monthsBack(raw.latest, T.WINDOW_MONTHS);
-  const yearAgo = window.map((m) => shiftMonths(m, -12));
+  const baselines = Array.from({ length: T.BASELINE_YEARS }, (_, y) => window.map((m) => shiftMonths(m, -12 * (y + 1))));
+  const yearOf = new Map<string, number>();
+  baselines.forEach((ms, y) => ms.forEach((m) => yearOf.set(m, y)));
   const declines: ImportDecline[] = [];
   const totals: Record<string, { months: string[]; values: number[] }> = {};
   const unmapped = new Set<string>();
   const ctx = loadContext();
+  const mean = (xs: number[]): number => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : 0);
   for (const [commodity, codes] of Object.entries(HS_CODES)) {
-    const cur = new Map<string, number>(), prev = new Map<string, number>(), names = new Map<string, string>();
+    const cur = new Map<string, number>(), names = new Map<string, string>();
+    const prevByYear = new Map<string, number[]>();          // country → sum per baseline year
     const worldByMonth = new Map<string, number>();
-    let worldPrev = 0;
+    const worldPrev: number[] = new Array<number>(T.BASELINE_YEARS).fill(0);
     for (const code of codes) {
       for (const [cty, name, value, month] of raw.rows[code] ?? []) {
-        if (cty === '-') { worldByMonth.set(month, (worldByMonth.get(month) ?? 0) + value); if (yearAgo.includes(month)) worldPrev += value; continue; }
+        const y = yearOf.get(month);
+        if (cty === '-') { worldByMonth.set(month, (worldByMonth.get(month) ?? 0) + value); if (y !== undefined) worldPrev[y]! += value; continue; }
         if (!isCountry(cty)) continue;
         names.set(cty, name);
         if (window.includes(month)) cur.set(cty, (cur.get(cty) ?? 0) + value);
-        else if (yearAgo.includes(month)) prev.set(cty, (prev.get(cty) ?? 0) + value);
+        else if (y !== undefined) { const arr = prevByYear.get(cty) ?? new Array<number>(T.BASELINE_YEARS).fill(0); arr[y]! += value; prevByYear.set(cty, arr); }
       }
     }
     const months = [...worldByMonth.keys()].sort();
     if (months.length > 0) totals[commodity] = { months, values: months.map((m) => worldByMonth.get(m)!) };
-    if (worldPrev <= 0) continue;
-    for (const [cty, before] of prev) {
-      const share = before / worldPrev;
+    // baseline years with data (a year whose world total is zero was not fetched or not published)
+    const years = worldPrev.map((v, y) => (v > 0 ? y : -1)).filter((y) => y >= 0);
+    if (years.length === 0) continue;
+    const worldBase = mean(years.map((y) => worldPrev[y]!));
+    if (worldBase <= 0) continue;
+    const baseOf = (cty: string): number => mean(years.map((y) => prevByYear.get(cty)?.[y] ?? 0));
+    const risers = [...new Set([...cur.keys(), ...prevByYear.keys()])]
+      .map((cty) => ({ cty, gain: (cur.get(cty) ?? 0) - baseOf(cty) }))
+      .filter((x) => x.gain >= 1e6)
+      .sort((a, b) => b.gain - a.gain)
+      .slice(0, 3)
+      .map((x) => ({ country: titleCase(names.get(x.cty) ?? x.cty), gain: x.gain }));
+    for (const cty of prevByYear.keys()) {
+      const before = baseOf(cty);
+      const share = before / worldBase;
       if (before < T.MIN_VALUE_USD || share < T.MIN_ORIGIN_SHARE) continue;
       const now = cur.get(cty) ?? 0;
       const decline = 1 - now / before;
@@ -131,7 +155,7 @@ export function importDeclines(raw: TradeRaw): { declines: ImportDecline[]; tota
       const iso3 = CENSUS_NAME_ISO3[name];
       if (!iso3) unmapped.add(name);
       const region = iso3 ? regionForCountry(ctx, iso3) : undefined;
-      const d: ImportDecline = { commodity, country: titleCase(name), window, current: now, previous: before, decline, share };
+      const d: ImportDecline = { commodity, country: titleCase(name), window, current: now, previous: before, decline, share, years: years.length, replacements: risers.filter((r) => r.country !== titleCase(name)) };
       if (iso3) d.iso3 = iso3;
       if (region) d.regionId = region.id;
       declines.push(d);
@@ -158,9 +182,9 @@ function toItems(declines: ImportDecline[]): FeedItem[] {
       commodities: [{ id: d.commodity, relevance: 1 }],
       severity: Math.min(1, d.decline), status: 'breaking', confidence: 0.85,
       start: d.window[d.window.length - 1]!, months: 3,
-      summary: `US imports of ${cname.toLowerCase()} from ${d.country} were ${money(d.current)} in ${label}, down ${pct}% from ${money(d.previous)} in the same months a year earlier; ${d.country} supplied ${Math.round(d.share * 100)}% of these imports last year (US Census Bureau monthly trade data).`,
-      text: `Census general imports, customs value: ${d.window.join(', ')} = ${money(d.current)} vs year-earlier ${money(d.previous)}; origin share ${(d.share * 100).toFixed(1)}%`,
-      raw: { current: d.current, previous: d.previous, share: d.share, window: d.window },
+      summary: `US imports of ${cname.toLowerCase()} from ${d.country} were ${money(d.current)} in ${label}, down ${pct}% from the ${money(d.previous)} usual for these months (average of the previous ${d.years} year${d.years > 1 ? 's' : ''}); ${d.country} normally supplies ${Math.round(d.share * 100)}% of these imports.${d.replacements.length ? ` Shipments from ${d.replacements.map((r) => `${r.country} (+${money(r.gain)})`).join(', ')} rose over the same months.` : ''} (US Census Bureau monthly trade data.)`,
+      text: `Census general imports, customs value: ${d.window.join(', ')} = ${money(d.current)} vs seasonal baseline ${money(d.previous)} over ${d.years} year(s); origin share ${(d.share * 100).toFixed(1)}%`,
+      raw: { current: d.current, previous: d.previous, share: d.share, window: d.window, years: d.years, replacements: d.replacements },
     });
   }
   return items;
@@ -180,7 +204,7 @@ export const trade: FeedAdapter = {
     const probe = await censusRows('0702', shiftMonths(now, -4), now, key);
     const latest = probe.filter((r) => r[0] === '-' && r[2] > 0).map((r) => r[3]).sort().pop();
     if (!latest) throw new Error('Census trade API returned no recent months');
-    const from = shiftMonths(latest, -(TRADE_THRESHOLDS.WINDOW_MONTHS - 1) - 12);
+    const from = shiftMonths(latest, -(TRADE_THRESHOLDS.WINDOW_MONTHS - 1) - 12 * TRADE_THRESHOLDS.BASELINE_YEARS);
     const rows: TradeRaw['rows'] = {};
     const codes = [...new Set(Object.values(HS_CODES).flat())];
     // four requests at a time: ~35 codes, one call each

@@ -1,0 +1,31 @@
+name: Refresh measured import origins
+
+# Re-measures every commodity's import-origin shares and every country's share of all US food imports
+# from the Census Bureau International Trade API (about 60 requests; no key needed under 500/day) and
+# commits the result on the first of each month. Set CENSUS_API_KEY as a repository secret to use a key.
+on:
+  schedule:
+    - cron: '0 12 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Measure origin shares
+        env:
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+        run: python3 packages/config/tools/build-origin-shares.py
+      - name: Commit if changed
+        run: |
+          git config user.name "greenfield-data-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add packages/config/data/origin-shares.json packages/config/data/countries.json packages/config/tools/origin-shares-report.md
+          git diff --cached --quiet && echo "no change" || git commit -m "data: monthly refresh of measured import origins (Census)" && git push

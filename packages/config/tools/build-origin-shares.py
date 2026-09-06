@@ -23,6 +23,11 @@ import json, os, sys, time, urllib.request, urllib.parse, urllib.error
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 DATA = os.path.join(ROOT, 'packages', 'config', 'data')
 OUT_JSON = os.path.join(DATA, 'origin-shares.json')
+OUT_COUNTRIES = os.path.join(DATA, 'countries.json')
+# HS chapters that are food for people (live animals 01, meat 02, fish 03, dairy/eggs 04, vegetables 07, fruit 08,
+# coffee/tea/spices 09, cereals 10, milling 11, oilseeds 12, fats/oils 15, meat/fish preparations 16, sugar 17,
+# cocoa 18, cereal preparations 19, vegetable/fruit preparations 20, miscellaneous edible 21, beverages 22)
+FOOD_CHAPTERS = ['01', '02', '03', '04', '07', '08', '09', '10', '11', '12', '15', '16', '17', '18', '19', '20', '21', '22']
 OUT_MD = os.path.join(ROOT, 'packages', 'config', 'tools', 'origin-shares-report.md')
 REGIONS = os.path.join(DATA, 'regions.json')
 
@@ -387,6 +392,41 @@ def latest_month():
     sys.exit('no month with data in the last %d months' % PROBE_MONTHS)
 
 
+def food_shares(when):
+    """Every country's share of all US food imports (HS chapters in FOOD_CHAPTERS) over the window."""
+    total = 0.0
+    value = {}
+    api_name = {}
+    failed = []
+    for ch in FOOD_CHAPTERS:
+        log('all-food chapter %s' % ch)
+        rows, err = fetch(ch, 'HS2', when)
+        if rows is None:
+            failed.append({'chapter': ch, 'reason': err})
+            log('  FAILED: %s' % err)
+            continue
+        world, by, names = aggregate(rows)
+        if world <= 0 and by:
+            world = sum(by.values())
+        total += world
+        for c, v in by.items():
+            value[c] = value.get(c, 0.0) + v
+            api_name[c] = names[c]
+    countries = {}
+    for code, v in sorted(value.items(), key=lambda kv: -kv[1]):
+        share = v / total if total > 0 else 0
+        if share < 0.002:
+            continue
+        entry = CENSUS.get(code)
+        name = api_name[code]
+        if entry and norm(entry[2]) == norm(name):
+            iso3, english = entry[0], entry[1]
+        else:
+            iso3, english = 'UNK-' + code, title_case(name)
+        countries[iso3] = {'iso3': iso3, 'name': english, 'usFoodImportShare': round(share, 4), 'valueUsd': round(v)}
+    return {'totalUsd': round(total), 'countries': countries, 'failed': failed}
+
+
 # ---------------------------------------------------------------- main
 def main():
     end = latest_month()
@@ -464,6 +504,19 @@ def main():
 
     write_report(out)
     log('wrote %s' % OUT_MD)
+
+    food = food_shares(when)
+    if food['countries'] and not food['failed']:
+        with open(OUT_COUNTRIES, 'w') as f:
+            json.dump({
+                'source': 'US Census Bureau International Trade API, general imports customs value, HS chapters %s (food for people), %s to %s (measured value shares); refresh with packages/config/tools/build-origin-shares.py' % (' '.join(FOOD_CHAPTERS), start, end),
+                'totalUsd': food['totalUsd'],
+                'countries': {k: {kk: vv for kk, vv in v.items() if kk != 'valueUsd'} for k, v in food['countries'].items()},
+            }, f, indent=1)
+            f.write('\n')
+        log('wrote %s (%d countries, $%s of food imports)' % (OUT_COUNTRIES, len(food['countries']), format(food['totalUsd'], ',.0f')))
+    else:
+        log('all-food shares not written: %s' % (food['failed'] or 'no countries'))
 
     print('window %s..%s | %d requests | %d failed codes | %d unmapped codes' % (start, end, REQUESTS, len(failed), len(unmapped_list)))
     for fl in failed:
@@ -555,7 +608,7 @@ def write_report(out):
           '',
           'A share is the origin country\'s general-imports customs value divided by the world total ("TOTAL FOR ALL COUNTRIES") '
           'summed over the window and over the commodity\'s HS codes. Regional aggregates (OECD, USMCA, EU, 1XXX, ...) are excluded. '
-          'Origins under 0.5% are not listed, so the remainder is an implied "other". '
+          'Origins under 0.5%% are not listed, so the remainder is an implied "other". '
           'A FLAG marks a difference of more than %.2f between the value in regions.json and the measured share.' % FLAG_DIFF,
           '',
           'Data file: `packages/config/data/origin-shares.json`.',

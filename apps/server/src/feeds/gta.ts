@@ -2,6 +2,7 @@ import { loadContext } from '@surge/config';
 import type { ThreatCategory } from '@surge/engine';
 import type { FeedAdapter, FeedResult, FeedItem } from './types.js';
 import { regionForCountry } from './regions.js';
+import { HS_CODES } from './trade.js';
 
 /**
  * Global Trade Alert: interventions announced in the last 180 days that affect the United States, of the
@@ -31,8 +32,13 @@ const HS_CHAPTER: Record<string, string[]> = {
 function commoditiesFor(products: (number | string)[] | undefined): string[] {
   const out = new Set<string>();
   for (const p of products ?? []) {
-    const s = String(p).padStart(6, '0').slice(0, 2);
-    for (const c of HS_CHAPTER[s] ?? []) out.add(c);
+    const code = String(p).padStart(6, '0');
+    // HS-4/HS-6 first (the same codes the Census feed uses), then the chapter map as a fallback
+    let hit = false;
+    for (const [commodity, codes] of Object.entries(HS_CODES)) {
+      if (codes.some((c) => code.startsWith(c))) { out.add(commodity); hit = true; }
+    }
+    if (!hit) for (const id of HS_CHAPTER[code.slice(0, 2)] ?? []) out.add(id);
   }
   return [...out];
 }

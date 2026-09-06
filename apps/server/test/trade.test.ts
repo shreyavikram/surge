@@ -3,15 +3,15 @@ import { trade, _importDeclines as importDeclines, type TradeRaw } from '../src/
 import { priceStress, applyPriceStress } from '../src/price-stress.js';
 import type { FeedItem } from '../src/feeds/types.js';
 
-/** Synthetic Census rows: tomatoes (0702) from Mexico and Canada, bananas (0803) from Guatemala, over 15 months. */
+/** Synthetic Census rows: tomatoes (0702) from Mexico and Canada, bananas (0803) from Guatemala, over 39 months (three baseline years). */
 function raw(): TradeRaw {
   const months: string[] = [];
-  for (let k = 14; k >= 0; k--) { const d = new Date(Date.UTC(2026, 6 - k, 1)); months.push(d.toISOString().slice(0, 7)); }
+  for (let k = 38; k >= 0; k--) { const d = new Date(Date.UTC(2026, 6 - k, 1)); months.push(d.toISOString().slice(0, 7)); }
   const rows: TradeRaw['rows'] = { '0702': [], '0803': [] };
   for (const m of months) {
     const recent = m >= '2026-05';
     const mex = recent ? 100e6 : 200e6;      // Mexico halves in the last three months
-    const can = 80e6;                         // Canada flat
+    const can = recent ? 100e6 : 80e6;        // Canada rises: named as the replacement
     rows['0702']!.push(['-', 'TOTAL FOR ALL COUNTRIES', mex + can, m], ['2010', 'MEXICO', mex, m], ['1220', 'CANADA', can, m], ['1XXX', 'NORTH AMERICA', mex + can, m]);
     const gtm = recent ? 95e6 : 100e6;        // Guatemala −5%: below the threshold
     rows['0803']!.push(['-', 'TOTAL FOR ALL COUNTRIES', gtm + 50e6, m], ['2050', 'GUATEMALA', gtm, m], ['3310', 'ECUADOR', 50e6, m]);
@@ -27,6 +27,8 @@ describe('Census import declines', () => {
     const d = declines[0]!;
     expect(d.decline).toBeCloseTo(0.5, 6);
     expect(d.share).toBeCloseTo(200 / 280, 6);
+    expect(d.years).toBe(3);
+    expect(d.replacements[0]?.country).toBe('Canada');
     expect(d.regionId).toBe('mexico');
     expect(d.window).toEqual(['2026-05', '2026-06', '2026-07']);
   });
@@ -40,7 +42,9 @@ describe('Census import declines', () => {
     expect(it.regionId).toBe('mexico');
     expect(it.summary).toContain('down 50%');
     expect(it.summary).toContain('May–Jul 2026');
-    expect(r.series?.['imports.tomatoes']?.values.length).toBe(15);
+    expect(r.series?.['imports.tomatoes']?.values.length).toBe(39);
+    expect(it.summary).toContain('previous 3 years');
+    expect(it.summary).toContain('Canada (+');
   });
 });
 

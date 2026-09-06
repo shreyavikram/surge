@@ -1,0 +1,447 @@
+{
+  "source": "Monthly weather-sensitivity weights (0..1) for US production, Jan..Dec; field crops peak in their reproductive stage per USDA NASS Agricultural Handbook 628, Usual Planting and Harvesting Dates for U.S. Field Crops (2010) and USDA ERS crop calendars / production outlook; livestock and manufactured goods are flat 1.0 (heat and drought hit pasture and feed year-round; manufactured goods are excluded from weather damage by the engine). Modeled, not measured.",
+  "crops": {
+    "eggs": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: layer flocks are housed year-round; heat and drought act through feed cost and barn heat in every month"
+    },
+    "chicken": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: broiler flocks turn over every 6-7 weeks; no seasonal crop stage"
+    },
+    "turkey": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: year-round confinement production"
+    },
+    "beef": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: pasture and feed are hit by drought and heat in every month (ERS Livestock, Dairy and Poultry Outlook; 2012 herd liquidation)"
+    },
+    "pork": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: confinement production; feed-cost channel is year-round"
+    },
+    "milk": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: fluid milk tracks farm milk; dairy herds are housed year-round"
+    },
+    "milk-farm": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: dairy herds produce every month; summer heat stress and feed cost are not crop-stage effects"
+    },
+    "cheese": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: manufactured; excluded from weather damage elsewhere, kept flat here"
+    },
+    "bread": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: manufactured; excluded from weather damage elsewhere, kept flat here"
+    },
+    "infant-formula": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: manufactured; excluded from weather damage elsewhere, kept flat here"
+    },
+    "fats-oils": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: manufactured; excluded from weather damage elsewhere, kept flat here"
+    },
+    "energy": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: input, not a crop; flat"
+    },
+    "fertilizer": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "flat 1.0: input, not a crop; flat"
+    },
+    "corn": {
+      "weights": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.5,
+        0.5,
+        1.0,
+        1.0,
+        0.4,
+        0.1,
+        0.1,
+        0.1
+      ],
+      "source": "USDA NASS Agricultural Handbook 628, Usual Planting and Harvesting Dates for U.S. Field Crops (2010): corn planted Apr 20-Jun 5, silking Jul, harvested Sep 25-Nov 20; reproductive stage (Jul-Aug) is the yield-critical window (2012 analogue); USDA ERS crop calendars / production outlook"
+    },
+    "soybeans": {
+      "weights": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.5,
+        0.5,
+        1.0,
+        1.0,
+        1.0,
+        0.3,
+        0.1,
+        0.1
+      ],
+      "source": "USDA NASS Agricultural Handbook 628, Usual Planting and Harvesting Dates for U.S. Field Crops (2010): soybeans planted May 5-Jun 20, pod fill Jul-Sep, harvested Sep 25-Nov 10; pod set and fill (Jul-Sep) decide yield; USDA ERS crop calendars / production outlook"
+    },
+    "wheat": {
+      "weights": [
+        0.2,
+        0.2,
+        0.4,
+        1.0,
+        1.0,
+        1.0,
+        0.7,
+        0.2,
+        0.3,
+        0.3,
+        0.2,
+        0.2
+      ],
+      "source": "USDA NASS Agricultural Handbook 628, Usual Planting and Harvesting Dates for U.S. Field Crops (2010): winter wheat (about 70% of US output) planted Sep-Oct, jointing-heading-grain fill Apr-Jun, harvested Jun-Jul; spring wheat planted Apr-May, heading and fill Jun-Jul; blended by class share; USDA ERS crop calendars / production outlook"
+    },
+    "rice": {
+      "weights": [
+        0.1,
+        0.1,
+        0.1,
+        0.4,
+        0.4,
+        1.0,
+        1.0,
+        1.0,
+        0.4,
+        0.1,
+        0.1,
+        0.1
+      ],
+      "source": "USDA NASS Agricultural Handbook 628, Usual Planting and Harvesting Dates for U.S. Field Crops (2010): rice planted Mar 25-May 25 (AR, CA, LA, MS, MO, TX), heading and grain fill Jun-Aug, harvested Aug-Oct; USDA ERS crop calendars / production outlook"
+    },
+    "potatoes": {
+      "weights": [
+        0.1,
+        0.1,
+        0.1,
+        0.2,
+        0.5,
+        1.0,
+        1.0,
+        1.0,
+        0.5,
+        0.3,
+        0.1,
+        0.1
+      ],
+      "source": "USDA NASS Agricultural Handbook 628, Usual Planting and Harvesting Dates for U.S. Field Crops (2010): fall potatoes (ID, WA) planted Apr-May, tuber bulking Jun-Aug, harvested Sep-Oct; USDA ERS crop calendars / production outlook"
+    },
+    "sugar": {
+      "weights": [
+        0.3,
+        0.3,
+        0.3,
+        0.4,
+        0.5,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.5,
+        0.3,
+        0.3
+      ],
+      "source": "USDA NASS Agricultural Handbook 628, Usual Planting and Harvesting Dates for U.S. Field Crops (2010): sugarbeets planted Apr-May, root growth Jun-Sep, harvested Sep-Oct (MN, ND, ID); sugarcane (FL, LA) grows year-round and is harvested Oct-Mar; USDA ERS crop calendars / production outlook"
+    },
+    "lettuce": {
+      "weights": [
+        0.6,
+        0.6,
+        0.6,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.6,
+        0.6
+      ],
+      "source": "USDA ERS crop calendars / production outlook vegetables and pulses outlook: Salinas/Central Coast CA supplies Apr-Oct (main season, about 70% of volume), Yuma AZ and Imperial CA supply Nov-Mar; year-round floor 0.6"
+    },
+    "fresh-vegetables": {
+      "weights": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "source": "USDA ERS crop calendars / production outlook vegetables and pulses outlook: national field vegetable harvest peaks May-Sep, winter production concentrated in CA, AZ and FL; year-round floor 0.6"
+    },
+    "tomatoes": {
+      "weights": [
+        0.3,
+        0.3,
+        0.3,
+        0.5,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.5,
+        0.3,
+        0.3
+      ],
+      "source": "USDA ERS crop calendars / production outlook vegetables and pulses outlook: CA processing tomatoes planted Feb-Jun and harvested Jul-Oct, fresh-market field tomatoes May-Sep; FL winter crop Dec-Mar carries a freeze risk (0.3)"
+    },
+    "apples": {
+      "weights": [
+        0.1,
+        0.1,
+        0.3,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.5,
+        0.1,
+        0.1
+      ],
+      "source": "USDA ERS crop calendars / production outlook fruit and tree nuts outlook: bloom and frost risk Apr-May (WA, NY, MI), fruit set and sizing Jun-Sep, harvest Sep-Oct; dormant Nov-Feb"
+    },
+    "citrus": {
+      "weights": [
+        1.0,
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        1.0
+      ],
+      "source": "USDA ERS crop calendars / production outlook fruit and tree nuts outlook: Dec-Feb freeze season is the historic loss window (FL 1989, CA 2007); bloom, fruit set and summer growth 0.5"
+    },
+    "coffee": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "imported crop (Brazil, Colombia, Vietnam) with continuous harvest across origins; flat 1.0; USDA ERS crop calendars / production outlook"
+    },
+    "bananas": {
+      "weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source": "imported crop (Guatemala, Ecuador, Costa Rica) harvested continuously; flat 1.0; USDA ERS crop calendars / production outlook"
+    }
+  }
+}

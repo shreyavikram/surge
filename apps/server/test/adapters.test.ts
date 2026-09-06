@@ -32,6 +32,17 @@ describe('usdm adapter', () => {
     expect(ks.location.iso3).toBe('USA');
     expect(ks.commodities.map((c) => c.id)).toContain('wheat');
   });
+  it('spares irrigated cropland: the same D2 area scores lower in California than in Kansas', () => {
+    const row = (st: string) => ({ MapDate: '20260901', StateAbbreviation: st, D0: 80, D1: 60, D2: 40, D3: 15, D4: 2, ValidStart: '2026-09-01' });
+    const out = usdm.parse({ rows: [row('CA'), row('KS')] });
+    const ca = out.items.find((i) => i.id === 'usdm-CA')!, ks = out.items.find((i) => i.id === 'usdm-KS')!;
+    const base = (0.4 * 25 + 0.7 * 13 + 1.0 * 2) / 100;
+    expect(ks.severity).toBeCloseTo(base * (1 - 0.8 * 0.12), 9);
+    expect(ca.severity).toBeCloseTo(base * (1 - 0.8 * 0.75), 9);
+    expect(ca.severity!).toBeLessThan(ks.severity!);
+    expect(ca.text).toMatch(/75% of cropland irrigated/);
+    expect(ks.text).toMatch(/12% of cropland irrigated/);
+  });
 });
 
 describe('eia adapter', () => {
@@ -48,9 +59,23 @@ describe('eia adapter', () => {
 });
 
 describe('firms adapter', () => {
-  it('counts hotspots per production region and emits wildfire items above the floor', () => {
+  it('counts hotspots per state and emits wildfire items above the floor', () => {
     const r = firms.parse(fx('firms.csv'));
-    for (const it of r.items) { expect(it.category).toBe('wildfire'); expect(it.alertScore).toBe(true); expect(ctx.regions[it.regionId!]).toBeDefined(); }
+    for (const it of r.items) { expect(it.category).toBe('wildfire'); expect(it.alertScore).toBe(true); expect(ctx.regions[it.regionId!]).toBeDefined(); expect(it.regionId).toMatch(/^us-state-/); }
+  });
+  it('weights hotspots by fire radiative power inside the state outline, not its bounding box', () => {
+    const head = 'latitude,longitude,bright_ti4,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_ti5,frp,daynight';
+    const row = (lat: number, lng: number, frp: number) => `${lat},${lng},330,0.5,0.5,2026-09-05,1200,N,VIIRS,n,2.0NRT,300,${frp},D`;
+    const ks = Array.from({ length: 20 }, (_, i) => row(38.5 + i * 0.01, -98.5, 100));      // 2,000 MW in Kansas
+    const gulf = Array.from({ length: 50 }, (_, i) => row(28 + i * 0.01, -85, 500));         // 25,000 MW in the Gulf, inside Florida's bbox
+    const ne = Array.from({ length: 5 }, (_, i) => row(41.5 + i * 0.01, -99.5, 100));        // 500 MW in Nebraska: below the floor
+    const r = firms.parse([head, ...ks, ...gulf, ...ne].join('\n'));
+    expect(r.items.map((i) => i.regionId)).toEqual(['us-state-KS']);
+    const k = r.items[0]!;
+    expect(k.severity).toBeCloseTo(2000 / 20000, 9);
+    expect(k.name).toMatch(/20 hotspots, 2,000 MW/);
+    expect(k.start).toBe('2026-09');
+    expect(k.text).toMatch(/fire radiative power 2,000 MW/);
   });
 });
 

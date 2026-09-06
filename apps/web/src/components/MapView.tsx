@@ -12,20 +12,18 @@ import { HeatLegend } from './HeatLegend.js';
  * Basemap: CARTO raster tiles (no fonts, sprites, or vector processing), so the map paints progressively within a
  * second or two even on slow connections or with blockers. Labels are a separate raster layer drawn above our shading.
  */
-const SUBS = ['a', 'b', 'c'];
-const tiles = (name: string) => SUBS.map((h) => `https://${h}.basemaps.cartocdn.com/${name}/{z}/{x}/{y}@2x.png`);
+// OpenStreetMap's standard raster tiles: no key (CARTO's free basemaps now stamp "API KEY REQUIRED" on every tile).
+// Opt-in from Settings; the simple map is the default.
+const OSM_TILES = ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'];
 function rasterStyle(theme: 'dark' | 'light'): maplibregl.StyleSpecification {
-  const base = theme === 'dark' ? 'dark_nolabels' : 'light_nolabels';
-  const labels = theme === 'dark' ? 'dark_only_labels' : 'light_only_labels';
   return {
     version: 8,
     sources: {
-      base: { type: 'raster', tiles: tiles(base), tileSize: 256, attribution: '© CARTO © OpenStreetMap contributors', maxzoom: 19 },
-      labels: { type: 'raster', tiles: tiles(labels), tileSize: 256, maxzoom: 19 },
+      base: { type: 'raster', tiles: OSM_TILES, tileSize: 256, attribution: '© OpenStreetMap contributors', maxzoom: 19 },
     },
     layers: [
       { id: 'bg', type: 'background', paint: { 'background-color': theme === 'dark' ? '#0b0e14' : '#dfe6ee' } },
-      { id: 'base', type: 'raster', source: 'base', paint: { 'raster-opacity': 1 } },
+      { id: 'base', type: 'raster', source: 'base', paint: { 'raster-opacity': theme === 'dark' ? 0.55 : 0.9, 'raster-saturation': -0.6 } },
     ],
   };
 }

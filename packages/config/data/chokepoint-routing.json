@@ -1,0 +1,9 @@
+{
+ "source": "Modeled routing: the fraction of each origin's US-bound food shipments that transits the strait, from standard liner routings (Asia and the Indian Ocean to the US East Coast via Suez or Panama; Persian Gulf ports via Hormuz; Pacific South America and Asia to the Gulf/East Coast via Panama; Ukrainian and Russian Black Sea ports via the Turkish Straits). Multiplied by the measured Census origin shares (origin-shares.json) to give each commodity's share of US imports that transits the strait. Fractions are judgement calls at the 0.1 level (modeled).",
+ "routes": {
+  "suez-red-sea": { "IND": 0.5, "PAK": 0.5, "LKA": 0.5, "BGD": 0.5, "THA": 0.3, "VNM": 0.3, "IDN": 0.3, "MYS": 0.3, "KHM": 0.3, "SGP": 0.3, "PHL": 0.1, "SAU": 0.3, "QAT": 0.3, "ARE": 0.3, "OMN": 0.2, "EGY": 0.2, "KEN": 0.6, "ETH": 0.6, "ISR": 0.1, "TUR": 0.05 },
+  "hormuz": { "SAU": 0.6, "QAT": 1.0, "ARE": 0.8, "IRN": 0.9, "KWT": 1.0, "BHR": 1.0, "IRQ": 1.0 },
+  "panama-canal": { "CHL": 0.5, "PER": 0.5, "ECU": 0.6, "COL": 0.15, "GTM": 0.2, "CRI": 0.3, "HND": 0.1, "NIC": 0.3, "SLV": 0.5, "PAN": 0.5, "CHN": 0.25, "JPN": 0.2, "KOR": 0.2, "TWN": 0.2, "VNM": 0.25, "THA": 0.25, "IDN": 0.2, "MYS": 0.2, "PHL": 0.25, "AUS": 0.1, "NZL": 0.15 },
+  "black-sea": { "UKR": 1.0, "RUS": 0.5, "TUR": 0.2, "BGR": 1.0, "ROU": 1.0, "GEO": 1.0 }
+ }
+}
