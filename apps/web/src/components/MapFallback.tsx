@@ -106,16 +106,18 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason,
             const hh = hoverHeat ?? { status: 'none' as const, baseline: 0, threats: [] as string[] };
             const isState = !!sh[hover];
             const share = `${(hh.baseline * 100).toFixed(1)}%`;
+            const what = lens.size > 0 ? [...lens].map((id) => (ctx.commodities[id]?.name ?? ctx.inputs[id]?.name ?? id).toLowerCase()).join(', ') : 'food';
+            const supplies = isState ? `produces about ${share} of the ${what} the US grows and raises` : `supplies about ${share} of the ${what} the US imports`;
             const why = hh.status === 'none'
-              ? 'No measurable food supply to the United States comes from here, and nothing is reported.'
+              ? `No measurable ${what} supply to the United States comes from here.`
               : hh.status === 'stable'
-              ? (isState ? `Produces about ${share} of the food the US grows and raises. No current threat. Darker green means a bigger producer.` : `Supplies about ${share} of the food the US imports. No current threat. Darker green means a bigger supplier.`)
+              ? `${supplies[0]!.toUpperCase()}${supplies.slice(1)}. No current threat.`
               : hh.status === 'anticipated'
-                ? 'News reports point to a coming supply problem here that has not yet shown up in shipping, supply, or price data.'
-                : `Supply from here is already being cut. Darker red means a bigger share of US ${isState ? 'production' : 'imports'} is affected.`;
+                ? `Possible disruption: ${supplies}, and something that could cut it has been reported but has not yet shown up in shipping, supply, or price data.`
+                : `Disruption under way: ${supplies}, and supply from here is already being cut.`;
             const names = hh.threats.map(nameOf);
             const list = names.length > 5 ? [...names.slice(0, 5), `and ${names.length - 5} more`] : names;
-            return <>{why ? <><br /><span className="why">{why}</span></> : null}{list.length ? <><br /><span className="faint">{hh.status === 'anticipated' ? 'Reported: ' : 'Happening: '}{list.join(' · ')}</span></> : null}{onPickRegion && !hh.threats.length && !isState && regionOfIso(hover) ? <><br /><span className="faint">click to add a disruption here</span></> : null}</>;
+            return <>{why ? <><br /><span className="why">{why}</span></> : null}{list.length ? <><br /><span className="faint">{hh.status === 'anticipated' ? 'Possible: ' : 'Happening: '}{list.join(' · ')}</span></> : null}{onPickRegion && !hh.threats.length && !isState && regionOfIso(hover) ? <><br /><span className="faint">click to add a disruption here</span></> : null}</>;
           })()}
         </div>
       )}

@@ -7,7 +7,7 @@ export function HeatLegend({ focused, lens = [] }: { focused: boolean; lens?: st
   return (
     <div className="legend heat">
       <div className="lg-row"><span className="ramp" style={{ background: ramp('stable') }} /><span>Stable · darker = supplies more of {what}<Info term="heatStable" /></span></div>
-      <div className="lg-row"><span className="ramp" style={{ background: ramp('anticipated') }} /><span>Reported in the news · darker = supplies more of {what}<Info term="heatAnticipated" /></span></div>
+      <div className="lg-row"><span className="ramp" style={{ background: ramp('anticipated') }} /><span>Possible disruption · darker = supplies more of {what}<Info term="heatAnticipated" /></span></div>
       <div className="lg-row"><span className="ramp" style={{ background: ramp('unstable') }} /><span>Disruption underway · darker = supplies more of {what}<Info term="heatUnstable" /></span></div>
       <div className="lg-row faint"><span className="ramp" style={{ background: '#8a94a6', opacity: 0.45 }} /><span>Grey · supplies none of {what} to the US<Info term="heatNone" /></span></div>
     </div>

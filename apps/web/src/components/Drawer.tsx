@@ -43,7 +43,7 @@ export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onC
           <span>· {t.location.admin ?? t.location.regionId}</span>
           <span>· {isTariff ? 'rate' : 'severity'} {pct(t.severity, 0)}<Info term="severity" /></span>
           <span>· {entry.durationMonths} mo<Info term="duration" /></span>
-          {t.status === 'breaking' && <Chip kind="seed" title="Reported, not yet in any series">breaking<Info term="breaking" /></Chip>}
+          {t.status === 'breaking' && <Chip kind="seed" title="Possible disruption, not yet in any series">possible<Info term="breaking" /></Chip>}
           {originChip}
         </div>
         {editable && (

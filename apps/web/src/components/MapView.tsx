@@ -56,7 +56,7 @@ function circle(lng: number, lat: number, km: number): GeoJSON.Polygon {
   return { type: 'Polygon', coordinates: [pts] };
 }
 
-const STATUS_LABEL: Record<AreaHeat['status'], string> = { none: 'no US food supply', stable: 'stable', anticipated: 'anticipated instability', unstable: 'unstable' };
+const STATUS_LABEL: Record<AreaHeat['status'], string> = { none: 'no US food supply', stable: 'stable', anticipated: 'possible disruption', unstable: 'unstable' };
 
 export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, lens, onFail, onPickRegion }: Props) {
   const onPickRef = useRef(onPickRegion);
@@ -195,9 +195,9 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, lens
         const why = p.status === 'none'
           ? (isState ? `Produces none of ${what} the US grows.` : `Supplies none of ${what} the US imports.`)
           : p.chokepoint
-          ? (p.status === 'stable' ? 'A shipping chokepoint for food imports. No transit disruption right now.' : p.status === 'anticipated' ? 'Shipping through here is reported to be at risk.' : 'Ship transits here are down; imports that pass through are delayed or cut.')
+          ? (p.status === 'stable' ? 'A shipping chokepoint for food imports. No transit disruption right now.' : p.status === 'anticipated' ? 'Shipping through here could be disrupted.' : 'Ship transits here are down; imports that pass through are delayed or cut.')
           : shareLine;
-        pop.setLngLat(ev.lngLat).setHTML(`<b>${p.name ?? ''}</b> <span class="st ${p.status}">${STATUS_LABEL[p.status]}</span>${why ? `<br><span class="why">${why}</span>` : ''}${p.threats ? `<br><span class="th">${p.status === 'anticipated' ? 'Reported: ' : 'Happening: '}${p.threats}</span>` : ''}`).addTo(map);
+        pop.setLngLat(ev.lngLat).setHTML(`<b>${p.name ?? ''}</b> <span class="st ${p.status}">${STATUS_LABEL[p.status]}</span>${why ? `<br><span class="why">${why}</span>` : ''}${p.threats ? `<br><span class="th">${p.status === 'anticipated' ? 'Possible: ' : 'Happening: '}${p.threats}</span>` : ''}`).addTo(map);
       });
       map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; pop.remove(); });
       map.on('click', layer, (ev) => {

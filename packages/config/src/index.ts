@@ -119,6 +119,19 @@ function stateRegions(focusCfg: FocusConfig): Record<string, RegionConfig> {
   return out;
 }
 
+/** A country that has a supplier region (it sends the US a measurable share of some commodity) is never grey on the
+ * all-food map: it gets at least a token share so it reads as a pale-green supplier rather than "no supply". */
+function withRegionFloor(cfg: CountriesConfig, regions: Record<string, RegionConfig>): CountriesConfig {
+  const countries = { ...cfg.countries };
+  for (const r of Object.values(regions)) {
+    const iso = r.countries?.length === 1 ? r.countries[0]! : undefined;
+    if (!iso || countries[iso]) continue;
+    if (!Object.values(r.usImportOriginShare ?? {}).some((v) => v >= 0.01)) continue;
+    countries[iso] = { iso3: iso, name: r.name, usFoodImportShare: 0.0001 };
+  }
+  return { ...cfg, countries };
+}
+
 export function loadContext(): EngineContext {
   const focusCfg = mergeFocus(focus as unknown as FocusConfig, focusDistricts as unknown as { source: string; areas: FocusConfig['areas']; production: FocusConfig['production'] });
   const measured = applyMeasuredOrigins(regions as unknown as Record<string, RegionConfig>, originShares as unknown as OriginSharesFile, countryGeo as unknown as CountryGeoFile);
@@ -136,7 +149,7 @@ export function loadContext(): EngineContext {
     population: POPULATION,
     totalExpenditure: TOTAL_EXPENDITURE,
     consumerUnits: CONSUMER_UNITS,
-    countries: countries as unknown as CountriesConfig,
+    countries: withRegionFloor(countries as unknown as CountriesConfig, regionsAll),
     quintileSpending: (quintiles as { byCommodity: Record<string, number[]> }).byCommodity,
     focus: { ...focusCfg, regionStates },
   };

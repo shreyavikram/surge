@@ -17,10 +17,10 @@ export const GLOSSARY: Record<string, { title: string; text: string }> = {
   perCapita: { title: 'Per person', text: 'The cost to shoppers in the area divided by the number of people who live there.' },
   modeled: { title: 'Modeled', text: 'A number the tool calculated from its stated assumptions, not one that was measured directly.' },
   measured: { title: 'Measured', text: 'A number taken straight from a published data series or an official record.' },
-  breaking: { title: 'Breaking', text: 'Reported in the news but not yet showing up in any shipping, supply, or price data. Drawn with a dotted outline.' },
+  breaking: { title: 'Possible disruption', text: 'Something that could cut this supply has been reported (a news report, or official trade data that has not reached store prices yet), but no shortfall shows up in shipping, supply, or price data so far. Drawn with a dotted outline.' },
   band: { title: 'Range', text: 'The same cost recalculated with the lowest and the highest published estimates of how much shoppers cut back when prices rise.' },
   heatStable: { title: 'Stable (green)', text: 'No active or reported threat here. The shade shows how much of America\'s food comes from this place: for countries, its share of what the US imports; for states, its share of what the US grows and raises. With a commodity filter on, the shares refer to that commodity.' },
-  heatAnticipated: { title: 'Reported (yellow)', text: 'The news is reporting a problem here that has not yet shown up in shipping, supply, or price data. The shade still shows how much of America\'s food comes from here, so a dark yellow country matters more than a pale one.' },
+  heatAnticipated: { title: 'Possible disruption (yellow)', text: 'Something that could cut supply from here has been reported, but it has not yet shown up in shipping, supply, or price data. The shade still shows how much of America\'s food comes from here, so a dark yellow country matters more than a pale one.' },
   heatNone: { title: 'Grey', text: 'No measurable food supply to the United States comes from here, so it does not affect US shoppers either way.' },
   heatUnstable: { title: 'Unstable (red)', text: 'Supply from this place is already being cut. Darker red means a bigger share of America\'s food is affected right now.' },
 };
