@@ -1,11 +1,21 @@
 {
-  "fetchedAt": "2026-09-06T00:20:07.933Z",
+  "fetchedAt": "2026-09-06T00:27:46.571Z",
   "result": {
     "items": [],
     "series": {
       "aphis-flocks": {
-        "months": [],
-        "values": []
+        "months": [
+          "2026-06",
+          "2026-07",
+          "2026-08",
+          "2026-09"
+        ],
+        "values": [
+          7,
+          0,
+          4,
+          2
+        ]
       }
     },
     "source": {

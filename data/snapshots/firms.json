@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-06T00:19:53.599Z",
+  "fetchedAt": "2026-09-06T00:27:33.054Z",
   "result": {
     "items": [
       {
@@ -12,10 +12,10 @@
         "iso3": "USA",
         "lat": 41,
         "lng": -90,
-        "severity": 0.514,
+        "severity": 0.1285,
         "alertScore": true,
         "start": "2026-09",
-        "text": "257 VIIRS hotspots in the region bbox over 48 hours (2026-09-05)"
+        "text": "257 VIIRS hotspots in the region bbox over 48 hours (2026-09-05); hotspot counts include agricultural burning"
       },
       {
         "id": "firms-us-southeast-broilers",
@@ -27,10 +27,10 @@
         "iso3": "USA",
         "lat": 33.5,
         "lng": -86,
-        "severity": 0.454,
+        "severity": 0.1135,
         "alertScore": true,
         "start": "2026-09",
-        "text": "227 VIIRS hotspots in the region bbox over 48 hours (2026-09-05)"
+        "text": "227 VIIRS hotspots in the region bbox over 48 hours (2026-09-05); hotspot counts include agricultural burning"
       },
       {
         "id": "firms-us-plains-wheat",
@@ -42,10 +42,10 @@
         "iso3": "USA",
         "lat": 38.5,
         "lng": -99,
-        "severity": 0.212,
+        "severity": 0.053,
         "alertScore": true,
         "start": "2026-09",
-        "text": "106 VIIRS hotspots in the region bbox over 48 hours (2026-09-05)"
+        "text": "106 VIIRS hotspots in the region bbox over 48 hours (2026-09-05); hotspot counts include agricultural burning"
       }
     ],
     "source": {

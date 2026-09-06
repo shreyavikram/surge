@@ -37,3 +37,12 @@ Notable design and modeling decisions, with the reason. Newest at the bottom.
 15. **Classification thresholds** 25% and 10% of cumulative gap are conventions, not estimates, and are
     exported as constants.
 16. **Monthly time step; public aggregation state-week; scenarios in browser storage.** Hackathon scope.
+
+## 2026-09-06: after the team critique
+
+17. **Severity is a fraction of the affected channel.** 100% on an import threat means imports from that source cease; on a domestic threat the region loses its whole output; on a tariff it is the ad valorem rate. Feeds convert alert levels at ingestion (damageAtSeverity1). Reason: the team wanted one legible dial; the engine no longer mixes alert scores with physical counts.
+18. **Producer revenue is the focus area's own producers.** Domestic losses land on producers in the shocked region in proportion to production share; everyone else gains from the price. Import blocks leave US producers with a pure price gain. Reason: "everything US-, state-, or district-centered."
+19. **Districts come from county census data, not population weights.** NASS 2022 Census of Agriculture county series → Census county→CD119 crosswalk by land-area share. Withheld (D) cells are zero. Reason: crops differ by district.
+20. **The map is a heatmap only.** Countries, states, and chokepoint straits are shaded stable/anticipated/unstable with intensity rules stated in the legend; no dot mode. With a focus, only areas that matter to it are colored.
+21. **An LLM may propose, never decide.** Gemini proposes threat candidates from a fixed vocabulary inside a data block; `validateCandidate` is the last word; the rule-based interpreter always runs.
+22. **Hazards in foreign supplier regions cut US imports** (import share × origin share), so a Mexican drought reaches US tomatoes without a new rule.

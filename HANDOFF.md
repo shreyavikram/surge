@@ -1,7 +1,17 @@
-# SURGE handoff (written 2026-09-05, end of session 1)
+# SURGE handoff (updated 2026-09-06, after the team critique)
 
 Read this first if you are continuing the build in a new session, on a new account, or with a
 different model. Everything below is also in the repo; this is the map.
+
+## What changed on 2026-09-06 (read before anything else)
+
+- Branch `plan3-web-prototype` holds everything; `main` is behind. The web app was restructured after the team's 28-point critique (docs/superpowers/plans/2026-09-06-plan4-critique-restructure.md).
+- Engine: severity now means the fraction of the affected supply channel lost; `cvByMonth`/`cvAnnual`; substitution excludes the shocked item and nonfood; tariff/cost shocks get an offset target for relief; producer revenue distinguishes domestic losses from import losses; `focus.ts` attributes loss to states and congressional districts; `heat.ts` colors suppliers and states; `interpret.ts` turns typed text into validated threat candidates.
+- Config: `focus.json` (states) + `focus-districts.json` (429 districts from NASS county census via the Census crosswalk; rebuild with `python3 packages/config/tools/build-districts.py`), `countries.json` (US food-import shares), regions carry `countries` (ISO3) lists, `us-national` region added.
+- Web: heatmap-only map (no dots), scenario tabs with dials and a typed-scenario box, left-toolbar filters (area multi-select, commodities, kind), Impact/Distribution/Relief drawer, charts with axes, info glossary, unread badges, settings with email alerts. Geo files in `apps/web/public/geo/` (countries, states, cd119).
+- Server: adapters gdacs, portwatch, fred, usdm, firms, eia, gdelt, aphis, gta with fixtures and `data/snapshots`; `/api/interpret` (Gemini `gemini-3.6-flash` proposer + rule-based, validated), `/api/alerts` (Resend or SMTP, else queued), `/api/alerts/run` diffs new threats. `npm run snapshot -w @surge/server` refreshes snapshots.
+- Deploy: `Dockerfile` + `render.yaml` run the Hono server with the built client in one container; Render pulls from GitHub (repo URL still to be provided by the team). Vite dev proxies `/api` to `localhost:8787`.
+- Known gaps: GDELT rate-limits (one request per 5 s per IP) so the news feed often serves its error state until the deployed IP behaves; APHIS per-detection data still needs the manual dashboard download; GDACS events outside gazetteer regions are dropped; district population/income is the state figure divided by district count until a Census API key is added (`CENSUS_API_KEY`).
 
 ## State of the repo
 
