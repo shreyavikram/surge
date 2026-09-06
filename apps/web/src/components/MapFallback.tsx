@@ -98,7 +98,7 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason,
       </svg>
       {(!countries || !states) && <img className="map-loader" src="/brand/greenfield-loading.svg" alt="Loading map…" />}
       <div className="svg-zoom"><button onClick={() => zoomBy(1.4)} title="Zoom in (+)">+</button><button onClick={() => zoomBy(1 / 1.4)} title="Zoom out (−)">−</button></div>
-      <div className="svg-hint">+ / − to zoom · arrows or drag to pan · simplified map ({reason})</div>
+      <div className="svg-hint">+ / − to zoom · arrows or drag to pan · {reason}</div>
       {hover && (
         <div className="map-hover">
           <b>{(countries?.features.find((f) => String(f.id) === hover)?.properties as { name?: string } | null)?.name ?? ctx.focus?.areas.find((a) => a.id === hover)?.name ?? hover}</b>
