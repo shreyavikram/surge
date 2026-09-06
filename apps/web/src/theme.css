@@ -355,3 +355,4 @@ details.assumptions .assump { margin-top: 6px; }
 .svg-zoom button:last-child { border-bottom: 0; }
 .svg-zoom button:hover { background: var(--panel-3); }
 .map-wrap.fallback .map-hover { left: 52px; }
+.heat-pop .why, .map-hover .why { color: var(--text-dim); font-size: 11.5px; line-height: 1.35; display: inline-block; max-width: 260px; }

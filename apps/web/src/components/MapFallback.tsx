@@ -76,7 +76,16 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
       {hover && (
         <div className="map-hover">
           <b>{(countries?.features.find((f) => String(f.id) === hover)?.properties as { name?: string } | null)?.name ?? ctx.focus?.areas.find((a) => a.id === hover)?.name ?? hover}</b>
-          {hoverHeat ? <> · {hoverHeat.status}{hoverHeat.threats.length ? ` · ${hoverHeat.threats.map(nameOf).join(' · ')}` : ''}</> : null}
+          {hoverHeat && (() => {
+            const isState = !!sh[hover];
+            const share = `${(hoverHeat.baseline * 100).toFixed(1)}%`;
+            const why = hoverHeat.status === 'stable'
+              ? (isState ? `Produces about ${share} of the food the US grows and raises. No current threat. Darker green means a bigger producer.` : `Supplies about ${share} of the food the US imports. No current threat. Darker green means a bigger supplier.`)
+              : hoverHeat.status === 'anticipated'
+                ? 'News reports point to a coming supply problem here that has not yet shown up in shipping, supply, or price data.'
+                : `Supply from here is already being cut. Darker red means a bigger share of US ${isState ? 'production' : 'imports'} is affected.`;
+            return <><br /><span className="why">{why}</span>{hoverHeat.threats.length ? <><br /><span className="faint">{hoverHeat.threats.map(nameOf).join(' · ')}</span></> : null}</>;
+          })()}
         </div>
       )}
       <HeatLegend focused={focus.kind !== 'us' && focus.ids.length > 0} />
