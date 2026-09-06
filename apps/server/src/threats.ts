@@ -73,8 +73,11 @@ export function feedItemsToThreats(items: FeedItem[], source: SourceStamp, ctx: 
       const shares = region[field] ?? (field === 'usSupplyShare' ? region.usImportOriginShare : undefined) ?? {};
       // an origin below 2% of US imports of a commodity is noise for a hazard there (measured shares list every small supplier)
       const floor = field === 'usSupplyShare' && region.usSupplyShare?.[Object.keys(shares)[0] ?? ''] !== undefined ? 0 : 0.02;
+      // weather at home cannot destroy a manufactured or wholly imported good (the engine skips them too); keep the list honest
+      const domesticHazard = field === 'usSupplyShare' && region.usSupplyShare !== undefined;
       commodities = Object.entries(shares)
         .filter(([id, v]) => (ctx.commodities[id] || ctx.inputs[id]) && v >= floor)
+        .filter(([id]) => { const m = ctx.commodities[id]?.supply.model; return !(domesticHazard && (m === 'manufacturing' || m === 'import')); })
         .sort((a, b) => b[1] - a[1])
         .map(([id]) => ({ id, relevance: 1 }));
     }

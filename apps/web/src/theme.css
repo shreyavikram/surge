@@ -382,3 +382,17 @@ details.assumptions .assump { margin-top: 6px; }
 .svg-zoom.mini button { width: 24px; height: 24px; font-size: 15px; }
 .chart .now { stroke: var(--accent); stroke-width: 1; stroke-dasharray: 3 2; }
 .map-label { fill: var(--text); opacity: 0.75; pointer-events: none; font-family: var(--sans); paint-order: stroke; stroke: var(--bg); stroke-width: 2px; }
+
+/* store-price stress strip (FAO price anomaly indicator) */
+.ps-strip { padding: 6px 12px 8px; border-bottom: 1px solid var(--border); }
+.ps-head { font-size: 11px; color: var(--text-dim); margin-bottom: 5px; }
+.ps-head small { color: var(--text-dim); }
+.ps-none { font-size: 11px; color: var(--text-dim); }
+.ps-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.ps-chip { font: inherit; font-size: 11px; line-height: 1; padding: 4px 7px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer; }
+.ps-chip span { margin-left: 4px; font-weight: 600; }
+.ps-chip.high2 span { color: #d9432f; }
+.ps-chip.high1 span { color: var(--warn); }
+.ps-chip.low1 span, .ps-chip.low2 span { color: var(--text-dim); }
+.ps-chip.on { border-color: var(--accent-dim); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.ps-chip:hover { border-color: var(--accent-dim); }

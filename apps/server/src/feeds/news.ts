@@ -1,5 +1,5 @@
 import { loadContext } from '@surge/config';
-import { interpretScenario, validateCandidate, type ThreatCandidate } from '@surge/engine';
+import { interpretScenario, parseSeverity, validateCandidate, type ThreatCandidate } from '@surge/engine';
 import type { FeedAdapter, FeedResult, FeedItem } from './types.js';
 import { httpText } from './http.js';
 import { classifyHeadlines } from '../ai/news-llm.js';
@@ -104,6 +104,16 @@ export const news: FeedAdapter = {
         }
       }
     }
+    // A headline that states no loss figure cannot justify more than a few percent of a whole country's output,
+    // nor more than the category default of a region's: cap hazard, disease and world-price severities unless
+    // the headline itself quotes a loss percentage. Trade actions keep their defaults (an export ban is a cut channel).
+    const HEADLINE_CAP_NATIONAL = 0.03, HEADLINE_CAP_REGIONAL = 0.15;
+    const capped = (c: ThreatCandidate, title: string): number => {
+      const rule = ctx.threatTypes[c.category]?.rule;
+      if (!rule || !['crop_hazard', 'livestock_hazard', 'livestock_disease', 'world_price'].includes(rule)) return c.severity;
+      if (parseSeverity(title) !== undefined) return c.severity;
+      return Math.min(c.severity, c.regionId === 'us-national' ? HEADLINE_CAP_NATIONAL : HEADLINE_CAP_REGIONAL);
+    };
     const items: FeedItem[] = [];
     for (const [key, { c, a, n, description }] of best) {
       const r = ctx.regions[c.regionId]!;
@@ -112,7 +122,7 @@ export const news: FeedAdapter = {
         name: a.title.length > 90 ? a.title.slice(0, 87) + '…' : a.title,
         category: c.category, kind: ctx.threatTypes[c.category]?.kind ?? 'natural',
         regionId: c.regionId, admin: r.name, lat: r.lat, lng: r.lng,
-        commodities: c.commodities, severity: c.severity, months: c.months,
+        commodities: c.commodities, severity: capped(c, a.title), months: c.months,
         status: 'breaking', confidence: Math.min(1, c.confidence * 0.8 + 0.05 * (n - 1)),
         text: `${a.source || 'news'} · ${n} matching headline${n > 1 ? 's' : ''} in 3 days · ${c.source === 'llm' ? 'classified by Gemini, validated' : `matched: ${c.matched.join(', ')}`} · ${a.link}`,
       };

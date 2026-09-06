@@ -4,6 +4,7 @@ import { type RankedEntry, categoryColor, CATEGORY_LABEL, commodityName, focusVi
 import type { Focus } from '../state.js';
 import { compactUsd } from '../format.js';
 import { Filters } from './Filters.js';
+import { PriceStress } from './PriceStress.js';
 import { Info } from './Info.js';
 
 interface Props {
@@ -56,6 +57,7 @@ export function Watchlist({ entries, others, selectedId, onSelect, ctx, focus, s
       </div>
       <input className="wl-search" type="search" placeholder="Search threats, places, commodities…" value={q} onChange={(e) => setQ(e.target.value)} />
       <Filters ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} />
+      {!scenario && <PriceStress ctx={ctx} commodities={commodities} setCommodities={setCommodities} />}
       <div className="wl-cols">
         <span>Threat</span>
         <span className="r">Consumer welfare loss<Info term="cv" /><br /><small>total over the shock · {label}</small></span>
