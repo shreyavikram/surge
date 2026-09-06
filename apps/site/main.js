@@ -1,4 +1,4 @@
-// Draws the two maps, wires the coverage tabs and the severity dial.
+// Draws the two maps, the tape under the nav, and the coverage tabs.
 // Map geometry and the values colouring it come from assets/maps.js, generated out of
 // the terminal's own geodata and cited sources by tools/build-graphics.mjs.
 
@@ -144,9 +144,9 @@ function drawDistricts() {
   function paint(key) {
     current = key;
     const series = districts.production[key];
-    // Shares are stored in parts per 100,000; breaks track the top of the distribution
-    // so the handful of districts that grow most of a crop stay visible.
-    const breaks = [1, 50, 200, 800, 2500];
+    // Shares are stored in parts per 100,000. The first break sits well above zero so a
+    // district with a rounding-error share stays dark instead of reading as a producer.
+    const breaks = [20, 150, 500, 1500, 3500];
     for (const [id, shape] of shapes) {
       const raw = series.shares[id] || 0;
       shape.el.setAttribute('class', `geo ${classFor(raw, breaks)} hot`);
@@ -212,23 +212,54 @@ function wireTabs() {
 
 // ──────────────────────────────────────────────────────── odds and ends
 
-function wireSeverity() {
-  const input = $('#sev');
-  const out = $('#sev-out');
-  if (!input || !out) return;
-  input.addEventListener('input', () => { out.textContent = `${input.value}%`; });
-}
+/**
+ * The tape under the nav. These are the readouts the terminal was serving in July 2026 —
+ * BLS store prices against their usual season, then the top of the watchlist. It is a
+ * snapshot, not a live wire, and the strip is labelled as one.
+ */
+const TAPE = [
+  { label: 'Store prices vs. the usual season', note: 'BLS, Jul 2026' },
+  { label: 'Lettuce', level: 'high' },
+  { label: 'Chicken', level: 'low' },
+  { label: 'Citrus', level: 'low' },
+  { label: 'Fats and oils', level: 'low' },
+  { label: 'Tomatoes', level: 'low' },
+  { label: 'Cheese', level: 'very low' },
+  { label: 'Bread and bakery', level: 'very low' },
+  { label: 'Pork', level: 'very low' },
+  { label: 'Watchlist · consumer welfare loss, total over the shock', note: '45 threats' },
+  { label: 'Drought · Minnesota', value: '$2.90B' },
+  { label: 'HPAI layer depopulations, 2022', value: '$2.72B' },
+  { label: 'Drought · Wisconsin', value: '$1.87B' },
+  { label: 'Drought · Texas', value: '$1.77B' },
+  { label: 'Drought · Oklahoma', value: '$1.74B' },
+  { label: 'Abbott Sturgis closure and recall', value: '$1.53B' },
+  { label: 'HPAI, trailing 12 months (22.1M birds)', value: '$1.40B' },
+  { label: 'Chokepoint · Bab el-Mandeb / Suez', value: '$724M' },
+];
 
-function wireNav() {
-  const nav = $('#nav');
-  if (!nav) return;
-  const onScroll = () => nav.classList.toggle('stuck', window.scrollY > 8);
-  onScroll();
-  addEventListener('scroll', onScroll, { passive: true });
+function wireTape() {
+  const host = $('#tape');
+  if (!host) return;
+  const item = (t) => {
+    const el = document.createElement('span');
+    el.className = 'tick';
+    if (t.value) el.innerHTML = `${t.label} <b class="val">${t.value}</b>`;
+    else if (t.level) el.innerHTML = `${t.label} <b class="${t.level === 'high' ? 'hi' : 'lo'}">${t.level}</b>`;
+    else el.innerHTML = `<b>${t.label}</b> ${t.note}`;
+    return el;
+  };
+  // Two passes of the same list, so the -50% keyframe loops seamlessly.
+  for (let pass = 0; pass < 2; pass++) {
+    for (const t of TAPE) {
+      const el = item(t);
+      if (pass === 1) el.setAttribute('aria-hidden', 'true');
+      host.appendChild(el);
+    }
+  }
 }
 
 drawWorld();
 drawDistricts();
 wireTabs();
-wireSeverity();
-wireNav();
+wireTape();

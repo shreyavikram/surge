@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Greenfield — agricultural intelligence in context</title>
 <meta name="description" content="Greenfield is an agro-defense readiness terminal for the American food supply: a live map of threats to what Americans eat, a modeled estimate of what each one costs consumers, and a ranked view of where relief could come from — down to the congressional district.">
-<meta name="theme-color" content="#f7f3e8">
+<meta name="theme-color" content="#0b0e14">
 <meta property="og:title" content="Greenfield — agricultural intelligence in context">
 <meta property="og:description" content="A live map of threats to the American food supply, what each one costs consumers, and where relief could come from — down to the congressional district.">
 <meta property="og:type" content="website">
@@ -33,13 +33,23 @@
     </a>
     <nav class="nav-links" aria-label="Sections">
       <a href="#product">Product</a>
-      <a href="#coverage">Coverage</a>
+      <a href="#districts">Districts</a>
+      <a href="#simulator">Simulator</a>
       <a href="#method">Method</a>
+      <a href="#coverage">Coverage</a>
       <a href="#company">Company</a>
     </nav>
     <a class="btn btn-primary nav-cta" href="https://greenfield-w77m.onrender.com" target="_blank" rel="noopener">Launch the terminal <span aria-hidden="true">↗</span></a>
   </div>
 </header>
+
+<!-- A snapshot of what the terminal was serving, not a live wire — the label says so. -->
+<div class="ticker-row">
+  <span class="tick-head">Snapshot</span>
+  <div class="ticker" aria-label="Store prices against the usual season, and the top threats by consumer welfare loss, as the terminal served them in July 2026">
+    <div class="ticker-track" id="tape"></div>
+  </div>
+</div>
 
 <main id="main">
 
@@ -105,138 +115,96 @@
 
 <!-- ─────────────────────────────────────────────────── 01 product -->
 <section class="section" id="product">
-  <div class="wrap split">
-    <div class="split-copy">
-      <p class="eyebrow">01 / The product</p>
-      <h2 class="display">Read past the <em>headlines.</em></h2>
-      <p class="body">Regular briefings link to real, data-driven coverage of what's happening. Developments are put in the context of existing American food security, and ordered by the severity of their impact on American consumers.</p>
-      <ul class="checks">
-        <li>A rigorously modeled consumer welfare index, built on decades of USDA data.</li>
-        <li>Importers classified by their importance to U.S. food security.</li>
-        <li>Threat candidates read continuously from news wires and public alert feeds.</li>
-      </ul>
-      <p class="note"><span class="mono-label">On the machine's role</span> An LLM may propose, never decide. Candidates are drawn from a fixed vocabulary, and a rule-based validator is the last word before anything reaches the model.</p>
+  <div class="wrap">
+    <div class="stack-head">
+      <div>
+        <p class="eyebrow">01 / The product</p>
+        <h2 class="display">Read past the <em>headlines.</em></h2>
+      </div>
+      <div class="stack-copy">
+        <p class="body">Regular briefings link to real, data-driven coverage of what's happening. Developments are put in the context of existing American food security, and ordered by the severity of their impact on American consumers.</p>
+        <ul class="checks">
+          <li>A rigorously modeled consumer welfare index, built on decades of USDA data.</li>
+          <li>Importers classified by their importance to U.S. food security.</li>
+          <li>Threat candidates read continuously from news wires and public alert feeds.</li>
+        </ul>
+        <p class="note"><span class="mono-label">On the machine's role</span> An LLM may propose, never decide. Candidates are drawn from a fixed vocabulary, and a rule-based validator is the last word before anything reaches the model.</p>
+      </div>
     </div>
 
-    <figure class="split-figure">
-      <div class="panel panel-watchlist">
-        <div class="panel-chrome"><span></span><span></span><span></span><em class="mono">app.greenfield.io/map</em></div>
-        <div class="watchlist">
-          <div class="wl-head">
-            <span class="mono-label">Watchlist</span>
-            <span class="wl-sub mono">45 threats · by consumer welfare loss</span>
-          </div>
-          <div class="wl-cols mono-label"><span>Threat</span><span>Consumer welfare loss</span></div>
-          <ol class="wl-rows">
-            <li><i class="dot dot-natural"></i><div class="wl-name">Severe drought across 52% of Minnesota<small>Drought · Minnesota · 14 mo</small></div><div class="wl-val"><b>$2.90B</b><small>mostly sugar and sweeteners</small></div></li>
-            <li><i class="dot dot-bio"></i><div class="wl-name">HPAI layer depopulations, 2022<small>Disease · United States (multi-state) · 24 mo</small></div><div class="wl-val"><b>$2.72B</b><small>mostly eggs</small></div></li>
-            <li><i class="dot dot-natural"></i><div class="wl-name">Severe drought across 43% of Wisconsin<small>Drought · Wisconsin · 14 mo</small></div><div class="wl-val"><b>$1.87B</b><small>mostly cheese</small></div></li>
-            <li><i class="dot dot-natural"></i><div class="wl-name">Severe drought across 27% of Texas<small>Drought · Texas · 14 mo</small></div><div class="wl-val"><b>$1.77B</b><small>mostly beef</small></div></li>
-            <li><i class="dot dot-supply"></i><div class="wl-name">Abbott Sturgis plant closure and recall<small>Facility · Sturgis, Michigan · 8 mo</small></div><div class="wl-val"><b>$1.53B</b><small>mostly infant formula</small></div></li>
-            <li><i class="dot dot-geo"></i><div class="wl-name">Black Sea shipping disruption<small>Chokepoint · Bab el-Mandeb / Suez · 7 mo</small></div><div class="wl-val"><b>$724M</b><small>mostly coffee</small></div></li>
-          </ol>
-        </div>
-      </div>
-      <figcaption class="cite">The live watchlist, ranked by compensating variation. Values as served by the terminal.</figcaption>
+    <figure class="shot">
+      <div class="shot-bar"><span class="live">Live</span><span class="url">greenfield-w77m.onrender.com</span></div>
+      <img src="assets/terminal-live.jpg" width="1800" height="1125" loading="lazy" decoding="async"
+           alt="The Greenfield terminal: a watchlist of 45 threats ranked by consumer welfare loss beside a world map shaded by supply status, with a drought across 52% of Minnesota at $2.90B at the top of the list.">
+      <figcaption class="shot-cap">The live view. Every area is shaded by how much U.S. food it supplies and whether that supply is under threat; the watchlist is ranked by consumer welfare loss.</figcaption>
     </figure>
   </div>
 </section>
 
 <!-- ────────────────────────────────────────────────── 02 district -->
-<section class="section section-tint" id="districts">
-  <div class="wrap">
-    <div class="split split-reverse">
-      <div class="split-copy">
-        <p class="eyebrow">02 / Data analysis</p>
-        <h2 class="display">Every district has a <em>story.</em></h2>
-        <p class="body">Greenfield interprets global developments for the federal, state, and district level, providing insight for every constituency and letting policymakers craft finely tailored solutions.</p>
-        <ul class="checks">
-          <li>Impact modeled across geography <em>and</em> income.</li>
-          <li>Substitution data produces projections of producer revenue by state.</li>
-          <li>Relief efforts ranked by ease, price, and effect.</li>
-        </ul>
-        <p class="note"><span class="mono-label">Why districts, not population</span> A shock to citrus and a shock to corn land on entirely different maps. District exposure comes from county agricultural production, not from headcount.</p>
-      </div>
-
-      <figure class="split-figure split-figure-wide">
-        <div class="map-frame">
-          <div class="map-head">
-            <span class="mono-label">Share of national production, by district</span>
-            <span class="map-readout mono" id="district-readout">Hover a district</span>
-          </div>
-          <div class="chips" id="district-chips" role="tablist" aria-label="Commodity"></div>
-          <div class="map-canvas map-canvas-us" id="district-map" role="img" aria-label="Map of the 436 congressional districts shaded by each district's share of national production for the selected commodity."></div>
-          <div class="map-legend" id="district-legend"></div>
-        </div>
-        <figcaption class="cite">NASS 2022 Census of Agriculture county series, crosswalked to 119th Congress districts by land-area share. Withheld cells are zero.</figcaption>
-      </figure>
+<section class="section" id="districts">
+  <div class="wrap split split-reverse">
+    <div class="split-copy">
+      <p class="eyebrow">02 / Data analysis</p>
+      <h2 class="display">Every district has a <em>story.</em></h2>
+      <p class="body">Greenfield interprets global developments for the federal, state, and district level, providing insight for every constituency and letting policymakers craft finely tailored solutions.</p>
+      <ul class="checks">
+        <li>Impact modeled across geography <em>and</em> income.</li>
+        <li>Substitution data produces projections of producer revenue by state.</li>
+        <li>Relief efforts ranked by ease, price, and effect.</li>
+      </ul>
+      <p class="note"><span class="mono-label">Why districts, not population</span> A shock to citrus and a shock to corn land on entirely different maps. District exposure comes from county agricultural production, not from headcount.</p>
     </div>
+
+    <figure class="split-figure">
+      <div class="map-frame">
+        <div class="map-head">
+          <span class="mono-label">Share of national production, by district</span>
+          <span class="map-readout mono" id="district-readout">Hover a district</span>
+        </div>
+        <div class="chips" id="district-chips" role="tablist" aria-label="Commodity"></div>
+        <div class="map-canvas map-canvas-us" id="district-map" role="img" aria-label="Map of the 436 congressional districts shaded by each district's share of national production for the selected commodity."></div>
+        <div class="map-legend" id="district-legend"></div>
+      </div>
+      <figcaption class="cite">All 436 districts, live in this page — pick a commodity. NASS 2022 Census of Agriculture county series, crosswalked to 119th Congress districts by land-area share. Withheld cells are zero.</figcaption>
+    </figure>
   </div>
 </section>
 
 <!-- ───────────────────────────────────────────────── 03 simulator -->
 <section class="section" id="simulator">
-  <div class="wrap split">
-    <div class="split-copy">
-      <p class="eyebrow">03 / Simulator</p>
-      <h2 class="display">Fight the <em>next war.</em></h2>
-      <p class="body">Imagine novel shocks and watch an agent bring them to life. Set the severity, the duration, and the relief on the table, and scope the magnitude of the crisis — <em>before</em> it hits.</p>
-      <ul class="checks">
-        <li>AI agents interpret scenarios by proposing the breadth of commodities affected.</li>
-        <li>Comprehensive economic modeling predicts where the brunt of the shock will fall.</li>
-        <li>Multiple crisis scenarios compared side by side for duration and severity.</li>
-      </ul>
-      <p class="note"><span class="mono-label">One legible dial</span> Severity is a fraction of the affected channel: on an import threat, the share of that origin's shipments that stop; on a domestic one, the share of the region's output; on a tariff, the ad valorem rate.</p>
+  <div class="wrap">
+    <div class="stack-head">
+      <div>
+        <p class="eyebrow">03 / Simulator</p>
+        <h2 class="display">Fight the <em>next war.</em></h2>
+      </div>
+      <div class="stack-copy">
+        <p class="body">Imagine novel shocks and watch an agent bring them to life. Set the severity, the duration, and the relief on the table, and scope the magnitude of the crisis — <em>before</em> it hits.</p>
+        <ul class="checks">
+          <li>AI agents interpret scenarios by proposing the breadth of commodities affected.</li>
+          <li>Comprehensive economic modeling predicts where the brunt of the shock will fall.</li>
+          <li>Multiple crisis scenarios compared side by side for duration and severity.</li>
+        </ul>
+        <p class="note"><span class="mono-label">One legible dial</span> Severity is a fraction of the affected channel: on an import threat, the share of that origin's shipments that stop; on a domestic one, the share of the region's output; on a tariff, the ad valorem rate.</p>
+      </div>
     </div>
 
-    <figure class="split-figure">
-      <div class="panel panel-sim">
-        <div class="panel-chrome"><span></span><span></span><span></span><em class="mono">app.greenfield.io/simulator</em></div>
-        <div class="sim">
-          <div class="sim-title">
-            <b>Export ban — Pakistan (Rice)</b>
-            <span class="tag">Hypothetical</span>
-          </div>
-          <p class="sim-meta mono">Export ban · Pakistan · severity 100% · 8 mo</p>
-
-          <div class="field">
-            <label for="sev">Severity <b id="sev-out">100%</b></label>
-            <input type="range" id="sev" min="0" max="100" value="100" aria-label="Severity">
-          </div>
-
-          <div class="sim-tabs mono-label"><span class="on">Impact</span><span>Distribution</span><span>Relief</span></div>
-
-          <p class="mono-label sim-sec">Consumer welfare loss · United States</p>
-          <div class="sim-cards">
-            <div class="sim-card"><span class="mono-label">Annual</span><b class="bad">$4.5M</b></div>
-            <div class="sim-card"><span class="mono-label">Total · 8 mo</span><b class="bad">$4.5M</b></div>
-          </div>
-          <p class="chip-row"><span class="chip chip-modeled">Modeled</span> <span class="mono">range $4.4M – $4.5M</span></p>
-          <div class="sim-cards">
-            <div class="sim-card"><span class="mono-label">Producer revenue Δ</span><b>$2.0M</b></div>
-            <div class="sim-card"><span class="mono-label">Per capita</span><b>$0.01</b></div>
-          </div>
-
-          <p class="mono-label sim-sec">Commodities</p>
-          <div class="sim-scroll">
-          <table class="sim-table">
-            <thead class="mono-label"><tr><th>Commodity</th><th>Peak price</th><th>Peak qty</th><th>Loss</th></tr></thead>
-            <tbody><tr><td>Rice</td><td class="up">+0.1%</td><td>−0.0%</td><td>$4.5M</td></tr></tbody>
-          </table>
-          </div>
-        </div>
-      </div>
-      <figcaption class="cite">The Impact tab for a hypothetical the analyst just built. Every figure carries its provenance chip.</figcaption>
+    <figure class="shot">
+      <div class="shot-bar"><span class="live">Scenario 1</span><span class="url">greenfield-w77m.onrender.com</span></div>
+      <img src="assets/terminal-simulator.jpg" width="1800" height="1125" loading="lazy" decoding="async"
+           alt="The Greenfield simulator: a hypothetical threat builder on the left with a plain-language description box and an Interpret button, and on the right the Impact tab showing a $2.72B total consumer welfare loss carrying a MODELED range.">
+      <figcaption class="shot-cap">Describe a shock in a sentence and let the agent propose its breadth, or fill it in by hand. Drag severity and the loss, the price path and the recovery curve recompute in the browser.</figcaption>
     </figure>
   </div>
 </section>
 
-<!-- ──────────────────────────────────────────────── method (dark) -->
-<section class="section dark" id="method">
+<!-- ──────────────────────────────────────────────────────── method -->
+<section class="section" id="method">
   <div class="wrap">
-    <p class="eyebrow eyebrow-dark">The method</p>
-    <h2 class="display display-dark">How the number is <em>built.</em></h2>
-    <p class="lede lede-dark">One dial goes in. Four steps later, a dollar figure comes out — and every step is a cited, inspectable, zero-dependency piece of TypeScript rather than a black box.</p>
+    <p class="eyebrow">The method</p>
+    <h2 class="display">How the number is <em>built.</em></h2>
+    <p class="lede">One dial goes in. Four steps later, a dollar figure comes out — and every step is a cited, inspectable, zero-dependency piece of TypeScript rather than a black box.</p>
 
     <ol class="chain">
       <li>
@@ -261,25 +229,38 @@
       </li>
     </ol>
 
-    <div class="method-foot">
-      <div class="chips-legend">
-        <p class="mono-label">Every figure carries its provenance</p>
-        <dl class="chip-defs">
-          <dt><span class="chip chip-measured">Measured</span></dt><dd>straight from a source series</dd>
-          <dt><span class="chip chip-modeled">Modeled</span></dt><dd>computed under stated assumptions</dd>
-          <dt><span class="chip chip-observed">Observed</span></dt><dd>what actually happened</dd>
-        </dl>
+    <div class="method-grid">
+      <div class="method-notes">
+        <div>
+          <p class="mono-label">Every figure carries its provenance</p>
+          <dl class="chip-defs">
+            <dt><span class="chip chip-measured">Measured</span></dt><dd>straight from a source series</dd>
+            <dt><span class="chip chip-modeled">Modeled</span></dt><dd>computed under stated assumptions</dd>
+            <dt><span class="chip chip-observed">Observed</span></dt><dd>what actually happened</dd>
+          </dl>
+        </div>
+        <div>
+          <p class="mono-label">Calibrated against events that already happened</p>
+          <p>The 2022 HPAI egg replay carries the actual BLS retail price through Dec 2023, and the modeled path is drawn over it. Where the literature disagrees by threefold on how much of the 2022 egg price rise HPAI caused, Greenfield shows both and labels which one is in use.</p>
+        </div>
+        <div>
+          <p class="mono-label">Nothing hidden behind the figure</p>
+          <p>Every panel ends in <span class="mono">Assumptions and sources</span>, and every feed reports whether it is live or serving a cached snapshot. A number a staffer cannot audit is a number a staffer cannot use.</p>
+        </div>
       </div>
-      <div class="method-calib">
-        <p class="mono-label">Calibrated against events that already happened</p>
-        <p>The 2022 HPAI egg replay carries the actual BLS retail price through Dec 2023, and the modeled path is drawn over it. Where the literature disagrees by threefold on how much of the 2022 egg price rise HPAI caused, Greenfield shows both and labels which one is in use.</p>
-      </div>
+
+      <figure class="shot">
+        <div class="shot-bar"><span class="live">Impact</span><span class="url">HPAI layer depopulations, 2022</span></div>
+        <img src="assets/terminal-impact.jpg" width="820" height="1777" loading="lazy" decoding="async"
+             alt="The Impact panel for the 2022 HPAI egg replay: $1.84B annual and $2.72B total consumer welfare loss, a MODELED chip with a $2.51B to $4.29B range, producer revenue up $1.52B, $8.00 per capita, eggs at a 17.8% peak price rise, and a substitution table below.">
+        <figcaption class="shot-cap">The 2022 egg crisis, replayed in the terminal.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
 <!-- ────────────────────────────────────────────────────── coverage -->
-<section class="section" id="coverage">
+<section class="section section-paper" id="coverage">
   <div class="wrap">
     <p class="eyebrow">Coverage</p>
     <h2 class="display">Every good, every threat, <em>itemized.</em></h2>
@@ -350,7 +331,7 @@
 </section>
 
 <!-- ─────────────────────────────────────────────────────── company -->
-<section class="section section-tint" id="company">
+<section class="section section-paper" id="company">
   <div class="wrap">
     <p class="eyebrow">Beyond the hackathon</p>
     <h2 class="display">Built to ship, not just to <em>demo.</em></h2>
