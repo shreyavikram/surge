@@ -415,7 +415,7 @@ def food_shares(when):
     countries = {}
     for code, v in sorted(value.items(), key=lambda kv: -kv[1]):
         share = v / total if total > 0 else 0
-        if share < 0.002:
+        if share < 0.0002:
             continue
         entry = CENSUS.get(code)
         name = api_name[code]

@@ -36,7 +36,7 @@ Every number the app shows is labelled *measured* (from data) or *modeled* (from
 
 **Mechanism.** `feeds/usdm.ts` pulls the weekly state statistics for 38 agricultural states. A state enters when ≥ 20% of its area is in D2 or worse. Alert score = (0.4·D2-only + 0.7·D3-only + 1.0·D4) share of area; ingestion multiplies by the drought damage cap (35% yield loss at score 1, from the 2012 corn analogue). Each state is its own production region, so losses land on that state's crops in proportion to its county-built production shares.
 
-**Confidence: Medium.** The data are official and weekly. The mapping from area share to yield loss is a single linear cap; real losses depend on crop stage and irrigation (California's irrigated valleys lose far less than dryland Kansas at the same D-level).
+**Confidence: Medium-High** (raised 2026-09-06: the damage is now weighted by a crop calendar, `crop-calendar.json`, and discounted by each state's irrigated share of cropland, `state-irrigation.json`, 2022 Census of Agriculture). The data are official and weekly; the remaining approximation is the single linear cap from D-level area to yield loss.
 
 **Improvements.** (1) Weight by crop calendar (a July D3 hurts corn, a January D3 mostly does not). (2) Split irrigated vs dryland acreage (NASS irrigation census). (3) Replace the cap with the USDA crop-condition regression (good/excellent share → yield).
 
@@ -44,7 +44,7 @@ Every number the app shows is labelled *measured* (from data) or *modeled* (from
 
 **Mechanism.** `feeds/gdacs.ts` reads the GDACS RSS/GeoJSON; alert level → score (Green 0.2, Orange 0.5, Red 1.0); ingestion applies the category cap (flood 25%, storm 20%, wildfire 10%). The point is placed by **country code** into the supplier region covering that country (the review removed the bounding-box lookup that handed Bolivian fires to Brazil). A foreign hazard cuts US imports by import share × origin share.
 
-**Confidence: Low for magnitude.** A single GDACS point is scaled to the whole country's output: an Orange storm in Yucatán currently reads as 10% of all Mexican tomatoes. Direction and place are right.
+**Confidence: Medium-Low for magnitude** (raised 2026-09-06: the alert score is scaled by the share of the country's population the event touches, `country-population.json`; Green alerts no longer produce threats; domestic events are weighted by the crop calendar). Affected population is a proxy for affected cropland, so a storm over farmland with few people is still understated.
 
 **Improvements.** (1) Scale by the event's affected area relative to the country's cropland (GDACS gives affected population and polygon; NASA cropland rasters give the denominator). (2) Use the region's crop calendar. (3) Require an Orange or Red alert for a supply shock; Green becomes information only.
 
@@ -52,7 +52,7 @@ Every number the app shows is labelled *measured* (from data) or *modeled* (from
 
 **Mechanism.** `feeds/firms.ts` counts VIIRS hotspots in the last 48 h inside each state's bounding box (≥ 150 to appear); score = count / 2000, cap 10%. The review fixed triple-counting across nested regions.
 
-**Confidence: Low.** Hotspot counts include agricultural burning and prescribed fire; a bounding box is not a state.
+**Confidence: Medium-Low** (raised 2026-09-06: hotspots are placed by state polygon, `states-geo.json`, and weighted by fire radiative power with a 1,500 MW floor). Agricultural burning and prescribed fire still count.
 
 **Improvements.** (1) Intersect with state polygons and cropland. (2) Use FIRMS fire radiative power and NIFC incident perimeters. (3) Only count hotspots on or adjacent to cropland or rangeland.
 
@@ -60,7 +60,7 @@ Every number the app shows is labelled *measured* (from data) or *modeled* (from
 
 **Mechanism.** `feeds/portwatch.ts` compares 7-day transit counts through Suez/Red Sea, Hormuz, Panama and the Black Sea with the 2019–23 baseline; decline fraction = severity. The chokepoint rule gives one month of delay shortfall (import share × chokepoint share × decline, buffered by pipeline stocks) plus a freight wedge (5% of wholesale at full closure).
 
-**Confidence: Medium for the transit decline, Low for the chokepoint import shares** (hand-typed from trade-route literature; e.g. coffee 10% via Suez).
+**Confidence: Medium for the transit decline, Medium-Low for the chokepoint import shares** (raised 2026-09-06: each strait's share of a commodity's imports is now the measured Census origin shares × a modeled routing table, `chokepoint-routing.json`; the routing fractions are judgement calls at the 0.1 level).
 
 **Improvements.** (1) Derive chokepoint shares per commodity from Census imports by origin × standard routing (origin → US coast). (2) Calibrate the freight wedge to the 2024 Red Sea episode (container rates ×3, retail effect small).
 
@@ -76,7 +76,7 @@ Every number the app shows is labelled *measured* (from data) or *modeled* (from
 
 **Mechanism.** `feeds/gta.ts` maps interventions announced in the last 180 days by type to categories; HS chapter → commodities; the region is the origin (US action) or the implementer (supplier export curb). Foreign tariffs and import bans on US goods are now skipped (they lower US prices). Tariff severity = the ad valorem rate parsed from the title.
 
-**Confidence: Low.** The API is rate-limited (429) on the shared key, so the snapshot is stale; the chapter map is coarse (HS 04 = milk, cheese *and* eggs).
+**Confidence: Low-Medium** (raised 2026-09-06: affected products now map at HS-4/HS-6 through the Census feed's code table, with the chapter map as fallback). The API is still rate-limited (429) on the shared key, so the snapshot is stale.
 
 **Improvements.** (1) Use the GTA bulk download nightly instead of the API. (2) Map at HS-4 (`feeds/trade.ts` already carries the codes). (3) Read the tariff rate from the intervention's structured field, not the title.
 
@@ -84,7 +84,7 @@ Every number the app shows is labelled *measured* (from data) or *modeled* (from
 
 **Mechanism.** `feeds/trade.ts` queries the International Trade API for each commodity's HS-4/HS-6 codes (`HS_CODES`), fifteen months of general-import customs value by country. For every origin that supplied ≥ 10% of the commodity's imports a year earlier (and ≥ $5 M over the window), the last three reported months are compared with the same three months a year earlier; a fall of ≥ 20% becomes an *import decline* threat with severity = the measured fraction of that channel lost. The threat is placed on the origin's region and starts as **anticipated**. `price-stress.ts` then applies the FAO Indicator of Food Price Anomalies to the BLS retail price of the same commodity; when store prices are moderately or abnormally high for the season, the threat becomes **unstable** and the popup says the shortfall is already on shelves.
 
-**Confidence: High for the decline itself, Medium for what it means.** Values are official and the arithmetic is exact and tested. Caveats: (1) customs value, not quantity, so price changes move the number (a 20% cheaper coffee crop looks like a 20% decline); (2) Census publishes with a ~6-week lag; (3) a decline can be benign (Brazil's egg shipments fell 100% because the 2025 emergency imports ended as the US flock recovered).
+**Confidence: High for the decline itself, Medium-High for what it means** (raised 2026-09-06: the baseline is the average of the same months in the previous three years, so one odd year no longer sets it, and the origins whose shipments rose over the same months are named in the popup). Caveats: (1) customs value, not quantity, so price changes move the number (a 20% cheaper coffee crop looks like a 20% decline); (2) Census publishes with a ~6-week lag; (3) a decline can be benign (Brazil's egg shipments fell 100% because the 2025 emergency imports ended as the US flock recovered).
 
 **Improvements.** (1) Use `GEN_QY1_MO` quantities for commodities with a single unit (kg) and value only where units differ. (2) Add a seasonal baseline (three-year same-month mean) instead of one year back. (3) Show the declining origin's replacement (which origins rose) in the popup: the data are already fetched.
 
@@ -112,7 +112,7 @@ Every number the app shows is labelled *measured* (from data) or *modeled* (from
 
 **Confidence: High** for the shares as value shares; **Medium** as quantity shares (unit values differ by origin: Italian cheese is dearer per kilo than Mexican).
 
-**Improvements.** Quantity shares where units allow; refresh monthly from the same script (it takes ~2 minutes and no key beyond the free Census key).
+**Improvements.** Quantity shares are not available at HS-4/HS-6 from this API (quantities are reported only on 10-digit lines, ~500 requests), so value shares stay. Monthly refresh is done: `.github/workflows/refresh-origins.yml` re-runs the tool on the first of each month and commits the result (no key needed under 500 requests/day).
 
 ### B2. Commodity import shares (imports ÷ consumption)
 
@@ -158,7 +158,7 @@ Every number the app shows is labelled *measured* (from data) or *modeled* (from
 
 **Mechanism.** Hand-typed from USDA ERS/FAS agricultural import tables for ~40 countries.
 
-**Confidence: Medium.** Improvement: derive from the Census pull summed over all food chapters (HS 01–24) in the same tool; one extra request per chapter.
+**Confidence: High** (done 2026-09-06: measured from Census HS chapters 01–22 over the last twelve months, `build-origin-shares.py`; 48 countries at ≥ 0.02% of $208 B of food imports; countries with a supplier region keep a token share so they never read as "no supply").
 
 ### B8. Relief levers (`levers.json`)
 
@@ -201,3 +201,70 @@ Still open (documented, not fixed):
 5. **Demand-system oddities** (B3): two positive own-price elasticities and one homogeneity violation in never-shocked rows.
 6. **Value vs quantity** in the Census pulls (A9, B1).
 7. **Google News terms** (A1): non-commercial; GDELT is the licensed replacement once rate limits allow.
+
+---
+
+## Part E. Improvement status (2026-09-06, morning) and revised confidence
+
+Every improvement proposed above was attempted the same day. Status:
+
+| Item | Improvement | Status |
+|---|---|---|
+| A1.1 | Two-outlet corroboration for news threats | **Done** (a threat needs two outlets, a quoted loss figure, or a wire/official source) |
+| A1.2 | Feed Gemini the article body | **Not feasible**: Google News RSS links are opaque redirects that need Google's internal decoding endpoint, and publisher pages are often paywalled |
+| A1.3 | Labelled headline set with precision/recall | **Done** (`apps/server/test/fixtures/headlines-labelled.json`, a test on the rule path, `scripts/eval-news.ts` for the Gemini path; numbers in the test output) |
+| A1.4 | GDELT instead of Google News | **Not done**: GDELT rate-limits the shared IP (one request per 5 s); needs a dedicated IP or key |
+| A2.1 | Automate the APHIS export | **Not done**: the dashboard is Tableau with no API; a headless-browser job is the only route |
+| A2.2 | NASS layer inventory by state | **Already in place**: county-built 2022 census shares drive the state and district split |
+| A2.3 | Repopulation from restocking dates | **Not available** in the export |
+| A3.1 | Crop-calendar weighting | **Done** (`crop-calendar.json`, NASS Handbook 628) |
+| A3.2 | Irrigated vs dryland | **Done** (`state-irrigation.json`, 2022 Census of Agriculture; damage × (1 − 0.8 × irrigated share)) |
+| A3.3 | Crop-condition regression | **Not done**: needs weekly NASS crop progress by state; feasible later |
+| A4.1 | Scale GDACS by affected area | **Done** with affected population ÷ country population (`country-population.json`) |
+| A4.2 | Crop calendar for hazards | **Done** (domestic regions; foreign events keep full relevance) |
+| A4.3 | Orange/Red only | **Done** (Green alerts dropped) |
+| A5.1 | State polygons and cropland | **Done** for polygons (`states-geo.json`, point-in-polygon); cropland intersection not done (no cropland raster in the stack) |
+| A5.2 | Fire radiative power | **Done** (Σ FRP, 1,500 MW floor) |
+| A5.3 | Cropland adjacency | **Not done** |
+| A6.1 | Chokepoint shares from origins × routing | **Done** (`chokepoint-routing.json`) |
+| A6.2 | Freight wedge calibrated to 2024 Red Sea | **Not done** |
+| A7.1 | World Bank fertilizer indices | **Not done**: no key-free monthly JSON source found (FRED does not carry the urea/DAP series; the Pink Sheet is an Excel file) |
+| A7.2 | Fertilizer purchase-calendar lag | **Not done** |
+| A8.1 | GTA bulk download | **Not done** (needs an account) |
+| A8.2 | HS-4/HS-6 product mapping | **Done** |
+| A8.3 | Tariff rate from a structured field | **Not done** (the API rows we receive carry no rate field) |
+| A9.1 | Quantities instead of value | **Not feasible** at HS-4/HS-6 (quantities only on 10-digit lines) |
+| A9.2 | Seasonal baseline | **Done** (average of the same months in the previous three years) |
+| A9.3 | Replacement origins in the popup | **Done** |
+| A10.1 | Regional BLS price series | **Not done**: BLS discontinued many regional average-price series in 2024 (eggs Northeast ends 2024-10, coffee West 2024-04, lettuce Midwest 2024-05), so regional stress would be patchy |
+| A10.2 | ERS Food Price Outlook categories | **Not done** (Excel) |
+| B1 | Quantity shares; monthly refresh | Quantity **not feasible** (as A9.1); monthly refresh **done** (GitHub Action) |
+| B2 | Commodity import shares from Census ÷ (NASS + imports − exports) | **Not done**: needs per-commodity unit conversions (head, lb, dozen, kg); about a day of work |
+| B3 | Demand-system re-estimation / formula row | **Not done** (economist's call) |
+| B4 | ERS Food Availability and Price Spreads pulled directly | **Not done** (Excel tables) |
+| B5 | Impute withheld NASS cells; 2024 acreage | **Not done** |
+| B6 | CEX by MSA size; Food Environment Atlas | **Not done** |
+| B7 | Countries' all-food import shares from Census | **Done** |
+| B8 | Lever capacities tied to origin data | **Not done** |
+| C | Tariff pass-through, price lags from AMS, species ramps, rerouting estimate | **Not done** (need new studies or data pulls); crop calendars **done** via A3 |
+
+Also fixed the same morning, outside the audit: CARTO's free basemap tiles began printing "API KEY REQUIRED" across the map, so the app's own tile-free map (English names, no external dependency) is now the default and OpenStreetMap tiles are opt-in from Settings; the simple map's hover text was rewritten to state the supply share for every status; yellow is labelled "possible disruption" everywhere.
+
+### Revised confidence
+
+| Process | Before | After | Why |
+|---|---|---|---|
+| A1 News → threats | Low-to-Medium | **Medium** | two-outlet corroboration, national-placement rule, headline severity caps, measured precision on a labelled set |
+| A2 APHIS | High / Medium | High / Medium | unchanged |
+| A3 Drought Monitor | Medium | **Medium-High** | crop calendar and irrigation |
+| A4 GDACS | Low (magnitude) | **Medium-Low** | population scaling, Green dropped, calendar |
+| A5 FIRMS | Low | **Medium-Low** | polygons, radiative power |
+| A6 PortWatch shares | Low | **Medium-Low** | measured origins × modeled routing |
+| A7 EIA | Medium | Medium | unchanged |
+| A8 GTA | Low | **Low-Medium** | HS-level products; data still stale |
+| A9 Census declines | High / Medium | High / **Medium-High** | three-year seasonal baseline, replacements named |
+| A10 Price anomaly | High | High | unchanged |
+| B1 Origin shares | High (value) | High (value) | monthly refresh added; value-not-quantity caveat stands |
+| B2 Commodity import shares | Medium | Medium | unchanged |
+| B7 All-food import shares | Medium | **High** | measured |
+| Others (B3–B6, B8, C) | as above | unchanged | not done |

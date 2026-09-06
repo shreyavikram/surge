@@ -1,7 +1,7 @@
 # Origin shares: Census measured vs regions.json
 
 Source: US Census Bureau, USA Trade Online / International Trade API, general imports customs value by country, monthly ([API](https://api.census.gov/data/timeseries/intltrade/imports/hs)).
-Window: 2025-08 to 2026-07. Generated 2026-09-06T13:34:45Z. 50 API requests; 0 failed codes.
+Window: 2025-08 to 2026-07. Generated 2026-09-06T13:39:35Z. 50 API requests; 0 failed codes.
 
 A share is the origin country's general-imports customs value divided by the world total ("TOTAL FOR ALL COUNTRIES") summed over the window and over the commodity's HS codes. Regional aggregates (OECD, USMCA, EU, 1XXX, ...) are excluded. Origins under 0.5% are not listed, so the remainder is an implied "other". A FLAG marks a difference of more than 0.10 between the value in regions.json and the measured share.
 
