@@ -7,6 +7,13 @@ import { Chip } from './Chip.js';
 import { Info } from './Info.js';
 import { LineChart } from './LineChart.js';
 
+/** Dollars per person, honest at the small end: cents below a dollar, "under 1¢" below half a cent. */
+function perPerson(x: number): string {
+  if (Math.abs(x) < 0.005) return 'under 1¢';
+  if (Math.abs(x) < 1) return `${Math.round(x * 100)}¢`;
+  return `$${x.toFixed(2)}`;
+}
+
 export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineContext; focus: Focus }) {
   const impact = entry.impact;
   const w = impact.welfare;
@@ -46,7 +53,7 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
           </div>
           <div className="stat">
             <div className="lbl">Per capita<Info term="perCapita" /></div>
-            <div className="val">{v.population > 0 ? `$${(v.cv / v.population).toFixed(2)}` : '—'}</div>
+            <div className="val">{v.population > 0 ? perPerson(v.cv / v.population) : '—'}</div>
           </div>
         </div>
       </div>

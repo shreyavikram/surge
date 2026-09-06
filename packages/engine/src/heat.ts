@@ -18,8 +18,14 @@ export interface AreaHeat {
   baseline: number;       // import or production share (raw)
   disruption: number;     // raw share disrupted by active threats
   anticipated: number;    // raw share threatened by breaking items × confidence
-  threats: string[];      // threat ids touching the area, active first
+  threats: string[];      // threat ids touching the area, active first (only those that colour it)
+  /** threats touching the area that are too small to colour it (below MIN_COLOUR_SHARE) */
+  minor?: string[];
 }
+
+/** A threat colours an area only when it disrupts at least this share of US food-import or food-production value
+ * (0.05%): a small flood on a small rice supplier is listed as minor, not painted red. */
+export const MIN_COLOUR_SHARE = 0.0005;
 
 export const HEAT_SATURATION = { importShare: 0.25, disruption: 0.05, productionShare: 0.15, lensImportShare: 0.5, lensProductionShare: 0.3 };
 
@@ -59,11 +65,16 @@ export function threatCountries(threat: Threat, ctx: EngineContext): string[] {
  */
 function classify(baseline: number, disruption: number, anticipated: number, satBase: number, ids: { active: string[]; breaking: string[] }): Omit<AreaHeat, 'id'> {
   const shade = baseline > 0 ? clamp01(0.15 + 0.85 * Math.sqrt(baseline / satBase)) : 0.35;
-  if (ids.active.length > 0) return { status: 'unstable', intensity: shade, baseline, disruption, anticipated, threats: [...ids.active, ...ids.breaking] };
-  if (ids.breaking.length > 0) return { status: 'anticipated', intensity: shade, baseline, disruption, anticipated, threats: ids.breaking };
+  const minor: string[] = [];
+  let active = ids.active, breaking = ids.breaking;
+  if (active.length > 0 && disruption < MIN_COLOUR_SHARE) { minor.push(...active); active = []; }
+  if (breaking.length > 0 && anticipated < MIN_COLOUR_SHARE) { minor.push(...breaking); breaking = []; }
+  const withMinor = (h: Omit<AreaHeat, 'id'>): Omit<AreaHeat, 'id'> => (minor.length ? { ...h, minor } : h);
+  if (active.length > 0) return withMinor({ status: 'unstable', intensity: shade, baseline, disruption, anticipated, threats: [...active, ...breaking] });
+  if (breaking.length > 0) return withMinor({ status: 'anticipated', intensity: shade, baseline, disruption, anticipated, threats: breaking });
   // no measurable supply to the US and nothing reported: grey, not green
-  if (baseline <= 0) return { status: 'none', intensity: 0, baseline, disruption, anticipated, threats: [] };
-  return { status: 'stable', intensity: clamp01(Math.sqrt(baseline / satBase)), baseline, disruption, anticipated, threats: [] };
+  if (baseline <= 0) return withMinor({ status: 'none', intensity: 0, baseline, disruption, anticipated, threats: [] });
+  return withMinor({ status: 'stable', intensity: clamp01(Math.sqrt(baseline / satBase)), baseline, disruption, anticipated, threats: [] });
 }
 
 /** Share of US imports of the lens commodities that come from a region (import-value weighted). */
@@ -80,6 +91,8 @@ function lensOriginShare(ctx: EngineContext, regionId: string | undefined, lens:
 export function countryHeat(threats: Threat[], ctx: EngineContext, lens?: string[]): Record<string, AreaHeat> {
   const w = commodityImportWeights(ctx);
   const lensSet = lens && lens.length > 0 ? new Set(lens) : null;
+  // under a commodity filter, shares are relative to that commodity's weight (as the baseline is), so the colouring floor means the same thing
+  const lensDen = lensSet ? Math.max(1e-9, [...lensSet].reduce((acc, c) => acc + (w[c] ?? 0), 0)) : 1;
   if (lensSet) threats = threats.filter((t) => t.commodities.some((c) => lensSet.has(c.id)));
   const acc: Record<string, { disruption: number; anticipated: number; active: string[]; breaking: string[] }> = {};
   for (const t of threats) {
@@ -107,7 +120,7 @@ export function countryHeat(threats: Threat[], ctx: EngineContext, lens?: string
   for (const iso of all) {
     const baseline = lensSet ? lensOriginShare(ctx, regionOf[iso], [...lensSet], w) : (ctx.countries?.countries[iso]?.usFoodImportShare ?? 0);
     const a = acc[iso] ?? { disruption: 0, anticipated: 0, active: [], breaking: [] };
-    out[iso] = { id: iso, ...classify(baseline, a.disruption, a.anticipated, lensSet ? HEAT_SATURATION.lensImportShare : HEAT_SATURATION.importShare, a) };
+    out[iso] = { id: iso, ...classify(baseline, a.disruption / lensDen, a.anticipated / lensDen, lensSet ? HEAT_SATURATION.lensImportShare : HEAT_SATURATION.importShare, a) };
   }
   return out;
 }
@@ -119,6 +132,8 @@ export function stateHeat(threats: Threat[], ctx: EngineContext, lens?: string[]
   if (!cfg) return {};
   const w = commodityDomesticWeights(ctx);
   const lensSet = lens && lens.length > 0 ? new Set(lens) : null;
+  // under a commodity filter, shares are relative to that commodity's weight (as the baseline is), so the colouring floor means the same thing
+  const lensDen = lensSet ? Math.max(1e-9, [...lensSet].reduce((acc, c) => acc + (w[c] ?? 0), 0)) : 1;
   if (lensSet) threats = threats.filter((t) => t.commodities.some((c) => lensSet.has(c.id)));
   const states = cfg.areas.filter((a) => a.kind === 'state');
   const baseline: Record<string, number> = {};
@@ -156,7 +171,7 @@ export function stateHeat(threats: Threat[], ctx: EngineContext, lens?: string[]
   const out: Record<string, AreaHeat> = {};
   for (const s of states) {
     const a = acc[s.id] ?? { disruption: 0, anticipated: 0, active: [], breaking: [] };
-    out[s.id] = { id: s.id, ...classify(baseline[s.id] ?? 0, a.disruption, a.anticipated, lensSet ? HEAT_SATURATION.lensProductionShare : HEAT_SATURATION.productionShare, a) };
+    out[s.id] = { id: s.id, ...classify(baseline[s.id] ?? 0, a.disruption / lensDen, a.anticipated / lensDen, lensSet ? HEAT_SATURATION.lensProductionShare : HEAT_SATURATION.productionShare, a) };
   }
   return out;
 }

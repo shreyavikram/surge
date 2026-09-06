@@ -71,6 +71,18 @@ describe('a commodity filter colours a state only for that commodity', () => {
     const beef = stateHeat([t], ctx, ['beef']);
     expect(beef['UT']!.status).toBe('unstable');
     const all = stateHeat([t], ctx);
-    expect(all['UT']!.status).toBe('unstable');
+    expect(all['UT']!.status).not.toBe('unstable'); // 30% of Utah's beef is under 0.05% of US food value: listed as minor, not painted
+    expect(all['UT']!.minor).toEqual(['ut']);
+  });
+});
+
+describe('small threats do not colour a whole country', () => {
+  it('a minor flood on a small rice supplier leaves India green and lists the flood as minor; a big one turns it red', () => {
+    const mk = (severity: number): Threat => ({ id: `in-${severity}`, name: 'Flooding, India', category: 'flood', kind: 'natural', location: { lat: 22, lng: 79, regionId: 'india', iso3: 'IND' }, commodities: [{ id: 'rice', relevance: 1 }], severity, start: '2026-09', status: 'active', source: { feed: 'test', kind: 'live' } });
+    const small = countryHeat([mk(0.06)], ctx);
+    expect(small['IND']!.status).toBe('stable');
+    expect(small['IND']!.minor).toEqual(['in-0.06']);
+    const big = countryHeat([mk(1)], ctx);
+    expect(big['IND']!.status).toBe('unstable');
   });
 });
