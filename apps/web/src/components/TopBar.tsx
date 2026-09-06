@@ -8,13 +8,12 @@ interface Props {
   onNewTab: () => void;
   onRenameTab: (id: string, name: string) => void;
   onCloseTab: (id: string) => void;
-  feedStatus: string;
   onCompare: () => void;
   theme: 'dark' | 'light';
   toggleTheme: () => void;
 }
 
-export function TopBar({ tabs, activeTab, onSelectTab, onNewTab, onRenameTab, onCloseTab, feedStatus, onCompare, theme, toggleTheme }: Props) {
+export function TopBar({ tabs, activeTab, onSelectTab, onNewTab, onRenameTab, onCloseTab, onCompare, theme, toggleTheme }: Props) {
   return (
     <div className="topbar">
       <a className="brand" href="/" title="Greenfield"><img className="brand-logo" src="/brand/greenfield-logo.svg" alt="Greenfield" /></a>
@@ -33,7 +32,6 @@ export function TopBar({ tabs, activeTab, onSelectTab, onNewTab, onRenameTab, on
         {tabs.length > 0 && <button className="btn ghost small" onClick={onCompare}>Compare scenarios</button>}
       </div>
       <div className="spacer" />
-      <div className="feedstatus" title="Feed status">{feedStatus}</div>
       <button className="iconbtn" onClick={toggleTheme} title="Toggle theme">{theme === 'dark' ? '☀' : '☾'}</button>
     </div>
   );

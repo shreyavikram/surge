@@ -12,7 +12,6 @@ import { ErrorBoundary } from './components/ErrorBoundary.js';
 import { MapFallback } from './components/MapFallback.js';
 import { webglAvailable } from './webgl.js';
 
-interface Health { feeds?: { id: string; kind: string; status: string; stale?: boolean }[] }
 
 export function App() {
   const ctx = useMemo(() => getContext(), []);
@@ -35,7 +34,6 @@ export function App() {
   const [mapMode, setMapMode] = useState<'webgl' | 'svg'>(() => (settings.basemap === 'tiles' && webglAvailable() ? 'webgl' : 'svg'));
   useEffect(() => { setMapMode(settings.basemap === 'tiles' && webglAvailable() ? 'webgl' : 'svg'); }, [settings.basemap]);
   const [fallbackReason, setFallbackReason] = useState('WebGL is not available in this browser');
-  const [feedStatus, setFeedStatus] = useState('seeds · 2 replays');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -56,14 +54,6 @@ export function App() {
         // the server returns ranked wrappers; accept bare threats too, and drop anything malformed
         const list = (d.threats ?? []).map((x) => ('threat' in x ? x.threat : x)).filter((t) => t && typeof t.id === 'string' && t.location && Array.isArray(t.commodities));
         if (on && list.length) setLive(list);
-        const h = await fetch('/api/health');
-        if (h.ok && on) {
-          const hj = (await h.json()) as Health;
-          const rows = hj.feeds ?? [];
-          const liveN = rows.filter((x) => x.status === 'live').length;
-          const stale = rows.filter((x) => x.status !== 'live').length;
-          setFeedStatus(`${liveN} live feeds${stale ? ` · ${stale} on snapshot` : ''} · 2 replays`);
-        }
       } catch { /* offline */ }
       if (on) setTimeout(() => { void load(); }, attempt < 4 ? 15000 : 5 * 60 * 1000);
     };
@@ -110,7 +100,7 @@ export function App() {
   return (
     <div className="app">
       <TopBar tabs={tabs} activeTab={activeTab} onSelectTab={(id) => { setActiveTab(id); setSelectedId(null); setDrawerOpen(false); }} onNewTab={newTab} onRenameTab={rename} onCloseTab={closeTab}
-        feedStatus={feedStatus} onCompare={() => setShowCompare(true)} theme={theme} toggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
+        onCompare={() => setShowCompare(true)} theme={theme} toggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
       <div className="body">
         {wlOpen ? (
           <Watchlist entries={visible} others={others} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} readIds={readIds} onCollapse={() => setWlOpen(false)} scenario={editable} onAdd={editable ? onAdd : undefined} />
