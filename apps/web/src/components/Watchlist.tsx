@@ -55,13 +55,13 @@ export function Watchlist({ entries, others, selectedId, onSelect, ctx, focus, s
         </div>
         <button className="collapse" onClick={onCollapse} title="Collapse watchlist">◀</button>
       </div>
-      <input className="wl-search" type="search" placeholder="Search threats, places, commodities…" value={q} onChange={(e) => setQ(e.target.value)} />
       <Filters ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} />
       {!scenario && <PriceStress ctx={ctx} commodities={commodities} setCommodities={setCommodities} />}
       <div className="wl-cols">
         <span>Threat</span>
         <span className="r">Consumer welfare loss<Info term="cv" /><br /><small>total over the shock · {label}</small></span>
       </div>
+      <input className="wl-search" type="search" placeholder="Search threats, places, commodities…" value={q} onChange={(e) => setQ(e.target.value)} />
       <div className="wl-list">
         {scenario ? (
           <>
