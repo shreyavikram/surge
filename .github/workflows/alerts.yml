@@ -1,11 +1,11 @@
 name: Run email alerts
 
-# Every 30 minutes: diff the live threats against what subscribers have seen and send what is due
+# Every 10 minutes (also keeps the free Render instance from sleeping, which is what makes the first load slow): diff the live threats against what subscribers have seen and send what is due
 # (immediate alerts, and weekly/monthly digests once their interval has passed). Also keeps the free
 # Render instance awake. The endpoint only sends new threats, so calling it more often is harmless.
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 jobs:

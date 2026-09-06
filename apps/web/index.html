@@ -7,7 +7,16 @@
     <link rel="icon" href="/brand/greenfield-loading.svg" type="image/svg+xml" />
   </head>
   <body>
-    <div id="root"></div>
+    <style>
+      /* boot screen: shown the moment the HTML arrives, replaced when the app mounts */
+      #root:empty { min-height: 100vh; background: #0b0e14; }
+      #boot { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #0b0e14; color: #9aa4a0; font: 13px system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: 0.04em; z-index: 1000; }
+      @media (prefers-color-scheme: light) { #root:empty, #boot { background: #f4f2ec; color: #5d675f; } }
+      #boot img { width: 120px; height: 120px; animation: boot-spin 1.6s linear infinite; }
+      @keyframes boot-spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) { #boot img { animation: none; } }
+    </style>
+    <div id="root"><div id="boot"><img src="/brand/greenfield-loading.svg" alt="Greenfield is loading" /><span>Loading Greenfield…</span></div></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
