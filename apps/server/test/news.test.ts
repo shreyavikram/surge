@@ -27,3 +27,22 @@ describe('news adapter', () => {
     expect(r.items.find((i) => i.id.includes('india'))!.start).toBe('2026-09');
   });
 });
+
+describe('national placement of classified headlines', () => {
+  const art = (title: string) => ({ title, link: 'https://example.com', pubDate: '2026-09-05T00:00:00Z', source: 'Test' });
+  const cls = (index: number, description: string) => ({ index, category: 'drought' as const, regionId: 'us-national', commodities: ['beef'], severity: 0.1, months: 12, confidence: 0.9, description });
+  it('moves a headline that names a state onto that state', () => {
+    const r = news.parse({ articles: [art('Drought forces Nebraska ranchers to sell cattle early')], classified: [cls(0, 'Drought is cutting cattle herds.')] });
+    expect(r.items.length).toBe(1);
+    expect(r.items[0]!.regionId).toBe('us-state-NE');
+  });
+  it('drops a US story with neither nationwide words nor a state', () => {
+    const r = news.parse({ articles: [art('Grand County rancher says drought outweighs beef tariff relief')], classified: [cls(0, 'A rancher describes drought losses.')] });
+    expect(r.items).toEqual([]);
+  });
+  it('keeps a nationwide story national, with the headline cap', () => {
+    const r = news.parse({ articles: [art('Heat dome tightens grip on U.S. farms as drought spreads')], classified: [cls(0, 'Drought across the country.')] });
+    expect(r.items[0]?.regionId).toBe('us-national');
+    expect(r.items[0]?.severity).toBeCloseTo(0.03, 6);
+  });
+});

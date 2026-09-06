@@ -80,12 +80,21 @@ export const news: FeedAdapter = {
     const best = new Map<string, { c: ThreatCandidate; a: NewsArticle; n: number; description?: string }>();
     if (classified) {
       // classified by the model and validated: only these count
+      const NATIONWIDE = /\b(u\.?s\.?|u\.s\.a\.?|usa|united states|america|american|nationwide|national|across the country|farm belt|the nation)\b/i;
       const RELIEF = /\b(tariff[- ]free|lifts?|lifted|lifting|allow(s|ing)?|eases?|easing|removes?|removing|cuts? tariff|suspends? tariff|reopens?|resumes?|aid)\b/i;
       for (const k of classified) {
         const a = arts[k.index]; if (!a) continue;
         if (k.confidence < 0.7) continue;
         if (RELIEF.test(a.title) || RELIEF.test(k.description)) continue;
-        const c: ThreatCandidate = { name: a.title, category: k.category, regionId: k.regionId, commodities: k.commodities.map((id) => ({ id, relevance: 1 })), severity: k.severity, months: k.months, confidence: k.confidence, matched: ['gemini'], source: 'llm', explicitCategory: true, explicitRegion: true };
+        // A nationwide placement needs nationwide words; a headline that names a state is about that state; a US story
+        // with neither is not placeable (a county rancher's drought is not 3% of the national herd).
+        let regionId = k.regionId;
+        if (regionId === 'us-national') {
+          const state = interpretScenario(a.title, ctx).map((x) => x.regionId).find((r) => r.startsWith('us-state-'));
+          if (state) regionId = state;
+          else if (!NATIONWIDE.test(a.title) && !NATIONWIDE.test(k.description ?? '')) continue;
+        }
+        const c: ThreatCandidate = { name: a.title, category: k.category, regionId, commodities: k.commodities.map((id) => ({ id, relevance: 1 })), severity: k.severity, months: k.months, confidence: k.confidence, matched: ['gemini'], source: 'llm', explicitCategory: true, explicitRegion: true };
         if (validateCandidate(c, ctx).length > 0) continue;
         const key = `${c.category}|${c.regionId}`;
         const cur = best.get(key);
