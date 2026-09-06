@@ -15,9 +15,14 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { createApp } from './app.js';
 import { readEnv } from './env.js';
+import { FeedRegistry } from './feeds/registry.js';
+import { allAdapters } from './feeds/index.js';
 
 const env = readEnv();
-const app = createApp();
+const registry = new FeedRegistry(allAdapters);
+registry.warm(env);
+const app = createApp({ env, registry });
+setInterval(() => registry.warm(env), 15 * 60 * 1000).unref();
 
 // Serve the built web client when present (single-container deploy).
 const distDir = fileURLToPath(new URL('../../web/dist/', import.meta.url));

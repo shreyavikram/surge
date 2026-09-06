@@ -9,8 +9,8 @@ import { heatColor, NEUTRAL } from '../heat-colors.js';
 import { HeatLegend } from './HeatLegend.js';
 
 const STYLE: Record<'dark' | 'light', string> = {
-  dark: 'https://tiles.openfreemap.org/styles/dark',
-  light: 'https://tiles.openfreemap.org/styles/liberty',
+  dark: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+  light: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
 };
 
 interface Props {
@@ -129,7 +129,9 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
     ro.observe(container.current);
     void Promise.all([loadGeo('countries'), loadGeo('states')]).then(([countries, states]) => { geos.current = { countries, states }; if (ready.current) paint(map); });
     map.on('load', () => { map.resize(); addLayers(map); });
-    map.once('idle', () => { container.current?.parentElement?.querySelector('.basemap-loading')?.remove(); });
+    const hideLoading = () => { container.current?.parentElement?.querySelector('.basemap-loading')?.remove(); };
+    map.once('load', () => setTimeout(hideLoading, 1500));
+    setTimeout(hideLoading, 12000);
     map.on('style.load', () => { ready.current = false; addLayers(map); });
     const pop = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 8, className: 'heat-pop' });
     popup.current = pop;

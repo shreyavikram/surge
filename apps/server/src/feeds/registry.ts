@@ -18,6 +18,11 @@ export interface RegistryDeps {
 export class FeedRegistry {
   private adapters: Map<string, FeedAdapter>;
   private cache = new Map<string, CacheEntry>();
+  /** fetches in flight, so a slow or failing feed never blocks a request twice */
+  private inflight = new Map<string, Promise<FeedResult>>();
+  /** last failure per feed; retried only after FAIL_TTL */
+  private failedAt = new Map<string, number>();
+  static FAIL_TTL_MS = 5 * 60 * 1000;
   private healthById = new Map<string, HealthRow>();
   private loadSnapshot: (name: string) => StoredSnapshot | null;
   private now: () => number;
@@ -72,17 +77,36 @@ export class FeedRegistry {
 
     if (forcedOutages(env).has(id)) return this.serveSnapshot(a, 'snapshot', 'forced outage');
     if (a.requiresKey && !env[a.requiresKey]) return this.serveSnapshot(a, 'missing-key', `needs ${String(a.requiresKey)}`);
+    const failed = this.failedAt.get(id);
+    if (failed !== undefined && now - failed < FeedRegistry.FAIL_TTL_MS) return this.serveSnapshot(a, 'stale', 'recent fetch failed; retrying later');
 
-    try {
-      const result = await a.fetch(env);
-      result.source.stale = false;
-      if (!result.source.fetchedAt) result.source.fetchedAt = new Date(now).toISOString();
-      this.cache.set(id, { result, at: now });
-      this.setHealth(a, 'live', result);
-      return result;
-    } catch (e) {
-      return this.serveSnapshot(a, 'stale', `fetch failed: ${(e as Error).message}`);
+    // stale-while-revalidate: start (or join) the fetch, but answer now from the last cache or the snapshot
+    let p = this.inflight.get(id);
+    if (!p) {
+      p = a.fetch(env).then((result) => {
+        result.source.stale = false;
+        if (!result.source.fetchedAt) result.source.fetchedAt = new Date(this.now()).toISOString();
+        this.cache.set(id, { result, at: this.now() });
+        this.failedAt.delete(id);
+        this.setHealth(a, 'live', result);
+        return result;
+      }).catch((e: unknown) => {
+        this.failedAt.set(id, this.now());
+        return this.serveSnapshot(a, 'stale', `fetch failed: ${(e as Error).message}`);
+      }).finally(() => { this.inflight.delete(id); });
+      this.inflight.set(id, p);
     }
+    if (cached) return cached.result;                       // expired cache: serve it, refresh behind
+    const quick = await Promise.race([p, new Promise<null>((r) => setTimeout(() => r(null), FeedRegistry.QUICK_WAIT_MS))]);
+    return quick ?? this.serveSnapshot(a, 'snapshot', 'refreshing');
+  }
+
+  /** How long a request waits for a fresh fetch before answering from the snapshot. */
+  static QUICK_WAIT_MS = 2500;
+
+  /** Fetch every adapter in the background (server start). */
+  warm(env: Env): void {
+    for (const a of this.list()) void this.get(a.id, env);
   }
 
   /** Fetch every adapter (cached where fresh). Errors never throw — they fall back to snapshots. */

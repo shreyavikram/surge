@@ -21,7 +21,7 @@ export const gdelt: FeedAdapter = {
 
   async fetch(): Promise<FeedResult> {
     const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(QUERY)}&mode=artlist&maxrecords=60&format=json&timespan=3d&sort=datedesc`;
-    const text = await httpText(url, 30000);
+    const text = await httpText(url, 8000);
     let parsed: { articles?: GdeltArticle[] };
     try { parsed = JSON.parse(text) as { articles?: GdeltArticle[] }; } catch { throw new Error(`GDELT: ${text.slice(0, 80)}`); }
     return this.parse(parsed);

@@ -36,10 +36,13 @@ export function App() {
     setSettings((s) => (s.theme === theme ? s : { ...s, theme }));
   }, [theme, setSettings]);
 
-  // live threats from the server when it is reachable; the in-browser seeds otherwise
+  // live threats from the server when it is reachable; the in-browser seeds otherwise.
+  // Feeds refresh behind the first response, so poll a few times early on and every 5 minutes after.
   useEffect(() => {
     let on = true;
-    (async () => {
+    let attempt = 0;
+    const load = async () => {
+      attempt += 1;
       try {
         const r = await fetch('/api/threats');
         if (!r.ok) return;
@@ -56,7 +59,9 @@ export function App() {
           setFeedStatus(`${liveN} live feeds${stale ? ` · ${stale} on snapshot` : ''} · 2 replays`);
         }
       } catch { /* offline */ }
-    })();
+      if (on) setTimeout(() => { void load(); }, attempt < 4 ? 15000 : 5 * 60 * 1000);
+    };
+    void load();
     return () => { on = false; };
   }, []);
 
@@ -82,7 +87,7 @@ export function App() {
   });
   const onRemove = (threatId: string) => { update(tab.id, (t) => ({ ...t, removed: [...t.removed, threatId], added: t.added.filter((a) => a.id !== threatId) })); setSelectedId(null); setDrawerOpen(false); };
   const onAdd = (t: Threat) => { update(tab.id, (x) => ({ ...x, added: [...x.added, t] })); select(t.id); };
-  const newTab = () => { const n = prompt('Scenario name', `Scenario ${tabs.length + 1}`); if (n) { const t = create(n); setActiveTab(t.id); } };
+  const newTab = () => { const t = create(`Scenario ${tabs.length + 1}`); setActiveTab(t.id); };
   const closeTab = (id: string) => { remove(id); if (activeTab === id) setActiveTab('live'); };
   const fLabel = focusLabel(focus, ctx);
 
