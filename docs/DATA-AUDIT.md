@@ -20,7 +20,7 @@ Every number the app shows is labelled *measured* (from data) or *modeled* (from
 
 **Mechanism.** `apps/server/src/feeds/news.ts` polls Google News RSS for ~30 fixed queries (`when:3d`) covering diseases, weather, trade actions and named suppliers. Headlines and descriptions go to Gemini (`gemini-3.6-flash`) in batches of 40 with a fixed vocabulary of categories, regions and commodities (`ai/news-llm.ts`). Gemini may only *propose*; every candidate is re-validated by the deterministic `validateCandidate`, a relief-action guard (donations, vigils, aid, reopenings are rejected), a place guard, and a confidence floor of 0.7. Without a Gemini key the rule-based interpreter runs instead, and only keeps headlines with an explicit category *and* an explicit place. Status is always `breaking` (yellow); severity is the category default unless a loss percentage sits next to loss language.
 
-**Confidence: Low-to-Medium.** The classifier now produces sensible descriptions and rejects non-events, but a headline is still a headline: the direction is usually right, the magnitude is a default. The 2026-09-06 review found and fixed substring matching in the rule path ("Warm winter" → war, "prices" → rice, "Indiana" → India) and percent-as-severity ("prices up 60%" became 60% of the flock).
+**Confidence: Medium** (raised 2026-09-06: a threat now needs two independent outlets, a quoted loss figure, or a wire/official source; a nationwide placement needs nationwide wording and a headline naming a state lands on that state; headline-only hazard severities are capped at 3% nationally and 15% regionally). Measured on 337 hand-labelled current headlines (100 real disruptions): the deterministic rule path scores precision 0.93 and recall 0.38 (`apps/server/test/news.test.ts`, pinned at ≥ 0.8 / ≥ 0.3); Gemini's raw event/non-event judgement before the feed's guards scores precision 0.62 and recall 0.79 (`apps/server/scripts/eval-news.ts`), which is why the guards and the corroboration rule sit after it. A headline is still a headline: the direction is usually right, the magnitude is a capped default. The review also fixed substring matching in the rule path ("Warm winter" → war, "prices" → rice, "Indiana" → India) and percent-as-severity ("prices up 60%" became 60% of the flock).
 
 **Improvements.** (1) Add a second vote: a headline becomes a threat only when two independent outlets report it within 72 h. (2) Feed Gemini the article body (via the RSS link) rather than the headline. (3) Keep a labelled set of 200 headlines and measure precision/recall on every prompt change. (4) Replace Google News (non-commercial terms) with GDELT once a dedicated IP or key removes the rate limits.
 
@@ -254,7 +254,7 @@ Also fixed the same morning, outside the audit: CARTO's free basemap tiles began
 
 | Process | Before | After | Why |
 |---|---|---|---|
-| A1 News → threats | Low-to-Medium | **Medium** | two-outlet corroboration, national-placement rule, headline severity caps, measured precision on a labelled set |
+| A1 News → threats | Low-to-Medium | **Medium** | two-outlet corroboration, national-placement rule, headline severity caps; rule path precision 0.93 / recall 0.38 on 337 labelled headlines, Gemini raw 0.62 / 0.79 before guards |
 | A2 APHIS | High / Medium | High / Medium | unchanged |
 | A3 Drought Monitor | Medium | **Medium-High** | crop calendar and irrigation |
 | A4 GDACS | Low (magnitude) | **Medium-Low** | population scaling, Green dropped, calendar |
