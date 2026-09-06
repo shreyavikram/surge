@@ -12,6 +12,18 @@ const STYLE: Record<'dark' | 'light', string> = {
   dark: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
   light: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
 };
+/** The map starts on a plain background so our own layers draw within a second; the basemap is swapped in when it arrives. */
+const PLAIN: Record<'dark' | 'light', maplibregl.StyleSpecification> = {
+  dark: { version: 8, sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#0b0e14' } }] },
+  light: { version: 8, sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#dfe6ee' } }] },
+};
+async function fetchStyle(url: string, timeoutMs = 15000): Promise<maplibregl.StyleSpecification | null> {
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
+    if (!res.ok) return null;
+    return (await res.json()) as maplibregl.StyleSpecification;
+  } catch { return null; }
+}
 
 interface Props {
   entries: RankedEntry[];
@@ -121,7 +133,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
 
   useEffect(() => {
     if (!container.current) return;
-    const map = new maplibregl.Map({ container: container.current, style: STYLE[theme], center: [-30, 28], zoom: 1.6, attributionControl: { compact: true } });
+    const map = new maplibregl.Map({ container: container.current, style: PLAIN[theme], center: [-30, 28], zoom: 1.6, attributionControl: { compact: true } });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
     mapRef.current = map;
     if (import.meta.env.DEV) (window as unknown as { __surgeMap?: maplibregl.Map }).__surgeMap = map;
@@ -129,9 +141,13 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
     ro.observe(container.current);
     void Promise.all([loadGeo('countries'), loadGeo('states')]).then(([countries, states]) => { geos.current = { countries, states }; if (ready.current) paint(map); });
     map.on('load', () => { map.resize(); addLayers(map); });
-    const hideLoading = () => { container.current?.parentElement?.querySelector('.basemap-loading')?.remove(); };
-    map.once('load', () => setTimeout(hideLoading, 1500));
-    setTimeout(hideLoading, 12000);
+    const note = () => container.current?.parentElement?.querySelector('.basemap-loading') as HTMLElement | null;
+    // swap in the basemap when it arrives; our layers are re-added on style.load
+    void fetchStyle(STYLE[theme]).then((style) => {
+      if (!mapRef.current) return;
+      if (style) { map.setStyle(style); setTimeout(() => note()?.remove(), 1500); }
+      else { const n = note(); if (n) { n.textContent = 'basemap unavailable · data layers only'; setTimeout(() => n.remove(), 6000); } }
+    });
     map.on('style.load', () => { ready.current = false; addLayers(map); });
     const pop = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 8, className: 'heat-pop' });
     popup.current = pop;
@@ -158,7 +174,10 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
 
   useEffect(() => {
     if (themeInit.current) { themeInit.current = false; return; }
-    mapRef.current?.setStyle(STYLE[theme]);
+    const map = mapRef.current;
+    if (!map) return;
+    map.setStyle(PLAIN[theme]);
+    void fetchStyle(STYLE[theme]).then((style) => { if (style && mapRef.current === map) map.setStyle(style); });
   }, [theme]);
 
   // recolor when the threat list or the focus changes
