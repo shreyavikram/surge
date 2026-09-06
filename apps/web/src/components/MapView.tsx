@@ -1,21 +1,17 @@
 import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
-import type { EngineContext } from '@surge/engine';
-import { type RankedEntry, categoryColor, focusView } from '../engine.js';
+import type { EngineContext, AreaHeat } from '@surge/engine';
+import { countryHeat, stateHeat, threatAffectsArea } from '@surge/engine';
+import { type RankedEntry, focusView, getArea } from '../engine.js';
 import type { Focus } from '../state.js';
-import { compactUsd } from '../format.js';
-import { CategoryLegend } from './CategoryLegend.js';
+import { compactUsd, pct } from '../format.js';
+import { heatColor, NEUTRAL } from '../heat-colors.js';
+import { HeatLegend } from './HeatLegend.js';
 
 const STYLE: Record<'dark' | 'light', string> = {
   dark: 'https://tiles.openfreemap.org/styles/dark',
   light: 'https://tiles.openfreemap.org/styles/liberty',
 };
-const SHADE_ZOOM = 4; // at or above this zoom, dots give way to region shading
-
-function radius(cv: number): number {
-  const r = 4 + 2.2 * Math.log10(Math.max(1, cv / 1e6));
-  return Math.max(5, Math.min(13, r));
-}
 
 interface Props {
   entries: RankedEntry[];
@@ -24,56 +20,100 @@ interface Props {
   theme: 'dark' | 'light';
   ctx: EngineContext;
   focus: Focus;
-  readIds: Set<string>;
 }
 
 type FC = GeoJSON.FeatureCollection;
 const EMPTY: FC = { type: 'FeatureCollection', features: [] };
 const geoCache: Record<string, Promise<FC>> = {};
-function loadGeo(name: 'states' | 'cd119'): Promise<FC> {
+function loadGeo(name: 'states' | 'cd119' | 'countries'): Promise<FC> {
   return (geoCache[name] ??= fetch(`/geo/${name}.geojson`).then((r): Promise<FC> => (r.ok ? (r.json() as Promise<FC>) : Promise.resolve(EMPTY))).catch((): FC => EMPTY));
 }
 
-function bboxPolygon(b: [number, number, number, number]): GeoJSON.Polygon {
-  const [w, s, e, n] = b;
-  return { type: 'Polygon', coordinates: [[[w, s], [e, s], [e, n], [w, n], [w, s]]] };
+function circle(lng: number, lat: number, km: number): GeoJSON.Polygon {
+  const pts: [number, number][] = [];
+  for (let i = 0; i <= 40; i++) {
+    const a = (i / 40) * Math.PI * 2;
+    pts.push([lng + (km / 111) * Math.cos(a) / Math.cos((lat * Math.PI) / 180), lat + (km / 111) * Math.sin(a)]);
+  }
+  return { type: 'Polygon', coordinates: [pts] };
 }
 
-export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, readIds }: Props) {
+const STATUS_LABEL: Record<AreaHeat['status'], string> = { stable: 'stable', anticipated: 'anticipated instability', unstable: 'unstable' };
+
+export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
-  const markers = useRef<{ marker: maplibregl.Marker; el: HTMLDivElement }[]>([]);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
   const entriesRef = useRef(entries);
   entriesRef.current = entries;
   const themeInit = useRef(true);
-  const styleReady = useRef(false);
+  const ready = useRef(false);
+  const popup = useRef<maplibregl.Popup | null>(null);
+  const geos = useRef<{ countries: FC; states: FC } | null>(null);
+  const focusRef = useRef(focus);
+  focusRef.current = focus;
 
-  // region shading source: one polygon per production region that carries a threat
-  const regionFC = (): FC => {
-    const byRegion = new Map<string, { sev: number; color: string; name: string; id: string }>();
-    for (const e of entries) {
-      const rid = e.threat.location.regionId;
-      const r = rid ? ctx.regions[rid] : undefined;
-      if (!rid || !r || rid === 'us-national') continue;
-      const cur = byRegion.get(rid);
-      if (!cur || e.threat.severity > cur.sev) byRegion.set(rid, { sev: e.threat.severity, color: categoryColor(e.threat.category), name: r.name, id: e.threat.id });
+  /**
+   * Recolor every area from the current threat list. With a state or district in focus, only threats
+   * that reach that area count, green baseline is shown for the focus area alone, and everything
+   * else stays neutral.
+   */
+  const paint = (map: maplibregl.Map) => {
+    const g = geos.current;
+    if (!g || !ready.current) return;
+    const fo = focusRef.current;
+    const area = fo.kind !== 'us' && fo.id && ctx.focus ? getArea(ctx.focus, fo.id) : undefined;
+    const all = entriesRef.current.map((e) => e.threat);
+    const threats = area && ctx.focus ? all.filter((t) => threatAffectsArea(t, area, ctx.focus!)) : all;
+    const ch = countryHeat(threats, ctx);
+    const sh = stateHeat(threats, ctx);
+    const nameOf = (id: string) => entriesRef.current.find((e) => e.threat.id === id)?.threat.name ?? id;
+    const isFocusState = (id: string) => !!area && area.state === id;
+    const colorFor = (h: AreaHeat | undefined, own: boolean) => (area && !own && (h?.status ?? 'stable') === 'stable' ? NEUTRAL : heatColor(h));
+    const countries: FC = { type: 'FeatureCollection', features: g.countries.features.filter((f) => f.id !== 'USA').map((f) => {
+      const iso = String(f.id);
+      const h = ch[iso];
+      return { ...f, properties: { ...f.properties, iso3: iso, color: colorFor(h, false), neutral: !!area && (h?.status ?? 'stable') === 'stable', status: h?.status ?? 'stable', intensity: h?.intensity ?? 0, share: h?.baseline ?? 0, top: h?.threats[0] ?? '', threats: (h?.threats ?? []).map(nameOf).join(' · ') } };
+    }) };
+    const states: FC = { type: 'FeatureCollection', features: g.states.features.map((f) => {
+      const id = String(f.id);
+      const h = sh[id];
+      const own = isFocusState(id);
+      return { ...f, properties: { ...f.properties, color: colorFor(h, own), neutral: !!area && !own && (h?.status ?? 'stable') === 'stable', status: h?.status ?? 'stable', intensity: h?.intensity ?? 0, share: h?.baseline ?? 0, top: h?.threats[0] ?? '', threats: (h?.threats ?? []).map(nameOf).join(' · ') } };
+    }) };
+    // chokepoints: shaded straits, red when a transit threat is active, yellow when only reported
+    const cps: GeoJSON.Feature[] = [];
+    for (const [rid, r] of Object.entries(ctx.regions)) {
+      if (!r.chokepointImportShare || Object.keys(r.chokepointImportShare).length === 0) continue;
+      const here = entriesRef.current.filter((e) => e.threat.location.regionId === rid && threats.includes(e.threat));
+      const active = here.filter((e) => e.threat.status !== 'breaking');
+      const status: AreaHeat['status'] = active.length > 0 ? 'unstable' : here.length > 0 ? 'anticipated' : 'stable';
+      const sev = Math.max(0, ...here.map((e) => e.threat.severity * (e.threat.status === 'breaking' ? (e.threat.confidence ?? 0.5) : 1)));
+      const h: AreaHeat = { id: rid, status, intensity: status === 'stable' ? 0.35 : 0.25 + 0.75 * Math.min(1, sev), baseline: 0, disruption: 0, anticipated: 0, threats: [...active, ...here.filter((e) => e.threat.status === 'breaking')].map((e) => e.threat.id) };
+      cps.push({ type: 'Feature', id: rid, geometry: circle(r.lng, r.lat, 220), properties: { name: r.name, color: area && status === 'stable' ? NEUTRAL : heatColor(h), neutral: !!area && status === 'stable', status, intensity: h.intensity, share: 0, top: h.threats[0] ?? '', threats: h.threats.map(nameOf).join(' · '), chokepoint: true } });
     }
-    return {
-      type: 'FeatureCollection',
-      features: [...byRegion.entries()].map(([rid, v]) => ({ type: 'Feature', id: rid, geometry: bboxPolygon(ctx.regions[rid]!.bbox), properties: { color: v.color, opacity: 0.12 + 0.4 * Math.min(1, v.sev), name: v.name, threatId: v.id } })),
-    };
+    (map.getSource('countries') as maplibregl.GeoJSONSource).setData(countries);
+    (map.getSource('states-heat') as maplibregl.GeoJSONSource).setData(states);
+    (map.getSource('chokepoints') as maplibregl.GeoJSONSource).setData({ type: 'FeatureCollection', features: cps });
   };
 
   const addLayers = (map: maplibregl.Map) => {
-    if (!map.getSource('regions')) map.addSource('regions', { type: 'geojson', data: regionFC() });
-    if (!map.getLayer('regions-fill')) map.addLayer({ id: 'regions-fill', type: 'fill', source: 'regions', minzoom: SHADE_ZOOM, paint: { 'fill-color': ['get', 'color'], 'fill-opacity': ['get', 'opacity'] } });
-    if (!map.getLayer('regions-line')) map.addLayer({ id: 'regions-line', type: 'line', source: 'regions', minzoom: SHADE_ZOOM, paint: { 'line-color': ['get', 'color'], 'line-width': 1.2, 'line-opacity': 0.8 } });
-    if (!map.getSource('focus')) map.addSource('focus', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+    const opacity = theme === 'dark' ? 0.72 : 0.8;
+    for (const id of ['countries', 'states-heat', 'chokepoints', 'focus', 'selected']) if (!map.getSource(id)) map.addSource(id, { type: 'geojson', data: EMPTY });
+    const firstSymbol = map.getStyle().layers?.find((l) => l.type === 'symbol')?.id;
+    const op: maplibregl.ExpressionSpecification = ['case', ['boolean', ['get', 'neutral'], false], 0.18, opacity];
+    if (!map.getLayer('countries-fill')) map.addLayer({ id: 'countries-fill', type: 'fill', source: 'countries', paint: { 'fill-color': ['get', 'color'], 'fill-opacity': op } }, firstSymbol);
+    if (!map.getLayer('countries-line')) map.addLayer({ id: 'countries-line', type: 'line', source: 'countries', paint: { 'line-color': theme === 'dark' ? '#0b0e14' : '#ffffff', 'line-width': 0.5, 'line-opacity': 0.7 } }, firstSymbol);
+    if (!map.getLayer('states-fill')) map.addLayer({ id: 'states-fill', type: 'fill', source: 'states-heat', paint: { 'fill-color': ['get', 'color'], 'fill-opacity': op } }, firstSymbol);
+    if (!map.getLayer('states-line')) map.addLayer({ id: 'states-line', type: 'line', source: 'states-heat', paint: { 'line-color': theme === 'dark' ? '#0b0e14' : '#ffffff', 'line-width': 0.5, 'line-opacity': 0.7 } }, firstSymbol);
+    if (!map.getLayer('chokepoints-fill')) map.addLayer({ id: 'chokepoints-fill', type: 'fill', source: 'chokepoints', paint: { 'fill-color': ['get', 'color'], 'fill-opacity': ['case', ['boolean', ['get', 'neutral'], false], 0.2, 0.75] } }, firstSymbol);
+    if (!map.getLayer('chokepoints-line')) map.addLayer({ id: 'chokepoints-line', type: 'line', source: 'chokepoints', paint: { 'line-color': ['get', 'color'], 'line-width': 1.5 } }, firstSymbol);
+    if (!map.getLayer('focus-fill')) map.addLayer({ id: 'focus-fill', type: 'fill', source: 'focus', paint: { 'fill-color': '#4aa8ff', 'fill-opacity': 0.08 } });
     if (!map.getLayer('focus-line')) map.addLayer({ id: 'focus-line', type: 'line', source: 'focus', paint: { 'line-color': '#4aa8ff', 'line-width': 2 } });
-    if (!map.getLayer('focus-fill')) map.addLayer({ id: 'focus-fill', type: 'fill', source: 'focus', paint: { 'fill-color': '#4aa8ff', 'fill-opacity': 0.06 } }, 'focus-line');
-    styleReady.current = true;
+    if (!map.getLayer('selected-line')) map.addLayer({ id: 'selected-line', type: 'line', source: 'selected', paint: { 'line-color': '#ffffff', 'line-width': 2, 'line-dasharray': [2, 1] } });
+    ready.current = true;
+    paint(map);
   };
 
   useEffect(() => {
@@ -83,18 +123,29 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, read
     mapRef.current = map;
     const ro = new ResizeObserver(() => map.resize());
     ro.observe(container.current);
+    void Promise.all([loadGeo('countries'), loadGeo('states')]).then(([countries, states]) => { geos.current = { countries, states }; if (ready.current) paint(map); });
     map.on('load', () => { map.resize(); addLayers(map); });
-    map.on('style.load', () => { styleReady.current = false; addLayers(map); });
-    map.on('click', 'regions-fill', (ev) => {
-      const f = ev.features?.[0];
-      const id = f?.properties?.['threatId'] as string | undefined;
-      if (id) onSelectRef.current(id);
-    });
-    map.on('mouseenter', 'regions-fill', () => { map.getCanvas().style.cursor = 'pointer'; });
-    map.on('mouseleave', 'regions-fill', () => { map.getCanvas().style.cursor = ''; });
-    const toggleDots = () => { const hide = map.getZoom() >= SHADE_ZOOM; for (const m of markers.current) m.el.style.display = hide ? 'none' : ''; };
-    map.on('zoom', toggleDots);
-    return () => { ro.disconnect(); map.remove(); mapRef.current = null; };
+    map.on('style.load', () => { ready.current = false; addLayers(map); });
+    const pop = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 8, className: 'heat-pop' });
+    popup.current = pop;
+    const hoverLayers = ['chokepoints-fill', 'states-fill', 'countries-fill'];
+    for (const layer of hoverLayers) {
+      map.on('mousemove', layer, (ev) => {
+        const f = ev.features?.[0];
+        if (!f) return;
+        const p = f.properties as { name?: string; status: AreaHeat['status']; share: number; threats: string; chokepoint?: boolean };
+        map.getCanvas().style.cursor = p.threats ? 'pointer' : '';
+        const shareLine = p.chokepoint ? '' : layer === 'states-fill' ? `${pct(Number(p.share), 1)} of US food production` : `${pct(Number(p.share), 1)} of US food imports`;
+        pop.setLngLat(ev.lngLat).setHTML(`<b>${p.name ?? ''}</b><br><span class="st ${p.status}">${STATUS_LABEL[p.status]}</span>${shareLine ? ` · ${shareLine}` : ''}${p.threats ? `<br><span class="th">${p.threats}</span>` : ''}`).addTo(map);
+      });
+      map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; pop.remove(); });
+      map.on('click', layer, (ev) => {
+        const f = ev.features?.[0];
+        const top = (f?.properties as { top?: string } | undefined)?.top;
+        if (top) onSelectRef.current(top);
+      });
+    }
+    return () => { ro.disconnect(); pop.remove(); map.remove(); mapRef.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -103,41 +154,34 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, read
     mapRef.current?.setStyle(STYLE[theme]);
   }, [theme]);
 
-  // markers
+  // recolor when the threat list or the focus changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { const map = mapRef.current; if (map) paint(map); }, [entries, ctx, focus]);
+
+  // selection: outline the selected threat's areas and slide toward it
   useEffect(() => {
     const map = mapRef.current;
-    if (!map) return;
-    markers.current.forEach((m) => m.marker.remove());
-    markers.current = [];
-    const hide = map.getZoom() >= SHADE_ZOOM;
-    for (const e of entries) {
-      const v = focusView(e, focus, ctx);
-      const el = document.createElement('div');
-      const cls = ['marker'];
-      if (selectedId === e.threat.id) cls.push('sel');
-      if (e.threat.status === 'breaking') cls.push('breaking');
-      if (!v.affects) cls.push('dim');
-      el.className = cls.join(' ');
-      const d = radius(v.cv) * 2;
-      el.style.width = `${d}px`; el.style.height = `${d}px`;
-      el.style.setProperty('--c', categoryColor(e.threat.category));
-      el.title = `${e.threat.name} — ${compactUsd(v.cv)}`;
-      if (!readIds.has(e.threat.id)) { const b = document.createElement('span'); b.className = 'badge'; el.appendChild(b); }
-      if (hide) el.style.display = 'none';
-      el.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        onSelectRef.current(e.threat.id);
-        // slide the map part of the way toward the dot, no zoom change
-        const c = map.getCenter();
-        const target: [number, number] = [e.threat.location.lng, e.threat.location.lat];
-        map.easeTo({ center: [c.lng + (target[0] - c.lng) * 0.45, c.lat + (target[1] - c.lat) * 0.45], duration: 550 });
-      });
-      const marker = new maplibregl.Marker({ element: el }).setLngLat([e.threat.location.lng, e.threat.location.lat]).addTo(map);
-      markers.current.push({ marker, el });
+    if (!map || !ready.current) return;
+    const e = entries.find((x) => x.threat.id === selectedId);
+    const src = map.getSource('selected') as maplibregl.GeoJSONSource | undefined;
+    if (!e || !src) { src?.setData(EMPTY); return; }
+    const g = geos.current;
+    const feats: GeoJSON.Feature[] = [];
+    if (g) {
+      const rid = e.threat.location.regionId;
+      const region = rid ? ctx.regions[rid] : undefined;
+      const isos = new Set<string>([...(region?.countries ?? []), ...(e.threat.location.iso3 && e.threat.location.iso3 !== 'USA' ? [e.threat.location.iso3] : [])]);
+      for (const f of g.countries.features) if (isos.has(String(f.id))) feats.push(f);
+      const states = rid ? ctx.focus?.regionStates[rid] : undefined;
+      if (states && states.length > 0) for (const f of g.states.features) if (states.includes(String(f.id))) feats.push(f);
+      if (region?.chokepointImportShare && Object.keys(region.chokepointImportShare).length > 0) feats.push({ type: 'Feature', geometry: circle(region.lng, region.lat, 220), properties: {} });
     }
-    if (styleReady.current) (map.getSource('regions') as maplibregl.GeoJSONSource | undefined)?.setData(regionFC());
+    src.setData({ type: 'FeatureCollection', features: feats });
+    const c = map.getCenter();
+    const target = [e.threat.location.lng, e.threat.location.lat] as const;
+    map.easeTo({ center: [c.lng + (target[0] - c.lng) * 0.45, c.lat + (target[1] - c.lat) * 0.45], duration: 550 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entries, selectedId, focus, readIds, ctx]);
+  }, [selectedId, entries]);
 
   // focus outline
   useEffect(() => {
@@ -147,31 +191,30 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, read
     const apply = async () => {
       const src = map.getSource('focus') as maplibregl.GeoJSONSource | undefined;
       if (!src) return;
-      if (focus.kind === 'us' || !focus.id) { src.setData({ type: 'FeatureCollection', features: [] }); return; }
+      if (focus.kind === 'us' || !focus.id) { src.setData(EMPTY); return; }
       const fc = await loadGeo(focus.kind === 'state' ? 'states' : 'cd119');
       if (cancelled) return;
       const f = fc.features.find((x) => x.id === focus.id || (x.properties as { id?: string } | null)?.id === focus.id);
       src.setData({ type: 'FeatureCollection', features: f ? [f] : [] });
       if (f) {
         const b = new maplibregl.LngLatBounds();
-        const walk = (c: unknown): void => {
-          if (!Array.isArray(c)) return;
-          if (typeof c[0] === 'number') { b.extend(c as [number, number]); return; }
-          for (const x of c) walk(x);
-        };
+        const walk = (c: unknown): void => { if (!Array.isArray(c)) return; if (typeof c[0] === 'number') { b.extend(c as [number, number]); return; } for (const x of c) walk(x); };
         walk((f.geometry as GeoJSON.Polygon | GeoJSON.MultiPolygon).coordinates);
         map.fitBounds(b, { padding: 60, duration: 700, maxZoom: 6.5 });
       }
     };
-    if (styleReady.current) void apply(); else map.once('load', () => { void apply(); });
+    if (ready.current) void apply(); else map.once('load', () => { void apply(); });
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focus]);
 
+  const sel = entries.find((x) => x.threat.id === selectedId);
+  const v = sel ? focusView(sel, focus, ctx) : null;
   return (
     <div className="map-wrap">
       <div ref={container} style={{ position: 'absolute', inset: 0 }} />
-      <CategoryLegend />
+      {sel && v && <div className="map-badge">{sel.threat.name} · {compactUsd(v.cv)}</div>}
+      <HeatLegend focused={focus.kind !== 'us'} />
     </div>
   );
 }

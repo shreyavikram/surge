@@ -17,5 +17,8 @@ export const GLOSSARY: Record<string, { title: string; text: string }> = {
   modeled: { title: 'Modeled', text: 'A value produced by the engine from stated assumptions, not observed directly.' },
   measured: { title: 'Measured', text: 'A value taken from a published series or record.' },
   breaking: { title: 'Breaking', text: 'Reported in the news but not yet visible in any supply, price, or transit series. Shown with a dotted outline.' },
+  heatStable: { title: 'Stable (green)', text: 'No active or reported threat touches this supplier. Darker green means it supplies a larger share of US food imports (countries, saturating at 25%) or of US food production (states, saturating at 15%).' },
+  heatAnticipated: { title: 'Anticipated instability (yellow)', text: 'A news report points to a coming disruption that is not yet visible in any supply, price, or transit series. Darker yellow means a larger share of US imports is threatened and the report is more certain.' },
+  heatUnstable: { title: 'Unstable (red)', text: 'An active threat is already cutting supply from this area. Darker red means a larger share of US net imports (or, for states, US production) is disrupted, saturating at 5% of the total.' },
   band: { title: 'Elasticity band', text: 'The loss recomputed at the low and high ends of the published elasticity range for the commodity.' },
 };

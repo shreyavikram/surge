@@ -146,7 +146,10 @@
    "sugar": 0.8,
    "beef": 0.25
   },
-  "source": "USDA FAS GATS (approximate)"
+  "source": "USDA FAS GATS (approximate)",
+  "countries": [
+   "MEX"
+  ]
  },
  "canada": {
   "id": "canada",
@@ -165,7 +168,10 @@
    "wheat": 0.8,
    "fats-oils": 0.5
   },
-  "source": "USDA FAS GATS (approximate)"
+  "source": "USDA FAS GATS (approximate)",
+  "countries": [
+   "CAN"
+  ]
  },
  "brazil": {
   "id": "brazil",
@@ -191,7 +197,10 @@
    "chicken": 0.35,
    "beef": 0.25
   },
-  "source": "USDA FAS PSD; FAS GATS (approximate); USDA Jun 2025 egg imports"
+  "source": "USDA FAS PSD; FAS GATS (approximate); USDA Jun 2025 egg imports",
+  "countries": [
+   "BRA"
+  ]
  },
  "central-america-bananas": {
   "id": "central-america-bananas",
@@ -208,7 +217,16 @@
    "bananas": 0.95,
    "coffee": 0.3
   },
-  "source": "USDA FAS GATS (approximate)"
+  "source": "USDA FAS GATS (approximate)",
+  "countries": [
+   "GTM",
+   "ECU",
+   "HND",
+   "CRI",
+   "COL",
+   "PAN",
+   "NIC"
+  ]
  },
  "black-sea": {
   "id": "black-sea",
@@ -230,7 +248,14 @@
   "usImportOriginShare": {
    "fertilizer": 0.15
   },
-  "source": "USDA FAS PSD 2021/22: Russia+Ukraine ~28% of wheat exports, ~75% sunflower oil; IFPRI fertilizer (approximate)"
+  "source": "USDA FAS PSD 2021/22: Russia+Ukraine ~28% of wheat exports, ~75% sunflower oil; IFPRI fertilizer (approximate)",
+  "countries": [
+   "UKR",
+   "RUS",
+   "ROU",
+   "BGR",
+   "MDA"
+  ]
  },
  "hormuz": {
   "id": "hormuz",
@@ -247,7 +272,8 @@
    "fertilizer": 0.3,
    "energy": 0.1
   },
-  "source": "IMF PortWatch chokepoint; urea/ammonia seaborne trade share ~30% (IFPRI 2024, approximate)"
+  "source": "IMF PortWatch chokepoint; urea/ammonia seaborne trade share ~30% (IFPRI 2024, approximate)",
+  "countries": []
  },
  "suez-red-sea": {
   "id": "suez-red-sea",
@@ -265,7 +291,8 @@
    "rice": 0.15,
    "fats-oils": 0.1
   },
-  "source": "IMF PortWatch; trade routing Asia-Europe-US East Coast (approximate)"
+  "source": "IMF PortWatch; trade routing Asia-Europe-US East Coast (approximate)",
+  "countries": []
  },
  "panama-canal": {
   "id": "panama-canal",
@@ -282,7 +309,8 @@
    "bananas": 0.1,
    "coffee": 0.1
   },
-  "source": "IMF PortWatch (approximate)"
+  "source": "IMF PortWatch (approximate)",
+  "countries": []
  },
  "turkey": {
   "id": "turkey",
@@ -298,7 +326,10 @@
   "usImportOriginShare": {
    "eggs": 0.57
   },
-  "source": "USDA Jun 2025: 57% of 2025 shell-egg imports"
+  "source": "USDA Jun 2025: 57% of 2025 shell-egg imports",
+  "countries": [
+   "TUR"
+  ]
  },
  "vietnam-brazil-coffee": {
   "id": "vietnam-brazil-coffee",
@@ -317,7 +348,11 @@
   "usImportOriginShare": {
    "coffee": 0.1
   },
-  "source": "USDA FAS Coffee (approximate)"
+  "source": "USDA FAS Coffee (approximate)",
+  "countries": [
+   "VNM",
+   "IDN"
+  ]
  },
  "india-rice": {
   "id": "india-rice",
@@ -336,7 +371,12 @@
   "usImportOriginShare": {
    "rice": 0.2
   },
-  "source": "USDA FAS Grain: World Markets and Trade; India ~40% of rice exports; 2023 export ban precedent"
+  "source": "USDA FAS Grain: World Markets and Trade; India ~40% of rice exports; 2023 export ban precedent",
+  "countries": [
+   "IND",
+   "THA",
+   "PAK"
+  ]
  },
  "us-national": {
   "id": "us-national",

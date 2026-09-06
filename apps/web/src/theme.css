@@ -306,3 +306,12 @@ details.assumptions .assump { margin-top: 6px; }
 .modal .field.row { flex-direction: row; align-items: center; gap: 8px; }
 .modal .field input[type=email] { background: var(--panel-2); color: var(--text); border: 1px solid var(--border-solid); border-radius: 6px; padding: 7px 10px; }
 .modal-actions { display: flex; justify-content: flex-end; margin-top: 8px; }
+
+/* heat legend + popup */
+.legend.heat { max-width: 300px; }
+.legend.heat .ramp { display: inline-block; width: 34px; height: 9px; border-radius: 3px; flex: 0 0 auto; }
+.heat-pop .maplibregl-popup-content { background: var(--panel); color: var(--text); border: 1px solid var(--border-solid); border-radius: 7px; padding: 7px 10px; font-size: 12px; box-shadow: var(--shadow); }
+.heat-pop .maplibregl-popup-tip { display: none; }
+.heat-pop .st { text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; }
+.heat-pop .st.stable { color: #2e8b57; } .heat-pop .st.anticipated { color: #c9a227; } .heat-pop .st.unstable { color: var(--bad); }
+.heat-pop .th { color: var(--text-dim); }

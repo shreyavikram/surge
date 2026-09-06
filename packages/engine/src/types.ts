@@ -52,6 +52,8 @@ export interface Threat {
   /** Provenance and, for disease, the monthly timeline shape; never the magnitude (severity is). */
   physical?: PhysicalShock;
   status?: 'active' | 'breaking';
+  /** for anticipated (breaking) items: how certain the report is, 0..1 */
+  confidence?: number;
   start: string;                  // YYYY-MM
   months?: number;                // duration override
   source: SourceStamp;
@@ -161,6 +163,8 @@ export interface RegionConfig {
   usImportOriginShare?: Record<string, number>;
   worldExportShare?: Record<string, number>;
   chokepointImportShare?: Record<string, number>;
+  /** ISO3 countries the region covers (foreign regions) */
+  countries?: string[];
   source: string;
 }
 
@@ -217,8 +221,12 @@ export interface FocusConfig {
   regionStates: Record<string, string[]>;
 }
 
+export interface CountryConfig { iso3: string; name: string; usFoodImportShare: number }
+export interface CountriesConfig { source: string; countries: Record<string, CountryConfig> }
+
 export interface EngineContext {
   focus?: FocusConfig;
+  countries?: CountriesConfig;
   commodities: Record<string, CommodityConfig>;
   inputs: Record<string, InputConfig>;
   demand: DemandSystemConfig;

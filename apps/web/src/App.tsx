@@ -97,7 +97,7 @@ export function App() {
         ) : (
           <button className="edge-toggle left" onClick={() => setWlOpen(true)} title="Show watchlist">▶</button>
         )}
-        <MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} readIds={readIds} />
+        <MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} />
         {drawerOpen && selectedEntry ? (
           <Drawer entry={selectedEntry} ctx={ctx} focus={focus} tab={tab} editable={editable} onDial={onDial} onRemove={onRemove} onCollapse={() => setDrawerOpen(false)} />
         ) : selectedEntry ? (

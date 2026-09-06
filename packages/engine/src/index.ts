@@ -13,3 +13,4 @@ export * from './mitigation.js';
 export * from './scenario.js';
 export * from './focus.js';
 export * from './interpret.js';
+export * from './heat.js';

@@ -1,4 +1,4 @@
-import type { EngineContext, FocusConfig, CommodityConfig, InputConfig, DemandSystemConfig, ThreatTypeConfig, RegionConfig, LeverConfig, PlateConfig, CaseFile, ThreatCategory } from '@surge/engine';
+import type { EngineContext, FocusConfig, CountriesConfig, CommodityConfig, InputConfig, DemandSystemConfig, ThreatTypeConfig, RegionConfig, LeverConfig, PlateConfig, CaseFile, ThreatCategory } from '@surge/engine';
 import commodities from '../data/commodities.json' with { type: 'json' };
 import inputs from '../data/inputs.json' with { type: 'json' };
 import demand from '../data/demand-system.json' with { type: 'json' };
@@ -8,6 +8,7 @@ import levers from '../data/levers.json' with { type: 'json' };
 import plate from '../data/plate.json' with { type: 'json' };
 import focus from '../data/focus.json' with { type: 'json' };
 import focusDistricts from '../data/focus-districts.json' with { type: 'json' };
+import countries from '../data/countries.json' with { type: 'json' };
 import egg2024 from '../data/cases/egg-2024-calibration.json' with { type: 'json' };
 import egg2022 from '../data/cases/egg-2022.json' with { type: 'json' };
 import formula2022 from '../data/cases/formula-2022.json' with { type: 'json' };
@@ -43,6 +44,7 @@ export function loadContext(): EngineContext {
     population: POPULATION,
     totalExpenditure: TOTAL_EXPENDITURE,
     consumerUnits: CONSUMER_UNITS,
+    countries: countries as unknown as CountriesConfig,
     focus: mergeFocus(focus as unknown as FocusConfig, focusDistricts as unknown as { source: string; areas: FocusConfig['areas']; production: FocusConfig['production'] }),
   };
 }
