@@ -433,3 +433,9 @@ details.assumptions .assump { margin-top: 6px; }
 .at-form .num { width: 100%; }
 .map-loader.small { width: 64px; height: 64px; }
 .usmap-wrap:has(.map-loader) .usmap { min-height: 160px; opacity: 0.35; }
+/* interpreted candidate cards fit a narrow toolbar */
+.cand-dials { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: end; }
+.cand-dials label { display: flex; flex-direction: column; gap: 3px; flex: 1 1 120px; font-size: 12px; }
+.cand-dials label input[type="range"] { width: 100%; }
+.cand-dials .num { width: 80px; }
+.cand-actions { display: flex; justify-content: flex-end; margin-top: 8px; }
