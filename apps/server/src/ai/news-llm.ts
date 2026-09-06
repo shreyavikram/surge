@@ -19,6 +19,7 @@ export function buildNewsPrompt(titles: string[], ctx: EngineContext): string {
     'wildfire, export ban, tariff, embargo, war or attack, shipping disruption, input-price spike, or plant closure.',
     'NOT events: vigils, donations, appeals, memorials, retrospectives, opinion pieces, market commentary, forecasts, studies, sports, politics without a supply effect,',
     'and RELIEF actions (lifting a ban, allowing exports, tariff-free imports, tariff cuts, aid deliveries) - those are not threats: isEvent=false.',
+    'A ban, tariff or suspension imposed by a THIRD country or bloc on a supplier ("EU bans Brazilian beef", "China halts US pork") does not cut US supply: isEvent=false. Only the supplier itself restricting its exports, or the US restricting its imports, counts as export_ban/embargo/tariff.',
     'Place = where the disruption physically happens (a flood in Nepal is in India/Nepal, not where a vigil is held).',
     'Use ONLY ids from the vocabulary. If the place has no region id in the vocabulary (for example Egypt, Nepal, Nigeria), set isEvent=false; never map a place to a different country.',
     'The description must name the actual place and must not contradict the regionId.',

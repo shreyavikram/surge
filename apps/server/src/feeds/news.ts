@@ -1,4 +1,5 @@
 import { loadContext } from '@surge/config';
+import type { EngineContext, ThreatCategory } from '@surge/engine';
 import { interpretScenario, parseSeverity, validateCandidate, type ThreatCandidate, type ThreatCategory } from '@surge/engine';
 import type { FeedAdapter, FeedResult, FeedItem } from './types.js';
 import { httpText } from './http.js';
@@ -135,6 +136,26 @@ function eventLanguage(c: ThreatCandidate, title: string): boolean {
  * Screen headlines into corroborated category|region keys. Returns only the keys that become items, each with
  * every headline that supported it, so an evaluation can say which headlines were treated as events.
  */
+/** Trade restrictions: the verb and the actors that make a restriction a threat to US supply. */
+const BAN_VERB = /\b(bans?|banned|banning|suspends?|suspended|halts?|halted|blocks?|blocked|restricts?|restricted|embargo(?:es|ed)?|tariffs?|duties)\b/i;
+const US_ACTOR = /\b(u\.?s\.?|u\.s\.a\.?|usa|united states|america|american|washington|white house|trump|usda|usmca)\b/i;
+/**
+ * "EU bans Brazilian beef" is a third-country import ban: it frees Brazilian supply for other buyers and does not cut
+ * US imports. A restriction counts only when the actor (the words before the verb) is the supplier itself or the US.
+ */
+export function thirdCountryRestriction(title: string, category: string, regionId: string, ctx: EngineContext): boolean {
+  const rule = ctx.threatTypes[category as ThreatCategory]?.rule;
+  if (rule !== 'trade_block' && rule !== 'tariff') return false;
+  const m = BAN_VERB.exec(title);
+  if (!m) return false;
+  const before = title.slice(0, m.index).toLowerCase();
+  const region = ctx.regions[regionId];
+  const names = [region?.name ?? '', ...(region?.countries ?? [])].filter(Boolean).map((x) => x.toLowerCase());
+  const stem = (region?.name ?? '').toLowerCase().replace(/ia$/, 'i').replace(/a$/, '').replace(/y$/, '');
+  const actorIsSupplier = names.some((n) => before.includes(n)) || (stem.length > 3 && before.includes(stem));
+  return !actorIsSupplier && !US_ACTOR.test(before);
+}
+
 export function screen(raw: unknown): Map<string, NewsSupport & { why: string }> {
   const ctx = loadContext();
   const { articles: arts = [], classified } = raw as { articles?: NewsArticle[]; classified?: ClassifiedArticle[] };
@@ -146,6 +167,7 @@ export function screen(raw: unknown): Map<string, NewsSupport & { why: string }>
       const a = arts[k.index]; if (!a) continue;
       if (k.confidence < 0.7) continue;
       if (RELIEF.test(a.title) || RELIEF.test(k.description)) continue;
+      if (thirdCountryRestriction(a.title, k.category, k.regionId, ctx)) continue;
       // A nationwide placement needs nationwide words; a headline that names a state is about that state; a US story
       // with neither is not placeable (a county rancher's drought is not 3% of the national herd).
       let regionId = k.regionId;

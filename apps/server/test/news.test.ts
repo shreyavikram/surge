@@ -139,3 +139,18 @@ describe(`rule path on ${labelled.length} labelled headlines (${labelled.filter(
     expect(positives.size).toBeGreaterThan(0);
   });
 });
+
+describe('trade restrictions need the right actor', () => {
+  const art = (title: string, source = 'Reuters') => ({ title, link: 'https://example.com', pubDate: '2026-09-05T00:00:00Z', source });
+  const cls = (index: number, category: 'export_ban' | 'tariff', regionId: string) => ({ index, category, regionId, commodities: ['beef'], severity: 0.5, months: 6, confidence: 0.9, description: 'Trade action.' });
+  it("drops a third country's ban on a supplier (EU bans Brazilian beef) — it does not cut US supply", () => {
+    const r = news.parse({ articles: [art('Factbox-EU ban on animal products affects $1.8 billion in Brazilian exports')], classified: [cls(0, 'export_ban', 'brazil')] });
+    expect(r.items).toEqual([]);
+  });
+  it('keeps a supplier restricting its own exports and a US action on an origin', () => {
+    const r1 = news.parse({ articles: [art('Brazil suspends beef exports after a cattle disease case')], classified: [cls(0, 'export_ban', 'brazil')] });
+    expect(r1.items.length).toBe(1);
+    const r2 = news.parse({ articles: [art('Trump imposes 25% tariff on Mexican tomatoes')], classified: [cls(0, 'tariff', 'mexico')] });
+    expect(r2.items.length).toBe(1);
+  });
+});
