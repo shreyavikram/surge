@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-06T04:38:34.269Z",
+  "fetchedAt": "2026-09-06T13:41:42.232Z",
   "result": {
     "items": [
       {
@@ -7,15 +7,15 @@
         "name": "Flooding, China",
         "category": "flood",
         "kind": "natural",
-        "lng": 113.7681,
-        "lat": 26.493,
-        "severity": 0.5,
+        "lng": 116,
+        "lat": 28,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Flood in China; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "China",
         "iso3": "CHN",
         "start": "2026-07",
-        "months": 1,
-        "text": "Flood in China"
+        "months": 1
       },
       {
         "id": "gdacs-1018332",
@@ -24,13 +24,13 @@
         "kind": "natural",
         "lng": 10.941,
         "lat": 48.056,
-        "severity": 0.5,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Drought in Austria, Bosnia  and  Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, San Marino, Ukraine, , ; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "Austria, Bosnia & Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, San Marino, Ukraine, , ",
         "iso3": "AUT",
         "start": "2025-12",
-        "months": 9,
-        "text": "Drought in Austria, Bosnia  and  Herzegovina, Belgium, Belarus, Switzerland, Czech Republic, Germany, Denmark, Spain, France, Croatia, Hungary, Ireland, Italy, Liechtenstein, Luxembourg, Netherlands, Poland, Romania, Serbia, Sweden, Slovenia, Slovakia, San Marino, Ukraine, , "
+        "months": 9
       },
       {
         "id": "gdacs-1018431",
@@ -39,13 +39,13 @@
         "kind": "natural",
         "lng": 47.727,
         "lat": -17.69,
-        "severity": 0.5,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Drought in Madagascar; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "Madagascar",
         "iso3": "MDG",
         "start": "2025-11",
-        "months": 10,
-        "text": "Drought in Madagascar"
+        "months": 10
       },
       {
         "id": "gdacs-1027449",
@@ -54,13 +54,13 @@
         "kind": "natural",
         "lng": -89.169,
         "lat": 15.196,
-        "severity": 0.5,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Drought in The Bahamas, Belize, Cuba, Guatemala, Honduras, Mexico, Nicaragua, El Salvador; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "The Bahamas, Belize, Cuba, Guatemala, Honduras, Mexico, Nicaragua, El Salvador",
         "iso3": "BHS",
         "start": "2026-04",
-        "months": 5,
-        "text": "Drought in The Bahamas, Belize, Cuba, Guatemala, Honduras, Mexico, Nicaragua, El Salvador"
+        "months": 5
       },
       {
         "id": "gdacs-1001305",
@@ -69,13 +69,13 @@
         "kind": "natural",
         "lng": 117.4,
         "lat": 23.8,
-        "severity": 0.5,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Tropical Cyclone SAUDEL-26; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "Japan, China, Northern Mariana Islands",
         "iso3": "CHN",
         "start": "2026-08",
-        "months": 1,
-        "text": "Tropical Cyclone SAUDEL-26"
+        "months": 1
       },
       {
         "id": "gdacs-1104121",
@@ -84,13 +84,13 @@
         "kind": "natural",
         "lng": 79.5542,
         "lat": 29.3506,
-        "severity": 0.5,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Flood in India; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "India",
         "iso3": "IND",
         "start": "2026-08",
-        "months": 1,
-        "text": "Flood in India"
+        "months": 1
       },
       {
         "id": "gdacs-1104124",
@@ -99,13 +99,13 @@
         "kind": "natural",
         "lng": 85.3649,
         "lat": 27.2953,
-        "severity": 1,
+        "severity": 0.5,
         "alertScore": true,
+        "text": "Flood in Nepal; Red alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "Nepal",
         "iso3": "NPL",
         "start": "2026-08",
-        "months": 1,
-        "text": "Flood in Nepal"
+        "months": 1
       },
       {
         "id": "gdacs-1104123",
@@ -114,13 +114,13 @@
         "kind": "natural",
         "lng": 117.0123,
         "lat": 25.0767,
-        "severity": 0.5,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Flood in China; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "China",
         "iso3": "CHN",
         "start": "2026-08",
-        "months": 1,
-        "text": "Flood in China"
+        "months": 1
       },
       {
         "id": "gdacs-1030252",
@@ -129,13 +129,13 @@
         "kind": "natural",
         "lng": 21.1671,
         "lat": 44.8678,
-        "severity": 0.5,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Forest fires in Serbia; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "Serbia",
         "iso3": "SRB",
         "start": "2026-08",
-        "months": 1,
-        "text": "Forest fires in Serbia"
+        "months": 1
       },
       {
         "id": "gdacs-1030410",
@@ -144,13 +144,13 @@
         "kind": "natural",
         "lng": -0.7181,
         "lat": 42.4725,
-        "severity": 0.5,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Forest fires in Spain; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "Spain",
         "iso3": "ESP",
         "start": "2026-08",
-        "months": 1,
-        "text": "Forest fires in Spain"
+        "months": 1
       },
       {
         "id": "gdacs-1030534",
@@ -159,13 +159,13 @@
         "kind": "natural",
         "lng": 6.0772,
         "lat": 50.5262,
-        "severity": 0.5,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Forest fires in Belgium; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "Belgium",
         "iso3": "BEL",
         "start": "2026-08",
-        "months": 1,
-        "text": "Forest fires in Belgium"
+        "months": 1
       },
       {
         "id": "gdacs-1001297",
@@ -174,13 +174,13 @@
         "kind": "natural",
         "lng": 120.6,
         "lat": 27.9,
-        "severity": 0.5,
+        "severity": 0.25,
         "alertScore": true,
+        "text": "Tropical Cyclone DOLPHIN-26; Orange alert; no affected-population figure; assumed 50% of the national scale",
         "admin": "Marshall Islands, Japan, China",
         "iso3": "MHL",
         "start": "2026-07",
-        "months": 1,
-        "text": "Tropical Cyclone DOLPHIN-26"
+        "months": 1
       }
     ],
     "source": {

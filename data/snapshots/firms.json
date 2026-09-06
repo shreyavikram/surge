@@ -1,68 +1,7 @@
 {
-  "fetchedAt": "2026-09-06T04:38:41.777Z",
+  "fetchedAt": "2026-09-06T13:41:45.313Z",
   "result": {
-    "items": [
-      {
-        "id": "firms-us-midwest-corn-belt",
-        "name": "Wildfire activity, Corn Belt (254 satellite hotspots in 48 h)",
-        "category": "wildfire",
-        "kind": "natural",
-        "regionId": "us-midwest-corn-belt",
-        "admin": "Corn Belt (IL, IN, NE, MN, OH)",
-        "iso3": "USA",
-        "lat": 41,
-        "lng": -90,
-        "severity": 0.127,
-        "alertScore": true,
-        "start": "2026-09",
-        "text": "254 VIIRS hotspots in the region bbox over 48 hours (2026-09-05); hotspot counts include agricultural burning"
-      },
-      {
-        "id": "firms-us-southeast-broilers",
-        "name": "Wildfire activity, Southeast broiler belt (227 satellite hotspots in 48 h)",
-        "category": "wildfire",
-        "kind": "natural",
-        "regionId": "us-southeast-broilers",
-        "admin": "Southeast broiler belt (GA, AL, AR, NC, MS)",
-        "iso3": "USA",
-        "lat": 33.5,
-        "lng": -86,
-        "severity": 0.1135,
-        "alertScore": true,
-        "start": "2026-09",
-        "text": "227 VIIRS hotspots in the region bbox over 48 hours (2026-09-05); hotspot counts include agricultural burning"
-      },
-      {
-        "id": "firms-us-state-TX",
-        "name": "Wildfire activity, Texas (137 satellite hotspots in 48 h)",
-        "category": "wildfire",
-        "kind": "natural",
-        "regionId": "us-state-TX",
-        "admin": "Texas",
-        "iso3": "USA",
-        "lat": 31.5,
-        "lng": -99.3,
-        "severity": 0.0685,
-        "alertScore": true,
-        "start": "2026-09",
-        "text": "137 VIIRS hotspots in the region bbox over 48 hours (2026-09-05); hotspot counts include agricultural burning"
-      },
-      {
-        "id": "firms-us-plains-wheat",
-        "name": "Wildfire activity, Wheat Plains (106 satellite hotspots in 48 h)",
-        "category": "wildfire",
-        "kind": "natural",
-        "regionId": "us-plains-wheat",
-        "admin": "Wheat Plains (KS, OK, TX, NE, CO)",
-        "iso3": "USA",
-        "lat": 38.5,
-        "lng": -99,
-        "severity": 0.053,
-        "alertScore": true,
-        "start": "2026-09",
-        "text": "106 VIIRS hotspots in the region bbox over 48 hours (2026-09-05); hotspot counts include agricultural burning"
-      }
-    ],
+    "items": [],
     "source": {
       "feed": "NASA FIRMS",
       "url": "https://firms.modaps.eosdis.nasa.gov",

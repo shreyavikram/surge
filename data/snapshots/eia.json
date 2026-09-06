@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-06T04:38:43.599Z",
+  "fetchedAt": "2026-09-06T13:41:47.564Z",
   "result": {
     "items": [
       {
@@ -18,7 +18,7 @@
             "relevance": 1
           }
         ],
-        "severity": 0.05158065282668343,
+        "severity": 0.09284517508803018,
         "start": "2026-08",
         "months": 6,
         "physical": {
