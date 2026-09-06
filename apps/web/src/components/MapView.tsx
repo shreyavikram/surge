@@ -37,6 +37,7 @@ interface Props {
   theme: 'dark' | 'light';
   ctx: EngineContext;
   focus: Focus;
+  lens: Set<string>;                 // commodity filter: shades refer to these commodities
   onFail?: (why: string) => void;
 }
 
@@ -58,7 +59,9 @@ function circle(lng: number, lat: number, km: number): GeoJSON.Polygon {
 
 const STATUS_LABEL: Record<AreaHeat['status'], string> = { none: 'no US food supply', stable: 'stable', anticipated: 'anticipated instability', unstable: 'unstable' };
 
-export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFail }: Props) {
+export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, lens, onFail }: Props) {
+  const lensRef = useRef(lens);
+  lensRef.current = lens;
   const onFailRef = useRef(onFail);
   onFailRef.current = onFail;
   const container = useRef<HTMLDivElement>(null);
@@ -89,22 +92,24 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
     // historical replays are cases to study, not current instability: they never color the map
     const all = entriesRef.current.filter((e) => e.origin !== 'replay').map((e) => e.threat);
     const threats = areas.length > 0 && ctx.focus ? all.filter((t) => areas.some((a) => threatAffectsArea(t, a, ctx.focus!))) : all;
-    const ch = countryHeat(threats, ctx);
-    const sh = stateHeat(threats, ctx);
-    const nameOf = (id: string) => entriesRef.current.find((e) => e.threat.id === id)?.threat.name ?? id;
+    const lensIds = [...lensRef.current];
+    const ch = countryHeat(threats, ctx, lensIds);
+    const sh = stateHeat(threats, ctx, lensIds);
+    const nameOf = (id: string) => { const t = entriesRef.current.find((e) => e.threat.id === id)?.threat; return t ? (t.summary ?? t.name) : id; };
     const isFocusState = (id: string) => ownStates.has(id);
-    const colorFor = (h: AreaHeat | undefined, own: boolean) => (area && !own && ((h?.status ?? 'stable') === 'stable' || h?.status === 'none') ? NEUTRAL : heatColor(h));
+    // with a focus area, threats that do not reach it are dropped above; suppliers keep their green shading
+    const colorFor = (h: AreaHeat | undefined, _own: boolean) => heatColor(h);
     const listOf = (h: AreaHeat | undefined) => { const t = (h?.threats ?? []).map(nameOf); return t.length > 5 ? [...t.slice(0, 5), `and ${t.length - 5} more`].join(' · ') : t.join(' · '); };
     const countries: FC = { type: 'FeatureCollection', features: g.countries.features.filter((f) => f.id !== 'USA').map((f) => {
       const iso = String(f.id);
       const h = ch[iso];
-      return { ...f, properties: { ...f.properties, iso3: iso, color: colorFor(h, false), neutral: (!!area && (h?.status ?? 'stable') === 'stable') || (h?.status ?? 'none') === 'none', status: h?.status ?? 'none', intensity: h?.intensity ?? 0, share: h?.baseline ?? 0, top: h?.threats[0] ?? '', threats: listOf(h) } };
+      return { ...f, properties: { ...f.properties, iso3: iso, color: colorFor(h, false), neutral: (h?.status ?? 'none') === 'none', status: h?.status ?? 'none', intensity: h?.intensity ?? 0, share: h?.baseline ?? 0, top: h?.threats[0] ?? '', threats: listOf(h) } };
     }) };
     const states: FC = { type: 'FeatureCollection', features: g.states.features.map((f) => {
       const id = String(f.id);
       const h = sh[id];
       const own = isFocusState(id);
-      return { ...f, properties: { ...f.properties, color: colorFor(h, own), neutral: (!!area && !own && (h?.status ?? 'stable') === 'stable') || h?.status === 'none', status: h?.status ?? 'stable', intensity: h?.intensity ?? 0, share: h?.baseline ?? 0, top: h?.threats[0] ?? '', threats: listOf(h) } };
+      return { ...f, properties: { ...f.properties, color: colorFor(h, own), neutral: h?.status === 'none', status: h?.status ?? 'stable', intensity: h?.intensity ?? 0, share: h?.baseline ?? 0, top: h?.threats[0] ?? '', threats: listOf(h) } };
     }) };
     // chokepoints: shaded straits, red when a transit threat is active, yellow when only reported
     const cps: GeoJSON.Feature[] = [];
@@ -115,7 +120,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
       const status: AreaHeat['status'] = active.length > 0 ? 'unstable' : here.length > 0 ? 'anticipated' : 'stable';
       const sev = Math.max(0, ...here.map((e) => e.threat.severity * (e.threat.status === 'breaking' ? (e.threat.confidence ?? 0.5) : 1)));
       const h: AreaHeat = { id: rid, status, intensity: status === 'stable' ? 0.35 : 0.25 + 0.75 * Math.min(1, sev), baseline: 0, disruption: 0, anticipated: 0, threats: [...active, ...here.filter((e) => e.threat.status === 'breaking')].map((e) => e.threat.id) };
-      cps.push({ type: 'Feature', id: rid, geometry: circle(r.lng, r.lat, 220), properties: { name: r.name, color: area && status === 'stable' ? NEUTRAL : heatColor(h), neutral: !!area && status === 'stable', status, intensity: h.intensity, share: 0, top: h.threats[0] ?? '', threats: h.threats.map(nameOf).join(' · '), chokepoint: true } });
+      cps.push({ type: 'Feature', id: rid, geometry: circle(r.lng, r.lat, 220), properties: { name: r.name, color: heatColor(h), neutral: false, status, intensity: h.intensity, share: 0, top: h.threats[0] ?? '', threats: h.threats.map(nameOf).join(' · '), chokepoint: true } });
     }
     (map.getSource('countries') as maplibregl.GeoJSONSource).setData(countries);
     (map.getSource('states-heat') as maplibregl.GeoJSONSource).setData(states);
@@ -181,16 +186,17 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
         map.getCanvas().style.cursor = p.threats ? 'pointer' : '';
         const share = Number(p.share);
         const isState = layer === 'states-fill';
+        const lensNow = [...lensRef.current];
+        const what = lensNow.length === 0 ? 'the food' : lensNow.length === 1 ? `the ${(ctx.commodities[lensNow[0]!]?.name ?? ctx.inputs[lensNow[0]!]?.name ?? lensNow[0]!).toLowerCase()}` : 'the selected foods';
+        const shareLine = p.chokepoint ? '' : isState
+          ? `Produces about ${pct(share, 1)} of ${what} the US grows and raises.`
+          : `Supplies about ${pct(share, 1)} of ${what} the US imports.`;
         const why = p.status === 'none'
-          ? 'No measurable food supply to the United States comes from here, and nothing is reported.'
+          ? (isState ? `Produces none of ${what} the US grows.` : `Supplies none of ${what} the US imports.`)
           : p.chokepoint
-          ? (p.status === 'stable' ? 'A shipping chokepoint for food imports. No transit disruption right now.' : p.status === 'anticipated' ? 'News reports point to a disruption of shipping here that is not yet in transit data.' : 'Ship transits here are down; imports that pass through are delayed or cut.')
-          : p.status === 'stable'
-            ? (isState ? `Produces about ${pct(share, 1)} of the food the US grows and raises. No current threat. Darker green means a bigger producer.` : `Supplies about ${pct(share, 1)} of the food the US imports. No current threat. Darker green means a bigger supplier.`)
-            : p.status === 'anticipated'
-              ? ''
-              : `Supply from here is already being cut. Darker red means a bigger share of US ${isState ? 'production' : 'imports'} is affected.`;
-        pop.setLngLat(ev.lngLat).setHTML(`<b>${p.name ?? ''}</b> <span class="st ${p.status}">${STATUS_LABEL[p.status]}</span>${why ? `<br><span class="why">${why}</span>` : ''}${p.threats ? `<br><span class="th">${p.status === 'anticipated' ? 'Reported: ' : ''}${p.threats}</span>` : ''}`).addTo(map);
+          ? (p.status === 'stable' ? 'A shipping chokepoint for food imports. No transit disruption right now.' : p.status === 'anticipated' ? 'Shipping through here is reported to be at risk.' : 'Ship transits here are down; imports that pass through are delayed or cut.')
+          : shareLine;
+        pop.setLngLat(ev.lngLat).setHTML(`<b>${p.name ?? ''}</b> <span class="st ${p.status}">${STATUS_LABEL[p.status]}</span>${why ? `<br><span class="why">${why}</span>` : ''}${p.threats ? `<br><span class="th">${p.status === 'anticipated' ? 'Reported: ' : 'Happening: '}${p.threats}</span>` : ''}`).addTo(map);
       });
       map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; pop.remove(); });
       map.on('click', layer, (ev) => {
@@ -210,7 +216,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
 
   // recolor when the threat list or the focus changes
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { const map = mapRef.current; if (map) paint(map); }, [entries, ctx, focus]);
+  useEffect(() => { const map = mapRef.current; if (map) paint(map); }, [entries, ctx, focus, lens]);
 
   // selection: outline the selected threat's areas and slide toward it
   useEffect(() => {
@@ -251,12 +257,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
       const ids = new Set(focus.ids);
       const feats = fc.features.filter((x) => ids.has(String(x.id)) || ids.has(String((x.properties as { id?: string } | null)?.id)));
       src.setData({ type: 'FeatureCollection', features: feats });
-      if (feats.length > 0) {
-        const b = new maplibregl.LngLatBounds();
-        const walk = (c: unknown): void => { if (!Array.isArray(c)) return; if (typeof c[0] === 'number') { b.extend(c as [number, number]); return; } for (const x of c) walk(x); };
-        for (const f of feats) walk((f.geometry as GeoJSON.Polygon | GeoJSON.MultiPolygon).coordinates);
-        map.fitBounds(b, { padding: 60, duration: 700, maxZoom: 6.5 });
-      }
+      // outline only; no zoom change on focus
     };
     if (ready.current) void apply(); else map.once('load', () => { void apply(); });
     return () => { cancelled = true; };
@@ -267,7 +268,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
     <div className="map-wrap">
       <div ref={container} style={{ position: 'absolute', inset: 0 }} />
       <img className="map-loader basemap-loading" src="/brand/greenfield-loading.svg" alt="Loading map…" />
-      <HeatLegend focused={focus.kind !== 'us' && focus.ids.length > 0} />
+      <HeatLegend focused={focus.kind !== 'us' && focus.ids.length > 0} lens={[...lens].map((id) => ctx.commodities[id]?.name ?? ctx.inputs[id]?.name ?? id)} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Threat } from '@surge/engine';
-import { getContext, buildBaseList, entriesForTab, rankEntries, categoryFamily, focusLabel, type CategoryFamily, type ThreatEntry } from './engine.js';
+import { getContext, buildBaseList, entriesForTab, rankEntries, categoryFamily, focusLabel, type CategoryFamily, type ThreatEntry, type RankedEntry } from './engine.js';
 import { useTabs, useFocus, useRead, useSettings, LIVE_TAB, type TabDef } from './state.js';
 import { TopBar } from './components/TopBar.js';
 import { Watchlist } from './components/Watchlist.js';
@@ -73,8 +73,10 @@ export function App() {
   const tab: TabDef = activeTab === 'live' ? LIVE_TAB : tabs.find((t) => t.id === activeTab) ?? LIVE_TAB;
   const entries = useMemo(() => entriesForTab(base, tab), [base, tab]);
   const ranked = useMemo(() => rankEntries(entries, ctx), [entries, ctx]);
-  const visible = ranked.filter((e) => (families.size === 0 || families.has(categoryFamily(e.threat.category)))
-    && (commodities.size === 0 || e.impact.commodities.some((c) => commodities.has(c)) || e.threat.commodities.some((c) => commodities.has(c.id))));
+  const matches = (e: RankedEntry) => (families.size === 0 || families.has(categoryFamily(e.threat.category)))
+    && (commodities.size === 0 || e.impact.commodities.some((c) => commodities.has(c)) || e.threat.commodities.some((c) => commodities.has(c.id)));
+  const visible = ranked.filter(matches);
+  const others = ranked.filter((e) => !matches(e));
   const selectedEntry = ranked.find((e) => e.threat.id === selectedId) ?? null;
   const editable = tab.id !== 'live';
 
@@ -91,6 +93,14 @@ export function App() {
   });
   const onRemove = (threatId: string) => { update(tab.id, (t) => ({ ...t, removed: [...t.removed, threatId], added: t.added.filter((a) => a.id !== threatId) })); setSelectedId(null); setDrawerOpen(false); };
   const onAdd = (t: Threat) => { update(tab.id, (x) => ({ ...x, added: [...x.added, t] })); select(t.id); };
+  /** Scenario tabs: clicking a supplier country adds a disruption there (export cut-off by default) covering everything it sends the US. */
+  const pickRegion = (regionId: string) => {
+    const r = ctx.regions[regionId]; if (!r) return;
+    const ids = [...new Set([...Object.keys(r.usImportOriginShare ?? {}), ...Object.keys(r.worldExportShare ?? {})])].filter((id) => ctx.commodities[id] || ctx.inputs[id]);
+    if (ids.length === 0) return;
+    const t: Threat = { id: `user-${Date.now()}`, name: `Export cut-off — ${r.name}`, category: 'export_ban', kind: 'geopolitical', location: { lat: r.lat, lng: r.lng, admin: r.name, regionId, ...(r.countries?.length === 1 ? { iso3: r.countries[0]! } : {}) }, commodities: ids.map((id) => ({ id, relevance: 1 })), severity: 0.5, start: '2026-09', months: 6, source: { feed: 'Added on the map', kind: 'user', note: 'Dial severity and duration in the panel' } };
+    onAdd(t);
+  };
   const newTab = () => { const t = create(`Scenario ${tabs.length + 1}`); setActiveTab(t.id); };
   const closeTab = (id: string) => { remove(id); if (activeTab === id) setActiveTab('live'); };
   const fLabel = focusLabel(focus, ctx);
@@ -98,25 +108,24 @@ export function App() {
   return (
     <div className="app">
       <TopBar tabs={tabs} activeTab={activeTab} onSelectTab={(id) => { setActiveTab(id); setSelectedId(null); setDrawerOpen(false); }} onNewTab={newTab} onRenameTab={rename} onCloseTab={closeTab}
-        feedStatus={feedStatus} onSettings={() => setShowSettings(true)} theme={theme} toggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
+        feedStatus={feedStatus} onSettings={() => setShowSettings(true)} onCompare={() => setShowCompare(true)} theme={theme} toggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
       {editable && (
         <div className="scenario-bar">
           <Describe ctx={ctx} onAdd={onAdd} />
-          <button className="btn ghost" onClick={() => setShowCompare(true)}>Compare scenarios</button>
         </div>
       )}
       <div className="body">
         {wlOpen ? (
-          <Watchlist entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} readIds={readIds} onCollapse={() => setWlOpen(false)} />
+          <Watchlist entries={visible} others={others} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} readIds={readIds} onCollapse={() => setWlOpen(false)} scenario={editable} />
         ) : (
           <button className="edge-toggle left" onClick={() => setWlOpen(true)} title="Show watchlist and filters"><span className="chev">›</span><span className="edge-lbl">Watchlist</span></button>
         )}
         {mapMode === 'webgl' ? (
           <ErrorBoundary label="Map" onError={(e) => { setFallbackReason(e.message.slice(0, 80)); setMapMode('svg'); }}>
-            <MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} onFail={(why) => { setFallbackReason(why); setMapMode('svg'); }} />
+            <MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} lens={commodities} onFail={(why) => { setFallbackReason(why); setMapMode('svg'); }} />
           </ErrorBoundary>
         ) : (
-          <MapFallback entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} reason={fallbackReason} />
+          <MapFallback entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} reason={fallbackReason} lens={commodities} resetKey={activeTab} onPickRegion={editable ? pickRegion : undefined} />
         )}
         {drawerOpen && selectedEntry ? (
           <ErrorBoundary label="Analysis"><Drawer entry={selectedEntry} ctx={ctx} focus={focus} tab={tab} editable={editable} onDial={onDial} onRemove={onRemove} onCollapse={() => setDrawerOpen(false)} /></ErrorBoundary>
@@ -124,6 +133,7 @@ export function App() {
           <button className="edge-toggle right" onClick={() => setDrawerOpen(true)} title="Show analysis"><span className="chev">‹</span><span className="edge-lbl">Analysis</span></button>
         ) : null}
       </div>
+      <button className="fab" onClick={() => setShowSettings(true)} title="Email alerts"><span className="fab-ico">🔔</span> Alerts</button>
       {showCompare && <Compare ctx={ctx} tabs={tabs} base={base} entriesFor={entriesFor} focus={focus} onClose={() => setShowCompare(false)} />}
       {showSettings && <Settings settings={settings} onSave={setSettings} onClose={() => setShowSettings(false)} focusLabel={fLabel} />}
     </div>

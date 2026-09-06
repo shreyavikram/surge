@@ -32,7 +32,7 @@ export function Relief({ entry, ctx }: { entry: RankedEntry; ctx: EngineContext;
       </div>
 
       <div className="section">
-        <h4>Supply compared with normal<Info term="shortfall" /> <span className="faint">· {plan.offset ? 'price-equivalent for a tariff' : unit + ' per month'}</span></h4>
+        <h4>{plan.offset ? 'Extra supply that would cancel the price rise' : 'How much supply is missing, month by month'}<Info term={plan.offset ? 'offset' : 'shortfall'} /></h4>
         <LineChart
           months={months}
           series={[

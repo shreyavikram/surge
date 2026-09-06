@@ -28,9 +28,9 @@ function rewind(fc: FC): FC {
 /** The panel's own size drives the projection so the world fills it edge to edge. */
 const WORLD: GeoJSON.Polygon = { type: 'Polygon', coordinates: [[[-180, -60], [180, -60], [180, 84], [-180, 84], [-180, -60]]] };
 
-interface Props { entries: RankedEntry[]; selectedId: string | null; onSelect: (id: string) => void; ctx: EngineContext; focus: Focus; reason: string }
+interface Props { entries: RankedEntry[]; selectedId: string | null; onSelect: (id: string) => void; ctx: EngineContext; focus: Focus; reason: string; lens: Set<string>; resetKey?: string; onPickRegion?: (regionId: string) => void }
 
-export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason }: Props) {
+export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason, lens, resetKey, onPickRegion }: Props) {
   const [countries, setCountries] = useState<FC | null>(null);
   const [states, setStates] = useState<FC | null>(null);
   const [hover, setHover] = useState<string | null>(null);
@@ -50,7 +50,7 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
   useEffect(() => { setView((v) => (v.k === 1 ? { k: 1, cx: W / 2, cy: H / 2 } : v)); }, [W, H]);
   const drag = useRef<{ x: number; y: number; cx: number; cy: number } | null>(null);
   const vb = `${view.cx - W / (2 * view.k)} ${view.cy - H / (2 * view.k)} ${W / view.k} ${H / view.k}`;
-  const zoomBy = (f: number) => setView((v) => ({ ...v, k: Math.max(1, Math.min(8, v.k * f)) }));
+  const zoomBy = (f: number) => setView((v) => { const k = Math.max(1, Math.min(8, v.k * f)); return k === 1 ? { k: 1, cx: W / 2, cy: H / 2 } : { ...v, k }; });
   const onDown = (e: React.MouseEvent) => { drag.current = { x: e.clientX, y: e.clientY, cx: view.cx, cy: view.cy }; };
   const onMove = (e: React.MouseEvent) => { const d = drag.current; if (!d) return; const el = e.currentTarget as SVGSVGElement; const s = (W / view.k) / el.clientWidth; setView((v) => ({ ...v, cx: d.cx - (e.clientX - d.x) * s, cy: d.cy - (e.clientY - d.y) * s })); };
   const onUp = () => { drag.current = null; };
@@ -66,11 +66,14 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
   const areas = focusAreas(focus, ctx);
   const live = entries.filter((e) => e.origin !== 'replay').map((e) => e.threat);
   const threats = areas.length > 0 && ctx.focus ? live.filter((t) => areas.some((a) => threatAffectsArea(t, a, ctx.focus!))) : live;
-  const ch = useMemo(() => countryHeat(threats, ctx), [threats, ctx]);
-  const sh = useMemo(() => stateHeat(threats, ctx), [threats, ctx]);
+  const lensIds = useMemo(() => [...lens], [lens]);
+  const ch = useMemo(() => countryHeat(threats, ctx, lensIds), [threats, ctx, lensIds]);
+  const sh = useMemo(() => stateHeat(threats, ctx, lensIds), [threats, ctx, lensIds]);
   const ownStates = new Set(areas.map((a) => a.state));
-  const colorFor = (h: AreaHeat | undefined, own: boolean) => (areas.length > 0 && !own && ((h?.status ?? 'stable') === 'stable' || h?.status === 'none') ? NEUTRAL : heatColor(h));
-  const nameOf = (id: string) => entries.find((e) => e.threat.id === id)?.threat.name ?? id;
+  const colorFor = (h: AreaHeat | undefined, _own: boolean) => heatColor(h);
+  const nameOf = (id: string) => { const t = entries.find((e) => e.threat.id === id)?.threat; return t ? (t.summary ?? t.name) : id; };
+  const regionOfIso = (iso: string) => Object.values(ctx.regions).find((r) => (r.countries ?? []).includes(iso))?.id;
+  useEffect(() => { setView({ k: 1, cx: W / 2, cy: H / 2 }); }, [resetKey]); // eslint-disable-line react-hooks/exhaustive-deps
   const hoverHeat = hover ? (ch[hover] ?? sh[hover]) : undefined;
   return (
     <div className="map-wrap fallback" ref={wrapRef}>
@@ -80,7 +83,7 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
         {countries?.features.filter((f) => f.id !== 'USA').map((f) => {
           const iso = String(f.id); const h = ch[iso];
           return <path key={iso} d={path(f as never) ?? undefined} fill={colorFor(h, false)} fillOpacity={(areas.length > 0 && (h?.status ?? 'stable') === 'stable') || (h?.status ?? 'none') === 'none' ? 0.3 : 0.85} stroke="var(--bg)" strokeWidth={0.4}
-            onMouseEnter={() => setHover(iso)} onMouseLeave={() => setHover(null)} onClick={() => { const t = h?.threats[0]; if (t) onSelect(t); }} style={{ cursor: h?.threats.length ? 'pointer' : 'default' }} />;
+            onMouseEnter={() => setHover(iso)} onMouseLeave={() => setHover(null)} onClick={() => { const t = h?.threats[0]; if (t) onSelect(t); else if (onPickRegion) { const rid = regionOfIso(iso); if (rid) onPickRegion(rid); } }} style={{ cursor: h?.threats.length || (onPickRegion && regionOfIso(iso)) ? 'pointer' : 'default' }} />;
         })}
         {states?.features.map((f) => {
           const id = String(f.id); const h = sh[id]; const own = ownStates.has(id);
@@ -107,11 +110,11 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
                 : `Supply from here is already being cut. Darker red means a bigger share of US ${isState ? 'production' : 'imports'} is affected.`;
             const names = hh.threats.map(nameOf);
             const list = names.length > 5 ? [...names.slice(0, 5), `and ${names.length - 5} more`] : names;
-            return <>{why ? <><br /><span className="why">{why}</span></> : null}{list.length ? <><br /><span className="faint">{hh.status === 'anticipated' ? 'Reported: ' : ''}{list.join(' · ')}</span></> : null}</>;
+            return <>{why ? <><br /><span className="why">{why}</span></> : null}{list.length ? <><br /><span className="faint">{hh.status === 'anticipated' ? 'Reported: ' : 'Happening: '}{list.join(' · ')}</span></> : null}{onPickRegion && !hh.threats.length && !isState && regionOfIso(hover) ? <><br /><span className="faint">click to add a disruption here</span></> : null}</>;
           })()}
         </div>
       )}
-      <HeatLegend focused={focus.kind !== 'us' && focus.ids.length > 0} />
+      <HeatLegend focused={focus.kind !== 'us' && focus.ids.length > 0} lens={lensIds.map((id) => ctx.commodities[id]?.name ?? ctx.inputs[id]?.name ?? id)} />
     </div>
   );
 }

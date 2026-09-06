@@ -101,13 +101,12 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
         <div className="section">
           <h4>Substitution<Info term="substitution" /></h4>
           <table className="tbl">
-            <thead><tr><th>Other food</th><th className="r">Δ purchases</th><th className="r">Estimate</th></tr></thead>
+            <thead><tr><th>Other food</th><th className="r">Change in purchases</th></tr></thead>
             <tbody>
               {subs.map((s) => (
                 <tr key={s.commodity}>
                   <td>{commodityName(ctx, s.commodity) === s.commodity ? ctx.demand.items.find((i) => i.id === s.commodity)?.label ?? s.commodity : commodityName(ctx, s.commodity)}</td>
-                  <td className="r" style={{ color: s.quantityPct >= 0 ? 'var(--good)' : 'var(--bad)' }}>{signedPct(s.quantityPct)}</td>
-                  <td className="r">{s.significant ? <Chip kind="measured" title="The government study behind this number was confident the effect is real">significant</Chip> : <span className="faint" title="Could just as well be zero">not significant</span>}</td>
+                  <td className="r">{s.significant ? <span style={{ color: s.quantityPct >= 0 ? 'var(--good)' : 'var(--bad)' }}>{signedPct(s.quantityPct)}</span> : <span className="faint" title="The estimate behind this could just as well be zero">not significant</span>}</td>
                 </tr>
               ))}
             </tbody>

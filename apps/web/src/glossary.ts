@@ -18,8 +18,8 @@ export const GLOSSARY: Record<string, { title: string; text: string }> = {
   measured: { title: 'Measured', text: 'A number taken straight from a published data series or an official record.' },
   breaking: { title: 'Breaking', text: 'Reported in the news but not yet showing up in any shipping, supply, or price data. Drawn with a dotted outline.' },
   band: { title: 'Range', text: 'The same cost recalculated with the lowest and the highest published estimates of how much shoppers cut back when prices rise.' },
-  heatStable: { title: 'Stable (green)', text: 'No active or reported threat here. Darker green means this place supplies more of America\'s food: for countries, a bigger share of what the US imports; for states, a bigger share of what the US grows and raises.' },
-  heatAnticipated: { title: 'Anticipated (yellow)', text: 'The news is reporting a problem here that has not yet shown up in shipping, supply, or price data. Darker yellow means more of America\'s food is at risk and the report is more certain.' },
-  heatNone: { title: 'Grey', text: 'No measurable food supply to the United States comes from here, and nothing is reported. It does not affect US shoppers either way.' },
+  heatStable: { title: 'Stable (green)', text: 'No active or reported threat here. The shade shows how much of America\'s food comes from this place: for countries, its share of what the US imports; for states, its share of what the US grows and raises. With a commodity filter on, the shares refer to that commodity.' },
+  heatAnticipated: { title: 'Reported (yellow)', text: 'The news is reporting a problem here that has not yet shown up in shipping, supply, or price data. The shade still shows how much of America\'s food comes from here, so a dark yellow country matters more than a pale one.' },
+  heatNone: { title: 'Grey', text: 'No measurable food supply to the United States comes from here, so it does not affect US shoppers either way.' },
   heatUnstable: { title: 'Unstable (red)', text: 'Supply from this place is already being cut. Darker red means a bigger share of America\'s food is affected right now.' },
 };

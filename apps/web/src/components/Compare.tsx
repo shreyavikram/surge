@@ -30,7 +30,7 @@ export function Compare({ ctx, tabs, entriesFor, focus, onClose }: Props) {
         <div className="modal-head"><h3>Compare scenarios</h3><button className="iconbtn" onClick={onClose}>×</button></div>
         <table className="tbl">
           <thead>
-            <tr><th>Scenario</th><th className="r">Threats</th><th className="r">Annual loss<Info term="cvAnnual" /></th><th className="r">Total loss<Info term="cv" /></th><th>Worst-hit</th><th className="r">Producer Δ<Info term="producer" /></th><th className="r">Relief cost</th><th className="r">Recover</th></tr>
+            <tr><th>Scenario</th><th className="r">Threats</th><th className="r">Annual loss<Info term="cvAnnual" /></th><th className="r">Total loss<Info term="cv" /></th><th>Worst-hit</th><th className="r">Producer Δ<Info term="producer" /></th><th className="r">Recover</th></tr>
           </thead>
           <tbody>
             {rows.map((r) => (
@@ -41,7 +41,6 @@ export function Compare({ ctx, tabs, entriesFor, focus, onClose }: Props) {
                 <td className="r" style={{ color: 'var(--bad)', fontWeight: 700 }}>{compactUsd(r.cv)}</td>
                 <td>{r.worstCommodity ? commodityName(ctx, r.worstCommodity) : '—'}</td>
                 <td className="r" style={{ color: r.producer >= 0 ? 'var(--good)' : 'var(--bad)' }}>{compactUsd(r.producer)}</td>
-                <td className="r">{compactUsd(r.mitigationCost)}</td>
                 <td className="r">{r.timeToRecoverMonths === null ? '—' : `${r.timeToRecoverMonths} mo`}</td>
               </tr>
             ))}

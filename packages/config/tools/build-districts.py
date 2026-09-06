@@ -166,6 +166,7 @@ for f in cd_feats:
     if not st or st not in state_info: continue
     info = state_info[st]
     num = p['BASENAME']
+    if 'large' in num.lower(): num = '00'
     if not num.isdigit(): continue  # territories / undefined
     did = f"{st}-{'AL' if num in ('00', '98') else num.zfill(2)}"
     n = by_state_count.get(fips, 1)

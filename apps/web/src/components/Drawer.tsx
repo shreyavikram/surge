@@ -53,12 +53,12 @@ export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onC
               <input type="range" min={0} max={1} step={0.01} value={t.severity} onChange={(e) => onDial(t.id, { severity: Number(e.target.value) })} />
             </label>
             <label>
-              <span>Duration <b>{t.months ?? entry.durationMonths} mo</b></span>
-              <input type="range" min={1} max={36} step={1} value={t.months ?? entry.durationMonths} onChange={(e) => onDial(t.id, { months: Number(e.target.value) })} />
+              <span>Duration, months</span>
+              <input className="num" type="number" min={1} step={1} value={t.months ?? entry.durationMonths} onChange={(e) => { const n = Math.max(1, Math.round(Number(e.target.value) || 1)); onDial(t.id, { months: n }); }} />
             </label>
             <div className="dial-actions">
               {tab.overrides[t.id] && <button className="linkbtn" onClick={() => onDial(t.id, { severity: undefined, months: undefined })}>reset</button>}
-              <button className="linkbtn danger" onClick={() => onRemove(t.id)}>remove from scenario</button>
+              <button className="btn danger" onClick={() => onRemove(t.id)}>Remove from scenario</button>
             </div>
           </div>
         )}

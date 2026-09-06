@@ -17,7 +17,7 @@ export interface AreaHeat {
   threats: string[];      // threat ids touching the area, active first
 }
 
-export const HEAT_SATURATION = { importShare: 0.25, disruption: 0.05, productionShare: 0.15 };
+export const HEAT_SATURATION = { importShare: 0.25, disruption: 0.05, productionShare: 0.15, lensImportShare: 0.5, lensProductionShare: 0.3 };
 
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
 
@@ -49,18 +49,34 @@ export function threatCountries(threat: Threat, ctx: EngineContext): string[] {
   return [...out];
 }
 
+/**
+ * Hue = status (green stable, yellow reported, red disrupted). Shade = how much of US supply comes from here,
+ * on a square-root scale so small suppliers still register; never certainty or loss.
+ */
 function classify(baseline: number, disruption: number, anticipated: number, satBase: number, ids: { active: string[]; breaking: string[] }): Omit<AreaHeat, 'id'> {
-  if (ids.active.length > 0) return { status: 'unstable', intensity: clamp01(0.25 + 0.75 * (disruption / HEAT_SATURATION.disruption)), baseline, disruption, anticipated, threats: [...ids.active, ...ids.breaking] };
-  if (ids.breaking.length > 0) return { status: 'anticipated', intensity: clamp01(0.25 + 0.75 * (anticipated / HEAT_SATURATION.disruption)), baseline, disruption, anticipated, threats: ids.breaking };
+  const shade = baseline > 0 ? clamp01(0.15 + 0.85 * Math.sqrt(baseline / satBase)) : 0.35;
+  if (ids.active.length > 0) return { status: 'unstable', intensity: shade, baseline, disruption, anticipated, threats: [...ids.active, ...ids.breaking] };
+  if (ids.breaking.length > 0) return { status: 'anticipated', intensity: shade, baseline, disruption, anticipated, threats: ids.breaking };
   // no measurable supply to the US and nothing reported: grey, not green
   if (baseline <= 0) return { status: 'none', intensity: 0, baseline, disruption, anticipated, threats: [] };
-  // square-root scale so small suppliers still register on the map; the legend states the saturation point
   return { status: 'stable', intensity: clamp01(Math.sqrt(baseline / satBase)), baseline, disruption, anticipated, threats: [] };
 }
 
-/** Supplier countries: status and intensity from the threats that touch them. */
-export function countryHeat(threats: Threat[], ctx: EngineContext): Record<string, AreaHeat> {
+/** Share of US imports of the lens commodities that come from a region (import-value weighted). */
+function lensOriginShare(ctx: EngineContext, regionId: string | undefined, lens: string[], w: Record<string, number>): number {
+  const r = regionId ? ctx.regions[regionId] : undefined;
+  if (!r) return 0;
+  let num = 0, den = 0;
+  for (const c of lens) { const wc = w[c] ?? 0; den += wc; num += wc * (r.usImportOriginShare?.[c] ?? 0); }
+  return den > 0 ? num / den : 0;
+}
+
+/** Supplier countries: status from the threats that touch them; shade from their share of US imports
+ * (of all food, or of the lens commodities when a lens is given). */
+export function countryHeat(threats: Threat[], ctx: EngineContext, lens?: string[]): Record<string, AreaHeat> {
   const w = commodityImportWeights(ctx);
+  const lensSet = lens && lens.length > 0 ? new Set(lens) : null;
+  if (lensSet) threats = threats.filter((t) => t.commodities.some((c) => lensSet.has(c.id)));
   const acc: Record<string, { disruption: number; anticipated: number; active: string[]; breaking: string[] }> = {};
   for (const t of threats) {
     const region = t.location.regionId ? ctx.regions[t.location.regionId] : undefined;
@@ -80,25 +96,34 @@ export function countryHeat(threats: Threat[], ctx: EngineContext): Record<strin
   }
   const out: Record<string, AreaHeat> = {};
   const all = new Set<string>([...Object.keys(ctx.countries?.countries ?? {}), ...Object.keys(acc)]);
+  // region lookup by country for the lens
+  const regionOf: Record<string, string> = {};
+  for (const r of Object.values(ctx.regions)) for (const iso of r.countries ?? []) regionOf[iso] ??= r.id;
   for (const iso of all) {
-    const baseline = ctx.countries?.countries[iso]?.usFoodImportShare ?? 0;
+    const baseline = lensSet ? lensOriginShare(ctx, regionOf[iso], [...lensSet], w) : (ctx.countries?.countries[iso]?.usFoodImportShare ?? 0);
     const a = acc[iso] ?? { disruption: 0, anticipated: 0, active: [], breaking: [] };
-    out[iso] = { id: iso, ...classify(baseline, a.disruption, a.anticipated, HEAT_SATURATION.importShare, a) };
+    out[iso] = { id: iso, ...classify(baseline, a.disruption, a.anticipated, lensSet ? HEAT_SATURATION.lensImportShare : HEAT_SATURATION.importShare, a) };
   }
   return out;
 }
 
-/** US states: baseline from production shares; disruption from domestic threats whose region covers the state. */
-export function stateHeat(threats: Threat[], ctx: EngineContext): Record<string, AreaHeat> {
+/** US states: shade from production share (of all food, or of the lens commodities); status from domestic threats
+ * whose region covers the state. */
+export function stateHeat(threats: Threat[], ctx: EngineContext, lens?: string[]): Record<string, AreaHeat> {
   const cfg = ctx.focus;
   if (!cfg) return {};
   const w = commodityDomesticWeights(ctx);
+  const lensSet = lens && lens.length > 0 ? new Set(lens) : null;
+  if (lensSet) threats = threats.filter((t) => t.commodities.some((c) => lensSet.has(c.id)));
   const states = cfg.areas.filter((a) => a.kind === 'state');
   const baseline: Record<string, number> = {};
   for (const s of states) {
-    let b = 0;
-    for (const [cid, shares] of Object.entries(cfg.production)) b += (shares[s.id] ?? 0) * (w[cid] ?? 0);
-    baseline[s.id] = b;
+    let b = 0, den = 0;
+    for (const [cid, shares] of Object.entries(cfg.production)) {
+      if (lensSet && !lensSet.has(cid)) continue;
+      b += (shares[s.id] ?? 0) * (w[cid] ?? 0); den += w[cid] ?? 0;
+    }
+    baseline[s.id] = lensSet ? (den > 0 ? b / den : 0) : b;
   }
   const acc: Record<string, { disruption: number; anticipated: number; active: string[]; breaking: string[] }> = {};
   for (const t of threats) {
@@ -125,7 +150,7 @@ export function stateHeat(threats: Threat[], ctx: EngineContext): Record<string,
   const out: Record<string, AreaHeat> = {};
   for (const s of states) {
     const a = acc[s.id] ?? { disruption: 0, anticipated: 0, active: [], breaking: [] };
-    out[s.id] = { id: s.id, ...classify(baseline[s.id] ?? 0, a.disruption, a.anticipated, HEAT_SATURATION.productionShare, a) };
+    out[s.id] = { id: s.id, ...classify(baseline[s.id] ?? 0, a.disruption, a.anticipated, lensSet ? HEAT_SATURATION.lensProductionShare : HEAT_SATURATION.productionShare, a) };
   }
   return out;
 }

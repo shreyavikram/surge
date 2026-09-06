@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { geoAlbersUsa, geoPath, geoArea } from 'd3-geo';
 import type { EngineContext } from '@surge/engine';
 import { type RankedEntry, perCapitaLossByArea, producerChangeByArea, focusView, focusAreas } from '../engine.js';
@@ -76,11 +76,20 @@ export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: E
   const hoverArea = hover && ctx.focus ? ctx.focus.areas.find((a) => a.id === hover) : undefined;
 
   const [hoverWho, setHoverWho] = useState<'consumers' | 'producers'>('consumers');
+  const [zoom, setZoom] = useState({ k: 1, cx: W / 2, cy: H / 2 });
+  const zoomBy = (f: number) => setZoom((z) => { const k = Math.max(1, Math.min(8, z.k * f)); return k === 1 ? { k: 1, cx: W / 2, cy: H / 2 } : { ...z, k }; });
+  const vb = `${zoom.cx - W / (2 * zoom.k)} ${zoom.cy - H / (2 * zoom.k)} ${W / zoom.k} ${H / zoom.k}`;
+  const dragRef = useRef<{ x: number; y: number; cx: number; cy: number } | null>(null);
   const renderMap = (who: 'consumers' | 'producers') => (
     <div className="section" key={who}>
       <h4>Where the {who === 'consumers' ? 'consumer loss' : 'producer gain or loss'} lands<Info term={who === 'consumers' ? 'perCapita' : 'producer'} /></h4>
       <div className="usmap-wrap">
-        <svg viewBox={`0 0 ${W} ${H}`} className="usmap" style={{ width: '100%', height: 'auto', display: 'block' }}>
+        <div className="svg-zoom mini"><button onClick={() => zoomBy(1.5)} title="Zoom in">+</button><button onClick={() => zoomBy(1 / 1.5)} title="Zoom out">−</button></div>
+        <svg viewBox={vb} className="usmap" style={{ width: '100%', height: 'auto', display: 'block', cursor: 'grab' }}
+          onWheel={(e) => { e.preventDefault(); zoomBy(e.deltaY < 0 ? 1.2 : 1 / 1.2); }}
+          onMouseDown={(e) => { dragRef.current = { x: e.clientX, y: e.clientY, cx: zoom.cx, cy: zoom.cy }; }}
+          onMouseMove={(e) => { const d = dragRef.current; if (!d) return; const el = e.currentTarget; const sc = (W / zoom.k) / el.clientWidth; setZoom((z) => ({ ...z, cx: d.cx - (e.clientX - d.x) * sc, cy: d.cy - (e.clientY - d.y) * sc })); }}
+          onMouseUp={() => { dragRef.current = null; }} onMouseLeave={() => { dragRef.current = null; }}>
           {geo?.features.map((f) => {
             const id = (f.id as string | undefined) ?? (f.properties as { id?: string } | null)?.id ?? '';
             const r = byId[id];

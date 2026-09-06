@@ -31,11 +31,20 @@ describe('heat', () => {
     expect(h['MEX']!.threats).toEqual(['x']);
     expect(h['CAN']!.status).toBe('stable');
   });
-  it('a breaking item turns the origin yellow, scaled by confidence', () => {
+  it('a breaking item turns the origin yellow; the shade is its import share, not certainty', () => {
     const lo = countryHeat([mk({ status: 'breaking', confidence: 0.2 })], ctx)['MEX']!;
     const hi = countryHeat([mk({ status: 'breaking', confidence: 0.9 })], ctx)['MEX']!;
     expect(lo.status).toBe('anticipated');
-    expect(hi.intensity).toBeGreaterThan(lo.intensity);
+    expect(hi.intensity).toBeCloseTo(lo.intensity, 9);
+    expect(hi.intensity).toBeGreaterThan(countryHeat([mk({ status: 'breaking', location: { lat: 15.5, lng: -90.3, regionId: 'guatemala', iso3: 'GTM' }, commodities: [{ id: 'bananas', relevance: 1 }] })], ctx)['GTM']!.intensity);
+  });
+  it('a commodity lens recolors by that commodity: tomato suppliers only', () => {
+    const h = countryHeat([], ctx, ['tomatoes']);
+    expect(h['MEX']!.status).toBe('stable');
+    expect(h['MEX']!.baseline).toBeCloseTo(0.9, 6);
+    expect(h['CAN']!.status).toBe('none');
+    const st = stateHeat([], ctx, ['eggs']);
+    expect(st['IA']!.baseline).toBeGreaterThan(st['NV']!.baseline);
   });
   it('active beats anticipated when both touch a country', () => {
     const h = countryHeat([mk({ id: 'a' }), mk({ id: 'b', status: 'breaking' })], ctx)['MEX']!;
