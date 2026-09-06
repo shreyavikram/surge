@@ -1,7 +1,9 @@
 import { loadContext } from '@surge/config';
-import { interpretScenario, type ThreatCandidate } from '@surge/engine';
+import { interpretScenario, validateCandidate, type ThreatCandidate } from '@surge/engine';
 import type { FeedAdapter, FeedResult, FeedItem } from './types.js';
 import { httpText } from './http.js';
+import { classifyHeadlines } from '../ai/news-llm.js';
+import { readEnv } from '../env.js';
 
 /**
  * Google News RSS (no key; the feed's terms allow personal, non-commercial use) → the deterministic interpreter →
@@ -21,6 +23,7 @@ const QUERIES = [
 ];
 
 export interface NewsArticle { title: string; link: string; pubDate: string; source: string }
+export interface ClassifiedArticle { index: number; category: ThreatCandidate['category']; regionId: string; commodities: string[]; severity: number; months: number; confidence: number; description: string }
 
 function decode(s: string): string {
   return s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&apos;/g, "'").trim();
@@ -50,7 +53,7 @@ export const news: FeedAdapter = {
   ttlMs: 60 * 60 * 1000,
   snapshotName: 'news',
 
-  async fetch(): Promise<FeedResult> {
+  async fetch(env): Promise<FeedResult> {
     const articles: NewsArticle[] = [];
     for (const q of QUERIES) {
       try {
@@ -58,25 +61,51 @@ export const news: FeedAdapter = {
         articles.push(...parseRss(await httpText(url, 15000)).slice(0, 40));
       } catch { /* one query failing must not sink the feed */ }
     }
-    return this.parse({ articles });
+    // Gemini screens headlines (event or not, place, commodities, plain description); rules take over without a key
+    const key = env?.GEMINI_API_KEY ?? readEnv().GEMINI_API_KEY;
+    let classified: ClassifiedArticle[] | undefined;
+    if (key && articles.length > 0) {
+      const ctx = loadContext();
+      const seen = new Set<string>();
+      const unique = articles.filter((a) => { const k = a.title.toLowerCase(); if (seen.has(k)) return false; seen.add(k); return true; });
+      const map = await classifyHeadlines(unique.map((a) => a.title), ctx, key);
+      if (map.size > 0) classified = [...map.entries()].map(([i, v]) => ({ index: articles.indexOf(unique[i]!), category: v.c.category, regionId: v.c.regionId, commodities: v.c.commodities.map((x) => x.id), severity: v.c.severity, months: v.c.months, confidence: v.c.confidence, description: v.description }));
+    }
+    return this.parse({ articles, classified });
   },
 
   parse(raw: unknown): FeedResult {
     const ctx = loadContext();
-    const arts = (raw as { articles?: NewsArticle[] }).articles ?? [];
-    const best = new Map<string, { c: ThreatCandidate; a: NewsArticle; n: number }>();
-    for (const a of arts) {
-      for (const c of interpretScenario(a.title, ctx)) {
-        // a headline must name both the kind of threat and the place; no defaults, no weak matches
-        if (!c.explicitCategory || !c.explicitRegion || c.confidence < 0.75) continue;
+    const { articles: arts = [], classified } = raw as { articles?: NewsArticle[]; classified?: ClassifiedArticle[] };
+    const best = new Map<string, { c: ThreatCandidate; a: NewsArticle; n: number; description?: string }>();
+    if (classified) {
+      // classified by the model and validated: only these count
+      const RELIEF = /\b(tariff[- ]free|lifts?|lifted|lifting|allow(s|ing)?|eases?|easing|removes?|removing|cuts? tariff|suspends? tariff|reopens?|resumes?|aid)\b/i;
+      for (const k of classified) {
+        const a = arts[k.index]; if (!a) continue;
+        if (k.confidence < 0.7) continue;
+        if (RELIEF.test(a.title) || RELIEF.test(k.description)) continue;
+        const c: ThreatCandidate = { name: a.title, category: k.category, regionId: k.regionId, commodities: k.commodities.map((id) => ({ id, relevance: 1 })), severity: k.severity, months: k.months, confidence: k.confidence, matched: ['gemini'], source: 'llm', explicitCategory: true, explicitRegion: true };
+        if (validateCandidate(c, ctx).length > 0) continue;
         const key = `${c.category}|${c.regionId}`;
         const cur = best.get(key);
-        if (!cur) best.set(key, { c, a, n: 1 });
-        else { cur.n += 1; if (c.confidence > cur.c.confidence) { cur.c = c; cur.a = a; } }
+        if (!cur) best.set(key, { c, a, n: 1, description: k.description });
+        else { cur.n += 1; if (c.confidence > cur.c.confidence) { cur.c = c; cur.a = a; cur.description = k.description; } }
+      }
+    } else {
+      for (const a of arts) {
+        for (const c of interpretScenario(a.title, ctx)) {
+          // a headline must name both the kind of threat and the place; no defaults, no weak matches
+          if (!c.explicitCategory || !c.explicitRegion || c.confidence < 0.75) continue;
+          const key = `${c.category}|${c.regionId}`;
+          const cur = best.get(key);
+          if (!cur) best.set(key, { c, a, n: 1 });
+          else { cur.n += 1; if (c.confidence > cur.c.confidence) { cur.c = c; cur.a = a; } }
+        }
       }
     }
     const items: FeedItem[] = [];
-    for (const [key, { c, a, n }] of best) {
+    for (const [key, { c, a, n, description }] of best) {
       const r = ctx.regions[c.regionId]!;
       const item: FeedItem = {
         id: `news-${key.replace(/[^a-z0-9]+/gi, '-')}`,
@@ -85,8 +114,9 @@ export const news: FeedAdapter = {
         regionId: c.regionId, admin: r.name, lat: r.lat, lng: r.lng,
         commodities: c.commodities, severity: c.severity, months: c.months,
         status: 'breaking', confidence: Math.min(1, c.confidence * 0.8 + 0.05 * (n - 1)),
-        text: `${a.source || 'news'} · ${n} matching headline${n > 1 ? 's' : ''} in 3 days · matched: ${c.matched.join(', ')} · ${a.link}`,
+        text: `${a.source || 'news'} · ${n} matching headline${n > 1 ? 's' : ''} in 3 days · ${c.source === 'llm' ? 'classified by Gemini, validated' : `matched: ${c.matched.join(', ')}`} · ${a.link}`,
       };
+      if (description) item.summary = description;
       const start = ym(a.pubDate);
       if (start) item.start = start;
       if (r.countries?.length === 1) item.iso3 = r.countries[0]!;

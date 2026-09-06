@@ -1,0 +1,12 @@
+import { loadContext } from '@surge/config';
+import { readEnv } from '../src/env.js';
+import { buildNewsPrompt } from '../src/ai/news-llm.js';
+const env = readEnv(); const ctx = loadContext();
+const titles = ['India bans rice exports as monsoon fails', 'Fresno State vigil honoring Nepali flood victims', 'Bird flu detected at Iowa layer farm; 2 million hens to be culled', 'Houthi strikes close Red Sea shipping lanes, coffee cargoes rerouted', 'Panama Canal pushes back planned draft cut for big ships'];
+const url = `https://generativelanguage.googleapis.com/v1beta/models/${process.env['GEMINI_MODEL'] ?? 'gemini-3.6-flash'}:generateContent?key=${env.GEMINI_API_KEY}`;
+const body = { contents: [{ parts: [{ text: buildNewsPrompt(titles, ctx) }] }], generationConfig: { responseMimeType: 'application/json', temperature: 0 } };
+const t0 = Date.now();
+const res = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+console.log('status', res.status, 'in', Date.now() - t0, 'ms; prompt chars', buildNewsPrompt(titles, ctx).length);
+const d = await res.json() as any;
+console.log(JSON.stringify(d).slice(0, 1500));

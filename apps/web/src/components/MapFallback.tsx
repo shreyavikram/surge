@@ -88,6 +88,7 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
             onMouseEnter={() => setHover(id)} onMouseLeave={() => setHover(null)} onClick={() => { const t = h?.threats[0]; if (t) onSelect(t); }} style={{ cursor: h?.threats.length ? 'pointer' : 'default' }} />;
         })}
       </svg>
+      {(!countries || !states) && <img className="map-loader" src="/brand/greenfield-loading.svg" alt="Loading map…" />}
       <div className="svg-zoom"><button onClick={() => zoomBy(1.4)} title="Zoom in (+)">+</button><button onClick={() => zoomBy(1 / 1.4)} title="Zoom out (−)">−</button></div>
       <div className="svg-hint">+ / − to zoom · arrows or drag to pan · simplified map ({reason})</div>
       {hover && (

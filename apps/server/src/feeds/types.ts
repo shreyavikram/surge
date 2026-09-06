@@ -21,6 +21,8 @@ export interface FeedItem {
   alertScore?: boolean;
   status?: 'active' | 'breaking';
   confidence?: number;
+  /** one plain sentence on what is happening */
+  summary?: string;
   physical?: PhysicalShock;
   start?: string;    // YYYY-MM
   end?: string;

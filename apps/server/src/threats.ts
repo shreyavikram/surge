@@ -90,6 +90,7 @@ export function feedItemsToThreats(items: FeedItem[], source: SourceStamp, ctx: 
       source: { feed: source.feed, kind: source.kind },
     };
     if (item.status) threat.status = item.status;
+    if (item.summary) threat.summary = item.summary;
     if (item.confidence !== undefined) threat.confidence = item.confidence;
     if (item.iso3) threat.location.iso3 = item.iso3;
     else if (region.countries?.length === 1) threat.location.iso3 = region.countries[0]!;

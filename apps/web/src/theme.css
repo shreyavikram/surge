@@ -10,9 +10,9 @@
   --text: #e7edf5;
   --text-dim: #93a0b4;
   --text-faint: #5d6b80;
-  --accent: #4aa8ff;
-  --accent-dim: #2b6fb0;
-  --good: #2dd4bf;
+  --accent: #89c257;
+  --accent-dim: #54922e;
+  --good: #63a338;
   --warn: #f5a623;
   --bad: #ff5b6e;
 
@@ -29,18 +29,18 @@
 }
 
 :root[data-theme="light"] {
-  --bg: #eef1f6;
+  --bg: #f4f2ec;
   --panel: #ffffff;
-  --panel-2: #f4f6fa;
-  --panel-3: #e9edf4;
+  --panel-2: #f6f5ef;
+  --panel-3: #e9ede2;
   --border: #d5dce780;
   --border-solid: #d5dce7;
   --text: #16202e;
   --text-dim: #566072;
   --text-faint: #8a94a6;
-  --accent: #0b6bcb;
-  --accent-dim: #7fb3e6;
-  --good: #0d9488;
+  --accent: #63a338;
+  --accent-dim: #badd90;
+  --good: #54922e;
   --warn: #b8770f;
   --bad: #d64550;
   --cat-geopolitical: #b8770f;
@@ -214,7 +214,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 /* ---------- Restructure (team critique, 2026-09-06) ---------- */
 .topbar .tabs-bar { display: flex; align-items: center; gap: 4px; margin-left: 14px; overflow-x: auto; }
 .tab { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 6px; font-size: 12.5px; color: var(--text-dim); cursor: pointer; border: 1px solid transparent; white-space: nowrap; }
-.tab.on { background: var(--panel-2); color: var(--text); border-color: var(--border-solid); }
+.tab.on { background: color-mix(in srgb, var(--accent) 22%, var(--panel-2)); color: var(--text); border-color: var(--accent); }
 .tab.new { background: transparent; color: var(--text-faint); border: 1px dashed var(--border-solid); }
 .tab.new:hover { color: var(--text); }
 .tab .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); box-shadow: 0 0 0 3px color-mix(in srgb, var(--good) 25%, transparent); }
@@ -360,3 +360,10 @@ details.assumptions .assump { margin-top: 6px; }
 .map-wrap.fallback .map-hover { max-width: 380px; }
 .svg-hint { position: absolute; left: 52px; top: 12px; z-index: 5; font-size: 11px; color: var(--text-faint); pointer-events: none; }
 .map-wrap.fallback .map-hover { top: 34px; }
+
+/* brand */
+.brand-logo { height: 26px; display: block; }
+.map-loader { position: absolute; top: 50%; left: 50%; width: 120px; height: 120px; transform: translate(-50%, -50%); pointer-events: none; z-index: 20; transition: opacity 0.4s ease; }
+.map-loader.done { opacity: 0; }
+.btn.ghost { border-color: var(--accent); color: var(--accent-dim); background: color-mix(in srgb, var(--accent) 12%, transparent); font-weight: 600; }
+.btn.ghost:hover { background: color-mix(in srgb, var(--accent) 24%, transparent); }

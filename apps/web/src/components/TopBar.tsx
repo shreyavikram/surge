@@ -17,7 +17,7 @@ interface Props {
 export function TopBar({ tabs, activeTab, onSelectTab, onNewTab, onRenameTab, onCloseTab, feedStatus, onSettings, theme, toggleTheme }: Props) {
   return (
     <div className="topbar">
-      <div className="brand">SUR<span>GE</span></div>
+      <a className="brand" href="/" title="Greenfield"><img className="brand-logo" src="/brand/greenfield-logo.svg" alt="Greenfield" /></a>
       <div className="tabs-bar">
         {[LIVE_TAB, ...tabs].map((t) => (
           <div key={t.id} className={`tab ${activeTab === t.id ? 'on' : ''} ${t.id === 'live' ? 'live' : ''}`} onClick={() => onSelectTab(t.id)}

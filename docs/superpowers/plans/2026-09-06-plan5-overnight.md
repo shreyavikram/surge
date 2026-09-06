@@ -4,14 +4,14 @@ Source: "Surge 1 Notes" PDF. Order: data integrity → branding → interface li
 Progress is tracked here with [x]; every task commits, pushes, and deploys.
 
 ## A. Data integrity
-- [ ] A1 News classification through Gemini (event? type, place, commodities, one-line description) with the deterministic validator; rule-based fallback only. Kills "vigil"/"tree"/"donations" items and gives popups a real description.
-- [ ] A2 Interpreter: "invades", "cuts off exports", region-only scenarios (Russia/Ukraine) produce shocks.
-- [ ] A3 Split grouped regions: india / thailand / pakistan; ukraine / russia; guatemala / ecuador / honduras / costa-rica / colombia; vietnam / indonesia. Thailand no longer colors with India.
+- [x] A1 News classification through Gemini (event? type, place, commodities, one-line description) with the deterministic validator; rule-based fallback only. Kills "vigil"/"tree"/"donations" items and gives popups a real description.
+- [x] A2 Interpreter: "invades", "cuts off exports", region-only scenarios (Russia/Ukraine) produce shocks.
+- [x] A3 Split grouped regions: india / thailand / pakistan; ukraine / russia; guatemala / ecuador / honduras / costa-rica / colombia; vietnam / indonesia. Thailand no longer colors with India.
 - [ ] A4 Price charts: explicit month ticks, a "now" marker, "shock ends" label; description of why prices return to normal.
 - [ ] A5 Docs: DATA-AUDIT.md (mechanism, confidence, improvements per process).
 
 ## B. Branding
-- [ ] B1 Rename to Greenfield; temporary logo mark; spinning logo while the map loads; green accent palette; active tab green.
+- [x] B1 Rename to Greenfield; temporary logo mark; spinning logo while the map loads; green accent palette; active tab green.
 
 ## C. Interface notes
 - [ ] C1 Popups: brief description instead of headline list; no "nothing is reported"; no "darker green means"; show import share for yellow/red too; commodity-specific wording under a commodity filter.

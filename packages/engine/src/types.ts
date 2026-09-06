@@ -54,6 +54,8 @@ export interface Threat {
   status?: 'active' | 'breaking';
   /** for anticipated (breaking) items: how certain the report is, 0..1 */
   confidence?: number;
+  /** one plain sentence on what is happening (from the feed or the classifier) */
+  summary?: string;
   start: string;                  // YYYY-MM
   months?: number;                // duration override
   source: SourceStamp;

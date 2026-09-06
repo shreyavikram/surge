@@ -202,60 +202,23 @@
    "BRA"
   ]
  },
- "central-america-bananas": {
-  "id": "central-america-bananas",
-  "name": "Guatemala, Ecuador, Costa Rica, Honduras, Colombia",
-  "lat": 10.0,
-  "lng": -84.0,
-  "bbox": [
-   -92.5,
-   -5.0,
-   -66.0,
-   18.0
-  ],
-  "usImportOriginShare": {
-   "bananas": 0.95,
-   "coffee": 0.3
-  },
-  "source": "USDA FAS GATS (approximate)",
-  "countries": [
-   "GTM",
-   "ECU",
-   "HND",
-   "CRI",
-   "COL",
-   "PAN",
-   "NIC"
-  ]
- },
  "black-sea": {
   "id": "black-sea",
-  "name": "Ukraine and Russia (Black Sea)",
-  "lat": 48.0,
-  "lng": 35.0,
+  "name": "Black Sea shipping (Bosporus, Kerch)",
+  "lat": 42.0,
+  "lng": 31.0,
   "bbox": [
-   22.0,
-   41.0,
-   60.0,
-   56.0
+   27.0,
+   40.5,
+   42.0,
+   47.5
   ],
-  "worldExportShare": {
-   "wheat": 0.28,
-   "fats-oils": 0.5,
-   "corn": 0.15,
-   "fertilizer": 0.2
+  "countries": [],
+  "chokepointImportShare": {
+   "fats-oils": 0.05,
+   "wheat": 0.02
   },
-  "usImportOriginShare": {
-   "fertilizer": 0.15
-  },
-  "source": "USDA FAS PSD 2021/22: Russia+Ukraine ~28% of wheat exports, ~75% sunflower oil; IFPRI fertilizer (approximate)",
-  "countries": [
-   "UKR",
-   "RUS",
-   "ROU",
-   "BGR",
-   "MDA"
-  ]
+  "source": "Chokepoint for Ukrainian and Russian grain and sunflower oil exports; US exposure via world prices is carried by the ukraine and russia regions"
  },
  "hormuz": {
   "id": "hormuz",
@@ -329,53 +292,6 @@
   "source": "USDA Jun 2025: 57% of 2025 shell-egg imports",
   "countries": [
    "TUR"
-  ]
- },
- "vietnam-brazil-coffee": {
-  "id": "vietnam-brazil-coffee",
-  "name": "Vietnam and Brazil coffee belt",
-  "lat": 12.0,
-  "lng": 108.0,
-  "bbox": [
-   102.0,
-   8.0,
-   110.0,
-   23.0
-  ],
-  "worldExportShare": {
-   "coffee": 0.2
-  },
-  "usImportOriginShare": {
-   "coffee": 0.1
-  },
-  "source": "USDA FAS Coffee (approximate)",
-  "countries": [
-   "VNM",
-   "IDN"
-  ]
- },
- "india-rice": {
-  "id": "india-rice",
-  "name": "India",
-  "lat": 22.0,
-  "lng": 79.0,
-  "bbox": [
-   68.0,
-   8.0,
-   97.0,
-   35.0
-  ],
-  "worldExportShare": {
-   "rice": 0.4
-  },
-  "usImportOriginShare": {
-   "rice": 0.2
-  },
-  "source": "USDA FAS Grain: World Markets and Trade; India ~40% of rice exports; 2023 export ban precedent",
-  "countries": [
-   "IND",
-   "THA",
-   "PAK"
   ]
  },
  "us-national": {
@@ -465,5 +381,274 @@
    "energy": 0.04
   },
   "source": "IFA: Iran ~6% of world urea exports; OPEC: ~4% of world crude exports (approx.); no US food imports from Iran (sanctions)"
+ },
+ "india": {
+  "id": "india",
+  "name": "India",
+  "lat": 22.0,
+  "lng": 79.0,
+  "bbox": [
+   68.0,
+   6.0,
+   97.5,
+   36.0
+  ],
+  "countries": [
+   "IND"
+  ],
+  "usImportOriginShare": {
+   "rice": 0.3
+  },
+  "worldExportShare": {
+   "rice": 0.4
+  },
+  "source": "USDA ERS Rice Outlook: basmati from India roughly a third of US rice imports; India ~40% of world rice exports (approx.)"
+ },
+ "thailand": {
+  "id": "thailand",
+  "name": "Thailand",
+  "lat": 15.5,
+  "lng": 101.0,
+  "bbox": [
+   97.0,
+   5.5,
+   106.0,
+   20.5
+  ],
+  "countries": [
+   "THA"
+  ],
+  "usImportOriginShare": {
+   "rice": 0.45
+  },
+  "worldExportShare": {
+   "rice": 0.15
+  },
+  "source": "USDA ERS Rice Outlook: Thai jasmine roughly half of US rice imports; Thailand ~15% of world rice exports (approx.)"
+ },
+ "pakistan": {
+  "id": "pakistan",
+  "name": "Pakistan",
+  "lat": 30.0,
+  "lng": 69.0,
+  "bbox": [
+   61.0,
+   23.5,
+   77.0,
+   37.0
+  ],
+  "countries": [
+   "PAK"
+  ],
+  "usImportOriginShare": {
+   "rice": 0.05
+  },
+  "worldExportShare": {
+   "rice": 0.1
+  },
+  "source": "USDA FAS: Pakistan ~10% of world rice exports, small share of US imports (approx.)"
+ },
+ "vietnam": {
+  "id": "vietnam",
+  "name": "Vietnam",
+  "lat": 16.0,
+  "lng": 107.5,
+  "bbox": [
+   102.0,
+   8.5,
+   110.0,
+   23.5
+  ],
+  "countries": [
+   "VNM"
+  ],
+  "usImportOriginShare": {
+   "coffee": 0.1,
+   "rice": 0.05
+  },
+  "worldExportShare": {
+   "coffee": 0.2,
+   "rice": 0.12
+  },
+  "source": "USDA FAS Coffee: Vietnam ~20% of world coffee exports (robusta); ERS: ~10% of US coffee imports (approx.)"
+ },
+ "indonesia": {
+  "id": "indonesia",
+  "name": "Indonesia",
+  "lat": -2.5,
+  "lng": 118.0,
+  "bbox": [
+   95.0,
+   -11.0,
+   141.0,
+   6.0
+  ],
+  "countries": [
+   "IDN"
+  ],
+  "usImportOriginShare": {
+   "coffee": 0.08,
+   "fats-oils": 0.15
+  },
+  "worldExportShare": {
+   "fats-oils": 0.5,
+   "coffee": 0.07
+  },
+  "source": "USDA FAS Oilseeds: Indonesia ~half of world palm oil exports; ERS: ~15% of US vegetable-oil imports, ~8% of coffee imports (approx.)"
+ },
+ "ukraine": {
+  "id": "ukraine",
+  "name": "Ukraine",
+  "lat": 49.0,
+  "lng": 31.5,
+  "bbox": [
+   22.0,
+   44.0,
+   40.5,
+   52.5
+  ],
+  "countries": [
+   "UKR"
+  ],
+  "usImportOriginShare": {
+   "fats-oils": 0.05
+  },
+  "worldExportShare": {
+   "wheat": 0.09,
+   "fats-oils": 0.45,
+   "corn": 0.12
+  },
+  "source": "USDA FAS Grain: Ukraine ~9% of world wheat, ~12% of corn, ~45% of sunflower oil exports pre-2022 (approx.)"
+ },
+ "russia": {
+  "id": "russia",
+  "name": "Russia",
+  "lat": 56.0,
+  "lng": 60.0,
+  "bbox": [
+   27.0,
+   41.0,
+   180.0,
+   77.0
+  ],
+  "countries": [
+   "RUS"
+  ],
+  "usImportOriginShare": {
+   "fertilizer": 0.12
+  },
+  "worldExportShare": {
+   "wheat": 0.2,
+   "fertilizer": 0.15
+  },
+  "source": "USDA FAS Grain: Russia ~20% of world wheat exports; TFI/Census: ~12% of US nitrogen and potash imports, ~15% of world fertilizer exports (approx.)"
+ },
+ "guatemala": {
+  "id": "guatemala",
+  "name": "Guatemala",
+  "lat": 15.5,
+  "lng": -90.3,
+  "bbox": [
+   -92.3,
+   13.7,
+   -88.2,
+   17.9
+  ],
+  "countries": [
+   "GTM"
+  ],
+  "usImportOriginShare": {
+   "bananas": 0.35,
+   "coffee": 0.05,
+   "fresh-vegetables": 0.02
+  },
+  "worldExportShare": {},
+  "source": "USDA ERS Fruit and Tree Nuts Outlook: Guatemala ~35% of US banana imports (approx.)"
+ },
+ "ecuador": {
+  "id": "ecuador",
+  "name": "Ecuador",
+  "lat": -1.8,
+  "lng": -78.2,
+  "bbox": [
+   -81.1,
+   -5.0,
+   -75.2,
+   1.7
+  ],
+  "countries": [
+   "ECU"
+  ],
+  "usImportOriginShare": {
+   "bananas": 0.2
+  },
+  "worldExportShare": {
+   "bananas": 0.3
+  },
+  "source": "USDA ERS: Ecuador ~20% of US banana imports, ~30% of world banana exports (approx.)"
+ },
+ "honduras": {
+  "id": "honduras",
+  "name": "Honduras",
+  "lat": 15.0,
+  "lng": -86.5,
+  "bbox": [
+   -89.4,
+   12.9,
+   -83.1,
+   16.5
+  ],
+  "countries": [
+   "HND"
+  ],
+  "usImportOriginShare": {
+   "bananas": 0.1,
+   "coffee": 0.06
+  },
+  "worldExportShare": {},
+  "source": "USDA ERS: Honduras ~10% of US banana imports, ~6% of coffee imports (approx.)"
+ },
+ "costa-rica": {
+  "id": "costa-rica",
+  "name": "Costa Rica",
+  "lat": 10.0,
+  "lng": -84.2,
+  "bbox": [
+   -86.0,
+   8.0,
+   -82.5,
+   11.3
+  ],
+  "countries": [
+   "CRI"
+  ],
+  "usImportOriginShare": {
+   "bananas": 0.15
+  },
+  "worldExportShare": {},
+  "source": "USDA ERS: Costa Rica ~15% of US banana imports (approx.)"
+ },
+ "colombia": {
+  "id": "colombia",
+  "name": "Colombia",
+  "lat": 4.5,
+  "lng": -74.0,
+  "bbox": [
+   -79.0,
+   -4.3,
+   -66.9,
+   12.5
+  ],
+  "countries": [
+   "COL"
+  ],
+  "usImportOriginShare": {
+   "coffee": 0.2,
+   "bananas": 0.05
+  },
+  "worldExportShare": {
+   "coffee": 0.1
+  },
+  "source": "USDA FAS Coffee: Colombia ~20% of US coffee imports (approx.)"
  }
 }

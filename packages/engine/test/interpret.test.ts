@@ -19,7 +19,7 @@ describe('interpretScenario', () => {
   it('reads an export ban and defaults to the region supply list when no commodity is named', () => {
     const c = interpretScenario('India bans all exports', ctx);
     expect(c[0]!.category).toBe('export_ban');
-    expect(c[0]!.regionId).toBe('india-rice');
+    expect(c[0]!.regionId).toBe('india');
     expect(c[0]!.commodities.map((x) => x.id)).toEqual(['rice']);
     expect(c[0]!.severity).toBe(1);
   });

@@ -20,7 +20,7 @@ describe('news adapter', () => {
     const r = news.parse({ articles: parseRss(rss) });
     const ids = r.items.map((i) => i.id);
     expect(r.items.every((i) => i.status === 'breaking' && (i.confidence ?? 0) > 0)).toBe(true);
-    expect(ids.some((i) => i.includes('export-ban-india-rice'))).toBe(true);
+    expect(ids.some((i) => i.includes('export-ban-india'))).toBe(true);
     expect(ids.some((i) => i.includes('disease-us-iowa'))).toBe(true);
     expect(ids.some((i) => i.includes('chokepoint-suez-red-sea'))).toBe(true);
     expect(r.items.some((i) => /Paris/.test(i.name))).toBe(false);

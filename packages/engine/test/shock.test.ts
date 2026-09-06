@@ -62,10 +62,10 @@ describe('threatToShocks', () => {
     expect(s!.supplyPath.length).toBe(6);
   });
   it('tariff: severity is the ad valorem rate → cost path = rate × import share × origin share', () => {
-    const t = base({ category: 'tariff', kind: 'geopolitical', commodities: [{ id: 'bananas', relevance: 1 }], location: { lat: 10, lng: -84, regionId: 'central-america-bananas' }, severity: 0.25, months: 12 });
+    const t = base({ category: 'tariff', kind: 'geopolitical', commodities: [{ id: 'bananas', relevance: 1 }], location: { lat: 15.5, lng: -90.3, regionId: 'guatemala' }, severity: 0.25, months: 12 });
     const [s] = threatToShocks(t, ctx);
     expect(s!.kind).toBe('cost');
-    expect(s!.costPath![0]).toBeCloseTo(0.25 * 1.0 * 0.95, 6);
+    expect(s!.costPath![0]).toBeCloseTo(0.25 * 1.0 * 0.35, 6);
   });
   it('chokepoint → delay shortfall and freight wedge on an input, propagated to commodities', () => {
     const t = base({ category: 'chokepoint', kind: 'geopolitical', commodities: [{ id: 'fertilizer', relevance: 1 }], location: { lat: 26.6, lng: 56.3, regionId: 'hormuz' }, severity: 0.5, months: 3 });
@@ -74,10 +74,10 @@ describe('threatToShocks', () => {
     expect(shocks.map((s) => s.commodity).sort()).toEqual(['potatoes', 'rice']);
   });
   it('war in an exporting region → world price shock × import exposure', () => {
-    const t = base({ category: 'war', kind: 'geopolitical', commodities: [{ id: 'wheat', relevance: 1 }], location: { lat: 48, lng: 35, regionId: 'black-sea' }, severity: 1, months: 6 });
+    const t = base({ category: 'war', kind: 'geopolitical', commodities: [{ id: 'wheat', relevance: 1 }], location: { lat: 49, lng: 31.5, regionId: 'ukraine' }, severity: 1, months: 6 });
     const shocks = threatToShocks(t, ctx);
     const bread = shocks.find((s) => s.commodity === 'bread')!;
-    expect(bread.costPath![0]).toBeCloseTo(0.28 * 0.5 * 0.45 * 0.06, 6);
+    expect(bread.costPath![0]).toBeCloseTo(0.09 * 0.5 * 0.45 * 0.06, 6);
   });
   it('a hazard in a foreign supplier region cuts US imports from it (import share × origin share)', () => {
     const t = base({ category: 'drought', commodities: [{ id: 'tomatoes', relevance: 1 }], location: { lat: 23, lng: -102, regionId: 'mexico' }, severity: 0.2, months: 12 });

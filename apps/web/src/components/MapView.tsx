@@ -166,9 +166,9 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
     void Promise.all([loadGeo('countries'), loadGeo('states')]).then(([countries, states]) => { geos.current = { countries, states }; if (ready.current) paint(map); });
     map.on('load', () => { map.resize(); addLayers(map); });
     const note = () => container.current?.parentElement?.querySelector('.basemap-loading') as HTMLElement | null;
-    map.once('load', () => setTimeout(() => note()?.remove(), 800));
-    map.on('error', (e) => { const n = note(); const msg = String((e as { error?: Error }).error?.message ?? ''); if (n && /tile|source/i.test(msg)) { n.textContent = 'basemap tiles unavailable · data layers only'; setTimeout(() => n.remove(), 6000); } });
-    setTimeout(() => note()?.remove(), 10000);
+    const hide = () => { const n = note(); if (n) { n.classList.add('done'); setTimeout(() => n.remove(), 500); } };
+    map.once('load', () => setTimeout(hide, 600));
+    setTimeout(hide, 12000);
     map.on('style.load', () => { ready.current = false; addLayers(map); });
     const pop = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 8, className: 'heat-pop' });
     popup.current = pop;
@@ -266,7 +266,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
   return (
     <div className="map-wrap">
       <div ref={container} style={{ position: 'absolute', inset: 0 }} />
-      <div className="basemap-loading">loading basemap…</div>
+      <img className="map-loader basemap-loading" src="/brand/greenfield-loading.svg" alt="Loading map…" />
       <HeatLegend focused={focus.kind !== 'us' && focus.ids.length > 0} />
     </div>
   );

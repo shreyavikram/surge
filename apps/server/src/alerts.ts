@@ -50,7 +50,7 @@ export interface Mailer { send(to: string, subject: string, body: string): Promi
 
 /** Resend's HTTP API when RESEND_API_KEY is set; else nodemailer over SMTP_URL; else a queue-only (null) mailer. */
 export async function makeMailer(smtpUrl: string | undefined, resendKey?: string, fetchImpl: typeof fetch = fetch): Promise<Mailer | null> {
-  const from = process.env['ALERT_FROM'] ?? 'SURGE <onboarding@resend.dev>';
+  const from = process.env['ALERT_FROM'] ?? 'Greenfield <onboarding@resend.dev>';
   if (resendKey) {
     return {
       async send(to, subject, body) {
@@ -73,8 +73,8 @@ export async function deliver(store: Store, mailer: Mailer | null, publicUrl: st
   const byEmail = new Map<string, PendingAlert[]>();
   for (const p of store.pending.filter((x) => !x.sent)) byEmail.set(p.email, [...(byEmail.get(p.email) ?? []), p]);
   for (const [email, list] of byEmail) {
-    const body = `New threats on SURGE that reach your focus area:\n\n${list.map((p) => `• ${p.name}`).join('\n')}\n\n${publicUrl}`;
-    try { await mailer.send(email, `SURGE: ${list.length} new food-supply threat${list.length > 1 ? 's' : ''}`, body); list.forEach((p) => { p.sent = true; }); n += list.length; } catch { /* stays pending */ }
+    const body = `New threats on Greenfield that reach your focus area:\n\n${list.map((p) => `• ${p.name}`).join('\n')}\n\n${publicUrl}`;
+    try { await mailer.send(email, `Greenfield: ${list.length} new food-supply threat${list.length > 1 ? 's' : ''}`, body); list.forEach((p) => { p.sent = true; }); n += list.length; } catch { /* stays pending */ }
   }
   saveStore(store);
   return n;

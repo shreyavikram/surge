@@ -100,11 +100,11 @@ describe('gdelt adapter', () => {
     const r = gdelt.parse(JSON.parse(fx('gdelt.json')));
     const ids = r.items.map((i) => i.id);
     expect(r.items.every((i) => i.status === 'breaking' && (i.confidence ?? 0) > 0)).toBe(true);
-    expect(ids.some((i) => i.includes('export-ban-india-rice'))).toBe(true);
+    expect(ids.some((i) => i.includes('export-ban-india'))).toBe(true);
     expect(ids.some((i) => i.includes('disease-us-iowa'))).toBe(true);
     expect(r.items.some((i) => /Paris/.test(i.name))).toBe(false);
     const threats = feedItemsToThreats(r.items, r.source, ctx);
     expect(threats.every((t) => t.status === 'breaking')).toBe(true);
-    expect(threats.find((t) => t.location.regionId === 'india-rice')!.location.iso3).toBeUndefined();
+    expect(threats.find((t) => t.location.regionId === 'india')!.location.iso3).toBe('IND');
   });
 });
