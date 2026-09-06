@@ -8,21 +8,26 @@ import { compactUsd, pct } from '../format.js';
 import { heatColor, NEUTRAL } from '../heat-colors.js';
 import { HeatLegend } from './HeatLegend.js';
 
-const STYLE: Record<'dark' | 'light', string> = {
-  dark: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
-  light: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
-};
-/** The map starts on a plain background so our own layers draw within a second; the basemap is swapped in when it arrives. */
-const PLAIN: Record<'dark' | 'light', maplibregl.StyleSpecification> = {
-  dark: { version: 8, sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#0b0e14' } }] },
-  light: { version: 8, sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#dfe6ee' } }] },
-};
-async function fetchStyle(url: string, timeoutMs = 15000): Promise<maplibregl.StyleSpecification | null> {
-  try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
-    if (!res.ok) return null;
-    return (await res.json()) as maplibregl.StyleSpecification;
-  } catch { return null; }
+/**
+ * Basemap: CARTO raster tiles (no fonts, sprites, or vector processing), so the map paints progressively within a
+ * second or two even on slow connections or with blockers. Labels are a separate raster layer drawn above our shading.
+ */
+const SUBS = ['a', 'b', 'c'];
+const tiles = (name: string) => SUBS.map((h) => `https://${h}.basemaps.cartocdn.com/${name}/{z}/{x}/{y}@2x.png`);
+function rasterStyle(theme: 'dark' | 'light'): maplibregl.StyleSpecification {
+  const base = theme === 'dark' ? 'dark_nolabels' : 'light_nolabels';
+  const labels = theme === 'dark' ? 'dark_only_labels' : 'light_only_labels';
+  return {
+    version: 8,
+    sources: {
+      base: { type: 'raster', tiles: tiles(base), tileSize: 256, attribution: '© CARTO © OpenStreetMap contributors', maxzoom: 19 },
+      labels: { type: 'raster', tiles: tiles(labels), tileSize: 256, maxzoom: 19 },
+    },
+    layers: [
+      { id: 'bg', type: 'background', paint: { 'background-color': theme === 'dark' ? '#0b0e14' : '#dfe6ee' } },
+      { id: 'base', type: 'raster', source: 'base', paint: { 'raster-opacity': 1 } },
+    ],
+  };
 }
 
 interface Props {
@@ -116,7 +121,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
   const addLayers = (map: maplibregl.Map) => {
     const opacity = theme === 'dark' ? 0.72 : 0.8;
     for (const id of ['countries', 'states-heat', 'chokepoints', 'focus', 'selected']) if (!map.getSource(id)) map.addSource(id, { type: 'geojson', data: EMPTY });
-    const firstSymbol = map.getStyle().layers?.find((l) => l.type === 'symbol')?.id;
+    const firstSymbol = map.getLayer('labels') ? 'labels' : map.getStyle().layers?.find((l) => l.type === 'symbol')?.id;
     const op: maplibregl.ExpressionSpecification = ['case', ['boolean', ['get', 'neutral'], false], 0.18, opacity];
     if (!map.getLayer('countries-fill')) map.addLayer({ id: 'countries-fill', type: 'fill', source: 'countries', paint: { 'fill-color': ['get', 'color'], 'fill-opacity': op } }, firstSymbol);
     if (!map.getLayer('countries-line')) map.addLayer({ id: 'countries-line', type: 'line', source: 'countries', paint: { 'line-color': theme === 'dark' ? '#0b0e14' : '#ffffff', 'line-width': 0.5, 'line-opacity': 0.7 } }, firstSymbol);
@@ -127,13 +132,14 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
     if (!map.getLayer('focus-fill')) map.addLayer({ id: 'focus-fill', type: 'fill', source: 'focus', paint: { 'fill-color': '#4aa8ff', 'fill-opacity': 0.08 } });
     if (!map.getLayer('focus-line')) map.addLayer({ id: 'focus-line', type: 'line', source: 'focus', paint: { 'line-color': '#4aa8ff', 'line-width': 2 } });
     if (!map.getLayer('selected-line')) map.addLayer({ id: 'selected-line', type: 'line', source: 'selected', paint: { 'line-color': '#ffffff', 'line-width': 2, 'line-dasharray': [2, 1] } });
+    if (map.getSource('labels') && !map.getLayer('labels')) map.addLayer({ id: 'labels', type: 'raster', source: 'labels', paint: { 'raster-opacity': 0.9 } });
     ready.current = true;
     paint(map);
   };
 
   useEffect(() => {
     if (!container.current) return;
-    const map = new maplibregl.Map({ container: container.current, style: PLAIN[theme], center: [-30, 28], zoom: 1.6, attributionControl: { compact: true } });
+    const map = new maplibregl.Map({ container: container.current, style: rasterStyle(theme), center: [-30, 28], zoom: 1.6, attributionControl: { compact: true } });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
     mapRef.current = map;
     if (import.meta.env.DEV) (window as unknown as { __surgeMap?: maplibregl.Map }).__surgeMap = map;
@@ -142,12 +148,9 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
     void Promise.all([loadGeo('countries'), loadGeo('states')]).then(([countries, states]) => { geos.current = { countries, states }; if (ready.current) paint(map); });
     map.on('load', () => { map.resize(); addLayers(map); });
     const note = () => container.current?.parentElement?.querySelector('.basemap-loading') as HTMLElement | null;
-    // swap in the basemap when it arrives; our layers are re-added on style.load
-    void fetchStyle(STYLE[theme]).then((style) => {
-      if (!mapRef.current) return;
-      if (style) { map.setStyle(style); setTimeout(() => note()?.remove(), 1500); }
-      else { const n = note(); if (n) { n.textContent = 'basemap unavailable · data layers only'; setTimeout(() => n.remove(), 6000); } }
-    });
+    map.once('load', () => setTimeout(() => note()?.remove(), 800));
+    map.on('error', (e) => { const n = note(); const msg = String((e as { error?: Error }).error?.message ?? ''); if (n && /tile|source/i.test(msg)) { n.textContent = 'basemap tiles unavailable · data layers only'; setTimeout(() => n.remove(), 6000); } });
+    setTimeout(() => note()?.remove(), 10000);
     map.on('style.load', () => { ready.current = false; addLayers(map); });
     const pop = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 8, className: 'heat-pop' });
     popup.current = pop;
@@ -174,10 +177,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
 
   useEffect(() => {
     if (themeInit.current) { themeInit.current = false; return; }
-    const map = mapRef.current;
-    if (!map) return;
-    map.setStyle(PLAIN[theme]);
-    void fetchStyle(STYLE[theme]).then((style) => { if (style && mapRef.current === map) map.setStyle(style); });
+    mapRef.current?.setStyle(rasterStyle(theme));
   }, [theme]);
 
   // recolor when the threat list or the focus changes
