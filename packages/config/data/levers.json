@@ -206,5 +206,104 @@
    "note": "Reallocates demand across products; modeled 5% of gap"
   },
   "source": "USDA FNS"
+ },
+ {
+  "id": "tpl-import-facilitation",
+  "name": "Import facilitation (tariff exclusions, TRQ expansion, equivalence approvals)",
+  "commodity": "*",
+  "type": "regulatory",
+  "capacityPerMonth": 0,
+  "leadMonths": 1,
+  "rampMonths": 1,
+  "unitCost": 0,
+  "fixedCost": 2000000.0,
+  "enabledByDefault": true,
+  "precedent": {
+   "name": "FDA infant-formula enforcement discretion (2022); USDA egg import facilitation (2025)",
+   "url": "https://www.usda.gov/about-usda/news/press-releases/2025/03/20/usda-update-progress-five-pronged-strategy-combat-avian-flu-and-lower-egg-prices",
+   "note": "Regulatory unlocks moved 395.6M formula bottle-equivalents in 2022 and opened Turkish, Brazilian, and Korean egg supply in 2025"
+  },
+  "source": "Template: unlock with one-month lead, nominal administrative cost (modeled)"
+ },
+ {
+  "id": "tpl-alt-origin-imports",
+  "name": "Imports from alternative origins",
+  "commodity": "*",
+  "type": "import",
+  "capacityShare": 0.08,
+  "leadMonths": 2,
+  "rampMonths": 2,
+  "unitCostMultiple": 0.75,
+  "fixedCost": 0,
+  "requires": "tpl-import-facilitation",
+  "enabledByDefault": true,
+  "precedent": {
+   "name": "2025 US egg imports (26M dozen shell + 14M dozen-equivalents, Jan\u2013Jun)",
+   "url": "https://www.usda.gov/about-usda/news/press-releases/2025/06/26/secretary-rollins-provides-update-bird-flu-strategy-egg-prices-continue-fall",
+   "note": "Imports covered roughly a tenth of the 2025 egg shortfall within six months"
+  },
+  "source": "Template: up to 8% of monthly consumption after a two-month lead at ~wholesale price \u00d71.25 (modeled from the 2025 egg precedent)"
+ },
+ {
+  "id": "tpl-stock-release",
+  "name": "Stock release (cold storage, public or commercial reserves)",
+  "commodity": "*",
+  "type": "stockpile",
+  "capacityShare": 0.05,
+  "stockShare": 0.3,
+  "leadMonths": 0,
+  "rampMonths": 1,
+  "unitCostMultiple": 0.6,
+  "fixedCost": 0,
+  "enabledByDefault": true,
+  "precedent": {
+   "name": "China central pork reserve auctions (200,000 t Dec 2019\u2013early 2020; 127,100 t Sep\u2013Oct 2022)",
+   "url": "https://www.fas.usda.gov/data/china-swine-and-pork-market-interventions-ineffective-managing-rising-prices",
+   "note": "Reserve releases are fast but small relative to consumption"
+  },
+  "source": "Template: 5% of monthly consumption per month from a stock worth 30% of one month (crops: scaled by stocks-to-use) (modeled)"
+ },
+ {
+  "id": "tpl-domestic-ramp",
+  "name": "Domestic production ramp",
+  "commodity": "*",
+  "type": "domestic_ramp",
+  "capacityShare": 0.05,
+  "leadMonths": 4,
+  "rampMonths": 3,
+  "unitCostMultiple": 0.7,
+  "fixedCost": 0,
+  "leadByModel": {
+   "livestock": 5,
+   "crop": 9,
+   "manufacturing": 3,
+   "import": 12
+  },
+  "enabledByDefault": true,
+  "precedent": {
+   "name": "2022 formula: competitors raised output ~30%; 2025 pullet placements",
+   "url": "https://www.cnbc.com/2022/07/09/production-resumes-at-troubled-abbott-baby-formula-factory.html",
+   "note": "Biology sets the lead: next harvest for crops, pullet rearing for layers, restart for plants"
+  },
+  "source": "Template: 5% of monthly consumption after the biological lead (modeled)"
+ },
+ {
+  "id": "tpl-purchase-limits",
+  "name": "Retailer purchase limits",
+  "commodity": "*",
+  "type": "demand_side",
+  "capacityPerMonth": 0,
+  "leadMonths": 0,
+  "rampMonths": 1,
+  "unitCost": 0,
+  "fixedCost": 0,
+  "rationingShare": 0.1,
+  "enabledByDefault": false,
+  "precedent": {
+   "name": "Trader Joe's, Costco, Kroger egg limits (Feb 2025)",
+   "url": "https://www.cnbc.com/2025/02/12/trader-joes-costco-kroger-limit-egg-purchases.html",
+   "note": "Rationing spreads a shortage; it does not add supply"
+  },
+  "source": "Template: removes 10% of the gap by rationing when enabled (modeled)"
  }
 ]

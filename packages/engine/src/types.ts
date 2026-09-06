@@ -171,7 +171,14 @@ export interface RegionConfig {
 export interface LeverConfig {
   id: string;
   name: string;
+  /** a commodity id, or '*' for a template applied to every commodity without its own levers */
   commodity: string;
+  /** template fields, resolved per commodity: capacity as a share of monthly baseline consumption, stock as a share of
+   * monthly baseline, unit cost as a multiple of the retail price, lead time by supply model */
+  capacityShare?: number;
+  stockShare?: number;
+  unitCostMultiple?: number;
+  leadByModel?: Partial<Record<'livestock' | 'crop' | 'manufacturing' | 'import', number>>;
   type: 'regulatory' | 'import' | 'stockpile' | 'domestic_ramp' | 'redirect' | 'demand_side';
   capacityPerMonth: number;       // units per month at full ramp (0 for pure regulatory unlocks)
   leadMonths: number;

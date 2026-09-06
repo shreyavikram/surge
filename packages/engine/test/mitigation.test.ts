@@ -1,3 +1,4 @@
+import { loadContext } from '@surge/config';
 import { describe, it, expect } from 'vitest';
 import { planMitigation } from '../src/mitigation.js';
 import { computeImpact } from '../src/impact.js';
@@ -85,5 +86,30 @@ describe('published cases', () => {
     for (const l of plan.levers) expect(l.share).toBeLessThan(0.25);
     expect(plan.uncoveredShare).toBeGreaterThan(0.5);
     expect(plan.levers.find((l) => l.id === 'egg-broiler-redirect')!.classification).toBe('unused');
+  });
+});
+
+import { runThreat, leversFor } from '../src/scenario.js';
+describe('lever templates', () => {
+  const ctx2 = loadContext();
+  it('commodities without their own levers inherit resolved templates', () => {
+    const ls = leversFor('tomatoes', ctx2);
+    expect(ls.length).toBeGreaterThanOrEqual(4);
+    const imp = ls.find((l) => l.type === 'import')!;
+    const c = ctx2.commodities['tomatoes']!;
+    expect(imp.capacityPerMonth).toBeCloseTo(0.08 * c.baseline.annualQuantity / 12, 6);
+    expect(imp.requires).toBe('tpl-import-facilitation:tomatoes');
+    expect(ls.find((l) => l.type === 'domestic_ramp')!.leadMonths).toBe(9); // crop: next harvest
+  });
+  it('eggs keep their own calibrated levers', () => {
+    expect(leversFor('eggs', ctx2).every((l) => l.commodity === 'eggs' && !l.id.includes(':'))).toBe(true);
+  });
+  it('a tariff on Mexican tomatoes gets an offset plan with a regulatory unlock doing the work', () => {
+    const r = runThreat({ id: 't', name: 't', category: 'tariff', kind: 'geopolitical', location: { lat: 23, lng: -102, regionId: 'mexico' }, commodities: [{ id: 'tomatoes', relevance: 1 }], severity: 0.25, start: '2026-09', months: 12, source: { feed: 't', kind: 'user' } }, ctx2);
+    const plan = r.mitigation['tomatoes']!;
+    expect(plan.offset).toBe(true);
+    expect(plan.cumulativeGap).toBeGreaterThan(0);
+    expect(plan.levers.some((l) => l.classification !== 'unused')).toBe(true);
+    expect(plan.uncoveredShare).toBeLessThan(1);
   });
 });

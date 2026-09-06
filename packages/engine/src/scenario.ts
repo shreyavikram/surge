@@ -1,5 +1,5 @@
 // packages/engine/src/scenario.ts
-import type { EngineContext, Threat, Shock, ImpactResult, MitigationPlan, Scenario, ScenarioResult, ScenarioThreat, Conflict, CompareRow, CaseFile } from './types.js';
+import type { EngineContext, Threat, Shock, ImpactResult, MitigationPlan, Scenario, ScenarioResult, ScenarioThreat, Conflict, CompareRow, CaseFile, LeverConfig } from './types.js';
 import { threatToShocks } from './shock.js';
 import { computeImpact } from './impact.js';
 import { planMitigation } from './mitigation.js';
@@ -17,13 +17,31 @@ export function offsetGap(impact: ImpactResult, id: string, ctx: EngineContext):
   return (impact.price.retailPct[id] ?? []).map((pi) => (pi > 0 ? pi * denom * (c.baseline.annualQuantity / 12) : 0));
 }
 
+/** A commodity's own levers, or the '*' templates resolved to its baseline (methodology §5). */
+export function leversFor(id: string, ctx: EngineContext): LeverConfig[] {
+  const own = ctx.levers.filter((l) => l.commodity === id);
+  if (own.length > 0) return own;
+  const c = ctx.commodities[id];
+  if (!c) return [];
+  const monthlyQ = c.baseline.annualQuantity / 12;
+  return ctx.levers.filter((l) => l.commodity === '*').map((t) => {
+    const l: LeverConfig = { ...t, id: `${t.id}:${id}`, commodity: id,
+      capacityPerMonth: t.capacityShare !== undefined ? t.capacityShare * monthlyQ : t.capacityPerMonth,
+      unitCost: t.unitCostMultiple !== undefined ? t.unitCostMultiple * c.baseline.retailPrice : t.unitCost,
+      leadMonths: t.leadByModel?.[c.supply.model] ?? t.leadMonths };
+    if (t.requires) l.requires = `${t.requires}:${id}`;
+    if (t.stockShare !== undefined) l.stock = t.stockShare * monthlyQ * (c.supply.model === 'crop' ? Math.max(1, 12 * (c.supply.stocksToUse ?? 0)) : 1);
+    return l;
+  });
+}
+
 function mitigationFor(impact: ImpactResult, ctx: EngineContext): Record<string, MitigationPlan> {
   const out: Record<string, MitigationPlan> = {};
   for (const id of impact.commodities) {
     const sf = impact.shortfall[id]!;
     const physical = sf.units.some((u) => u > 0);
     const gap = physical ? sf.units : offsetGap(impact, id, ctx);
-    out[id] = planMitigation(gap, ctx.levers, { commodity: id, unit: sf.unit, offset: !physical });
+    out[id] = planMitigation(gap, leversFor(id, ctx), { commodity: id, unit: sf.unit, offset: !physical });
   }
   return out;
 }

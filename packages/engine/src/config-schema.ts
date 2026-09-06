@@ -62,7 +62,7 @@ export function validateConfig(ctx: EngineContext): string[] {
   }
   for (const l of ctx.levers) {
     req(problems, `levers.${l.id}.source`, l.source);
-    if (!ctx.commodities[l.commodity]) problems.push(`levers.${l.id}.commodity unknown`);
+    if (l.commodity !== '*' && !ctx.commodities[l.commodity]) problems.push(`levers.${l.id}.commodity unknown`);
     if (l.requires && !ctx.levers.some((o) => o.id === l.requires)) problems.push(`levers.${l.id}.requires unknown lever`);
   }
   req(problems, 'population.source', ctx.population.source);
