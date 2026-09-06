@@ -157,11 +157,10 @@ export function tabToScenario(tab: TabDef, entries: ThreatEntry[]): Scenario {
 }
 
 // ---- Charts stop where measurement stops ----------------------------------------
-/** Last month a time chart may show: now for live threats, the end of the observed series for replays,
- * and no limit for hypotheticals (a what-if is a projection by definition). */
+/** Last month a time chart may show: now for live threats (no projection into the future); no limit for
+ * replays (history) or hypotheticals (a what-if is a projection by definition). */
 export function chartCutoff(entry: RankedEntry): string | null {
-  if (entry.origin === 'user') return null;
-  if (entry.observed && entry.observed.months.length > 0) return entry.observed.months[entry.observed.months.length - 1]!;
+  if (entry.origin !== 'live') return null;
   return new Date().toISOString().slice(0, 7);
 }
 /** How many leading months of `months` fall on or before the cutoff (at least one). */
