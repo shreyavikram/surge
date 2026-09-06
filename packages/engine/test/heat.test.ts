@@ -66,7 +66,8 @@ describe('a commodity filter colours a state only for that commodity', () => {
   it('Utah, which grows almost no lettuce, is not red under the lettuce filter even with a Utah drought', () => {
     const t: Threat = { id: 'ut', name: 'Utah drought', category: 'drought', kind: 'natural', location: { lat: 39.3, lng: -111.7, regionId: 'us-state-UT' }, commodities: [{ id: 'lettuce', relevance: 1 }, { id: 'beef', relevance: 1 }], severity: 0.3, start: '2026-09', status: 'active', source: { feed: 'test', kind: 'user' } };
     const lettuce = stateHeat([t], ctx, ['lettuce']);
-    expect(lettuce['UT']!.status).toBe('none');
+    expect(lettuce['UT']!.status).not.toBe('unstable'); // pale green at most: a 0.006% share is 'less than 0.1%' on hover
+    expect(lettuce['UT']!.baseline).toBeLessThan(0.001);
     const beef = stateHeat([t], ctx, ['beef']);
     expect(beef['UT']!.status).toBe('unstable');
     const all = stateHeat([t], ctx);
