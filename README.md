@@ -57,9 +57,9 @@ are honestly-labeled **seeds**; the live feed layer lands in the next stage.
 
 - **Render (static site):** `render.yaml` builds `apps/web` and serves `apps/web/dist` with SPA
   routing — connect the repo and click "New Blueprint".
-- **Marketing site:** `render.yaml` also declares `greenfield-site`, a second static service
-  publishing `apps/site` as-is. It is deliberately a separate service, so the terminal's URL is
-  unaffected by anything the site does.
+- **Marketing site:** live at **https://greenfield-site.onrender.com** — a second Render static
+  service publishing `apps/site` as-is (also declared in `render.yaml`). Deliberately separate, so
+  the terminal's URL is unaffected by anything the site does.
 - **Docker:** `Dockerfile` builds the client and serves it with a zero-dep Node server (`docker build -t surge . && docker run -p 8080:8080 surge`).
 
 The public URL needs the team's GitHub repo + Render account (see `docs/TEAM-TASKS.md §5`).
