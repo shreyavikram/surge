@@ -54,6 +54,7 @@ export const gdacs: FeedAdapter = {
         lng: coords[0],
         lat: coords[1],
         severity: SEVERITY[p.alertlevel ?? ''] ?? 0.5,
+        alertScore: true,
       };
       if (p.country) item.admin = p.country;
       if (p.iso3) item.iso3 = p.iso3;

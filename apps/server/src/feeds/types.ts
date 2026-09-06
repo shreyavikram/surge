@@ -15,7 +15,12 @@ export interface FeedItem {
   iso3?: string;
   /** set when the adapter already knows the gazetteer region (chokepoints, USDM states) */
   regionId?: string;
+  /** fraction of the affected supply channel lost (engine semantics); hazards may give an alert score and let ingestion apply the damage cap */
   severity?: number; // 0..1
+  /** when true, `severity` is an alert score to be multiplied by the category's damageAtSeverity1 */
+  alertScore?: boolean;
+  status?: 'active' | 'breaking';
+  confidence?: number;
   physical?: PhysicalShock;
   start?: string;    // YYYY-MM
   end?: string;

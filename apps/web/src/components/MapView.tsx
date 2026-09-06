@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
 import type { EngineContext, AreaHeat } from '@surge/engine';
 import { countryHeat, stateHeat, threatAffectsArea } from '@surge/engine';
-import { type RankedEntry, focusView, getArea } from '../engine.js';
+import { type RankedEntry, focusView, focusAreas } from '../engine.js';
 import type { Focus } from '../state.js';
 import { compactUsd, pct } from '../format.js';
 import { heatColor, NEUTRAL } from '../heat-colors.js';
@@ -63,13 +63,15 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
     const g = geos.current;
     if (!g || !ready.current) return;
     const fo = focusRef.current;
-    const area = fo.kind !== 'us' && fo.id && ctx.focus ? getArea(ctx.focus, fo.id) : undefined;
+    const areas = focusAreas(fo, ctx);
+    const area = areas.length > 0 ? areas[0] : undefined; // "focused" flag
+    const ownStates = new Set(areas.map((a) => a.state));
     const all = entriesRef.current.map((e) => e.threat);
-    const threats = area && ctx.focus ? all.filter((t) => threatAffectsArea(t, area, ctx.focus!)) : all;
+    const threats = areas.length > 0 && ctx.focus ? all.filter((t) => areas.some((a) => threatAffectsArea(t, a, ctx.focus!))) : all;
     const ch = countryHeat(threats, ctx);
     const sh = stateHeat(threats, ctx);
     const nameOf = (id: string) => entriesRef.current.find((e) => e.threat.id === id)?.threat.name ?? id;
-    const isFocusState = (id: string) => !!area && area.state === id;
+    const isFocusState = (id: string) => ownStates.has(id);
     const colorFor = (h: AreaHeat | undefined, own: boolean) => (area && !own && (h?.status ?? 'stable') === 'stable' ? NEUTRAL : heatColor(h));
     const countries: FC = { type: 'FeatureCollection', features: g.countries.features.filter((f) => f.id !== 'USA').map((f) => {
       const iso = String(f.id);
@@ -191,15 +193,16 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
     const apply = async () => {
       const src = map.getSource('focus') as maplibregl.GeoJSONSource | undefined;
       if (!src) return;
-      if (focus.kind === 'us' || !focus.id) { src.setData(EMPTY); return; }
+      if (focus.kind === 'us' || focus.ids.length === 0) { src.setData(EMPTY); return; }
       const fc = await loadGeo(focus.kind === 'state' ? 'states' : 'cd119');
       if (cancelled) return;
-      const f = fc.features.find((x) => x.id === focus.id || (x.properties as { id?: string } | null)?.id === focus.id);
-      src.setData({ type: 'FeatureCollection', features: f ? [f] : [] });
-      if (f) {
+      const ids = new Set(focus.ids);
+      const feats = fc.features.filter((x) => ids.has(String(x.id)) || ids.has(String((x.properties as { id?: string } | null)?.id)));
+      src.setData({ type: 'FeatureCollection', features: feats });
+      if (feats.length > 0) {
         const b = new maplibregl.LngLatBounds();
         const walk = (c: unknown): void => { if (!Array.isArray(c)) return; if (typeof c[0] === 'number') { b.extend(c as [number, number]); return; } for (const x of c) walk(x); };
-        walk((f.geometry as GeoJSON.Polygon | GeoJSON.MultiPolygon).coordinates);
+        for (const f of feats) walk((f.geometry as GeoJSON.Polygon | GeoJSON.MultiPolygon).coordinates);
         map.fitBounds(b, { padding: 60, duration: 700, maxZoom: 6.5 });
       }
     };
@@ -214,7 +217,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
     <div className="map-wrap">
       <div ref={container} style={{ position: 'absolute', inset: 0 }} />
       {sel && v && <div className="map-badge">{sel.threat.name} · {compactUsd(v.cv)}</div>}
-      <HeatLegend focused={focus.kind !== 'us'} />
+      <HeatLegend focused={focus.kind !== 'us' && focus.ids.length > 0} />
     </div>
   );
 }

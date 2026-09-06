@@ -315,3 +315,19 @@ details.assumptions .assump { margin-top: 6px; }
 .heat-pop .st { text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; }
 .heat-pop .st.stable { color: #2e8b57; } .heat-pop .st.anticipated { color: #c9a227; } .heat-pop .st.unstable { color: var(--bad); }
 .heat-pop .th { color: var(--text-dim); }
+
+/* left-toolbar filters */
+.filters { display: flex; flex-direction: column; gap: 6px; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.dd { position: relative; }
+.dd-btn { width: 100%; display: flex; align-items: center; gap: 8px; background: var(--panel-2); border: 1px solid var(--border-solid); color: var(--text); border-radius: 6px; padding: 6px 9px; font-size: 12px; cursor: pointer; text-align: left; }
+.dd.open .dd-btn { border-color: var(--accent); }
+.dd-lbl { color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; width: 78px; flex: 0 0 auto; }
+.dd-sum { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dd-caret { color: var(--text-faint); font-size: 10px; }
+.dd-pop { position: absolute; z-index: 40; left: 0; right: 0; top: calc(100% + 4px); background: var(--panel-3); border: 1px solid var(--border-solid); border-radius: 7px; box-shadow: var(--shadow); padding: 8px; font-size: 12.5px; }
+.dd-kind { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; }
+.dd-kind label, .dd-list label { display: flex; align-items: center; gap: 7px; padding: 3px 2px; cursor: pointer; color: var(--text); }
+.dd-search { width: 100%; box-sizing: border-box; background: var(--panel-2); color: var(--text); border: 1px solid var(--border-solid); border-radius: 5px; padding: 5px 8px; font-size: 12px; margin-bottom: 6px; }
+.dd-list { max-height: 260px; overflow-y: auto; }
+.dd-group { margin-bottom: 6px; }
+.dd-gh { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); margin: 6px 0 2px; }

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import type { EngineContext } from '@surge/engine';
-import { runScenario, compareScenarios, areaLoss, commodityName, tabToScenario, type ThreatEntry } from '../engine.js';
+import { runScenario, compareScenarios, areaLoss, commodityName, tabToScenario, focusAreas, type ThreatEntry } from '../engine.js';
 import type { TabDef, Focus } from '../state.js';
 import { LIVE_TAB } from '../state.js';
 import { compactUsd } from '../format.js';
@@ -16,10 +16,11 @@ export function Compare({ ctx, tabs, entriesFor, focus, onClose }: Props) {
     const cmp = compareScenarios(results);
     return cmp.map((r, i) => {
       const res = results[i]!;
-      const scaled = focus.kind !== 'us' && focus.id && ctx.focus ? areaLoss(res.impact, focus.id, ctx) : null;
-      const cv = scaled ? scaled.cv : r.totalCV;
-      const annual = scaled ? scaled.cvAnnual : res.impact.welfare.cvAnnual;
-      const producer = scaled ? Object.values(scaled.producerRevenueChange).reduce((a, b) => a + b, 0) : Object.values(res.impact.welfare.producerRevenueChange).reduce((a, b) => a + b, 0);
+      const areas = focusAreas(focus, ctx);
+      const parts = areas.map((a) => areaLoss(res.impact, a.id, ctx));
+      const cv = parts.length ? parts.reduce((s, p) => s + p.cv, 0) : r.totalCV;
+      const annual = parts.length ? parts.reduce((s, p) => s + p.cvAnnual, 0) : res.impact.welfare.cvAnnual;
+      const producer = parts.length ? parts.reduce((s, p) => s + Object.values(p.producerRevenueChange).reduce((a, b) => a + b, 0), 0) : Object.values(res.impact.welfare.producerRevenueChange).reduce((a, b) => a + b, 0);
       return { ...r, cv, annual, producer, threats: res.scenario.threats.length };
     });
   }, [ctx, tabs, entriesFor, focus]);

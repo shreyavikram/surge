@@ -16,6 +16,6 @@ export default defineConfig({
       '@surge/config': r('../../packages/config/src/index.ts'),
     },
   },
-  server: { fs: { allow: [r('../../')] } },
+  server: { fs: { allow: [r('../../')] }, proxy: { '/api': { target: 'http://localhost:8787', changeOrigin: true } } },
   test: { include: ['test/**/*.test.ts'] },
 });

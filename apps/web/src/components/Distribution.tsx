@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { geoAlbersUsa, geoPath } from 'd3-geo';
 import type { EngineContext } from '@surge/engine';
-import { type RankedEntry, perCapitaLossByArea, focusView, getArea } from '../engine.js';
+import { type RankedEntry, perCapitaLossByArea, focusView, focusAreas } from '../engine.js';
 import type { Focus } from '../state.js';
 import { compactUsd, usd2 } from '../format.js';
 import { Info } from './Info.js';
@@ -38,9 +38,11 @@ export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: E
     return geoPath(proj);
   }, [geo]);
   const v = focusView(entry, focus, ctx);
-  const focusArea = focus.id && ctx.focus ? getArea(ctx.focus, focus.id) : undefined;
+  const fAreas = focusAreas(focus, ctx);
+  const focusIds = new Set(fAreas.map((a) => a.id));
+  const focusStates = new Set(fAreas.map((a) => a.state));
   const hovered = hover ? byId[hover] : undefined;
-  const hoverArea = hover && ctx.focus ? getArea(ctx.focus, hover) : undefined;
+  const hoverArea = hover && ctx.focus ? ctx.focus.areas.find((a) => a.id === hover) : undefined;
 
   return (
     <>
@@ -59,7 +61,7 @@ export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: E
               const id = (f.id as string | undefined) ?? (f.properties as { id?: string } | null)?.id ?? '';
               const r = byId[id];
               const t = r ? r.perCapita / max : 0;
-              const isFocus = focusArea && (focusArea.id === id || (focusArea.kind === 'state' && level === 'district' && id.startsWith(focusArea.id + '-')));
+              const isFocus = focusIds.has(id) || (focus.kind === 'state' && level === 'district' && focusStates.has(id.split('-')[0]!));
               return <path key={id} d={path(f as never) ?? undefined} fill={r ? ramp(t) : 'var(--panel-3)'} stroke={isFocus ? 'var(--accent)' : 'var(--bg)'} strokeWidth={isFocus ? 1.5 : 0.4} onMouseEnter={() => setHover(id)} onMouseLeave={() => setHover(null)} />;
             })}
           </svg>

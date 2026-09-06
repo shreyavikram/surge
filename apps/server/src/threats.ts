@@ -42,6 +42,14 @@ function findRegion(item: FeedItem, ctx: EngineContext, field: ShareField): Regi
   return candidates.sort((a, b) => bboxArea(a.bbox) - bboxArea(b.bbox))[0];
 }
 
+/** Engine severity = fraction of the affected channel lost. Alert-scored hazards are scaled by the category's damage cap. */
+export function severityFor(item: FeedItem, ctx: EngineContext): number {
+  const s = item.severity ?? 0.5;
+  if (!item.alertScore || !item.category) return Math.max(0, Math.min(1, s));
+  const cap = ctx.threatTypes[item.category]?.damageAtSeverity1 ?? 1;
+  return Math.max(0, Math.min(1, s * cap));
+}
+
 function currentMonth(): string {
   return new Date().toISOString().slice(0, 7);
 }
@@ -78,11 +86,14 @@ export function feedItemsToThreats(items: FeedItem[], source: SourceStamp, ctx: 
         regionId: region.id,
       },
       commodities,
-      severity: item.severity ?? 0.5,
+      severity: severityFor(item, ctx),
       start: item.start ?? currentMonth(),
       source: { feed: source.feed, kind: source.kind },
     };
+    if (item.status) threat.status = item.status;
+    if (item.confidence !== undefined) threat.confidence = item.confidence;
     if (item.iso3) threat.location.iso3 = item.iso3;
+    else if (region.countries?.length === 1) threat.location.iso3 = region.countries[0]!;
     if (item.physical) threat.physical = item.physical;
     if (item.months) threat.months = item.months;
     if (source.url) threat.source.url = source.url;

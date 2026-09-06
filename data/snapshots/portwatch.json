@@ -1,0 +1,548 @@
+{
+  "fetchedAt": "2026-09-06T00:19:40.496Z",
+  "result": {
+    "items": [
+      {
+        "id": "portwatch-chokepoint28",
+        "name": "Kerch Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 1,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 1
+        },
+        "start": "2026-08",
+        "text": "Kerch Strait: 0 transits vs 0 trailing average",
+        "raw": {
+          "portid": "chokepoint28",
+          "latest": 0,
+          "baseline": 0,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint21",
+        "name": "Magellan Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.48684210526315785,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.48684210526315785
+        },
+        "start": "2026-08",
+        "text": "Magellan Strait: 3 transits vs 6 trailing average",
+        "raw": {
+          "portid": "chokepoint21",
+          "latest": 3,
+          "baseline": 6,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint3",
+        "name": "Bosporus Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.26315789473684215,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.26315789473684215
+        },
+        "start": "2026-08",
+        "text": "Bosporus Strait: 47 transits vs 64 trailing average",
+        "raw": {
+          "portid": "chokepoint3",
+          "latest": 47,
+          "baseline": 64,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint24",
+        "name": "Mona Passage transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.24025974025974028,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.24025974025974028
+        },
+        "start": "2026-08",
+        "text": "Mona Passage: 9 transits vs 12 trailing average",
+        "raw": {
+          "portid": "chokepoint24",
+          "latest": 9,
+          "baseline": 12,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint27",
+        "name": "Mindoro Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.1925465838509317,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.1925465838509317
+        },
+        "start": "2026-08",
+        "text": "Mindoro Strait: 40 transits vs 50 trailing average",
+        "raw": {
+          "portid": "chokepoint27",
+          "latest": 40,
+          "baseline": 50,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint25",
+        "name": "Balabac Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.14473684210526305,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.14473684210526305
+        },
+        "start": "2026-08",
+        "text": "Balabac Strait: 10 transits vs 12 trailing average",
+        "raw": {
+          "portid": "chokepoint25",
+          "latest": 10,
+          "baseline": 12,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint19",
+        "name": "Sunda Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.14390243902439026,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.14390243902439026
+        },
+        "start": "2026-08",
+        "text": "Sunda Strait: 27 transits vs 32 trailing average",
+        "raw": {
+          "portid": "chokepoint19",
+          "latest": 27,
+          "baseline": 32,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint13",
+        "name": "Tsugaru Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.13943661971830978,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.13943661971830978
+        },
+        "start": "2026-08",
+        "text": "Tsugaru Strait: 47 transits vs 55 trailing average",
+        "raw": {
+          "portid": "chokepoint13",
+          "latest": 47,
+          "baseline": 55,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint23",
+        "name": "Windward Passage transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.09302325581395354,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.09302325581395354
+        },
+        "start": "2026-08",
+        "text": "Windward Passage: 15 transits vs 17 trailing average",
+        "raw": {
+          "portid": "chokepoint23",
+          "latest": 15,
+          "baseline": 17,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint7",
+        "name": "Cape of Good Hope transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.048648648648648596,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.048648648648648596
+        },
+        "start": "2026-08",
+        "text": "Cape of Good Hope: 88 transits vs 93 trailing average",
+        "raw": {
+          "portid": "chokepoint7",
+          "latest": 88,
+          "baseline": 93,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint18",
+        "name": "Torres Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.04210526315789476,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.04210526315789476
+        },
+        "start": "2026-08",
+        "text": "Torres Strait: 7 transits vs 7 trailing average",
+        "raw": {
+          "portid": "chokepoint18",
+          "latest": 7,
+          "baseline": 7,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint9",
+        "name": "Dover Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.03873239436619724,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.03873239436619724
+        },
+        "start": "2026-08",
+        "text": "Dover Strait: 147 transits vs 153 trailing average",
+        "raw": {
+          "portid": "chokepoint9",
+          "latest": 147,
+          "baseline": 153,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint20",
+        "name": "Makassar Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.03273809523809523,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.03273809523809523
+        },
+        "start": "2026-08",
+        "text": "Makassar Strait: 50 transits vs 52 trailing average",
+        "raw": {
+          "portid": "chokepoint20",
+          "latest": 50,
+          "baseline": 52,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint8",
+        "name": "Gibraltar Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0.030405405405405483,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0.030405405405405483
+        },
+        "start": "2026-08",
+        "text": "Gibraltar Strait: 123 transits vs 127 trailing average",
+        "raw": {
+          "portid": "chokepoint8",
+          "latest": 123,
+          "baseline": 127,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint1",
+        "name": "Suez Canal transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Suez Canal: 53 transits vs 42 trailing average",
+        "raw": {
+          "portid": "chokepoint1",
+          "latest": 53,
+          "baseline": 42,
+          "date": "2026-08-30"
+        },
+        "regionId": "suez-red-sea"
+      },
+      {
+        "id": "portwatch-chokepoint2",
+        "name": "Panama Canal transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Panama Canal: 31 transits vs 28 trailing average",
+        "raw": {
+          "portid": "chokepoint2",
+          "latest": 31,
+          "baseline": 28,
+          "date": "2026-08-30"
+        },
+        "regionId": "panama-canal"
+      },
+      {
+        "id": "portwatch-chokepoint4",
+        "name": "Bab el-Mandeb Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Bab el-Mandeb Strait: 29 transits vs 28 trailing average",
+        "raw": {
+          "portid": "chokepoint4",
+          "latest": 29,
+          "baseline": 28,
+          "date": "2026-08-30"
+        },
+        "regionId": "suez-red-sea"
+      },
+      {
+        "id": "portwatch-chokepoint5",
+        "name": "Malacca Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Malacca Strait: 219 transits vs 201 trailing average",
+        "raw": {
+          "portid": "chokepoint5",
+          "latest": 219,
+          "baseline": 201,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint6",
+        "name": "Strait of Hormuz transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Strait of Hormuz: 6 transits vs 4 trailing average",
+        "raw": {
+          "portid": "chokepoint6",
+          "latest": 6,
+          "baseline": 4,
+          "date": "2026-08-30"
+        },
+        "regionId": "hormuz"
+      },
+      {
+        "id": "portwatch-chokepoint10",
+        "name": "Oresund Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Oresund Strait: 54 transits vs 42 trailing average",
+        "raw": {
+          "portid": "chokepoint10",
+          "latest": 54,
+          "baseline": 42,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint11",
+        "name": "Taiwan Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Taiwan Strait: 318 transits vs 215 trailing average",
+        "raw": {
+          "portid": "chokepoint11",
+          "latest": 318,
+          "baseline": 215,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint12",
+        "name": "Korea Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Korea Strait: 221 transits vs 215 trailing average",
+        "raw": {
+          "portid": "chokepoint12",
+          "latest": 221,
+          "baseline": 215,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint14",
+        "name": "Luzon Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Luzon Strait: 105 transits vs 86 trailing average",
+        "raw": {
+          "portid": "chokepoint14",
+          "latest": 105,
+          "baseline": 86,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint15",
+        "name": "Lombok Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Lombok Strait: 38 transits vs 35 trailing average",
+        "raw": {
+          "portid": "chokepoint15",
+          "latest": 38,
+          "baseline": 35,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint16",
+        "name": "Ombai Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Ombai Strait: 12 transits vs 10 trailing average",
+        "raw": {
+          "portid": "chokepoint16",
+          "latest": 12,
+          "baseline": 10,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint17",
+        "name": "Bohai Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Bohai Strait: 169 transits vs 158 trailing average",
+        "raw": {
+          "portid": "chokepoint17",
+          "latest": 169,
+          "baseline": 158,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint22",
+        "name": "Yucatan Channel transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Yucatan Channel: 62 transits vs 53 trailing average",
+        "raw": {
+          "portid": "chokepoint22",
+          "latest": 62,
+          "baseline": 53,
+          "date": "2026-08-30"
+        }
+      },
+      {
+        "id": "portwatch-chokepoint26",
+        "name": "Bering Strait transit",
+        "category": "chokepoint",
+        "kind": "geopolitical",
+        "severity": 0,
+        "physical": {
+          "kind": "transit_decline_fraction",
+          "value": 0
+        },
+        "start": "2026-08",
+        "text": "Bering Strait: 6 transits vs 4 trailing average",
+        "raw": {
+          "portid": "chokepoint26",
+          "latest": 6,
+          "baseline": 4,
+          "date": "2026-08-30"
+        }
+      }
+    ],
+    "source": {
+      "feed": "IMF PortWatch",
+      "url": "https://portwatch.imf.org",
+      "kind": "live"
+    }
+  }
+}

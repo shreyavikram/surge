@@ -1,0 +1,6 @@
+{"articles":[
+ {"url":"https://example.com/a1","title":"India bans rice exports as monsoon fails, traders say","seendate":"20260905T120000Z","sourcecountry":"India","domain":"example.com"},
+ {"url":"https://example.com/a2","title":"Bird flu detected at Iowa layer farm; 2 million hens to be culled","seendate":"20260905T110000Z","sourcecountry":"United States","domain":"example.com"},
+ {"url":"https://example.com/a3","title":"Weather is nice in Paris this weekend","seendate":"20260905T100000Z","sourcecountry":"France","domain":"example.com"},
+ {"url":"https://example.com/a4","title":"Houthi strikes close Red Sea shipping lanes, coffee and rice cargoes rerouted","seendate":"20260904T100000Z","sourcecountry":"Yemen","domain":"example.com"}
+]}

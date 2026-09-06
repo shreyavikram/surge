@@ -1,0 +1,75 @@
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import type { EngineContext, Threat } from '@surge/engine';
+import { threatAffectsArea, getArea } from '@surge/engine';
+
+/** Email alert subscriptions and the new-threat diff. Delivery uses SMTP_URL when set; otherwise alerts queue. */
+export interface Subscription { email: string; enabled: boolean; focus: string; createdAt: string }
+export interface PendingAlert { email: string; threatId: string; name: string; at: string; sent: boolean }
+interface Store { subscriptions: Subscription[]; seen: string[]; pending: PendingAlert[] }
+
+const FILE = fileURLToPath(new URL('../../../data/alerts.json', import.meta.url));
+
+export function loadStore(): Store {
+  if (!existsSync(FILE)) return { subscriptions: [], seen: [], pending: [] };
+  try { return JSON.parse(readFileSync(FILE, 'utf8')) as Store; } catch { return { subscriptions: [], seen: [], pending: [] }; }
+}
+export function saveStore(s: Store): void {
+  const dir = FILE.slice(0, FILE.lastIndexOf('/'));
+  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+  writeFileSync(FILE, JSON.stringify(s, null, 2));
+}
+
+export function subscribe(email: string, enabled: boolean, focus: string, store = loadStore()): Store {
+  const rest = store.subscriptions.filter((s) => s.email !== email);
+  store.subscriptions = [...rest, { email, enabled, focus, createdAt: new Date().toISOString() }];
+  saveStore(store);
+  return store;
+}
+
+/** Threats not seen before that reach a subscriber's focus (a state name, district id, or "United States"). */
+export function diffNewThreats(threats: Threat[], ctx: EngineContext, store: Store): PendingAlert[] {
+  const seen = new Set(store.seen);
+  const fresh = threats.filter((t) => !seen.has(t.id));
+  const out: PendingAlert[] = [];
+  const at = new Date().toISOString();
+  for (const sub of store.subscriptions.filter((s) => s.enabled)) {
+    const area = ctx.focus?.areas.find((a) => a.name === sub.focus || a.id === sub.focus);
+    for (const t of fresh) {
+      if (area && ctx.focus && !threatAffectsArea(t, area, ctx.focus)) continue;
+      out.push({ email: sub.email, threatId: t.id, name: t.name, at, sent: false });
+    }
+  }
+  store.seen = [...seen, ...fresh.map((t) => t.id)].slice(-5000);
+  store.pending = [...store.pending, ...out].slice(-500);
+  saveStore(store);
+  return out;
+}
+
+export interface Mailer { send(to: string, subject: string, body: string): Promise<void> }
+
+/** nodemailer over SMTP_URL when available; otherwise a queue-only mailer. */
+export async function makeMailer(smtpUrl: string | undefined): Promise<Mailer | null> {
+  if (!smtpUrl) return null;
+  try {
+    const nm = await import('nodemailer');
+    const transport = nm.createTransport(smtpUrl);
+    const from = process.env['ALERT_FROM'] ?? 'SURGE <alerts@surge.local>';
+    return { async send(to, subject, body) { await transport.sendMail({ from, to, subject, text: body }); } };
+  } catch { return null; }
+}
+
+export async function deliver(store: Store, mailer: Mailer | null, publicUrl: string): Promise<number> {
+  if (!mailer) return 0;
+  let n = 0;
+  const byEmail = new Map<string, PendingAlert[]>();
+  for (const p of store.pending.filter((x) => !x.sent)) byEmail.set(p.email, [...(byEmail.get(p.email) ?? []), p]);
+  for (const [email, list] of byEmail) {
+    const body = `New threats on SURGE that reach your focus area:\n\n${list.map((p) => `• ${p.name}`).join('\n')}\n\n${publicUrl}`;
+    try { await mailer.send(email, `SURGE: ${list.length} new food-supply threat${list.length > 1 ? 's' : ''}`, body); list.forEach((p) => { p.sent = true; }); n += list.length; } catch { /* stays pending */ }
+  }
+  saveStore(store);
+  return n;
+}
+
+export { getArea };

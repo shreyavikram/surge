@@ -33,9 +33,14 @@ export function useTabs() {
   return { tabs, create, update, remove, rename };
 }
 
-export interface Focus { kind: 'us' | 'state' | 'district'; id?: string }
+export interface Focus { kind: 'us' | 'state' | 'district'; ids: string[] }
+function migrateFocus(f: unknown): Focus {
+  const o = (f ?? {}) as { kind?: Focus['kind']; id?: string; ids?: string[] };
+  if (!o.kind || o.kind === 'us') return { kind: 'us', ids: [] };
+  return { kind: o.kind, ids: o.ids ?? (o.id ? [o.id] : []) };
+}
 export function useFocus() {
-  const [focus, setFocus] = useState<Focus>(() => read<Focus>('surge-focus', { kind: 'us' }));
+  const [focus, setFocus] = useState<Focus>(() => migrateFocus(read<unknown>('surge-focus', { kind: 'us', ids: [] })));
   useEffect(() => write('surge-focus', focus), [focus]);
   return { focus, setFocus };
 }

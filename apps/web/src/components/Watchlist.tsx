@@ -1,40 +1,33 @@
 import type { EngineContext } from '@surge/engine';
-import { type RankedEntry, categoryColor, categoryFamily, CATEGORY_LABEL, commodityName, focusView, type CategoryFamily } from '../engine.js';
+import { type RankedEntry, categoryColor, CATEGORY_LABEL, commodityName, focusView, type CategoryFamily } from '../engine.js';
 import type { Focus } from '../state.js';
 import { compactUsd } from '../format.js';
-
-const FAMILIES: { id: CategoryFamily | 'all'; label: string }[] = [
-  { id: 'all', label: 'All' }, { id: 'geopolitical', label: 'Trade' }, { id: 'natural', label: 'Weather' }, { id: 'biological', label: 'Disease' }, { id: 'supply', label: 'Input' },
-];
+import { Filters } from './Filters.js';
 
 interface Props {
   entries: RankedEntry[];
   selectedId: string | null;
   onSelect: (id: string) => void;
   ctx: EngineContext;
-  filter: CategoryFamily | 'all';
-  onFilter: (f: CategoryFamily | 'all') => void;
-  focus: Focus;
+  focus: Focus; setFocus: (f: Focus) => void;
+  commodities: Set<string>; setCommodities: (s: Set<string>) => void;
+  families: Set<CategoryFamily>; setFamilies: (s: Set<CategoryFamily>) => void;
   readIds: Set<string>;
   onCollapse: () => void;
 }
 
-export function Watchlist({ entries, selectedId, onSelect, ctx, filter, onFilter, focus, readIds, onCollapse }: Props) {
+export function Watchlist({ entries, selectedId, onSelect, ctx, focus, setFocus, commodities, setCommodities, families, setFamilies, readIds, onCollapse }: Props) {
   const rows = entries.map((e) => ({ e, v: focusView(e, focus, ctx) })).sort((a, b) => b.v.cv - a.v.cv);
   return (
     <div className="watchlist">
       <div className="wl-head">
         <div>
           <div className="wl-title">Watchlist</div>
-          <div className="wl-sub">{rows.length} threats · by consumer welfare loss{focus.kind !== 'us' ? ` · ${rows[0]?.v.label ?? ''}` : ''}</div>
+          <div className="wl-sub">{rows.length} threats · by consumer welfare loss{rows[0] && rows[0].v.label !== 'United States' ? ` · ${rows[0].v.label}` : ''}</div>
         </div>
         <button className="collapse" onClick={onCollapse} title="Collapse watchlist">◀</button>
       </div>
-      <div className="wl-filters">
-        {FAMILIES.map((f) => (
-          <button key={f.id} className={`pill ${filter === f.id ? 'on' : ''}`} onClick={() => onFilter(f.id)}>{f.label}</button>
-        ))}
-      </div>
+      <Filters ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} />
       <div className="wl-list">
         {rows.map(({ e, v }) => {
           const t = e.threat;
@@ -53,7 +46,7 @@ export function Watchlist({ entries, selectedId, onSelect, ctx, filter, onFilter
             </div>
           );
         })}
-        {rows.length === 0 && <div style={{ padding: 16 }} className="faint">No threats in this filter.</div>}
+        {rows.length === 0 && <div style={{ padding: 16 }} className="faint">No threats match these filters.</div>}
       </div>
     </div>
   );

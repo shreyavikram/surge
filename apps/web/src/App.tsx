@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { Threat } from '@surge/engine';
-import { getContext, buildBaseList, entriesForTab, rankEntries, categoryFamily, getArea, type CategoryFamily, type ThreatEntry } from './engine.js';
+import { getContext, buildBaseList, entriesForTab, rankEntries, categoryFamily, focusLabel, type CategoryFamily, type ThreatEntry } from './engine.js';
 import { useTabs, useFocus, useRead, useSettings, LIVE_TAB, type TabDef } from './state.js';
 import { TopBar } from './components/TopBar.js';
 import { Watchlist } from './components/Watchlist.js';
@@ -21,7 +21,8 @@ export function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>(settings.theme);
   const [activeTab, setActiveTab] = useState<string>('live');
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [filter, setFilter] = useState<CategoryFamily | 'all'>('all');
+  const [families, setFamilies] = useState<Set<CategoryFamily>>(new Set());
+  const [commodities, setCommodities] = useState<Set<string>>(new Set());
   const [wlOpen, setWlOpen] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showCompare, setShowCompare] = useState(false);
@@ -60,7 +61,8 @@ export function App() {
   const tab: TabDef = activeTab === 'live' ? LIVE_TAB : tabs.find((t) => t.id === activeTab) ?? LIVE_TAB;
   const entries = useMemo(() => entriesForTab(base, tab), [base, tab]);
   const ranked = useMemo(() => rankEntries(entries, ctx), [entries, ctx]);
-  const visible = filter === 'all' ? ranked : ranked.filter((e) => categoryFamily(e.threat.category) === filter);
+  const visible = ranked.filter((e) => (families.size === 0 || families.has(categoryFamily(e.threat.category)))
+    && (commodities.size === 0 || e.impact.commodities.some((c) => commodities.has(c)) || e.threat.commodities.some((c) => commodities.has(c.id))));
   const selectedEntry = ranked.find((e) => e.threat.id === selectedId) ?? null;
   const editable = tab.id !== 'live';
 
@@ -79,12 +81,12 @@ export function App() {
   const onAdd = (t: Threat) => { update(tab.id, (x) => ({ ...x, added: [...x.added, t] })); select(t.id); };
   const newTab = () => { const n = prompt('Scenario name', `Scenario ${tabs.length + 1}`); if (n) { const t = create(n); setActiveTab(t.id); } };
   const closeTab = (id: string) => { remove(id); if (activeTab === id) setActiveTab('live'); };
-  const focusLabel = focus.kind === 'us' || !focus.id || !ctx.focus ? 'United States' : getArea(ctx.focus, focus.id)?.name ?? 'United States';
+  const fLabel = focusLabel(focus, ctx);
 
   return (
     <div className="app">
-      <TopBar ctx={ctx} tabs={tabs} activeTab={activeTab} onSelectTab={(id) => { setActiveTab(id); setSelectedId(null); setDrawerOpen(false); }} onNewTab={newTab} onRenameTab={rename} onCloseTab={closeTab}
-        focus={focus} setFocus={setFocus} feedStatus={feedStatus} onSettings={() => setShowSettings(true)} theme={theme} toggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
+      <TopBar tabs={tabs} activeTab={activeTab} onSelectTab={(id) => { setActiveTab(id); setSelectedId(null); setDrawerOpen(false); }} onNewTab={newTab} onRenameTab={rename} onCloseTab={closeTab}
+        feedStatus={feedStatus} onSettings={() => setShowSettings(true)} theme={theme} toggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
       {editable && (
         <div className="scenario-bar">
           <Describe ctx={ctx} onAdd={onAdd} />
@@ -93,7 +95,7 @@ export function App() {
       )}
       <div className="body">
         {wlOpen ? (
-          <Watchlist entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} filter={filter} onFilter={setFilter} focus={focus} readIds={readIds} onCollapse={() => setWlOpen(false)} />
+          <Watchlist entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} readIds={readIds} onCollapse={() => setWlOpen(false)} />
         ) : (
           <button className="edge-toggle left" onClick={() => setWlOpen(true)} title="Show watchlist">▶</button>
         )}
@@ -105,7 +107,7 @@ export function App() {
         ) : null}
       </div>
       {showCompare && <Compare ctx={ctx} tabs={tabs} base={base} entriesFor={entriesFor} focus={focus} onClose={() => setShowCompare(false)} />}
-      {showSettings && <Settings settings={settings} onSave={setSettings} onClose={() => setShowSettings(false)} focusLabel={focusLabel} />}
+      {showSettings && <Settings settings={settings} onSave={setSettings} onClose={() => setShowSettings(false)} focusLabel={fLabel} />}
     </div>
   );
 }

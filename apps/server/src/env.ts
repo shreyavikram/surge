@@ -14,6 +14,8 @@ export interface Env {
   ANTHROPIC_API_KEY?: string;
   ACLED_EMAIL?: string;
   ACLED_PASSWORD?: string;
+  SMTP_URL?: string;
+  PUBLIC_URL?: string;
 }
 
 function opt(v: string | undefined): string | undefined {
@@ -34,6 +36,8 @@ export function readEnv(src: NodeJS.ProcessEnv = process.env): Env {
     ANTHROPIC_API_KEY: opt(src.ANTHROPIC_API_KEY),
     ACLED_EMAIL: opt(src.ACLED_EMAIL),
     ACLED_PASSWORD: opt(src.ACLED_PASSWORD),
+    SMTP_URL: opt(src.SMTP_URL),
+    PUBLIC_URL: opt(src.PUBLIC_URL),
   };
 }
 

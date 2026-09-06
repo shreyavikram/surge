@@ -4,7 +4,7 @@ import { loadContext, loadCase, type CaseId } from '@surge/config';
 import {
   runThreat, runScenario, compareScenarios, interpretScenario, candidateToThreat, validateCandidate,
   areaLoss, threatAffectsArea, perCapitaLossByArea, getArea,
-  type EngineContext, type Threat, type ThreatCategory, type ImpactResult, type CaseFile, type MitigationPlan, type AreaLoss, type ThreatCandidate, type Scenario,
+  type EngineContext, type Threat, type ThreatCategory, type ImpactResult, type CaseFile, type MitigationPlan, type AreaLoss, type ThreatCandidate, type Scenario, type AreaInfo,
 } from '@surge/engine';
 import { SEED_THREATS } from './seed.js';
 import type { TabDef, Focus } from './state.js';
@@ -103,20 +103,43 @@ export function rankEntries(entries: ThreatEntry[], ctx: EngineContext): RankedE
     .sort((a, b) => b.cv - a.cv);
 }
 
-/** Numbers for the current focus: national, or one area's consumer loss and producer revenue. */
+/** Areas in focus (empty for the whole country). */
+export function focusAreas(focus: Focus, ctx: EngineContext): AreaInfo[] {
+  if (focus.kind === 'us' || !ctx.focus) return [];
+  return focus.ids.map((id) => getArea(ctx.focus!, id)).filter((a): a is AreaInfo => !!a);
+}
+export function focusLabel(focus: Focus, ctx: EngineContext): string {
+  const areas = focusAreas(focus, ctx);
+  if (areas.length === 0) return 'United States';
+  if (areas.length <= 2) return areas.map((a) => a.name).join(' + ');
+  return `${areas.length} ${focus.kind === 'state' ? 'states' : 'districts'}`;
+}
+/** Does the threat reach any area in focus? */
+export function reachesFocus(threat: Threat, focus: Focus, ctx: EngineContext): boolean {
+  const areas = focusAreas(focus, ctx);
+  if (areas.length === 0 || !ctx.focus) return true;
+  return areas.some((a) => threatAffectsArea(threat, a, ctx.focus!));
+}
+
+/** Numbers for the current focus: national, or the sum over the selected areas. */
 export interface FocusView { cv: number; cvAnnual: number; producer: number; affects: boolean; byCommodity: Record<string, number>; producerByCommodity: Record<string, number>; label: string; population: number }
 export function focusView(entry: RankedEntry, focus: Focus, ctx: EngineContext): FocusView {
   const nat = entry.impact.welfare;
   const producerNat = Object.values(nat.producerRevenueChange).reduce((a, b) => a + b, 0);
-  if (focus.kind === 'us' || !focus.id || !ctx.focus) {
+  const areas = focusAreas(focus, ctx);
+  if (areas.length === 0) {
     return { cv: nat.cv, cvAnnual: nat.cvAnnual, producer: producerNat, affects: true, byCommodity: nat.byCommodity, producerByCommodity: nat.producerRevenueChange, label: 'United States', population: ctx.population.value };
   }
-  const area = getArea(ctx.focus, focus.id);
-  if (!area) return { cv: nat.cv, cvAnnual: nat.cvAnnual, producer: producerNat, affects: true, byCommodity: nat.byCommodity, producerByCommodity: nat.producerRevenueChange, label: 'United States', population: ctx.population.value };
-  const affects = threatAffectsArea(entry.threat, area, ctx.focus);
-  const a: AreaLoss = areaLoss(entry.impact, area.id, ctx);
-  const producer = Object.values(a.producerRevenueChange).reduce((x, y) => x + y, 0);
-  return { cv: a.cv, cvAnnual: a.cvAnnual, producer, affects, byCommodity: a.byCommodity, producerByCommodity: a.producerRevenueChange, label: area.name, population: area.population };
+  const byCommodity: Record<string, number> = {};
+  const producerByCommodity: Record<string, number> = {};
+  let cv = 0, cvAnnual = 0, producer = 0, population = 0;
+  for (const area of areas) {
+    const a: AreaLoss = areaLoss(entry.impact, area.id, ctx);
+    cv += a.cv; cvAnnual += a.cvAnnual; population += area.population;
+    for (const [k, v] of Object.entries(a.byCommodity)) byCommodity[k] = (byCommodity[k] ?? 0) + v;
+    for (const [k, v] of Object.entries(a.producerRevenueChange)) { producerByCommodity[k] = (producerByCommodity[k] ?? 0) + v; producer += v; }
+  }
+  return { cv, cvAnnual, producer, affects: reachesFocus(entry.threat, focus, ctx), byCommodity, producerByCommodity, label: focusLabel(focus, ctx), population };
 }
 
 export function commodityName(ctx: EngineContext, id: string): string {
