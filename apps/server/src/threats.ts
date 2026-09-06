@@ -73,7 +73,8 @@ export function feedItemsToThreats(items: FeedItem[], source: SourceStamp, ctx: 
       if (!field) continue;
       const shares = region[field] ?? (field === 'usSupplyShare' ? region.usImportOriginShare : undefined) ?? {};
       // an origin below 2% of US imports of a commodity is noise for a hazard there (measured shares list every small supplier)
-      const floor = field === 'usSupplyShare' && region.usSupplyShare?.[Object.keys(shares)[0] ?? ''] !== undefined ? 0 : 0.02;
+      // a region producing under 0.2% of US output of a commodity, or supplying under 2% of its imports, is noise for a hazard there
+      const floor = field === 'usSupplyShare' && region.usSupplyShare?.[Object.keys(shares)[0] ?? ''] !== undefined ? 0.002 : 0.02;
       // weather at home cannot destroy a manufactured or wholly imported good (the engine skips them too); keep the list honest
       const domesticHazard = field === 'usSupplyShare' && region.usSupplyShare !== undefined;
       // a crop hazard only hurts a crop in the months it is in the ground (a January drought spares corn, not cattle);

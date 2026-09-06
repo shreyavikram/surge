@@ -7,6 +7,9 @@
 // Saturation points are stated in HEAT_SATURATION and shown in the legend.
 import type { EngineContext, Threat } from './types.js';
 
+/** A state producing less than this share of a commodity (0.1% of US output) is not coloured for threats to it. */
+export const MIN_STATE_SHARE = 0.001;
+
 export type HeatStatus = 'none' | 'stable' | 'anticipated' | 'unstable';
 export interface AreaHeat {
   id: string;
@@ -86,6 +89,7 @@ export function countryHeat(threats: Threat[], ctx: EngineContext, lens?: string
     // share of US food-import value this threat removes: severity × origin share × commodity weight
     let share = 0;
     for (const { id, relevance } of t.commodities) {
+      if (lensSet && !lensSet.has(id)) continue;             // under a commodity filter only that commodity colours the country
       const origin = region?.usImportOriginShare?.[id] ?? (region?.worldExportShare?.[id] ?? 0) * 0.5;
       share += t.severity * relevance * origin * (w[id] ?? 0);
     }
@@ -136,10 +140,11 @@ export function stateHeat(threats: Threat[], ctx: EngineContext, lens?: string[]
     for (const st of members) {
       let share = 0;
       for (const { id, relevance } of t.commodities) {
+        if (lensSet && !lensSet.has(id)) continue;           // under a commodity filter only that commodity colours the state
         const regionShare = region.usSupplyShare?.[id] ?? 0;
         const pState = cfg.production[id]?.[st] ?? 0;
         const pRegion = members.reduce((s, m) => s + (cfg.production[id]?.[m] ?? 0), 0);
-        if (regionShare === 0 || pRegion === 0) continue;
+        if (regionShare === 0 || pRegion === 0 || pState < MIN_STATE_SHARE) continue; // a state that grows next to none of it is not affected
         share += t.severity * relevance * regionShare * (pState / pRegion) * (w[id] ?? 0);
       }
       if (share === 0) continue;

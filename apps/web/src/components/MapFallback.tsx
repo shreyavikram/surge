@@ -105,7 +105,7 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason,
           {(hoverHeat ?? { status: 'none' as const, baseline: 0, threats: [] }) && (() => {
             const hh = hoverHeat ?? { status: 'none' as const, baseline: 0, threats: [] as string[] };
             const isState = !!sh[hover];
-            const share = `${(hh.baseline * 100).toFixed(1)}%`;
+            const share = hh.baseline > 0 && hh.baseline < 0.0005 ? 'less than 0.1%' : `${(hh.baseline * 100).toFixed(1)}%`;
             const what = lens.size > 0 ? [...lens].map((id) => (ctx.commodities[id]?.name ?? ctx.inputs[id]?.name ?? id).toLowerCase()).join(', ') : 'food';
             const supplies = isState ? `produces about ${share} of the ${what} the US grows and raises` : `supplies about ${share} of the ${what} the US imports`;
             const why = hh.status === 'none'
