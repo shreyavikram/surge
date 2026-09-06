@@ -48,14 +48,13 @@ function diverge(t: number): string {
 export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineContext; focus: Focus }) {
   const hasDistricts = (ctx.focus?.areas ?? []).some((a) => a.kind === 'district');
   const [level, setLevel] = useState<'state' | 'district'>(focus.kind === 'district' ? 'district' : 'state');
-  const [who, setWho] = useState<'consumers' | 'producers'>('consumers');
   const [horizon, setHorizon] = useState<'annual' | 'total'>('total');
   const [geo, setGeo] = useState<FC | null>(null);
   const [hover, setHover] = useState<string | null>(null);
   useEffect(() => { let on = true; void loadGeo(level === 'state' ? 'states' : 'cd119').then((g) => { if (on) setGeo(rewind(g)); }); return () => { on = false; }; }, [level]);
 
   const rows = useMemo(() => perCapitaLossByArea(entry.impact, ctx, level, horizon), [entry, ctx, level, horizon]);
-  const prod = useMemo(() => (who === 'producers' ? producerChangeByArea(entry.impact, ctx, level) : []), [entry, ctx, level, who]);
+  const prod = useMemo(() => producerChangeByArea(entry.impact, ctx, level), [entry, ctx, level]);
   const byId = useMemo(() => Object.fromEntries(rows.map((r) => [r.areaId, r])), [rows]);
   const prodById = useMemo(() => Object.fromEntries(prod.map((r) => [r.areaId, horizon === 'annual' ? r.annual : r.total])), [prod, horizon]);
   const vals = rows.map((r) => r.perCapita).filter((v) => v > 0);
@@ -76,15 +75,50 @@ export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: E
   const hovered = hover ? byId[hover] : undefined;
   const hoverArea = hover && ctx.focus ? ctx.focus.areas.find((a) => a.id === hover) : undefined;
 
+  const [hoverWho, setHoverWho] = useState<'consumers' | 'producers'>('consumers');
+  const renderMap = (who: 'consumers' | 'producers') => (
+    <div className="section" key={who}>
+      <h4>Where the {who === 'consumers' ? 'consumer loss' : 'producer gain or loss'} lands<Info term={who === 'consumers' ? 'perCapita' : 'producer'} /></h4>
+      <div className="usmap-wrap">
+        <svg viewBox={`0 0 ${W} ${H}`} className="usmap" style={{ width: '100%', height: 'auto', display: 'block' }}>
+          {geo?.features.map((f) => {
+            const id = (f.id as string | undefined) ?? (f.properties as { id?: string } | null)?.id ?? '';
+            const r = byId[id];
+            const t = r ? scale(r.perCapita) : 0;
+            const pv = prodById[id];
+            const fill = who === 'producers' ? (pv === undefined ? 'var(--panel-3)' : diverge(pv / pmax)) : (r ? ramp(t) : 'var(--panel-3)');
+            const isFocus = focusIds.has(id) || (focus.kind === 'state' && level === 'district' && focusStates.has(id.split('-')[0]!));
+            return <path key={id} d={path(f as never) ?? undefined} fill={fill} stroke={isFocus ? 'var(--accent)' : 'var(--bg)'} strokeWidth={isFocus ? 1.5 : 0.4} onMouseEnter={() => { setHover(id); setHoverWho(who); }} onMouseLeave={() => setHover(null)} />;
+          })}
+        </svg>
+        {who === 'consumers' ? (
+          <div className="usmap-legend">
+            <span>{usd2(min)}</span>
+            <span className="ramp" style={{ background: `linear-gradient(90deg, ${ramp(0)}, ${ramp(0.25)}, ${ramp(0.5)}, ${ramp(0.75)}, ${ramp(0.99)})` }} />
+            <span>{usd2(max)} per person · {horizon === 'annual' ? 'first 12 months' : `total over ${entry.impact.durationMonths} months`}</span>
+          </div>
+        ) : (
+          <div className="usmap-legend">
+            <span>−{compactUsd(pmax)}</span>
+            <span className="ramp" style={{ background: `linear-gradient(90deg, ${diverge(-1)}, ${diverge(0)}, ${diverge(1)})` }} />
+            <span>+{compactUsd(pmax)} producer revenue · {horizon === 'annual' ? 'first 12 months' : `total over ${entry.impact.durationMonths} months`}</span>
+          </div>
+        )}
+        <div className="usmap-hover">
+          {hovered && hoverArea && hoverWho === who
+            ? (who === 'consumers'
+              ? <><b>{hoverArea.name}</b> · {usd2(hovered.perCapita)} per person · {compactUsd(hovered.cv)} in total</>
+              : <><b>{hoverArea.name}</b> · producers {(prodById[hover!] ?? 0) >= 0 ? 'gain' : 'lose'} {compactUsd(Math.abs(prodById[hover!] ?? 0))}</>)
+            : <span className="faint">hover an area · focus: {v.label}</span>}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <>
-      <div className="section">
-        <h4>Where the {who === 'consumers' ? 'consumer loss' : 'producer gain or loss'} lands<Info term={who === 'consumers' ? 'perCapita' : 'producer'} /></h4>
+      <div className="section" style={{ paddingBottom: 0 }}>
         <div className="dist-controls">
-          <span className="seg small">
-            <button className={who === 'consumers' ? 'on' : ''} onClick={() => setWho('consumers')}>Consumers</button>
-            <button className={who === 'producers' ? 'on' : ''} onClick={() => setWho('producers')}>Producers</button>
-          </span>
           <span className="seg small">
             <button className={horizon === 'annual' ? 'on' : ''} onClick={() => setHorizon('annual')}>Annual</button>
             <button className={horizon === 'total' ? 'on' : ''} onClick={() => setHorizon('total')}>Total · {entry.impact.durationMonths} mo</button>
@@ -96,40 +130,9 @@ export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: E
             </span>
           )}
         </div>
-        <div className="usmap-wrap">
-          <svg viewBox={`0 0 ${W} ${H}`} className="usmap" style={{ width: '100%', height: 'auto', display: 'block' }}>
-            {geo?.features.map((f) => {
-              const id = (f.id as string | undefined) ?? (f.properties as { id?: string } | null)?.id ?? '';
-              const r = byId[id];
-              const t = r ? scale(r.perCapita) : 0;
-              const pv = prodById[id];
-              const fill = who === 'producers' ? (pv === undefined ? 'var(--panel-3)' : diverge(pv / pmax)) : (r ? ramp(t) : 'var(--panel-3)');
-              const isFocus = focusIds.has(id) || (focus.kind === 'state' && level === 'district' && focusStates.has(id.split('-')[0]!));
-              return <path key={id} d={path(f as never) ?? undefined} fill={fill} stroke={isFocus ? 'var(--accent)' : 'var(--bg)'} strokeWidth={isFocus ? 1.5 : 0.4} onMouseEnter={() => setHover(id)} onMouseLeave={() => setHover(null)} />;
-            })}
-          </svg>
-          {who === 'consumers' ? (
-            <div className="usmap-legend">
-              <span>{usd2(min)}</span>
-              <span className="ramp" style={{ background: `linear-gradient(90deg, ${ramp(0)}, ${ramp(0.25)}, ${ramp(0.5)}, ${ramp(0.75)}, ${ramp(0.99)})` }} />
-              <span>{usd2(max)} per person · {horizon === 'annual' ? 'first 12 months' : `total over ${entry.impact.durationMonths} months`}</span>
-            </div>
-          ) : (
-            <div className="usmap-legend">
-              <span>−{compactUsd(pmax)}</span>
-              <span className="ramp" style={{ background: `linear-gradient(90deg, ${diverge(-1)}, ${diverge(0)}, ${diverge(1)})` }} />
-              <span>+{compactUsd(pmax)} producer revenue · {horizon === 'annual' ? 'first 12 months' : `total over ${entry.impact.durationMonths} months`}</span>
-            </div>
-          )}
-          <div className="usmap-hover">
-            {hovered && hoverArea
-              ? (who === 'consumers'
-                ? <><b>{hoverArea.name}</b> · {usd2(hovered.perCapita)} per person · {compactUsd(hovered.cv)} in total</>
-                : <><b>{hoverArea.name}</b> · producers {(prodById[hover!] ?? 0) >= 0 ? 'gain' : 'lose'} {compactUsd(Math.abs(prodById[hover!] ?? 0))}</>)
-              : <span className="faint">hover an area · focus: {v.label}</span>}
-          </div>
-        </div>
       </div>
+      {renderMap('consumers')}
+      {renderMap('producers')}
 
       <div className="section">
         <h4>Cost per household by income group<Info term="quintile" /></h4>
@@ -138,11 +141,11 @@ export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: E
             const scale = entry.impact.welfare.cv > 0 ? v.cv / entry.impact.welfare.cv : 0;
             const all = entry.impact.welfare.incidence.map((x) => x.lossPerHousehold);
             const mx = Math.max(...all, 1e-9);
+            const val = q.lossPerHousehold * (focus.kind === 'us' ? 1 : Math.min(1, scale * (ctx.population.value / Math.max(1, v.population))));
             return (
-              <div className="bar-row" key={q.quintile}>
-                <span className="faint">Q{q.quintile}</span>
-                <span className="bar-track"><span className="bar-fill" style={{ width: `${(q.lossPerHousehold / mx) * 100}%` }} /></span>
-                <span>{usd2(q.lossPerHousehold * (focus.kind === 'us' ? 1 : Math.min(1, scale * (ctx.population.value / Math.max(1, v.population)))))}</span>
+              <div className="qbar-row" key={q.quintile}>
+                <span className="qbar-lbl">{q.quintile === 1 ? 'Q1 · lowest income' : q.quintile === 5 ? 'Q5 · highest income' : `Q${q.quintile}`}</span>
+                <span className="qbar-track"><span className="qbar-fill" style={{ width: `${Math.max(4, (q.lossPerHousehold / mx) * 100)}%` }}><span className="qbar-val">{usd2(val)}</span></span></span>
               </div>
             );
           })}
