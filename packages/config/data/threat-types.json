@@ -7,6 +7,7 @@
   "storm":             { "category": "storm", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.2, "defaultMonths": 6, "source": "GDACS tropical cyclone alert (modeled cap)" },
   "wildfire":          { "category": "wildfire", "kind": "natural", "rule": "crop_hazard", "damageAtSeverity1": 0.1, "defaultMonths": 6, "source": "NASA FIRMS hotspot density (modeled cap)" },
   "export_ban":        { "category": "export_ban", "kind": "geopolitical", "rule": "trade_block", "defaultMonths": 6, "source": "GTA / IFPRI tracker" },
+  "import_decline":    { "category": "import_decline", "kind": "geopolitical", "rule": "trade_block", "defaultMonths": 3, "source": "US Census Bureau monthly imports by origin (measured three-month decline vs a year earlier); FAO price-anomaly indicator on BLS retail prices decides whether it is under way" },
   "embargo":           { "category": "embargo", "kind": "geopolitical", "rule": "trade_block", "defaultMonths": 12, "source": "GTA" },
   "tariff":            { "category": "tariff", "kind": "geopolitical", "rule": "tariff", "defaultMonths": 12, "source": "GTA" },
   "war":               { "category": "war", "kind": "geopolitical", "rule": "world_price", "defaultMonths": 6, "source": "ACLED intensity; world-price transmission 0.5 (modeled)" },

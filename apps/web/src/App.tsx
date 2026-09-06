@@ -96,7 +96,7 @@ export function App() {
   /** Scenario tabs: clicking a supplier country adds a disruption there (export cut-off by default) covering everything it sends the US. */
   const pickRegion = (regionId: string) => {
     const r = ctx.regions[regionId]; if (!r) return;
-    const ids = [...new Set([...Object.keys(r.usImportOriginShare ?? {}), ...Object.keys(r.worldExportShare ?? {})])].filter((id) => ctx.commodities[id] || ctx.inputs[id]);
+    const ids = [...new Set([...Object.entries(r.usImportOriginShare ?? {}).filter(([, v]) => v >= 0.05).sort((a, b) => b[1] - a[1]).map(([k]) => k), ...Object.keys(r.worldExportShare ?? {})])].filter((id) => ctx.commodities[id] || ctx.inputs[id]);
     if (ids.length === 0) return;
     const t: Threat = { id: `user-${Date.now()}`, name: `Export cut-off — ${r.name}`, category: 'export_ban', kind: 'geopolitical', location: { lat: r.lat, lng: r.lng, admin: r.name, regionId, ...(r.countries?.length === 1 ? { iso3: r.countries[0]! } : {}) }, commodities: ids.map((id) => ({ id, relevance: 1 })), severity: 0.5, start: '2026-09', months: 6, source: { feed: 'Added on the map', kind: 'user', note: 'Dial severity and duration in the panel' } };
     onAdd(t);

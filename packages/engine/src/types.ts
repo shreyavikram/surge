@@ -20,7 +20,7 @@ export interface Assumption {
 }
 
 export type ThreatCategory =
-  | 'tariff' | 'embargo' | 'export_ban' | 'war' | 'instability' | 'chokepoint' | 'import_dependence'
+  | 'tariff' | 'embargo' | 'export_ban' | 'import_decline' | 'war' | 'instability' | 'chokepoint' | 'import_dependence'
   | 'drought' | 'heat' | 'flood' | 'storm' | 'wildfire' | 'pest' | 'disease'
   | 'input_cost' | 'facility';
 

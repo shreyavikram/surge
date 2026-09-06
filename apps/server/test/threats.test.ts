@@ -31,7 +31,7 @@ describe('feedItemsToThreats', () => {
   });
 
   it('drops items outside the gazetteer', () => {
-    const items: FeedItem[] = [{ id: 'x', name: 'Flood in Chad', category: 'flood', kind: 'natural', lat: 13.5, lng: 14.4, severity: 0.5 }];
+    const items: FeedItem[] = [{ id: 'x', name: 'Flood in Chad', category: 'flood', kind: 'natural', lat: 13.5, lng: 14.4, iso3: 'TCD', severity: 0.5 }];
     expect(feedItemsToThreats(items, src, ctx)).toEqual([]);
   });
 

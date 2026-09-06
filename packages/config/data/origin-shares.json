@@ -1,0 +1,1515 @@
+{
+ "source": "US Census Bureau, USA Trade Online / International Trade API, general imports customs value by country, monthly",
+ "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs",
+ "window": {
+  "from": "2025-08",
+  "to": "2026-07"
+ },
+ "generatedAt": "2026-09-06T05:13:57Z",
+ "hs": {
+  "eggs": [
+   "0407",
+   "0408"
+  ],
+  "chicken": [
+   "020711",
+   "020712",
+   "020713",
+   "020714"
+  ],
+  "turkey": [
+   "020724",
+   "020725",
+   "020726",
+   "020727"
+  ],
+  "beef": [
+   "0201",
+   "0202"
+  ],
+  "pork": [
+   "0203"
+  ],
+  "milk": [
+   "0401",
+   "0402"
+  ],
+  "cheese": [
+   "0406"
+  ],
+  "bread": [
+   "1905"
+  ],
+  "rice": [
+   "1006"
+  ],
+  "potatoes": [
+   "0701",
+   "200410"
+  ],
+  "lettuce": [
+   "0705"
+  ],
+  "tomatoes": [
+   "0702"
+  ],
+  "fresh-vegetables": [
+   "0703",
+   "0704",
+   "0706",
+   "0707",
+   "0708",
+   "0709"
+  ],
+  "apples": [
+   "080810"
+  ],
+  "bananas": [
+   "0803"
+  ],
+  "citrus": [
+   "0805"
+  ],
+  "coffee": [
+   "0901"
+  ],
+  "sugar": [
+   "1701"
+  ],
+  "fats-oils": [
+   "1507",
+   "1508",
+   "1509",
+   "1511",
+   "1512",
+   "1514",
+   "1515"
+  ],
+  "infant-formula": [
+   "190110"
+  ],
+  "fertilizer": [
+   "3102",
+   "3104",
+   "3105"
+  ],
+  "wheat": [
+   "1001"
+  ],
+  "corn": [
+   "1005"
+  ],
+  "soybeans": [
+   "1201"
+  ]
+ },
+ "byCommodity": {
+  "eggs": {
+   "totalUsd": 122102215,
+   "origins": {
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 45690373,
+     "share": 0.3742
+    },
+    "GBR": {
+     "name": "United Kingdom",
+     "valueUsd": 20852954,
+     "share": 0.1708
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 9736659,
+     "share": 0.0797
+    },
+    "CHN": {
+     "name": "China",
+     "valueUsd": 9008940,
+     "share": 0.0738
+    },
+    "FRA": {
+     "name": "France",
+     "valueUsd": 6862483,
+     "share": 0.0562
+    },
+    "BRA": {
+     "name": "Brazil",
+     "valueUsd": 5186816,
+     "share": 0.0425
+    },
+    "THA": {
+     "name": "Thailand",
+     "valueUsd": 4692398,
+     "share": 0.0384
+    },
+    "VNM": {
+     "name": "Vietnam",
+     "valueUsd": 3026797,
+     "share": 0.0248
+    },
+    "PAK": {
+     "name": "Pakistan",
+     "valueUsd": 3002965,
+     "share": 0.0246
+    },
+    "TUR": {
+     "name": "Turkey",
+     "valueUsd": 2818145,
+     "share": 0.0231
+    },
+    "TWN": {
+     "name": "Taiwan",
+     "valueUsd": 2615664,
+     "share": 0.0214
+    },
+    "ESP": {
+     "name": "Spain",
+     "valueUsd": 2506588,
+     "share": 0.0205
+    },
+    "AUS": {
+     "name": "Australia",
+     "valueUsd": 1135690,
+     "share": 0.0093
+    },
+    "BEL": {
+     "name": "Belgium",
+     "valueUsd": 1029977,
+     "share": 0.0084
+    },
+    "NLD": {
+     "name": "Netherlands",
+     "valueUsd": 868601,
+     "share": 0.0071
+    },
+    "JPN": {
+     "name": "Japan",
+     "valueUsd": 650685,
+     "share": 0.0053
+    }
+   }
+  },
+  "chicken": {
+   "totalUsd": 233861835,
+   "origins": {
+    "CHL": {
+     "name": "Chile",
+     "valueUsd": 163050802,
+     "share": 0.6972
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 70253360,
+     "share": 0.3004
+    }
+   }
+  },
+  "turkey": {
+   "totalUsd": 61728527,
+   "origins": {
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 61720812,
+     "share": 0.9999
+    }
+   }
+  },
+  "beef": {
+   "totalUsd": 15484330974,
+   "origins": {
+    "AUS": {
+     "name": "Australia",
+     "valueUsd": 4354656794,
+     "share": 0.2812
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 2906057136,
+     "share": 0.1877
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 2604780048,
+     "share": 0.1682
+    },
+    "NZL": {
+     "name": "New Zealand",
+     "valueUsd": 1547610795,
+     "share": 0.0999
+    },
+    "BRA": {
+     "name": "Brazil",
+     "valueUsd": 1541375539,
+     "share": 0.0995
+    },
+    "URY": {
+     "name": "Uruguay",
+     "valueUsd": 793620641,
+     "share": 0.0513
+    },
+    "ARG": {
+     "name": "Argentina",
+     "valueUsd": 664540429,
+     "share": 0.0429
+    },
+    "NIC": {
+     "name": "Nicaragua",
+     "valueUsd": 513399326,
+     "share": 0.0332
+    },
+    "PRY": {
+     "name": "Paraguay",
+     "valueUsd": 303190712,
+     "share": 0.0196
+    },
+    "JPN": {
+     "name": "Japan",
+     "valueUsd": 94351362,
+     "share": 0.0061
+    },
+    "CRI": {
+     "name": "Costa Rica",
+     "valueUsd": 93268611,
+     "share": 0.006
+    }
+   }
+  },
+  "pork": {
+   "totalUsd": 1506730178,
+   "origins": {
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 966203335,
+     "share": 0.6413
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 191432885,
+     "share": 0.1271
+    },
+    "DNK": {
+     "name": "Denmark",
+     "valueUsd": 98800266,
+     "share": 0.0656
+    },
+    "ESP": {
+     "name": "Spain",
+     "valueUsd": 78042131,
+     "share": 0.0518
+    },
+    "POL": {
+     "name": "Poland",
+     "valueUsd": 47855447,
+     "share": 0.0318
+    },
+    "GBR": {
+     "name": "United Kingdom",
+     "valueUsd": 32760704,
+     "share": 0.0217
+    },
+    "BRA": {
+     "name": "Brazil",
+     "valueUsd": 32656726,
+     "share": 0.0217
+    },
+    "NLD": {
+     "name": "Netherlands",
+     "valueUsd": 30586563,
+     "share": 0.0203
+    },
+    "IRL": {
+     "name": "Ireland",
+     "valueUsd": 17331505,
+     "share": 0.0115
+    },
+    "CHL": {
+     "name": "Chile",
+     "valueUsd": 9419748,
+     "share": 0.0063
+    }
+   }
+  },
+  "milk": {
+   "totalUsd": 268516062,
+   "origins": {
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 108577040,
+     "share": 0.4044
+    },
+    "CHL": {
+     "name": "Chile",
+     "valueUsd": 59978188,
+     "share": 0.2234
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 18958326,
+     "share": 0.0706
+    },
+    "NLD": {
+     "name": "Netherlands",
+     "valueUsd": 17837706,
+     "share": 0.0664
+    },
+    "PER": {
+     "name": "Peru",
+     "valueUsd": 10048834,
+     "share": 0.0374
+    },
+    "NZL": {
+     "name": "New Zealand",
+     "valueUsd": 7083477,
+     "share": 0.0264
+    },
+    "COL": {
+     "name": "Colombia",
+     "valueUsd": 6340132,
+     "share": 0.0236
+    },
+    "IRL": {
+     "name": "Ireland",
+     "valueUsd": 5907070,
+     "share": 0.022
+    },
+    "ITA": {
+     "name": "Italy",
+     "valueUsd": 3398596,
+     "share": 0.0127
+    },
+    "PAK": {
+     "name": "Pakistan",
+     "valueUsd": 3096369,
+     "share": 0.0115
+    },
+    "BRA": {
+     "name": "Brazil",
+     "valueUsd": 3014930,
+     "share": 0.0112
+    },
+    "UKR": {
+     "name": "Ukraine",
+     "valueUsd": 2896915,
+     "share": 0.0108
+    },
+    "FRA": {
+     "name": "France",
+     "valueUsd": 2667288,
+     "share": 0.0099
+    },
+    "MYS": {
+     "name": "Malaysia",
+     "valueUsd": 2068936,
+     "share": 0.0077
+    },
+    "DOM": {
+     "name": "Dominican Republic",
+     "valueUsd": 1834407,
+     "share": 0.0068
+    },
+    "DNK": {
+     "name": "Denmark",
+     "valueUsd": 1691008,
+     "share": 0.0063
+    },
+    "GBR": {
+     "name": "United Kingdom",
+     "valueUsd": 1457634,
+     "share": 0.0054
+    }
+   }
+  },
+  "cheese": {
+   "totalUsd": 1699993491,
+   "origins": {
+    "ITA": {
+     "name": "Italy",
+     "valueUsd": 443579939,
+     "share": 0.2609
+    },
+    "FRA": {
+     "name": "France",
+     "valueUsd": 281596439,
+     "share": 0.1656
+    },
+    "ESP": {
+     "name": "Spain",
+     "valueUsd": 122407223,
+     "share": 0.072
+    },
+    "NLD": {
+     "name": "Netherlands",
+     "valueUsd": 107659277,
+     "share": 0.0633
+    },
+    "IRL": {
+     "name": "Ireland",
+     "valueUsd": 100190378,
+     "share": 0.0589
+    },
+    "GRC": {
+     "name": "Greece",
+     "valueUsd": 85194653,
+     "share": 0.0501
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 75367006,
+     "share": 0.0443
+    },
+    "CHE": {
+     "name": "Switzerland",
+     "valueUsd": 62281127,
+     "share": 0.0366
+    },
+    "GBR": {
+     "name": "United Kingdom",
+     "valueUsd": 56460977,
+     "share": 0.0332
+    },
+    "DEU": {
+     "name": "Germany",
+     "valueUsd": 45851975,
+     "share": 0.027
+    },
+    "NIC": {
+     "name": "Nicaragua",
+     "valueUsd": 44490190,
+     "share": 0.0262
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 33430758,
+     "share": 0.0197
+    },
+    "DNK": {
+     "name": "Denmark",
+     "valueUsd": 29691239,
+     "share": 0.0175
+    },
+    "TUR": {
+     "name": "Turkey",
+     "valueUsd": 17017638,
+     "share": 0.01
+    },
+    "CYP": {
+     "name": "Cyprus",
+     "valueUsd": 15336037,
+     "share": 0.009
+    },
+    "BGR": {
+     "name": "Bulgaria",
+     "valueUsd": 14064811,
+     "share": 0.0083
+    },
+    "AUS": {
+     "name": "Australia",
+     "valueUsd": 13691018,
+     "share": 0.0081
+    },
+    "MAR": {
+     "name": "Morocco",
+     "valueUsd": 12292847,
+     "share": 0.0072
+    },
+    "AUT": {
+     "name": "Austria",
+     "valueUsd": 10871306,
+     "share": 0.0064
+    },
+    "NZL": {
+     "name": "New Zealand",
+     "valueUsd": 10830071,
+     "share": 0.0064
+    },
+    "FIN": {
+     "name": "Finland",
+     "valueUsd": 10602984,
+     "share": 0.0062
+    },
+    "IND": {
+     "name": "India",
+     "valueUsd": 10515650,
+     "share": 0.0062
+    },
+    "ISR": {
+     "name": "Israel",
+     "valueUsd": 9435712,
+     "share": 0.0056
+    },
+    "LTU": {
+     "name": "Lithuania",
+     "valueUsd": 8941154,
+     "share": 0.0053
+    }
+   }
+  },
+  "bread": {
+   "totalUsd": 11002118052,
+   "origins": {
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 5198401996,
+     "share": 0.4725
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 2535487080,
+     "share": 0.2305
+    },
+    "ITA": {
+     "name": "Italy",
+     "valueUsd": 519585211,
+     "share": 0.0472
+    },
+    "FRA": {
+     "name": "France",
+     "valueUsd": 288822363,
+     "share": 0.0263
+    },
+    "DEU": {
+     "name": "Germany",
+     "valueUsd": 203462676,
+     "share": 0.0185
+    },
+    "BEL": {
+     "name": "Belgium",
+     "valueUsd": 181122925,
+     "share": 0.0165
+    },
+    "IND": {
+     "name": "India",
+     "valueUsd": 167682968,
+     "share": 0.0152
+    },
+    "KOR": {
+     "name": "South Korea",
+     "valueUsd": 152208107,
+     "share": 0.0138
+    },
+    "GBR": {
+     "name": "United Kingdom",
+     "valueUsd": 126103054,
+     "share": 0.0115
+    },
+    "THA": {
+     "name": "Thailand",
+     "valueUsd": 111279338,
+     "share": 0.0101
+    },
+    "JPN": {
+     "name": "Japan",
+     "valueUsd": 88393083,
+     "share": 0.008
+    },
+    "NLD": {
+     "name": "Netherlands",
+     "valueUsd": 88230896,
+     "share": 0.008
+    },
+    "TUR": {
+     "name": "Turkey",
+     "valueUsd": 80864080,
+     "share": 0.0073
+    },
+    "ISR": {
+     "name": "Israel",
+     "valueUsd": 80326408,
+     "share": 0.0073
+    },
+    "POL": {
+     "name": "Poland",
+     "valueUsd": 78677579,
+     "share": 0.0072
+    },
+    "ESP": {
+     "name": "Spain",
+     "valueUsd": 75236207,
+     "share": 0.0068
+    },
+    "DNK": {
+     "name": "Denmark",
+     "valueUsd": 75132203,
+     "share": 0.0068
+    },
+    "CHN": {
+     "name": "China",
+     "valueUsd": 69931443,
+     "share": 0.0064
+    },
+    "TWN": {
+     "name": "Taiwan",
+     "valueUsd": 59876736,
+     "share": 0.0054
+    },
+    "SLV": {
+     "name": "El Salvador",
+     "valueUsd": 57475690,
+     "share": 0.0052
+    },
+    "MYS": {
+     "name": "Malaysia",
+     "valueUsd": 56403994,
+     "share": 0.0051
+    }
+   }
+  },
+  "rice": {
+   "totalUsd": 1359320453,
+   "origins": {
+    "THA": {
+     "name": "Thailand",
+     "valueUsd": 812008163,
+     "share": 0.5974
+    },
+    "IND": {
+     "name": "India",
+     "valueUsd": 316881301,
+     "share": 0.2331
+    },
+    "PAK": {
+     "name": "Pakistan",
+     "valueUsd": 35293751,
+     "share": 0.026
+    },
+    "ARG": {
+     "name": "Argentina",
+     "valueUsd": 31944682,
+     "share": 0.0235
+    },
+    "CHN": {
+     "name": "China",
+     "valueUsd": 31789222,
+     "share": 0.0234
+    },
+    "VNM": {
+     "name": "Vietnam",
+     "valueUsd": 22130187,
+     "share": 0.0163
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 21789387,
+     "share": 0.016
+    },
+    "JPN": {
+     "name": "Japan",
+     "valueUsd": 19938534,
+     "share": 0.0147
+    },
+    "ITA": {
+     "name": "Italy",
+     "valueUsd": 17188816,
+     "share": 0.0126
+    },
+    "BRA": {
+     "name": "Brazil",
+     "valueUsd": 10509089,
+     "share": 0.0077
+    },
+    "KHM": {
+     "name": "Cambodia",
+     "valueUsd": 7217413,
+     "share": 0.0053
+    }
+   }
+  },
+  "potatoes": {
+   "totalUsd": 2352642390,
+   "origins": {
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 1997399189,
+     "share": 0.849
+    },
+    "BEL": {
+     "name": "Belgium",
+     "valueUsd": 235151543,
+     "share": 0.1
+    },
+    "NLD": {
+     "name": "Netherlands",
+     "valueUsd": 41801585,
+     "share": 0.0178
+    },
+    "EGY": {
+     "name": "Egypt",
+     "valueUsd": 23024281,
+     "share": 0.0098
+    },
+    "FRA": {
+     "name": "France",
+     "valueUsd": 20227783,
+     "share": 0.0086
+    }
+   }
+  },
+  "lettuce": {
+   "totalUsd": 541913084,
+   "origins": {
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 462703059,
+     "share": 0.8538
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 76525418,
+     "share": 0.1412
+    }
+   }
+  },
+  "tomatoes": {
+   "totalUsd": 2920138249,
+   "origins": {
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 2286892749,
+     "share": 0.7831
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 596482977,
+     "share": 0.2043
+    },
+    "GTM": {
+     "name": "Guatemala",
+     "valueUsd": 22377700,
+     "share": 0.0077
+    }
+   }
+  },
+  "fresh-vegetables": {
+   "totalUsd": 7507764803,
+   "origins": {
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 4881834054,
+     "share": 0.6502
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 1785908533,
+     "share": 0.2379
+    },
+    "PER": {
+     "name": "Peru",
+     "valueUsd": 318764052,
+     "share": 0.0425
+    },
+    "GTM": {
+     "name": "Guatemala",
+     "valueUsd": 135704128,
+     "share": 0.0181
+    },
+    "CHN": {
+     "name": "China",
+     "valueUsd": 108716323,
+     "share": 0.0145
+    },
+    "ESP": {
+     "name": "Spain",
+     "valueUsd": 61828330,
+     "share": 0.0082
+    },
+    "HND": {
+     "name": "Honduras",
+     "valueUsd": 41051157,
+     "share": 0.0055
+    }
+   }
+  },
+  "apples": {
+   "totalUsd": 118312843,
+   "origins": {
+    "CHL": {
+     "name": "Chile",
+     "valueUsd": 61077406,
+     "share": 0.5162
+    },
+    "NZL": {
+     "name": "New Zealand",
+     "valueUsd": 29548615,
+     "share": 0.2497
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 24112804,
+     "share": 0.2038
+    },
+    "CHN": {
+     "name": "China",
+     "valueUsd": 1315706,
+     "share": 0.0111
+    },
+    "ARG": {
+     "name": "Argentina",
+     "valueUsd": 1032155,
+     "share": 0.0087
+    },
+    "AUS": {
+     "name": "Australia",
+     "valueUsd": 700315,
+     "share": 0.0059
+    }
+   }
+  },
+  "bananas": {
+   "totalUsd": 3134438248,
+   "origins": {
+    "GTM": {
+     "name": "Guatemala",
+     "valueUsd": 1233812187,
+     "share": 0.3936
+    },
+    "ECU": {
+     "name": "Ecuador",
+     "valueUsd": 650554609,
+     "share": 0.2076
+    },
+    "COL": {
+     "name": "Colombia",
+     "valueUsd": 339937158,
+     "share": 0.1085
+    },
+    "CRI": {
+     "name": "Costa Rica",
+     "valueUsd": 320978962,
+     "share": 0.1024
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 252547530,
+     "share": 0.0806
+    },
+    "HND": {
+     "name": "Honduras",
+     "valueUsd": 245067775,
+     "share": 0.0782
+    },
+    "PAN": {
+     "name": "Panama",
+     "valueUsd": 36441842,
+     "share": 0.0116
+    },
+    "PER": {
+     "name": "Peru",
+     "valueUsd": 32258709,
+     "share": 0.0103
+    }
+   }
+  },
+  "citrus": {
+   "totalUsd": 1880762014,
+   "origins": {
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 897158060,
+     "share": 0.477
+    },
+    "CHL": {
+     "name": "Chile",
+     "valueUsd": 424925506,
+     "share": 0.2259
+    },
+    "PER": {
+     "name": "Peru",
+     "valueUsd": 125788354,
+     "share": 0.0669
+    },
+    "COL": {
+     "name": "Colombia",
+     "valueUsd": 115288185,
+     "share": 0.0613
+    },
+    "ZAF": {
+     "name": "South Africa",
+     "valueUsd": 104497738,
+     "share": 0.0556
+    },
+    "MAR": {
+     "name": "Morocco",
+     "valueUsd": 74657201,
+     "share": 0.0397
+    },
+    "ARG": {
+     "name": "Argentina",
+     "valueUsd": 48006271,
+     "share": 0.0255
+    },
+    "URY": {
+     "name": "Uruguay",
+     "valueUsd": 29545621,
+     "share": 0.0157
+    },
+    "AUS": {
+     "name": "Australia",
+     "valueUsd": 22926218,
+     "share": 0.0122
+    }
+   }
+  },
+  "coffee": {
+   "totalUsd": 11651531324,
+   "origins": {
+    "COL": {
+     "name": "Colombia",
+     "valueUsd": 2493434467,
+     "share": 0.214
+    },
+    "BRA": {
+     "name": "Brazil",
+     "valueUsd": 1768922881,
+     "share": 0.1518
+    },
+    "HND": {
+     "name": "Honduras",
+     "valueUsd": 942796569,
+     "share": 0.0809
+    },
+    "CHE": {
+     "name": "Switzerland",
+     "valueUsd": 817236967,
+     "share": 0.0701
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 798353854,
+     "share": 0.0685
+    },
+    "GTM": {
+     "name": "Guatemala",
+     "valueUsd": 765745097,
+     "share": 0.0657
+    },
+    "PER": {
+     "name": "Peru",
+     "valueUsd": 712900678,
+     "share": 0.0612
+    },
+    "VNM": {
+     "name": "Vietnam",
+     "valueUsd": 542709409,
+     "share": 0.0466
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 420438069,
+     "share": 0.0361
+    },
+    "IDN": {
+     "name": "Indonesia",
+     "valueUsd": 401894511,
+     "share": 0.0345
+    },
+    "NIC": {
+     "name": "Nicaragua",
+     "valueUsd": 383231634,
+     "share": 0.0329
+    },
+    "ETH": {
+     "name": "Ethiopia",
+     "valueUsd": 298352086,
+     "share": 0.0256
+    },
+    "ITA": {
+     "name": "Italy",
+     "valueUsd": 241005475,
+     "share": 0.0207
+    },
+    "CRI": {
+     "name": "Costa Rica",
+     "valueUsd": 183320172,
+     "share": 0.0157
+    },
+    "UGA": {
+     "name": "Uganda",
+     "valueUsd": 150897218,
+     "share": 0.013
+    },
+    "SLV": {
+     "name": "El Salvador",
+     "valueUsd": 129425892,
+     "share": 0.0111
+    },
+    "DEU": {
+     "name": "Germany",
+     "valueUsd": 123521753,
+     "share": 0.0106
+    },
+    "KEN": {
+     "name": "Kenya",
+     "valueUsd": 91891682,
+     "share": 0.0079
+    }
+   }
+  },
+  "sugar": {
+   "totalUsd": 1429458937,
+   "origins": {
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 309299135,
+     "share": 0.2164
+    },
+    "GTM": {
+     "name": "Guatemala",
+     "valueUsd": 141158506,
+     "share": 0.0987
+    },
+    "BRA": {
+     "name": "Brazil",
+     "valueUsd": 135829569,
+     "share": 0.095
+    },
+    "DOM": {
+     "name": "Dominican Republic",
+     "valueUsd": 133716979,
+     "share": 0.0935
+    },
+    "COL": {
+     "name": "Colombia",
+     "valueUsd": 105307471,
+     "share": 0.0737
+    },
+    "SLV": {
+     "name": "El Salvador",
+     "valueUsd": 94651942,
+     "share": 0.0662
+    },
+    "ARG": {
+     "name": "Argentina",
+     "valueUsd": 85661633,
+     "share": 0.0599
+    },
+    "AUS": {
+     "name": "Australia",
+     "valueUsd": 65949762,
+     "share": 0.0461
+    },
+    "CRI": {
+     "name": "Costa Rica",
+     "valueUsd": 43567237,
+     "share": 0.0305
+    },
+    "PHL": {
+     "name": "Philippines",
+     "valueUsd": 41030440,
+     "share": 0.0287
+    },
+    "HND": {
+     "name": "Honduras",
+     "valueUsd": 33833591,
+     "share": 0.0237
+    },
+    "PER": {
+     "name": "Peru",
+     "valueUsd": 26963942,
+     "share": 0.0189
+    },
+    "PRY": {
+     "name": "Paraguay",
+     "valueUsd": 25003644,
+     "share": 0.0175
+    },
+    "PAN": {
+     "name": "Panama",
+     "valueUsd": 22776931,
+     "share": 0.0159
+    },
+    "NIC": {
+     "name": "Nicaragua",
+     "valueUsd": 21735948,
+     "share": 0.0152
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 18689431,
+     "share": 0.0131
+    },
+    "ZAF": {
+     "name": "South Africa",
+     "valueUsd": 16656515,
+     "share": 0.0117
+    },
+    "THA": {
+     "name": "Thailand",
+     "valueUsd": 12029106,
+     "share": 0.0084
+    },
+    "SWZ": {
+     "name": "Eswatini",
+     "valueUsd": 11967047,
+     "share": 0.0084
+    },
+    "BLZ": {
+     "name": "Belize",
+     "valueUsd": 9852112,
+     "share": 0.0069
+    },
+    "MOZ": {
+     "name": "Mozambique",
+     "valueUsd": 9255413,
+     "share": 0.0065
+    },
+    "MUS": {
+     "name": "Mauritius",
+     "valueUsd": 9249188,
+     "share": 0.0065
+    },
+    "ZWE": {
+     "name": "Zimbabwe",
+     "valueUsd": 8674287,
+     "share": 0.0061
+    }
+   }
+  },
+  "fats-oils": {
+   "totalUsd": 9565407593,
+   "origins": {
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 4180566541,
+     "share": 0.4371
+    },
+    "IDN": {
+     "name": "Indonesia",
+     "valueUsd": 1303702506,
+     "share": 0.1363
+    },
+    "ESP": {
+     "name": "Spain",
+     "valueUsd": 1052017215,
+     "share": 0.11
+    },
+    "ITA": {
+     "name": "Italy",
+     "valueUsd": 653742658,
+     "share": 0.0683
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 598598709,
+     "share": 0.0626
+    },
+    "TUN": {
+     "name": "Tunisia",
+     "valueUsd": 439191406,
+     "share": 0.0459
+    },
+    "MYS": {
+     "name": "Malaysia",
+     "valueUsd": 203851805,
+     "share": 0.0213
+    },
+    "ARG": {
+     "name": "Argentina",
+     "valueUsd": 144501073,
+     "share": 0.0151
+    },
+    "IND": {
+     "name": "India",
+     "valueUsd": 120929760,
+     "share": 0.0126
+    },
+    "GRC": {
+     "name": "Greece",
+     "valueUsd": 78746638,
+     "share": 0.0082
+    },
+    "UKR": {
+     "name": "Ukraine",
+     "valueUsd": 74000275,
+     "share": 0.0077
+    },
+    "TUR": {
+     "name": "Turkey",
+     "valueUsd": 72462344,
+     "share": 0.0076
+    },
+    "KEN": {
+     "name": "Kenya",
+     "valueUsd": 64599732,
+     "share": 0.0068
+    },
+    "CHL": {
+     "name": "Chile",
+     "valueUsd": 59229047,
+     "share": 0.0062
+    },
+    "JPN": {
+     "name": "Japan",
+     "valueUsd": 53547278,
+     "share": 0.0056
+    }
+   }
+  },
+  "infant-formula": {
+   "totalUsd": 354651104,
+   "origins": {
+    "IRL": {
+     "name": "Ireland",
+     "valueUsd": 90822354,
+     "share": 0.2561
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 80999176,
+     "share": 0.2284
+    },
+    "GBR": {
+     "name": "United Kingdom",
+     "valueUsd": 78104237,
+     "share": 0.2202
+    },
+    "ESP": {
+     "name": "Spain",
+     "valueUsd": 28169886,
+     "share": 0.0794
+    },
+    "AUS": {
+     "name": "Australia",
+     "valueUsd": 24714996,
+     "share": 0.0697
+    },
+    "DEU": {
+     "name": "Germany",
+     "valueUsd": 12408980,
+     "share": 0.035
+    },
+    "NLD": {
+     "name": "Netherlands",
+     "valueUsd": 11966343,
+     "share": 0.0337
+    },
+    "AUT": {
+     "name": "Austria",
+     "valueUsd": 10813856,
+     "share": 0.0305
+    },
+    "FRA": {
+     "name": "France",
+     "valueUsd": 7265026,
+     "share": 0.0205
+    },
+    "CHL": {
+     "name": "Chile",
+     "valueUsd": 3852818,
+     "share": 0.0109
+    },
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 2122670,
+     "share": 0.006
+    }
+   }
+  },
+  "fertilizer": {
+   "totalUsd": 8512284843,
+   "origins": {
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 3735650745,
+     "share": 0.4389
+    },
+    "RUS": {
+     "name": "Russia",
+     "valueUsd": 1606569660,
+     "share": 0.1887
+    },
+    "SAU": {
+     "name": "Saudi Arabia",
+     "valueUsd": 445390121,
+     "share": 0.0523
+    },
+    "QAT": {
+     "name": "Qatar",
+     "valueUsd": 434452532,
+     "share": 0.051
+    },
+    "DZA": {
+     "name": "Algeria",
+     "valueUsd": 223315781,
+     "share": 0.0262
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 222956068,
+     "share": 0.0262
+    },
+    "TTO": {
+     "name": "Trinidad and Tobago",
+     "valueUsd": 186302129,
+     "share": 0.0219
+    },
+    "OMN": {
+     "name": "Oman",
+     "valueUsd": 178440602,
+     "share": 0.021
+    },
+    "NGA": {
+     "name": "Nigeria",
+     "valueUsd": 165589816,
+     "share": 0.0195
+    },
+    "MAR": {
+     "name": "Morocco",
+     "valueUsd": 137167425,
+     "share": 0.0161
+    },
+    "EGY": {
+     "name": "Egypt",
+     "valueUsd": 123310907,
+     "share": 0.0145
+    },
+    "BEL": {
+     "name": "Belgium",
+     "valueUsd": 122664088,
+     "share": 0.0144
+    },
+    "ISR": {
+     "name": "Israel",
+     "valueUsd": 116270643,
+     "share": 0.0137
+    },
+    "NLD": {
+     "name": "Netherlands",
+     "valueUsd": 107335742,
+     "share": 0.0126
+    },
+    "NOR": {
+     "name": "Norway",
+     "valueUsd": 97133294,
+     "share": 0.0114
+    },
+    "LTU": {
+     "name": "Lithuania",
+     "valueUsd": 96488110,
+     "share": 0.0113
+    },
+    "DEU": {
+     "name": "Germany",
+     "valueUsd": 82756289,
+     "share": 0.0097
+    },
+    "AUS": {
+     "name": "Australia",
+     "valueUsd": 47421126,
+     "share": 0.0056
+    }
+   }
+  },
+  "wheat": {
+   "totalUsd": 633761847,
+   "origins": {
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 618863158,
+     "share": 0.9765
+    },
+    "POL": {
+     "name": "Poland",
+     "valueUsd": 9019096,
+     "share": 0.0142
+    },
+    "ARG": {
+     "name": "Argentina",
+     "valueUsd": 4619148,
+     "share": 0.0073
+    }
+   }
+  },
+  "corn": {
+   "totalUsd": 260637573,
+   "origins": {
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 89123960,
+     "share": 0.3419
+    },
+    "TUR": {
+     "name": "Turkey",
+     "valueUsd": 56438751,
+     "share": 0.2165
+    },
+    "ARG": {
+     "name": "Argentina",
+     "valueUsd": 54696507,
+     "share": 0.2099
+    },
+    "CHL": {
+     "name": "Chile",
+     "valueUsd": 30667488,
+     "share": 0.1177
+    },
+    "BRA": {
+     "name": "Brazil",
+     "valueUsd": 8827025,
+     "share": 0.0339
+    },
+    "FRA": {
+     "name": "France",
+     "valueUsd": 6522195,
+     "share": 0.025
+    },
+    "PER": {
+     "name": "Peru",
+     "valueUsd": 6427001,
+     "share": 0.0247
+    },
+    "MEX": {
+     "name": "Mexico",
+     "valueUsd": 6236075,
+     "share": 0.0239
+    }
+   }
+  },
+  "soybeans": {
+   "totalUsd": 354295547,
+   "origins": {
+    "CAN": {
+     "name": "Canada",
+     "valueUsd": 150547932,
+     "share": 0.4249
+    },
+    "ARG": {
+     "name": "Argentina",
+     "valueUsd": 96180742,
+     "share": 0.2715
+    },
+    "UKR": {
+     "name": "Ukraine",
+     "valueUsd": 51426649,
+     "share": 0.1452
+    },
+    "TUR": {
+     "name": "Turkey",
+     "valueUsd": 25952871,
+     "share": 0.0733
+    },
+    "URY": {
+     "name": "Uruguay",
+     "valueUsd": 13546722,
+     "share": 0.0382
+    },
+    "RUS": {
+     "name": "Russia",
+     "valueUsd": 9748953,
+     "share": 0.0275
+    },
+    "CHL": {
+     "name": "Chile",
+     "valueUsd": 3377136,
+     "share": 0.0095
+    },
+    "CHN": {
+     "name": "China",
+     "valueUsd": 2120520,
+     "share": 0.006
+    }
+   }
+  }
+ },
+ "failed": [],
+ "unmapped": []
+}

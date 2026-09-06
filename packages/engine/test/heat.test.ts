@@ -41,8 +41,8 @@ describe('heat', () => {
   it('a commodity lens recolors by that commodity: tomato suppliers only', () => {
     const h = countryHeat([], ctx, ['tomatoes']);
     expect(h['MEX']!.status).toBe('stable');
-    expect(h['MEX']!.baseline).toBeCloseTo(0.9, 6);
-    expect(h['CAN']!.status).toBe('none');
+    expect(h['MEX']!.baseline).toBeCloseTo(ctx.regions['mexico']!.usImportOriginShare!['tomatoes']!, 6);
+    expect(h['BRA']!.status).toBe('none'); // Canada does supply greenhouse tomatoes (20% of imports, measured)
     const st = stateHeat([], ctx, ['eggs']);
     expect(st['IA']!.baseline).toBeGreaterThan(st['NV']!.baseline);
   });

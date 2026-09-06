@@ -1,0 +1,1220 @@
+{
+  "fetchedAt": "2026-09-06T13:04:06.879Z",
+  "result": {
+    "items": [
+      {
+        "id": "trade-eggs-bra",
+        "name": "Eggs imports from Brazil down 100%",
+        "category": "import_decline",
+        "kind": "geopolitical",
+        "regionId": "brazil",
+        "admin": "Brazil",
+        "iso3": "BRA",
+        "lat": -14.2,
+        "lng": -51.9,
+        "commodities": [
+          {
+            "id": "eggs",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.999398636870348,
+        "status": "breaking",
+        "confidence": 0.85,
+        "start": "2026-07",
+        "months": 3,
+        "summary": "US imports of eggs from Brazil were $18K in May–Jul 2026, down 100% from $30M in the same months a year earlier; Brazil supplied 35% of these imports last year (US Census Bureau monthly trade data).",
+        "text": "Census general imports, customs value: 2026-05, 2026-06, 2026-07 = $18K vs year-earlier $30M; origin share 34.6%",
+        "raw": {
+          "current": 18090,
+          "previous": 30081658,
+          "share": 0.3462967822260264,
+          "window": [
+            "2026-05",
+            "2026-06",
+            "2026-07"
+          ]
+        }
+      },
+      {
+        "id": "trade-sugar-mex",
+        "name": "Sugar and sweeteners imports from Mexico down 64%",
+        "category": "import_decline",
+        "kind": "geopolitical",
+        "regionId": "mexico",
+        "admin": "Mexico",
+        "iso3": "MEX",
+        "lat": 23.6,
+        "lng": -102.5,
+        "commodities": [
+          {
+            "id": "sugar",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.6382628780354505,
+        "status": "breaking",
+        "confidence": 0.85,
+        "start": "2026-07",
+        "months": 3,
+        "summary": "US imports of sugar and sweeteners from Mexico were $58M in May–Jul 2026, down 64% from $161M in the same months a year earlier; Mexico supplied 31% of these imports last year (US Census Bureau monthly trade data).",
+        "text": "Census general imports, customs value: 2026-05, 2026-06, 2026-07 = $58M vs year-earlier $161M; origin share 30.9%",
+        "raw": {
+          "current": 58199229,
+          "previous": 160888185,
+          "share": 0.3092427519847745,
+          "window": [
+            "2026-05",
+            "2026-06",
+            "2026-07"
+          ]
+        }
+      },
+      {
+        "id": "trade-eggs-mex",
+        "name": "Eggs imports from Mexico down 100%",
+        "category": "import_decline",
+        "kind": "geopolitical",
+        "regionId": "mexico",
+        "admin": "Mexico",
+        "iso3": "MEX",
+        "lat": 23.6,
+        "lng": -102.5,
+        "commodities": [
+          {
+            "id": "eggs",
+            "relevance": 1
+          }
+        ],
+        "severity": 1,
+        "status": "breaking",
+        "confidence": 0.85,
+        "start": "2026-07",
+        "months": 3,
+        "summary": "US imports of eggs from Mexico were $0K in May–Jul 2026, down 100% from $13M in the same months a year earlier; Mexico supplied 15% of these imports last year (US Census Bureau monthly trade data).",
+        "text": "Census general imports, customs value: 2026-05, 2026-06, 2026-07 = $0K vs year-earlier $13M; origin share 15.0%",
+        "raw": {
+          "current": 0,
+          "previous": 13033693,
+          "share": 0.15004245930932011,
+          "window": [
+            "2026-05",
+            "2026-06",
+            "2026-07"
+          ]
+        }
+      },
+      {
+        "id": "trade-soybeans-can",
+        "name": "Soybeans (meal and oil) imports from Canada down 33%",
+        "category": "import_decline",
+        "kind": "geopolitical",
+        "regionId": "canada",
+        "admin": "Canada",
+        "iso3": "CAN",
+        "lat": 56.1,
+        "lng": -106.3,
+        "commodities": [
+          {
+            "id": "soybeans",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.3256278060611535,
+        "status": "breaking",
+        "confidence": 0.85,
+        "start": "2026-07",
+        "months": 3,
+        "summary": "US imports of soybeans (meal and oil) from Canada were $36M in May–Jul 2026, down 33% from $53M in the same months a year earlier; Canada supplied 42% of these imports last year (US Census Bureau monthly trade data).",
+        "text": "Census general imports, customs value: 2026-05, 2026-06, 2026-07 = $36M vs year-earlier $53M; origin share 42.0%",
+        "raw": {
+          "current": 35686303,
+          "previous": 52917815,
+          "share": 0.42041714316439915,
+          "window": [
+            "2026-05",
+            "2026-06",
+            "2026-07"
+          ]
+        }
+      },
+      {
+        "id": "trade-milk-mex",
+        "name": "Fluid milk imports from Mexico down 25%",
+        "category": "import_decline",
+        "kind": "geopolitical",
+        "regionId": "mexico",
+        "admin": "Mexico",
+        "iso3": "MEX",
+        "lat": 23.6,
+        "lng": -102.5,
+        "commodities": [
+          {
+            "id": "milk",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.24767076669127308,
+        "status": "breaking",
+        "confidence": 0.85,
+        "start": "2026-07",
+        "months": 3,
+        "summary": "US imports of fluid milk from Mexico were $29M in May–Jul 2026, down 25% from $38M in the same months a year earlier; Mexico supplied 51% of these imports last year (US Census Bureau monthly trade data).",
+        "text": "Census general imports, customs value: 2026-05, 2026-06, 2026-07 = $29M vs year-earlier $38M; origin share 51.0%",
+        "raw": {
+          "current": 28730914,
+          "previous": 38189283,
+          "share": 0.5103069030506784,
+          "window": [
+            "2026-05",
+            "2026-06",
+            "2026-07"
+          ]
+        }
+      },
+      {
+        "id": "trade-soybeans-ukr",
+        "name": "Soybeans (meal and oil) imports from Ukraine down 44%",
+        "category": "import_decline",
+        "kind": "geopolitical",
+        "regionId": "ukraine",
+        "admin": "Ukraine",
+        "iso3": "UKR",
+        "lat": 49,
+        "lng": 31.5,
+        "commodities": [
+          {
+            "id": "soybeans",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.43969956799948784,
+        "status": "breaking",
+        "confidence": 0.85,
+        "start": "2026-07",
+        "months": 3,
+        "summary": "US imports of soybeans (meal and oil) from Ukraine were $16M in May–Jul 2026, down 44% from $28M in the same months a year earlier; Ukraine supplied 22% of these imports last year (US Census Bureau monthly trade data).",
+        "text": "Census general imports, customs value: 2026-05, 2026-06, 2026-07 = $16M vs year-earlier $28M; origin share 22.0%",
+        "raw": {
+          "current": 15542093,
+          "previous": 27738856,
+          "share": 0.2203774020935795,
+          "window": [
+            "2026-05",
+            "2026-06",
+            "2026-07"
+          ]
+        }
+      },
+      {
+        "id": "trade-coffee-bra",
+        "name": "Coffee imports from Brazil down 44%",
+        "category": "import_decline",
+        "kind": "geopolitical",
+        "regionId": "brazil",
+        "admin": "Brazil",
+        "iso3": "BRA",
+        "lat": -14.2,
+        "lng": -51.9,
+        "commodities": [
+          {
+            "id": "coffee",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.4387671678530122,
+        "status": "breaking",
+        "confidence": 0.85,
+        "start": "2026-07",
+        "months": 3,
+        "summary": "US imports of coffee from Brazil were $434M in May–Jul 2026, down 44% from $773M in the same months a year earlier; Brazil supplied 21% of these imports last year (US Census Bureau monthly trade data).",
+        "text": "Census general imports, customs value: 2026-05, 2026-06, 2026-07 = $434M vs year-earlier $773M; origin share 20.5%",
+        "raw": {
+          "current": 433759208,
+          "previous": 772868555,
+          "share": 0.2051542221644589,
+          "window": [
+            "2026-05",
+            "2026-06",
+            "2026-07"
+          ]
+        }
+      },
+      {
+        "id": "trade-sugar-bra",
+        "name": "Sugar and sweeteners imports from Brazil down 51%",
+        "category": "import_decline",
+        "kind": "geopolitical",
+        "regionId": "brazil",
+        "admin": "Brazil",
+        "iso3": "BRA",
+        "lat": -14.2,
+        "lng": -51.9,
+        "commodities": [
+          {
+            "id": "sugar",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.5065384428320898,
+        "status": "breaking",
+        "confidence": 0.85,
+        "start": "2026-07",
+        "months": 3,
+        "summary": "US imports of sugar and sweeteners from Brazil were $41M in May–Jul 2026, down 51% from $83M in the same months a year earlier; Brazil supplied 16% of these imports last year (US Census Bureau monthly trade data).",
+        "text": "Census general imports, customs value: 2026-05, 2026-06, 2026-07 = $41M vs year-earlier $83M; origin share 16.0%",
+        "raw": {
+          "current": 41182193,
+          "previous": 83455727,
+          "share": 0.16041003064563164,
+          "window": [
+            "2026-05",
+            "2026-06",
+            "2026-07"
+          ]
+        }
+      },
+      {
+        "id": "trade-fertilizer-rus",
+        "name": "Nitrogen fertilizer imports from Russia down 35%",
+        "category": "import_decline",
+        "kind": "geopolitical",
+        "regionId": "russia",
+        "admin": "Russia",
+        "iso3": "RUS",
+        "lat": 56,
+        "lng": 60,
+        "commodities": [
+          {
+            "id": "fertilizer",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.3544212045328198,
+        "status": "breaking",
+        "confidence": 0.85,
+        "start": "2026-07",
+        "months": 3,
+        "summary": "US imports of nitrogen fertilizer from Russia were $231M in May–Jul 2026, down 35% from $357M in the same months a year earlier; Russia supplied 21% of these imports last year (US Census Bureau monthly trade data).",
+        "text": "Census general imports, customs value: 2026-05, 2026-06, 2026-07 = $231M vs year-earlier $357M; origin share 21.4%",
+        "raw": {
+          "current": 230757919,
+          "previous": 357443461,
+          "share": 0.2144524285043261,
+          "window": [
+            "2026-05",
+            "2026-06",
+            "2026-07"
+          ]
+        }
+      },
+      {
+        "id": "trade-soybeans-tur",
+        "name": "Soybeans (meal and oil) imports from Turkey down 53%",
+        "category": "import_decline",
+        "kind": "geopolitical",
+        "regionId": "turkey",
+        "admin": "Turkey",
+        "iso3": "TUR",
+        "lat": 39,
+        "lng": 35.2,
+        "commodities": [
+          {
+            "id": "soybeans",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.5285954002486406,
+        "status": "breaking",
+        "confidence": 0.85,
+        "start": "2026-07",
+        "months": 3,
+        "summary": "US imports of soybeans (meal and oil) from Turkey were $7M in May–Jul 2026, down 53% from $15M in the same months a year earlier; Turkey supplied 12% of these imports last year (US Census Bureau monthly trade data).",
+        "text": "Census general imports, customs value: 2026-05, 2026-06, 2026-07 = $7M vs year-earlier $15M; origin share 11.8%",
+        "raw": {
+          "current": 6981941,
+          "previous": 14810931,
+          "share": 0.11766867733720747,
+          "window": [
+            "2026-05",
+            "2026-06",
+            "2026-07"
+          ]
+        }
+      }
+    ],
+    "series": {
+      "imports.eggs": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          33612681,
+          25464078,
+          27789939,
+          18133236,
+          14032190,
+          10728833,
+          8302599,
+          8812694,
+          7057395,
+          6607416,
+          6893853,
+          9861361,
+          11691519,
+          8899413,
+          11081706
+        ]
+      },
+      "imports.chicken": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          29708736,
+          25184997,
+          28155929,
+          23375148,
+          22744268,
+          18821746,
+          15680374,
+          15800388,
+          16666905,
+          15987569,
+          24261344,
+          18551866,
+          19983585,
+          21456729,
+          20531913
+        ]
+      },
+      "imports.turkey": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          4208207,
+          5694691,
+          5555561,
+          4887720,
+          4985885,
+          6071792,
+          7045996,
+          4866263,
+          5270065,
+          4152217,
+          5151924,
+          5127857,
+          4534349,
+          5657642,
+          3976817
+        ]
+      },
+      "imports.beef": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          1231955008,
+          1053558095,
+          1131507331,
+          1064096176,
+          1011145020,
+          1112882170,
+          1087070217,
+          1212568664,
+          1389202827,
+          1180359908,
+          1578085203,
+          1394086069,
+          1457709890,
+          1517231660,
+          1479893170
+        ]
+      },
+      "imports.pork": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          120591736,
+          124523069,
+          132448435,
+          110573988,
+          120893065,
+          131695082,
+          129323813,
+          125616900,
+          116596209,
+          113760501,
+          140828043,
+          131963974,
+          135100412,
+          136294797,
+          114083394
+        ]
+      },
+      "imports.milk": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          31402726,
+          22166574,
+          21266613,
+          19733236,
+          16163561,
+          22324213,
+          22635519,
+          29418275,
+          23173337,
+          23897254,
+          23750304,
+          23904748,
+          23955185,
+          19153499,
+          20406931
+        ]
+      },
+      "imports.cheese": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          101673641,
+          121279475,
+          128769529,
+          135541331,
+          118036211,
+          132013378,
+          145822018,
+          131994522,
+          97204640,
+          112650364,
+          192263709,
+          152893151,
+          170409677,
+          160100048,
+          151064442
+        ]
+      },
+      "imports.bread": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          835372924,
+          884933887,
+          977439074,
+          961466309,
+          977547034,
+          1088147702,
+          981242174,
+          906420053,
+          766146126,
+          777505636,
+          962738182,
+          834311397,
+          906849427,
+          907924283,
+          931819729
+        ]
+      },
+      "imports.rice": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          111141942,
+          123866518,
+          143618689,
+          111120570,
+          103025042,
+          112647249,
+          104082848,
+          123212603,
+          145790454,
+          91145818,
+          106501805,
+          115404215,
+          119557552,
+          111807285,
+          115025012
+        ]
+      },
+      "imports.potatoes": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          195520125,
+          201251888,
+          188281663,
+          179255753,
+          189221869,
+          194995403,
+          206777285,
+          197665822,
+          188530485,
+          186250735,
+          221554602,
+          199425441,
+          203129218,
+          195733167,
+          190102610
+        ]
+      },
+      "imports.lettuce": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          28018841,
+          25996687,
+          34720664,
+          33592165,
+          31151463,
+          43996329,
+          39477009,
+          45508959,
+          48456201,
+          51317215,
+          52758110,
+          50770196,
+          54056776,
+          57284041,
+          33544620
+        ]
+      },
+      "imports.tomatoes": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          262040108,
+          249415426,
+          232104540,
+          213184061,
+          201078642,
+          201227970,
+          194032062,
+          196719319,
+          224801889,
+          222599945,
+          321553486,
+          422112976,
+          291883304,
+          232177256,
+          198767339
+        ]
+      },
+      "imports.fresh-vegetables": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          557841844,
+          475077828,
+          510285508,
+          518202106,
+          517399027,
+          553428577,
+          586935488,
+          699723105,
+          732148416,
+          710862161,
+          788972628,
+          710072192,
+          652523507,
+          519586338,
+          517911258
+        ]
+      },
+      "imports.apples": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          26092310,
+          22500094,
+          22574863,
+          11171229,
+          3427161,
+          2976265,
+          957259,
+          1820426,
+          3033880,
+          3236362,
+          3957570,
+          10097140,
+          27474397,
+          30686312,
+          19474842
+        ]
+      },
+      "imports.bananas": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          244904142,
+          245939260,
+          235534185,
+          241828605,
+          255408055,
+          240618879,
+          227824978,
+          266325403,
+          243226142,
+          254348409,
+          289889574,
+          273252520,
+          281643226,
+          285727116,
+          274345341
+        ]
+      },
+      "imports.citrus": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          130726298,
+          164136771,
+          247076046,
+          277576073,
+          245953444,
+          172015332,
+          60449229,
+          82542564,
+          106377118,
+          108115437,
+          161685917,
+          131387693,
+          133391765,
+          163776755,
+          237490687
+        ]
+      },
+      "imports.coffee": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          1394652750,
+          1209954834,
+          1162648809,
+          952411970,
+          904398092,
+          897014430,
+          863839957,
+          994879189,
+          1009425278,
+          1082555308,
+          1113387428,
+          882916176,
+          977758987,
+          990454418,
+          982490091
+        ]
+      },
+      "imports.sugar": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          191485505,
+          118086828,
+          210692682,
+          84664726,
+          126919527,
+          146838599,
+          101027416,
+          133325661,
+          84882033,
+          106753063,
+          91821523,
+          163944710,
+          95326448,
+          143088162,
+          150867069
+        ]
+      },
+      "imports.fats-oils": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          764715300,
+          755142840,
+          731918320,
+          760104100,
+          773992234,
+          719028296,
+          668779411,
+          710494532,
+          592949935,
+          603312767,
+          824213013,
+          976454081,
+          997744419,
+          973667157,
+          964667648
+        ]
+      },
+      "imports.infant-formula": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          33127238,
+          35662796,
+          21849467,
+          23594847,
+          22174139,
+          24456902,
+          23283186,
+          38089414,
+          16521417,
+          23758054,
+          35611375,
+          31746812,
+          46551767,
+          32535010,
+          36328181
+        ]
+      },
+      "imports.fertilizer": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          704227036,
+          462883510,
+          499662190,
+          678770755,
+          557270722,
+          567008590,
+          546195467,
+          511439084,
+          752897478,
+          960854163,
+          1265959907,
+          1082658901,
+          667583380,
+          451821946,
+          469824450
+        ]
+      },
+      "imports.wheat": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          57470336,
+          56460699,
+          53409126,
+          33187965,
+          47082298,
+          41665191,
+          60090629,
+          56255381,
+          60367888,
+          55012386,
+          50729984,
+          47128175,
+          52331800,
+          58600112,
+          71310038
+        ]
+      },
+      "imports.corn": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          19203310,
+          12585395,
+          14922719,
+          18578993,
+          10010012,
+          18232233,
+          16247883,
+          16425133,
+          13282793,
+          26793808,
+          32199390,
+          42639673,
+          21095130,
+          17165808,
+          27966717
+        ]
+      },
+      "imports.soybeans": {
+        "months": [
+          "2025-05",
+          "2025-06",
+          "2025-07",
+          "2025-08",
+          "2025-09",
+          "2025-10",
+          "2025-11",
+          "2025-12",
+          "2026-01",
+          "2026-02",
+          "2026-03",
+          "2026-04",
+          "2026-05",
+          "2026-06",
+          "2026-07"
+        ],
+        "values": [
+          44731687,
+          22184164,
+          58953933,
+          49961609,
+          26153327,
+          28841212,
+          24740903,
+          28604678,
+          17586702,
+          16665347,
+          27864672,
+          28778939,
+          26179044,
+          32877827,
+          46041287
+        ]
+      }
+    },
+    "source": {
+      "feed": "US Census Bureau imports by origin",
+      "url": "https://usatrade.census.gov",
+      "kind": "live",
+      "note": "latest month 2026-07; 15 origin declines, 10 placed on the map",
+      "fetchedAt": "2026-09-06T13:04:06.879Z"
+    }
+  }
+}

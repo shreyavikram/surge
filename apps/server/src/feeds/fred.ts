@@ -7,8 +7,17 @@ export const FRED_SERIES: Record<string, string> = {
   eggs: 'APU0000708111', chicken: 'APU0000706111', beef: 'APU0000703112', milk: 'APU0000709112',
   cheese: 'APU0000710212', bread: 'APU0000702111', rice: 'APU0000701312', potatoes: 'APU0000712112',
   lettuce: 'APU0000712211', tomatoes: 'APU0000712311', apples: 'APU0000711111', bananas: 'APU0000711211',
-  citrus: 'APU0000711311', coffee: 'APU0000717311', sugar: 'APU0000715211', population: 'POPTHM',
+  citrus: 'APU0000711311', coffee: 'APU0000717311', sugar: 'APU0000715211', pork: 'APU0000FD3101',
+  // CPI item index (not a price): used only for the price-anomaly indicator, never shown as dollars
+  'fats-oils': 'CUUR0000SEFS',
+  population: 'POPTHM',
 };
+
+/** Series that are index numbers rather than dollar prices (excluded from dollar charts). */
+export const INDEX_SERIES = new Set(['fats-oils']);
+
+/** Commodity → series id, for the FAO price-anomaly indicator. Apples (APU0000711111) ended in 2017 and BLS publishes no turkey, fresh-vegetable or infant-formula average price, so those are not scored. */
+export const ANOMALY_SERIES: Record<string, string> = Object.fromEntries(Object.entries(FRED_SERIES).filter(([k]) => k !== 'population' && k !== 'apples'));
 
 function csvUrl(seriesId: string): string {
   return `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}`;

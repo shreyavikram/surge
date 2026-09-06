@@ -58,14 +58,15 @@ describe('threatToShocks', () => {
   it('export ban from an origin → supply loss = import share × origin share × (1 − rerouting)', () => {
     const t = base({ category: 'export_ban', kind: 'geopolitical', commodities: [{ id: 'tomatoes', relevance: 1 }], location: { lat: 23, lng: -102, regionId: 'mexico' }, severity: 1, months: 6 });
     const [s] = threatToShocks(t, ctx);
-    expect(s!.supplyPath[0]).toBeCloseTo(0.6 * 0.9 * 1 * (1 - 0.3), 6);
+    const mexShare = ctx.regions['mexico']!.usImportOriginShare!['tomatoes']!; // measured Census origin share
+    expect(s!.supplyPath[0]).toBeCloseTo(0.6 * mexShare * 1 * (1 - 0.3), 6);
     expect(s!.supplyPath.length).toBe(6);
   });
   it('tariff: severity is the ad valorem rate → cost path = rate × import share × origin share', () => {
     const t = base({ category: 'tariff', kind: 'geopolitical', commodities: [{ id: 'bananas', relevance: 1 }], location: { lat: 15.5, lng: -90.3, regionId: 'guatemala' }, severity: 0.25, months: 12 });
     const [s] = threatToShocks(t, ctx);
     expect(s!.kind).toBe('cost');
-    expect(s!.costPath![0]).toBeCloseTo(0.25 * 1.0 * 0.35, 6);
+    expect(s!.costPath![0]).toBeCloseTo(0.25 * 1.0 * ctx.regions['guatemala']!.usImportOriginShare!['bananas']!, 6);
   });
   it('chokepoint → delay shortfall and freight wedge on an input, propagated to commodities', () => {
     const t = base({ category: 'chokepoint', kind: 'geopolitical', commodities: [{ id: 'fertilizer', relevance: 1 }], location: { lat: 26.6, lng: 56.3, regionId: 'hormuz' }, severity: 0.5, months: 3 });
@@ -85,7 +86,7 @@ describe('threatToShocks', () => {
     const [s] = threatToShocks(t, ctx);
     expect(s).toBeDefined();
     // 20% of Mexican output lost × (US tomato import share 0.6 × Mexico's origin share 0.9) × stocks buffer
-    expect(Math.max(...s!.supplyPath)).toBeCloseTo(0.2 * 0.6 * 0.9 * (1 - Math.min(0.5, ctx.commodities['tomatoes']!.supply.stocksToUse ?? 0)), 6);
+    expect(Math.max(...s!.supplyPath)).toBeCloseTo(0.2 * 0.6 * ctx.regions['mexico']!.usImportOriginShare!['tomatoes']! * (1 - Math.min(0.5, ctx.commodities['tomatoes']!.supply.stocksToUse ?? 0)), 6);
     expect(s!.origin).toBe('import');
   });
   it('import_dependence produces no shock', () => {

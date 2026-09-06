@@ -9,9 +9,10 @@ import { gdelt } from './gdelt.js';
 import { aphis } from './aphis.js';
 import { gta } from './gta.js';
 import { news } from './news.js';
+import { trade } from './trade.js';
 
 /** Adapters wired into the server. */
 // GDELT stays available but is not wired: its API rate-limits shared IPs; Google News RSS feeds the anticipated layer instead.
-export const allAdapters: FeedAdapter[] = [gdacs, portwatch, fred, usdm, firms, eia, news, aphis, gta];
+export const allAdapters: FeedAdapter[] = [gdacs, portwatch, fred, usdm, firms, eia, news, aphis, gta, trade];
 
-export { gdacs, portwatch, fred, usdm, firms, eia, gdelt, news, aphis, gta };
+export { gdacs, portwatch, fred, usdm, firms, eia, gdelt, news, aphis, gta, trade };

@@ -22,7 +22,7 @@ export function getContext(): EngineContext {
 export type CategoryFamily = 'geopolitical' | 'natural' | 'biological' | 'supply';
 export function categoryFamily(cat: ThreatCategory): CategoryFamily {
   switch (cat) {
-    case 'tariff': case 'embargo': case 'export_ban': case 'war': case 'instability': case 'chokepoint': case 'import_dependence': return 'geopolitical';
+    case 'tariff': case 'embargo': case 'export_ban': case 'import_decline': case 'war': case 'instability': case 'chokepoint': case 'import_dependence': return 'geopolitical';
     case 'drought': case 'heat': case 'flood': case 'storm': case 'wildfire': return 'natural';
     case 'pest': case 'disease': return 'biological';
     case 'input_cost': case 'facility': return 'supply';
@@ -31,7 +31,7 @@ export function categoryFamily(cat: ThreatCategory): CategoryFamily {
 export const FAMILY_COLOR: Record<CategoryFamily, string> = { geopolitical: '#f5a623', natural: '#ff6a5b', biological: '#b57bff', supply: '#2dd4bf' };
 export function categoryColor(cat: ThreatCategory): string { return FAMILY_COLOR[categoryFamily(cat)]; }
 export const CATEGORY_LABEL: Record<ThreatCategory, string> = {
-  tariff: 'Tariff', embargo: 'Embargo', export_ban: 'Export ban', war: 'War', instability: 'Instability', chokepoint: 'Chokepoint', import_dependence: 'Import dependence',
+  tariff: 'Tariff', embargo: 'Embargo', export_ban: 'Export ban', import_decline: 'Import decline', war: 'War', instability: 'Instability', chokepoint: 'Chokepoint', import_dependence: 'Import dependence',
   drought: 'Drought', heat: 'Heat', flood: 'Flood', storm: 'Storm', wildfire: 'Wildfire', pest: 'Pest', disease: 'Disease', input_cost: 'Input cost', facility: 'Facility',
 };
 

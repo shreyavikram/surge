@@ -71,9 +71,12 @@ export function feedItemsToThreats(items: FeedItem[], source: SourceStamp, ctx: 
     if (!commodities) {
       if (!field) continue;
       const shares = region[field] ?? (field === 'usSupplyShare' ? region.usImportOriginShare : undefined) ?? {};
-      commodities = Object.keys(shares)
-        .filter((id) => ctx.commodities[id] || ctx.inputs[id])
-        .map((id) => ({ id, relevance: 1 }));
+      // an origin below 2% of US imports of a commodity is noise for a hazard there (measured shares list every small supplier)
+      const floor = field === 'usSupplyShare' && region.usSupplyShare?.[Object.keys(shares)[0] ?? ''] !== undefined ? 0 : 0.02;
+      commodities = Object.entries(shares)
+        .filter(([id, v]) => (ctx.commodities[id] || ctx.inputs[id]) && v >= floor)
+        .sort((a, b) => b[1] - a[1])
+        .map(([id]) => ({ id, relevance: 1 }));
     }
     if (commodities.length === 0) continue;
 

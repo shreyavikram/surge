@@ -8,6 +8,9 @@ import { readEnv, type Env } from './env.js';
 import { FeedRegistry } from './feeds/registry.js';
 import { allAdapters } from './feeds/index.js';
 import { threatsFromResults } from './threats.js';
+import { priceStress, applyPriceStress } from './price-stress.js';
+import { ANOMALY_SERIES } from './feeds/fred.js';
+import { TRADE_THRESHOLDS } from './feeds/trade.js';
 import { checkVetted, redactThreat } from './gate.js';
 import { loadStore, subscribe, diffNewThreats, deliver, makeMailer } from './alerts.js';
 import { proposeWithGemini, mergeCandidates } from './ai/llm.js';
@@ -38,11 +41,28 @@ export function createApp(deps: Partial<AppDeps> = {}): Hono {
   // Live + snapshot threats, priced and ranked, with gate redaction.
   app.get('/api/threats', async (c) => {
     const feeds = registry.list().filter((a) => a.producesThreats !== false);
-    const results = await Promise.all(feeds.map((a) => registry.get(a.id, env)));
+    const [results, fred] = await Promise.all([Promise.all(feeds.map((a) => registry.get(a.id, env))), registry.get('fred', env)]);
+    const stress = priceStress(fred.series, ANOMALY_SERIES);
+    const joined = results.map((r) => ({ ...r, items: applyPriceStress(r.items, stress) }));
     const vetted = checkVetted(c.req.header('cookie'), c.req.header('x-surge-vetted'), env.SURGE_VETTED_KEY);
-    const threats = threatsFromResults(results, ctx).map((t) => redactThreat(t, vetted));
+    const threats = threatsFromResults(joined, ctx).map((t) => redactThreat(t, vetted));
     const ranked = rankThreats(threats, ctx).filter((r) => r.cv > 0);
     return c.json({ threats: ranked, feeds: registry.healthRows(), vetted });
+  });
+
+  // FAO-style price stress per commodity (BLS retail prices via FRED) and the Census import declines behind it.
+  app.get('/api/price-stress', async (c) => {
+    const [fred, trade] = await Promise.all([registry.get('fred', env), registry.get('trade', env)]);
+    const indicators = priceStress(fred.series, ANOMALY_SERIES);
+    const raw = (trade.source.note ?? '').match(/latest month (\d{4}-\d{2})/);
+    return c.json({
+      method: 'FAO Indicator of Food Price Anomalies (compound quarterly and annual growth, standardised by calendar month, variance-weighted); ≥ 0.5 moderately high, ≥ 1 abnormally high',
+      indicators,
+      declines: trade.items.map((i) => ({ id: i.id, name: i.name, commodity: i.commodities?.[0]?.id, country: i.admin, iso3: i.iso3, severity: i.severity, status: i.status, summary: i.summary, raw: i.raw })),
+      thresholds: TRADE_THRESHOLDS,
+      latestTradeMonth: raw?.[1] ?? null,
+      sources: { prices: fred.source, trade: trade.source },
+    });
   });
 
   // Price/population series (FRED). :id is a series name (eggs, chicken, ...) or a raw FRED id.

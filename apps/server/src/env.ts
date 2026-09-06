@@ -18,6 +18,7 @@ export interface Env {
   PUBLIC_URL?: string;
   GEMINI_API_KEY?: string;
   RESEND_API_KEY?: string;
+  CENSUS_API_KEY?: string;
 }
 
 function opt(v: string | undefined): string | undefined {
@@ -42,6 +43,7 @@ export function readEnv(src: NodeJS.ProcessEnv = process.env): Env {
     PUBLIC_URL: opt(src.PUBLIC_URL),
     GEMINI_API_KEY: opt(src.GEMINI_API_KEY),
     RESEND_API_KEY: opt(src.RESEND_API_KEY),
+    CENSUS_API_KEY: opt(src.CENSUS_API_KEY),
   };
 }
 
