@@ -3,6 +3,7 @@ import type { EngineContext } from '@surge/engine';
 import type { Settings as S, Focus } from '../state.js';
 import { focusLabel, type CategoryFamily } from '../engine.js';
 import { Filters } from './Filters.js';
+import { Spinner } from './Spinner.js';
 
 type Frequency = NonNullable<S['frequency']>;
 
@@ -26,8 +27,10 @@ export function Settings({ settings, onSave, onClose, ctx, focus: focus0, commod
   const [commodities, setCommodities] = useState<Set<string>>(() => new Set(comm0));
   const [families, setFamilies] = useState<Set<CategoryFamily>>(() => new Set(fam0));
   const [status, setStatus] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
   const label = focusLabel(focus, ctx);
   const save = async (enabled = true) => {
+    setBusy(true); setStatus(null);
     setAlerts(enabled);
     onSave({ ...settings, email, alerts: enabled, frequency });
     try {
@@ -39,6 +42,7 @@ export function Settings({ settings, onSave, onClose, ctx, focus: focus0, commod
       else if (d.confirmation?.sent) setStatus(`Saved. A confirmation email is on its way${d.confirmation.matches ? ` with the ${d.confirmation.matches} threat${d.confirmation.matches > 1 ? 's' : ''} that match right now` : ''}; ${frequency === 'immediate' ? 'new matches follow as they appear' : `a ${frequency} digest follows`}.`);
       else setStatus(`Saved, but the confirmation email could not be sent${d.confirmation?.reason ? `: ${d.confirmation.reason}` : ''}.`);
     } catch { setStatus('Saved locally; alerts send when the server is reachable.'); }
+    setBusy(false);
   };
   return (
     <div className="modal-back" onClick={onClose}>
@@ -57,8 +61,9 @@ export function Settings({ settings, onSave, onClose, ctx, focus: focus0, commod
           </div>
         </div>
         <div className="modal-actions">
-          {alerts && settings.email && <button className="btn ghost" onClick={() => void save(false)}>Stop alerts</button>}
-          <button className="btn" onClick={() => void save(true)} disabled={!email}>{alerts && settings.email === email ? 'Update alerts' : 'Sign up for alerts'}</button>
+          {busy && <Spinner label="Saving and sending the confirmation…" />}
+          {alerts && settings.email && <button className="btn ghost" onClick={() => void save(false)} disabled={busy}>Stop alerts</button>}
+          <button className="btn" onClick={() => void save(true)} disabled={!email || busy}>{alerts && settings.email === email ? 'Update alerts' : 'Sign up for alerts'}</button>
         </div>
         {status && <div className="subfig">{status}</div>}
       </div>

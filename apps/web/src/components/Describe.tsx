@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Spinner } from './Spinner.js';
 import type { EngineContext } from '@surge/engine';
 import { interpretScenario, candidateToThreat, commodityName, CATEGORY_LABEL, type ThreatCandidate, type Threat } from '../engine.js';
 import { pct } from '../format.js';
@@ -23,6 +24,7 @@ export function Describe({ ctx, onAdd }: { ctx: EngineContext; onAdd: (t: Threat
     <div className="describe">
       <div className="describe-row">
         <input type="text" placeholder="Describe a scenario: “Iran closes Hormuz for 3 months, cutting fertilizer shipments 60%”" value={text} onChange={(e) => setText(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && text.trim()) void run(); }} />
+        {busy && <Spinner label="Reading your scenario…" />}
         <button className="btn" disabled={!text.trim() || busy} onClick={() => void run()}>Interpret</button>
       </div>
       {cands && cands.length === 0 && <div className="faint" style={{ padding: '6px 0' }}>Nothing in that text maps to a commodity, region, or threat type.</div>}
