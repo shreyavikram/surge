@@ -1,33 +1,16 @@
-// Thin client wrapper over @surge/engine + @surge/config. The engine is
-// authoritative; this module only wires config in and re-exports engine calls.
+// Thin client wrapper over @surge/engine + @surge/config. The engine is authoritative;
+// this module wires config in, assembles the threat list for a tab, and scales results to a focus area.
 import { loadContext, loadCase, type CaseId } from '@surge/config';
 import {
-  runThreat,
-  rankThreats,
-  runScenario,
-  compareScenarios,
-  combineScenarios,
-  findConflicts,
-  threatToShocks,
-  type EngineContext,
-  type Threat,
-  type ThreatCategory,
-  type ImpactResult,
-  type CaseFile,
+  runThreat, runScenario, compareScenarios, interpretScenario, candidateToThreat, validateCandidate,
+  areaLoss, threatAffectsArea, perCapitaLossByArea, getArea,
+  type EngineContext, type Threat, type ThreatCategory, type ImpactResult, type CaseFile, type MitigationPlan, type AreaLoss, type ThreatCandidate, type Scenario,
 } from '@surge/engine';
 import { SEED_THREATS } from './seed.js';
+import type { TabDef, Focus } from './state.js';
 
-export {
-  runThreat,
-  rankThreats,
-  runScenario,
-  compareScenarios,
-  combineScenarios,
-  findConflicts,
-  threatToShocks,
-  loadCase,
-};
-export type { EngineContext, Threat, ThreatCategory, ImpactResult, CaseFile, CaseId };
+export { runThreat, runScenario, compareScenarios, interpretScenario, candidateToThreat, validateCandidate, areaLoss, perCapitaLossByArea, getArea, loadCase };
+export type { EngineContext, Threat, ThreatCategory, ImpactResult, CaseFile, CaseId, MitigationPlan, AreaLoss, ThreatCandidate, Scenario };
 
 let _ctx: EngineContext | null = null;
 export function getContext(): EngineContext {
@@ -35,54 +18,34 @@ export function getContext(): EngineContext {
   return _ctx;
 }
 
-// ---- Category → color family (mirrors theme.css category vars) --------------
+// ---- Category → color family --------------------------------------------------
 export type CategoryFamily = 'geopolitical' | 'natural' | 'biological' | 'supply';
-
 export function categoryFamily(cat: ThreatCategory): CategoryFamily {
   switch (cat) {
-    case 'tariff': case 'embargo': case 'export_ban': case 'war':
-    case 'instability': case 'chokepoint': case 'import_dependence':
-      return 'geopolitical';
-    case 'drought': case 'heat': case 'flood': case 'storm': case 'wildfire':
-      return 'natural';
-    case 'pest': case 'disease':
-      return 'biological';
-    case 'input_cost': case 'facility':
-      return 'supply';
+    case 'tariff': case 'embargo': case 'export_ban': case 'war': case 'instability': case 'chokepoint': case 'import_dependence': return 'geopolitical';
+    case 'drought': case 'heat': case 'flood': case 'storm': case 'wildfire': return 'natural';
+    case 'pest': case 'disease': return 'biological';
+    case 'input_cost': case 'facility': return 'supply';
   }
 }
-
-export const FAMILY_COLOR: Record<CategoryFamily, string> = {
-  geopolitical: '#f5a623',
-  natural: '#ff6a5b',
-  biological: '#b57bff',
-  supply: '#2dd4bf',
-};
-
-export function categoryColor(cat: ThreatCategory): string {
-  return FAMILY_COLOR[categoryFamily(cat)];
-}
-
+export const FAMILY_COLOR: Record<CategoryFamily, string> = { geopolitical: '#f5a623', natural: '#ff6a5b', biological: '#b57bff', supply: '#2dd4bf' };
+export function categoryColor(cat: ThreatCategory): string { return FAMILY_COLOR[categoryFamily(cat)]; }
 export const CATEGORY_LABEL: Record<ThreatCategory, string> = {
-  tariff: 'Tariff', embargo: 'Embargo', export_ban: 'Export ban', war: 'War',
-  instability: 'Instability', chokepoint: 'Chokepoint', import_dependence: 'Import dependence',
-  drought: 'Drought', heat: 'Heat', flood: 'Flood', storm: 'Storm', wildfire: 'Wildfire',
-  pest: 'Pest', disease: 'Disease', input_cost: 'Input cost', facility: 'Facility',
+  tariff: 'Tariff', embargo: 'Embargo', export_ban: 'Export ban', war: 'War', instability: 'Instability', chokepoint: 'Chokepoint', import_dependence: 'Import dependence',
+  drought: 'Drought', heat: 'Heat', flood: 'Flood', storm: 'Storm', wildfire: 'Wildfire', pest: 'Pest', disease: 'Disease', input_cost: 'Input cost', facility: 'Facility',
 };
 
-// ---- Threat list (seeds + calibrated case replays) --------------------------
-export type ThreatOrigin = 'seed' | 'replay';
-export interface ThreatEntry {
-  threat: Threat;
-  origin: ThreatOrigin;
-  observed?: CaseFile['observed'];
-  note?: string;
-}
+// ---- Threat list ---------------------------------------------------------------
+export type ThreatOrigin = 'seed' | 'replay' | 'live' | 'user';
+export interface ThreatEntry { threat: Threat; origin: ThreatOrigin; observed?: CaseFile['observed']; note?: string }
 
 const REPLAY_CASES: CaseId[] = ['egg-2022', 'formula-2022'];
 
-export function buildThreatList(): ThreatEntry[] {
-  const entries: ThreatEntry[] = SEED_THREATS.map((threat) => ({ threat, origin: 'seed' as const }));
+/** Base list: live feed threats when the server supplies them, else seeds; plus the calibrated replays. */
+export function buildBaseList(live?: Threat[]): ThreatEntry[] {
+  const entries: ThreatEntry[] = live && live.length > 0
+    ? live.map((threat) => ({ threat, origin: 'live' as const }))
+    : SEED_THREATS.map((threat) => ({ threat, origin: 'seed' as const }));
   for (const id of REPLAY_CASES) {
     const c = loadCase(id);
     for (const threat of c.threats) {
@@ -94,29 +57,73 @@ export function buildThreatList(): ThreatEntry[] {
   return entries;
 }
 
-/** Run one entry, honoring a replay's observed price path and any severity override. */
-export function runEntry(entry: ThreatEntry, ctx: EngineContext, severityOverride?: number) {
-  return runThreat(entry.threat, ctx, severityOverride, entry.observed ? { observed: entry.observed } : undefined);
+/** Apply a tab's dials, removals, and additions to the base list. */
+export function entriesForTab(base: ThreatEntry[], tab: TabDef): ThreatEntry[] {
+  const out: ThreatEntry[] = [];
+  for (const e of base) {
+    if (tab.removed.includes(e.threat.id)) continue;
+    const o = tab.overrides[e.threat.id];
+    if (!o) { out.push(e); continue; }
+    const threat: Threat = { ...e.threat };
+    if (o.severity !== undefined) threat.severity = o.severity;
+    if (o.months !== undefined) threat.months = o.months;
+    out.push({ ...e, threat });
+  }
+  for (const t of tab.added) {
+    const o = tab.overrides[t.id];
+    const threat: Threat = { ...t };
+    if (o?.severity !== undefined) threat.severity = o.severity;
+    if (o?.months !== undefined) threat.months = o.months;
+    out.push({ threat, origin: 'user' });
+  }
+  return out;
+}
+
+export function runEntry(entry: ThreatEntry, ctx: EngineContext) {
+  return runThreat(entry.threat, ctx, undefined, entry.observed ? { observed: entry.observed } : undefined);
 }
 
 export interface RankedEntry extends ThreatEntry {
-  cv: number;
+  cv: number;              // national
+  cvAnnual: number;
   worstCommodity: string;
   durationMonths: number;
   impact: ImpactResult;
+  mitigation: Record<string, MitigationPlan>;
 }
 
-/** Watchlist order: every entry run alone (replays at their observed path), ranked by consumer welfare loss. */
+/** Every entry run alone, ranked by national consumer welfare loss. */
 export function rankEntries(entries: ThreatEntry[], ctx: EngineContext): RankedEntry[] {
   return entries
     .map((entry) => {
-      const { impact } = runEntry(entry, ctx);
+      const { impact, mitigation } = runEntry(entry, ctx);
       const worst = Object.entries(impact.welfare.byCommodity).sort((a, b) => b[1] - a[1])[0]?.[0] ?? '';
-      return { ...entry, cv: impact.welfare.cv, worstCommodity: worst, durationMonths: impact.durationMonths, impact };
+      return { ...entry, cv: impact.welfare.cv, cvAnnual: impact.welfare.cvAnnual, worstCommodity: worst, durationMonths: impact.durationMonths, impact, mitigation };
     })
     .sort((a, b) => b.cv - a.cv);
 }
 
+/** Numbers for the current focus: national, or one area's consumer loss and producer revenue. */
+export interface FocusView { cv: number; cvAnnual: number; producer: number; affects: boolean; byCommodity: Record<string, number>; producerByCommodity: Record<string, number>; label: string; population: number }
+export function focusView(entry: RankedEntry, focus: Focus, ctx: EngineContext): FocusView {
+  const nat = entry.impact.welfare;
+  const producerNat = Object.values(nat.producerRevenueChange).reduce((a, b) => a + b, 0);
+  if (focus.kind === 'us' || !focus.id || !ctx.focus) {
+    return { cv: nat.cv, cvAnnual: nat.cvAnnual, producer: producerNat, affects: true, byCommodity: nat.byCommodity, producerByCommodity: nat.producerRevenueChange, label: 'United States', population: ctx.population.value };
+  }
+  const area = getArea(ctx.focus, focus.id);
+  if (!area) return { cv: nat.cv, cvAnnual: nat.cvAnnual, producer: producerNat, affects: true, byCommodity: nat.byCommodity, producerByCommodity: nat.producerRevenueChange, label: 'United States', population: ctx.population.value };
+  const affects = threatAffectsArea(entry.threat, area, ctx.focus);
+  const a: AreaLoss = areaLoss(entry.impact, area.id, ctx);
+  const producer = Object.values(a.producerRevenueChange).reduce((x, y) => x + y, 0);
+  return { cv: a.cv, cvAnnual: a.cvAnnual, producer, affects, byCommodity: a.byCommodity, producerByCommodity: a.producerRevenueChange, label: area.name, population: area.population };
+}
+
 export function commodityName(ctx: EngineContext, id: string): string {
   return ctx.commodities[id]?.name ?? ctx.inputs[id]?.name ?? id;
+}
+
+/** A tab as an engine Scenario (for joint runs and comparison). */
+export function tabToScenario(tab: TabDef, entries: ThreatEntry[]): Scenario {
+  return { id: tab.id, name: tab.name, threats: entries.map((e) => e.threat), createdAt: tab.createdAt || '', updatedAt: tab.updatedAt || '' };
 }

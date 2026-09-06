@@ -7,6 +7,7 @@ import regions from '../data/regions.json' with { type: 'json' };
 import levers from '../data/levers.json' with { type: 'json' };
 import plate from '../data/plate.json' with { type: 'json' };
 import focus from '../data/focus.json' with { type: 'json' };
+import focusDistricts from '../data/focus-districts.json' with { type: 'json' };
 import egg2024 from '../data/cases/egg-2024-calibration.json' with { type: 'json' };
 import egg2022 from '../data/cases/egg-2022.json' with { type: 'json' };
 import formula2022 from '../data/cases/formula-2022.json' with { type: 'json' };
@@ -18,6 +19,17 @@ export const CASE_IDS: CaseId[] = ['egg-2024-calibration', 'egg-2022', 'formula-
 export const POPULATION = { value: 340.1e6, year: 2024, source: 'Census Vintage 2024 (FRED POPTHM)' };
 export const CONSUMER_UNITS = { value: 134.6e6, year: 2024, source: 'BLS CEX 2024 number of consumer units (approximate)' };
 export const TOTAL_EXPENDITURE = { value: 78535 * 134.6e6, year: 2024, source: 'BLS CEX 2024 CXUTOTALEXPLB0101M $78,535 × consumer units' };
+
+/** County-built shares (NASS 2022 Census) replace the hand-typed state shares where available; districts are appended. */
+function mergeFocus(base: FocusConfig, d: { source: string; areas: FocusConfig['areas']; production: FocusConfig['production'] }): FocusConfig {
+  const production: FocusConfig['production'] = { ...base.production };
+  for (const [cid, shares] of Object.entries(d.production)) {
+    const stateShares = Object.fromEntries(Object.entries(shares).filter(([k]) => !k.includes('-')));
+    const districtShares = Object.fromEntries(Object.entries(shares).filter(([k]) => k.includes('-')));
+    production[cid] = { ...(Object.keys(stateShares).length > 0 ? stateShares : base.production[cid] ?? {}), ...districtShares };
+  }
+  return { ...base, source: `${base.source}; districts: ${d.source}`, areas: [...base.areas, ...d.areas], production };
+}
 
 export function loadContext(): EngineContext {
   return {
@@ -31,7 +43,7 @@ export function loadContext(): EngineContext {
     population: POPULATION,
     totalExpenditure: TOTAL_EXPENDITURE,
     consumerUnits: CONSUMER_UNITS,
-    focus: focus as unknown as FocusConfig,
+    focus: mergeFocus(focus as unknown as FocusConfig, focusDistricts as unknown as { source: string; areas: FocusConfig['areas']; production: FocusConfig['production'] }),
   };
 }
 

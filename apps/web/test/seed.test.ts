@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getContext, buildThreatList, rankEntries, runEntry } from '../src/engine.js';
+import { getContext, buildBaseList, rankEntries, runEntry } from '../src/engine.js';
 import { SEED_THREATS } from '../src/seed.js';
 
 describe('seed threats', () => {
@@ -30,7 +30,7 @@ describe('seed threats', () => {
   });
 
   it('ranks the full list (seeds + replays) by consumer loss, descending', () => {
-    const ranked = rankEntries(buildThreatList(), ctx);
+    const ranked = rankEntries(buildBaseList(), ctx);
     expect(ranked.length).toBe(SEED_THREATS.length + 2); // + egg-2022, formula-2022
     for (let i = 1; i < ranked.length; i++) {
       expect(ranked[i - 1]!.cv).toBeGreaterThanOrEqual(ranked[i]!.cv);

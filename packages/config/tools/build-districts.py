@@ -28,11 +28,20 @@ def env(k):
 NASS_KEY = env('NASS_API_KEY'); CENSUS_KEY = env('CENSUS_API_KEY')
 if not NASS_KEY: sys.exit('NASS_API_KEY missing')
 
-def get(url, tries=3):
+import hashlib
+CACHE = os.path.join(ROOT, 'packages/config/tools/cache'); os.makedirs(CACHE, exist_ok=True)
+def get(url, tries=3, cache=True):
+    key = os.path.join(CACHE, hashlib.sha1(url.encode()).hexdigest())
+    if cache and os.path.exists(key): return open(key, 'rb').read()
     for i in range(tries):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'SURGE/0.1'}), timeout=300) as r:
-                return r.read()
+                data = r.read()
+                if cache: open(key, 'wb').write(data)
+                return data
+        except urllib.error.HTTPError as e:
+            if e.code == 400: print('no data (400) for', url[-120:], file=sys.stderr); return b'{"data":[]}'
+            print('retry', i, url[:100], e, file=sys.stderr); time.sleep(3 * (i + 1))
         except Exception as e:
             print('retry', i, url[:100], e, file=sys.stderr); time.sleep(3 * (i + 1))
     raise SystemExit('failed ' + url[:120])
@@ -64,14 +73,14 @@ SERIES = {
   'milk-farm': ['CATTLE, COWS, MILK - INVENTORY'],
   'bread': ['WHEAT - PRODUCTION, MEASURED IN BU'],
   'wheat': ['WHEAT - PRODUCTION, MEASURED IN BU'],
-  'rice': ['RICE - PRODUCTION, MEASURED IN CWT'],
-  'potatoes': ['POTATOES - PRODUCTION, MEASURED IN CWT'],
+  'rice': ['RICE - PRODUCTION, MEASURED IN CWT', 'RICE - ACRES HARVESTED'],
+  'potatoes': ['POTATOES - PRODUCTION, MEASURED IN CWT', 'POTATOES - ACRES HARVESTED'],
   'lettuce': ['LETTUCE - ACRES HARVESTED'],
   'tomatoes': ['TOMATOES - ACRES HARVESTED'],
   'fresh-vegetables': ['VEGETABLE TOTALS - ACRES HARVESTED'],
   'apples': ['APPLES - ACRES BEARING & NON-BEARING'],
   'citrus': ['ORANGES - ACRES BEARING & NON-BEARING', 'GRAPEFRUIT - ACRES BEARING & NON-BEARING'],
-  'sugar': ['SUGARBEETS - PRODUCTION, MEASURED IN TONS', 'SUGARCANE - PRODUCTION, MEASURED IN TONS'],
+  'sugar': ['SUGARBEETS - PRODUCTION, MEASURED IN TONS', 'SUGARCANE - PRODUCTION, MEASURED IN TONS', 'SUGARBEETS - ACRES HARVESTED', 'SUGARCANE - ACRES HARVESTED'],
   'fats-oils': ['SOYBEANS - PRODUCTION, MEASURED IN BU'],
   'soybeans': ['SOYBEANS - PRODUCTION, MEASURED IN BU'],
   'corn': ['CORN, GRAIN - PRODUCTION, MEASURED IN BU'],
@@ -96,8 +105,10 @@ for cid, descs in SERIES.items():
     acc = {}
     for d in descs:
         print('NASS', cid, d, file=sys.stderr)
-        for g, v in nass(d).items(): acc[g] = acc.get(g, 0) + v
+        got = nass(d)
+        for g, v in got.items(): acc[g] = acc.get(g, 0) + v
         time.sleep(1)
+        if got and cid not in ('sugar', 'citrus'): break  # first description with data wins
     county_by_commodity[cid] = acc
     print('  counties', len(acc), 'total', sum(acc.values()), file=sys.stderr)
 
@@ -155,6 +166,7 @@ for f in cd_feats:
     if not st or st not in state_info: continue
     info = state_info[st]
     num = p['BASENAME']
+    if not num.isdigit(): continue  # territories / undefined
     did = f"{st}-{'AL' if num in ('00', '98') else num.zfill(2)}"
     n = by_state_count.get(fips, 1)
     pop, inc = acs.get(p['GEOID'], (None, None))
@@ -166,15 +178,12 @@ for f in cd_feats:
 for f in st_feats:
     p = f['properties']; f['properties'] = {'id': p['STUSAB'], 'name': p['NAME']}; f['id'] = p['STUSAB']
 
-# district production keyed by district id
-geoid_to_id = {f['id'] and f['properties']['id']: None for f in cd_feats}
-cd_geoid_to_did = {}
-for f, a in zip([x for x in cd_feats if x['properties'].get('id')], areas): pass
-# rebuild mapping from GEOID → district id using the same rule
+# district production keyed by district id (same rule as above)
+cd_feats = [f for f in cd_feats if f['properties'].get('id')]
 def did_for(geoid):
     fips, num = geoid[:2], geoid[2:]
     st = FIPS.get(fips)
-    if not st: return None
+    if not st or not num.isdigit(): return None
     return f"{st}-{'AL' if num in ('00', '98') else num.zfill(2)}"
 production = {}
 for cid, m in prod_district.items():

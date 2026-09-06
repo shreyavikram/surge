@@ -1,0 +1,21 @@
+// Plain-language definitions for every economics term shown in the UI.
+export const GLOSSARY: Record<string, { title: string; text: string }> = {
+  cv: { title: 'Consumer welfare loss', text: 'How much money consumers in the focus area would need to be given to be as well off as before the shock, counting both the higher price they pay and the purchases they give up. Computed as a compensating variation over a demand system that allows switching to other foods.' },
+  cvAnnual: { title: 'Annual loss', text: 'Consumer welfare loss over the first twelve months of the shock. "Total" covers the whole modeled duration.' },
+  producer: { title: 'Producer revenue', text: 'Change in revenue for the producers of this commodity located in the focus area. They earn the higher wholesale price on what they still sell and lose the output that was destroyed or blocked. Foreign producers are not counted.' },
+  severity: { title: 'Severity', text: 'The fraction of the affected supply channel that is lost. 100% on an import threat means US imports of that good from that source cease entirely; 100% on a domestic threat means that region loses its whole output; for a tariff it is the ad valorem rate.' },
+  duration: { title: 'Duration', text: 'Months from the start of the shock until prices are back at baseline, including the time it takes production to recover.' },
+  elasticity: { title: 'Price elasticity of demand', text: 'Percent change in quantity demanded for a one percent change in price. Values near zero mean consumers keep buying almost the same amount when prices rise, so a small shortfall causes a large price increase.' },
+  substitution: { title: 'Substitution', text: 'Change in purchases of other foods caused by the price rise, from cross-price elasticities. Positive means consumers buy more of it. "Significant" marks estimates that are statistically distinguishable from zero in the source study.' },
+  passThrough: { title: 'Retail pass-through', text: 'Share of a wholesale price change that reaches the shelf price, and how many months later.' },
+  shortfall: { title: 'Shortfall', text: 'Physical units of supply missing each month relative to baseline, after production recovers as far as biology allows.' },
+  offset: { title: 'Offset target', text: 'For a tariff or cost shock there is no missing quantity; this is the extra supply per month that would push the price back to baseline, and relief levers are sized against it.' },
+  coverage: { title: 'Coverage', text: 'Fraction of each month\'s gap closed by all relief levers together.' },
+  lever: { title: 'Relief lever', text: 'A concrete action with a capacity, a lead time, a cost per unit, and a historical precedent. A lever "does the work" when it closes at least a quarter of the cumulative gap.' },
+  quintile: { title: 'Income quintile', text: 'Households sorted into five equal groups by income; Q1 is the lowest fifth. Loss per household uses each group\'s spending on the commodity.' },
+  perCapita: { title: 'Per-capita loss', text: 'Consumer welfare loss in the area divided by its population. Areas differ by population, regional food spending, and income.' },
+  modeled: { title: 'Modeled', text: 'A value produced by the engine from stated assumptions, not observed directly.' },
+  measured: { title: 'Measured', text: 'A value taken from a published series or record.' },
+  breaking: { title: 'Breaking', text: 'Reported in the news but not yet visible in any supply, price, or transit series. Shown with a dotted outline.' },
+  band: { title: 'Elasticity band', text: 'The loss recomputed at the low and high ends of the published elasticity range for the commodity.' },
+};

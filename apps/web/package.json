@@ -13,6 +13,8 @@
   "dependencies": {
     "@surge/config": "*",
     "@surge/engine": "*",
+    "@types/d3-geo": "^3.1.1",
+    "d3-geo": "^3.1.1",
     "maplibre-gl": "^5.6.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"

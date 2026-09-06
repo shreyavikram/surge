@@ -1,50 +1,77 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import type { EngineContext } from '@surge/engine';
-import { type RankedEntry, runEntry, categoryColor, CATEGORY_LABEL } from '../engine.js';
+import { type RankedEntry, categoryColor, CATEGORY_LABEL } from '../engine.js';
+import type { Focus, TabDef } from '../state.js';
 import { pct } from '../format.js';
 import { Chip } from './Chip.js';
+import { Info } from './Info.js';
 import { Impact } from './Impact.js';
+import { Distribution } from './Distribution.js';
 import { Relief } from './Relief.js';
-import { Plate } from './Plate.js';
 
-type Tab = 'impact' | 'plate' | 'relief';
+type Tab = 'impact' | 'distribution' | 'relief';
 
-export function Drawer({ entry, ctx }: { entry: RankedEntry | null; ctx: EngineContext }) {
-  const [tab, setTab] = useState<Tab>('impact');
-  const run = useMemo(() => (entry ? runEntry(entry, ctx) : null), [entry?.threat.id, ctx]);
+interface Props {
+  entry: RankedEntry | null;
+  ctx: EngineContext;
+  focus: Focus;
+  tab: TabDef;
+  editable: boolean;
+  onDial: (threatId: string, patch: { severity?: number; months?: number }) => void;
+  onRemove: (threatId: string) => void;
+  onCollapse: () => void;
+}
 
-  if (!entry || !run) {
-    return <div className="drawer empty">Select a threat on the map or watchlist to see its consumer impact, supply-chain reach, and relief options.</div>;
-  }
-
+export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onCollapse }: Props) {
+  const [view, setView] = useState<Tab>('impact');
+  if (!entry) return null;
   const t = entry.threat;
-  const shocked = new Set(run.impact.commodities);
-
+  const isTariff = t.category === 'tariff';
+  const originChip = entry.origin === 'seed' ? <Chip kind="seed" title={t.source.feed + (t.source.note ? ` — ${t.source.note}` : '')}>seed</Chip>
+    : entry.origin === 'replay' ? <Chip kind="observed" title={t.source.feed}>replay</Chip>
+    : entry.origin === 'user' ? <Chip kind="seed" title={t.source.note ?? t.source.feed}>hypothetical</Chip>
+    : <Chip kind="measured" title={t.source.feed}>{t.source.stale ? 'stale' : 'live'}</Chip>;
   return (
     <div className="drawer">
       <div className="dr-head">
-        <div className="dr-title">{t.name}</div>
-        <div className="dr-sub">
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
-            <span className="dot" style={{ background: categoryColor(t.category) }} /> {CATEGORY_LABEL[t.category]}
-          </span>
-          <span>· {t.location.admin ?? t.location.regionId}</span>
-          <span>· severity {pct(t.severity, 0)}</span>
-          <span>· {run.impact.durationMonths} mo</span>
-          {entry.origin === 'seed'
-            ? <Chip kind="seed" title={t.source.feed + (t.source.note ? ` — ${t.source.note}` : '')}>seed</Chip>
-            : <Chip kind="observed" title={t.source.feed}>replay</Chip>}
+        <div className="dr-titlerow">
+          <div className="dr-title">{t.name}</div>
+          <button className="collapse" onClick={onCollapse} title="Collapse panel">▶</button>
         </div>
+        <div className="dr-sub">
+          <span className="inl"><span className="dot" style={{ background: categoryColor(t.category) }} /> {CATEGORY_LABEL[t.category]}</span>
+          <span>· {t.location.admin ?? t.location.regionId}</span>
+          <span>· {isTariff ? 'rate' : 'severity'} {pct(t.severity, 0)}<Info term="severity" /></span>
+          <span>· {entry.durationMonths} mo<Info term="duration" /></span>
+          {t.status === 'breaking' && <Chip kind="seed" title="Reported, not yet in any series">breaking<Info term="breaking" /></Chip>}
+          {originChip}
+        </div>
+        {editable && (
+          <div className="dials">
+            <label>
+              <span>{isTariff ? 'Tariff rate' : 'Severity'} <b>{pct(t.severity, 0)}</b></span>
+              <input type="range" min={0} max={1} step={0.01} value={t.severity} onChange={(e) => onDial(t.id, { severity: Number(e.target.value) })} />
+            </label>
+            <label>
+              <span>Duration <b>{t.months ?? entry.durationMonths} mo</b></span>
+              <input type="range" min={1} max={36} step={1} value={t.months ?? entry.durationMonths} onChange={(e) => onDial(t.id, { months: Number(e.target.value) })} />
+            </label>
+            <div className="dial-actions">
+              {tab.overrides[t.id] && <button className="linkbtn" onClick={() => onDial(t.id, { severity: undefined, months: undefined })}>reset</button>}
+              <button className="linkbtn danger" onClick={() => onRemove(t.id)}>remove from scenario</button>
+            </div>
+          </div>
+        )}
       </div>
       <div className="tabs">
-        <button className={tab === 'impact' ? 'on' : ''} onClick={() => setTab('impact')}>Impact</button>
-        <button className={tab === 'plate' ? 'on' : ''} onClick={() => setTab('plate')}>Plate</button>
-        <button className={tab === 'relief' ? 'on' : ''} onClick={() => setTab('relief')}>Relief</button>
+        <button className={view === 'impact' ? 'on' : ''} onClick={() => setView('impact')}>Impact</button>
+        <button className={view === 'distribution' ? 'on' : ''} onClick={() => setView('distribution')}>Distribution</button>
+        <button className={view === 'relief' ? 'on' : ''} onClick={() => setView('relief')}>Relief</button>
       </div>
       <div className="dr-body">
-        {tab === 'impact' && <Impact impact={run.impact} ctx={ctx} />}
-        {tab === 'plate' && <Plate ctx={ctx} shocked={shocked} />}
-        {tab === 'relief' && <Relief mitigation={run.mitigation} impact={run.impact} ctx={ctx} />}
+        {view === 'impact' && <Impact entry={entry} ctx={ctx} focus={focus} />}
+        {view === 'distribution' && <Distribution entry={entry} ctx={ctx} focus={focus} />}
+        {view === 'relief' && <Relief entry={entry} ctx={ctx} focus={focus} />}
       </div>
     </div>
   );
