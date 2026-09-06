@@ -30,7 +30,8 @@ export function createApp(deps: Partial<AppDeps> = {}): Hono {
   const alerts = deps.alerts ?? new AlertStore(fileBackend());
   let mailer: Mailer | null | undefined = deps.mailer;
   const getMailer = async (): Promise<Mailer | null> => { if (mailer === undefined) mailer = await makeMailer(env.SMTP_URL, env.RESEND_API_KEY); return mailer; };
-  const liveThreats = async () => { const feeds = registry.list().filter((a) => a.producesThreats !== false); const results = await Promise.all(feeds.map((a) => registry.get(a.id, env))); return threatsFromResults(results, ctx); };
+  // threats that move the model (the same set /api/threats shows); zero-impact items never reach subscribers
+  const liveThreats = async () => { const feeds = registry.list().filter((a) => a.producesThreats !== false); const results = await Promise.all(feeds.map((a) => registry.get(a.id, env))); return rankThreats(threatsFromResults(results, ctx), ctx).filter((r) => r.cv > 0).map((r) => r.threat); };
   const app = new Hono();
 
   app.use('/api/*', cors());
