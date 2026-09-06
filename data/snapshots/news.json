@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-09-06T01:30:54.286Z",
+  "fetchedAt": "2026-09-06T01:32:25.847Z",
   "result": {
     "items": [
       {
@@ -24,128 +24,6 @@
         "text": "The AgriBiz · 2 matching headlines in 3 days · matched: export ban, brazil, beef · https://news.google.com/rss/articles/CBMiogFBVV95cUxQUTZvVXFfNmlDVURSUE5ySE9RdWY1NC1RY1pXUTE2QVE1LWVIVl9JcUY2SXdBM3ZmYldXZXE3QS1iTG8ycHdpbGlhRHdmMFNxVUVJRzVwQWl3RERUWVoxWHdYSlhsbkktazFmVEpndFQxRk5DQ0VVMU85YVNEWGtXV3JDaVlkN1Y2cTJ4TGRXaC0xbzc1bFg2NHk2LXBiQXJoX0E?oc=5",
         "start": "2026-09",
         "iso3": "BRA"
-      },
-      {
-        "id": "news-disease-us-national",
-        "name": "Uruguay declares nationwide health emergency over bird flu outbreak",
-        "category": "disease",
-        "kind": "natural",
-        "regionId": "us-national",
-        "admin": "United States (national)",
-        "lat": 39.8,
-        "lng": -98.6,
-        "commodities": [
-          {
-            "id": "eggs",
-            "relevance": 1
-          },
-          {
-            "id": "chicken",
-            "relevance": 1
-          },
-          {
-            "id": "turkey",
-            "relevance": 1
-          },
-          {
-            "id": "beef",
-            "relevance": 1
-          },
-          {
-            "id": "pork",
-            "relevance": 1
-          },
-          {
-            "id": "milk",
-            "relevance": 1
-          },
-          {
-            "id": "cheese",
-            "relevance": 1
-          },
-          {
-            "id": "bread",
-            "relevance": 1
-          },
-          {
-            "id": "rice",
-            "relevance": 1
-          },
-          {
-            "id": "potatoes",
-            "relevance": 1
-          },
-          {
-            "id": "lettuce",
-            "relevance": 1
-          },
-          {
-            "id": "tomatoes",
-            "relevance": 1
-          },
-          {
-            "id": "fresh-vegetables",
-            "relevance": 1
-          },
-          {
-            "id": "apples",
-            "relevance": 1
-          },
-          {
-            "id": "bananas",
-            "relevance": 1
-          },
-          {
-            "id": "citrus",
-            "relevance": 1
-          },
-          {
-            "id": "coffee",
-            "relevance": 1
-          },
-          {
-            "id": "sugar",
-            "relevance": 1
-          },
-          {
-            "id": "fats-oils",
-            "relevance": 1
-          },
-          {
-            "id": "infant-formula",
-            "relevance": 1
-          },
-          {
-            "id": "corn",
-            "relevance": 1
-          },
-          {
-            "id": "soybeans",
-            "relevance": 1
-          },
-          {
-            "id": "wheat",
-            "relevance": 1
-          },
-          {
-            "id": "fertilizer",
-            "relevance": 1
-          },
-          {
-            "id": "energy",
-            "relevance": 1
-          },
-          {
-            "id": "milk-farm",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.15,
-        "months": 24,
-        "status": "breaking",
-        "confidence": 0.7000000000000001,
-        "text": "turkiyetoday.com · 3 matching headlines in 3 days · matched: bird flu, outbreak, nationwide · https://news.google.com/rss/articles/CBMitAFBVV95cUxOTG5HcTVYRjYxaUxIbnhvaDRkUFc0VHFHRHpBU0JtWGFhMFlyWUwwNnl0MlpsaEVoSXJYVTM0Wk9KMnR0Sk9meE1iVXNSTUpLM3NmUGJhWTgxdkJpSjQ4SVY5UTRGMHE5N2ZKSTd6VFg5WERzZjNLdHNQaXpfNWpQemhOM0h6MXhrdnFrWFNrcFZoN1dkLU9wamIxenFzNjd6ckNTaDg0RmtWUWdHQXZTc0Q1emo?oc=5",
-        "start": "2026-09"
       },
       {
         "id": "news-tariff-brazil",
@@ -281,36 +159,6 @@
         "text": "Santa Fe New Mexican · 1 matching headline in 3 days · matched: drought, mexico, beef, cattle, ranch · https://news.google.com/rss/articles/CBMijAJBVV95cUxPa1l5bEpkVC0zWHY2dzFLTEFNbThvaXBubGVQWTUzaVRiZ01DblZGcWlxT21PMkNKSGJfYnNNSFdjd3F5dTZRVjh3ODRmSGs0THdoRGVSeTA1emdXYWdKNXk5Q28xcVhIcjYtTC0tbHgxUDd3Z2Y2U0l2SUdoNGNRTkNLMS1kLVlVWThvMWtJVmMwV3VzTjQtS1F1TG1KQnJ2bWtpMi1KUHJLYl9QZDhyZXNWZEdLVGRla1loNVo2X1FuR1RyaXNSdS1HU2FSaFhwZWY1SEZXVi13UExYbTB3azJEeGs0bnFlNXNaZ1ZzdTRFdkh0YklpWXVySTZUWGpSZGFFNU44dGpYU09N?oc=5",
         "start": "2026-09",
         "iso3": "MEX"
-      },
-      {
-        "id": "news-drought-suez-red-sea",
-        "name": "Egypt, China develop strategic crop varieties resilient to drought and salinity",
-        "category": "drought",
-        "kind": "natural",
-        "regionId": "suez-red-sea",
-        "admin": "Suez Canal and Bab el-Mandeb",
-        "lat": 27,
-        "lng": 33,
-        "commodities": [
-          {
-            "id": "coffee",
-            "relevance": 1
-          },
-          {
-            "id": "rice",
-            "relevance": 1
-          },
-          {
-            "id": "fats-oils",
-            "relevance": 1
-          }
-        ],
-        "severity": 0.15,
-        "months": 12,
-        "status": "breaking",
-        "confidence": 0.6000000000000001,
-        "text": "egypttoday.com · 1 matching headline in 3 days · matched: drought, egypt · https://news.google.com/rss/articles/CBMiswFBVV95cUxOOVdpbnpCSnBTbFpwc3lCdXJVZTdtYkxJUmVjWXpoYVlRS3NjUVZmYUhNaUhkMzFEWkM2RW54Nlpwd1pOcUFLTV8xUkFqWm1sOXBkYjBmZ0kyVHlkLW5Na2RXMUFkeVZEUzViRUtLekViMXlhaGNxdFFpZ192aWs2RGU2RzUtb2ZiUnMycHplVXZZZ0cxcXljeEY3aUh6WXZMVGZXdEYxY2pDRUx6cjU2bTRXRQ?oc=5",
-        "start": "2026-09"
       },
       {
         "id": "news-war-us-national",
@@ -704,8 +552,8 @@
         "severity": 0.3,
         "months": 6,
         "status": "breaking",
-        "confidence": 0.8,
-        "text": "Country Guide · 1 matching headline in 3 days · matched: fertilizer, iran · https://news.google.com/rss/articles/CBMivgFBVV95cUxPREJJODJJSWR0WFEtUUtEQU92cWRWelVvU3Jlb3ZqdC1JS0R1MVhla1JEQ2NtU0pZWnZmRU1Kc3dDMkxaX3lweVVFdEh3WUY1cUNBZzZhNEUtbXpPUnpkUXJmNEdqSTB1Z1Z1VUlyd0xaUXhPS09zVVdvNnBQY0hlN19ESDFQc2g0aFp3dVY5ODJ6TzF0WGs5N3N2aDMxQUpHMy1hSHlyMWNHdGV6Q2p2MTdlem4zZlV6ZVhRbnVR?oc=5",
+        "confidence": 0.8500000000000001,
+        "text": "Country Guide · 2 matching headlines in 3 days · matched: fertilizer, iran · https://news.google.com/rss/articles/CBMivgFBVV95cUxPREJJODJJSWR0WFEtUUtEQU92cWRWelVvU3Jlb3ZqdC1JS0R1MVhla1JEQ2NtU0pZWnZmRU1Kc3dDMkxaX3lweVVFdEh3WUY1cUNBZzZhNEUtbXpPUnpkUXJmNEdqSTB1Z1Z1VUlyd0xaUXhPS09zVVdvNnBQY0hlN19ESDFQc2g0aFp3dVY5ODJ6TzF0WGs5N3N2aDMxQUpHMy1hSHlyMWNHdGV6Q2p2MTdlem4zZlV6ZVhRbnVR?oc=5",
         "start": "2026-09"
       },
       {

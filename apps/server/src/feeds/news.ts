@@ -68,7 +68,7 @@ export const news: FeedAdapter = {
     for (const a of arts) {
       for (const c of interpretScenario(a.title, ctx)) {
         // a headline must name both the kind of threat and the place; no defaults, no weak matches
-        if (!c.explicitCategory || !c.explicitRegion || c.confidence < 0.7) continue;
+        if (!c.explicitCategory || !c.explicitRegion || c.confidence < 0.75) continue;
         const key = `${c.category}|${c.regionId}`;
         const cur = best.get(key);
         if (!cur) best.set(key, { c, a, n: 1 });

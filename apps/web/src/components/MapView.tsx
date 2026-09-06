@@ -155,6 +155,9 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
     map.on('styledata', tryAdd);
     setTimeout(tryAdd, 300);
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
+    map.keyboard.enable();
+    map.getCanvas().setAttribute('tabindex', '0');
+    map.on('mousedown', () => map.getCanvas().focus());
     mapRef.current = map;
     if (import.meta.env.DEV) (window as unknown as { __surgeMap?: maplibregl.Map }).__surgeMap = map;
     const ro = new ResizeObserver(() => map.resize());

@@ -51,14 +51,14 @@ const REGION_TERMS: Record<string, string[]> = {
   'us-florida': ['florida'],
   'us-pacific-northwest': ['pacific northwest', 'washington state', 'oregon', 'idaho', 'columbia basin'],
   'us-southeast-broilers': ['georgia', 'alabama', 'arkansas', 'north carolina', 'mississippi', 'southeast', 'delmarva'],
-  'us-national': ['united states', 'nationwide', 'national', 'u.s.', 'america', 'across the country', 'multi-state'],
+  'us-national': ['united states', 'u.s.', 'america', 'across the country', 'multi-state', 'american farmers', 'us farmers'],
   'mexico': ['mexico', 'mexican', 'sinaloa', 'michoacán', 'michoacan'],
   'canada': ['canada', 'canadian', 'ontario', 'alberta', 'saskatchewan', 'manitoba'],
   'brazil': ['brazil', 'brazilian', 'mato grosso', 'minas gerais', 'paraná', 'parana'],
   'central-america-bananas': ['guatemala', 'ecuador', 'honduras', 'costa rica', 'colombia', 'central america'],
   'black-sea': ['ukraine', 'russia', 'black sea', 'odesa', 'odessa', 'kerch', 'crimea'],
   'hormuz': ['hormuz', 'persian gulf', 'iran', 'gulf states', 'qatar', 'saudi'],
-  'suez-red-sea': ['red sea', 'suez', 'bab el-mandeb', 'yemen', 'houthi', 'egypt'],
+  'suez-red-sea': ['red sea', 'suez', 'bab el-mandeb', 'yemen', 'houthi'],
   'panama-canal': ['panama'],
   'turkey': ['turkey', 'türkiye', 'turkiye', 'turkish'],
   'vietnam-brazil-coffee': ['vietnam', 'vietnamese', 'robusta'],
@@ -93,7 +93,9 @@ const COMMODITY_TERMS: Record<string, string[]> = {
   energy: ['diesel', 'fuel', 'natural gas', 'energy', 'oil price'],
 };
 
-function norm(s: string): string { return ' ' + s.toLowerCase().replace(/[^a-z0-9äéíóöúü.%\- ]+/g, ' ').replace(/\s+/g, ' ') + ' '; }
+function norm(s: string): string {
+  return ' ' + s.toLowerCase().replace(/\bnew mexico\b/g, 'newmexico-state').replace(/[^a-z0-9äéíóöúü.%\- ]+/g, ' ').replace(/\s+/g, ' ') + ' ';
+}
 
 /** Verb-pattern detection for policy categories that substrings miss ("bans all exports", "halted grain exports"). */
 const CATEGORY_PATTERNS: Partial<Record<ThreatCategory, RegExp[]>> = {

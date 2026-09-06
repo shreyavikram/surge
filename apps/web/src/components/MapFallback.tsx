@@ -44,6 +44,15 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
   const onDown = (e: React.MouseEvent) => { drag.current = { x: e.clientX, y: e.clientY, cx: view.cx, cy: view.cy }; };
   const onMove = (e: React.MouseEvent) => { const d = drag.current; if (!d) return; const el = e.currentTarget as SVGSVGElement; const s = (W / view.k) / el.clientWidth; setView((v) => ({ ...v, cx: d.cx - (e.clientX - d.x) * s, cy: d.cy - (e.clientY - d.y) * s })); };
   const onUp = () => { drag.current = null; };
+  const onKey = (e: React.KeyboardEvent) => {
+    const step = (W / view.k) * 0.08;
+    if (e.key === '+' || e.key === '=') { zoomBy(1.4); e.preventDefault(); }
+    else if (e.key === '-' || e.key === '_') { zoomBy(1 / 1.4); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft') { setView((v) => ({ ...v, cx: v.cx - step })); e.preventDefault(); }
+    else if (e.key === 'ArrowRight') { setView((v) => ({ ...v, cx: v.cx + step })); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { setView((v) => ({ ...v, cy: v.cy - step })); e.preventDefault(); }
+    else if (e.key === 'ArrowDown') { setView((v) => ({ ...v, cy: v.cy + step })); e.preventDefault(); }
+  };
   const areas = focusAreas(focus, ctx);
   const live = entries.filter((e) => e.origin !== 'replay').map((e) => e.threat);
   const threats = areas.length > 0 && ctx.focus ? live.filter((t) => areas.some((a) => threatAffectsArea(t, a, ctx.focus!))) : live;
@@ -57,8 +66,8 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
   const hoverHeat = hover ? (ch[hover] ?? sh[hover]) : undefined;
   return (
     <div className="map-wrap fallback">
-      <svg viewBox={vb} className="worldmap" style={{ width: '100%', height: '100%', display: 'block', cursor: drag.current ? 'grabbing' : 'grab' }}
-        onMouseDown={onDown} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp} onWheel={(e) => zoomBy(e.deltaY < 0 ? 1.15 : 1 / 1.15)}>
+      <svg viewBox={vb} className="worldmap" tabIndex={0} aria-label="World map; use plus and minus to zoom, arrow keys to pan" style={{ width: '100%', height: '100%', display: 'block', outline: 'none', cursor: drag.current ? 'grabbing' : 'grab' }}
+        onMouseDown={(e) => { onDown(e); (e.currentTarget as SVGSVGElement).focus(); }} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp} onWheel={(e) => zoomBy(e.deltaY < 0 ? 1.15 : 1 / 1.15)} onKeyDown={onKey}>
         <path d={path({ type: 'Sphere' } as never) ?? undefined} fill="var(--bg)" />
         {countries?.features.filter((f) => f.id !== 'USA').map((f) => {
           const iso = String(f.id); const h = ch[iso];
@@ -71,7 +80,8 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
             onMouseEnter={() => setHover(id)} onMouseLeave={() => setHover(null)} onClick={() => { const t = h?.threats[0]; if (t) onSelect(t); }} style={{ cursor: h?.threats.length ? 'pointer' : 'default' }} />;
         })}
       </svg>
-      <div className="svg-zoom"><button onClick={() => zoomBy(1.4)} title="Zoom in">+</button><button onClick={() => zoomBy(1 / 1.4)} title="Zoom out">−</button></div>
+      <div className="svg-zoom"><button onClick={() => zoomBy(1.4)} title="Zoom in (+)">+</button><button onClick={() => zoomBy(1 / 1.4)} title="Zoom out (−)">−</button></div>
+      <div className="svg-hint">+ / − to zoom · arrows or drag to pan</div>
       <div className="map-badge">{sel && v ? `${sel.threat.name} · ${compactUsd(v.cv)}` : `simplified map · ${reason}`}</div>
       {hover && (
         <div className="map-hover">
