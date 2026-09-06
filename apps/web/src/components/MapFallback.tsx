@@ -109,16 +109,16 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason,
             const share = hh.baseline > 0 && hh.baseline < 0.0005 ? 'less than 0.1%' : `${(hh.baseline * 100).toFixed(1)}%`;
             const what = lens.size > 0 ? [...lens].map((id) => (ctx.commodities[id]?.name ?? ctx.inputs[id]?.name ?? id).toLowerCase()).join(', ') : 'food';
             const supplies = isState ? `produces about ${share} of the ${what} the US grows and raises` : `supplies about ${share} of the ${what} the US imports`;
+            // yellow and red popups carry only the threat's own text; the supply share is a short footnote
             const why = hh.status === 'none'
               ? `No measurable ${what} supply to the United States comes from here.`
               : hh.status === 'stable'
               ? `${supplies[0]!.toUpperCase()}${supplies.slice(1)}. No current threat.`
-              : hh.status === 'anticipated'
-                ? `Possible disruption: ${supplies}, and something that could cut it has been reported but has not yet shown up in shipping, supply, or price data.`
-                : `Disruption under way: ${supplies}, and supply from here is already being cut.`;
+              : '';
+            const footnote = hh.status === 'anticipated' || hh.status === 'unstable' ? `${supplies[0]!.toUpperCase()}${supplies.slice(1)}.` : '';
             const names = hh.threats.map(nameOf);
             const list = names.length > 5 ? [...names.slice(0, 5), `and ${names.length - 5} more`] : names;
-            return <>{why ? <><br /><span className="why">{why}</span></> : null}{list.length ? <><br /><span className="faint">{hh.status === 'anticipated' ? 'Possible: ' : 'Happening: '}{list.join(' · ')}</span></> : null}{onPickRegion && !hh.threats.length && !isState && regionOfIso(hover) ? <><br /><span className="faint">click to add a disruption here</span></> : null}</>;
+            return <>{why ? <><br /><span className="why">{why}</span></> : null}{list.length ? <><br /><span className="why">{list.join(' · ')}</span></> : null}{footnote ? <><br /><span className="faint">{footnote}</span></> : null}{onPickRegion && !hh.threats.length && !isState && regionOfIso(hover) ? <><br /><span className="faint">click to add a disruption here</span></> : null}</>;
           })()}
         </div>
       )}

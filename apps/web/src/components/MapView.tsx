@@ -197,7 +197,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, lens
           : p.chokepoint
           ? (p.status === 'stable' ? 'A shipping chokepoint for food imports. No transit disruption right now.' : p.status === 'anticipated' ? 'Shipping through here could be disrupted.' : 'Ship transits here are down; imports that pass through are delayed or cut.')
           : shareLine;
-        pop.setLngLat(ev.lngLat).setHTML(`<b>${p.name ?? ''}</b> <span class="st ${p.status}">${STATUS_LABEL[p.status]}</span>${why ? `<br><span class="why">${why}</span>` : ''}${p.threats ? `<br><span class="th">${p.status === 'anticipated' ? 'Possible: ' : 'Happening: '}${p.threats}</span>` : ''}`).addTo(map);
+        pop.setLngLat(ev.lngLat).setHTML(`<b>${p.name ?? ''}</b> <span class="st ${p.status}">${STATUS_LABEL[p.status]}</span>${why ? `<br><span class="why">${why}</span>` : ''}${p.threats ? `<br><span class="th">${p.threats}</span>` : ''}`).addTo(map);
       });
       map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; pop.remove(); });
       map.on('click', layer, (ev) => {
