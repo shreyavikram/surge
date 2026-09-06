@@ -431,3 +431,5 @@ details.assumptions .assump { margin-top: 6px; }
 .at-row { display: flex; gap: 10px; }
 .at-row .field { flex: 1; }
 .at-form .num { width: 100%; }
+.map-loader.small { width: 64px; height: 64px; }
+.usmap-wrap:has(.map-loader) .usmap { min-height: 160px; opacity: 0.35; }

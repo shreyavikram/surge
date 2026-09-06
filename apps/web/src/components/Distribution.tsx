@@ -51,7 +51,7 @@ export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: E
   const [horizon, setHorizon] = useState<'annual' | 'total'>('total');
   const [geo, setGeo] = useState<FC | null>(null);
   const [hover, setHover] = useState<string | null>(null);
-  useEffect(() => { let on = true; void loadGeo(level === 'state' ? 'states' : 'cd119').then((g) => { if (on) setGeo(rewind(g)); }); return () => { on = false; }; }, [level]);
+  useEffect(() => { let on = true; setGeo(null); void loadGeo(level === 'state' ? 'states' : 'cd119').then((g) => { if (on) setGeo(rewind(g)); }); return () => { on = false; }; }, [level]);
 
   const rows = useMemo(() => perCapitaLossByArea(entry.impact, ctx, level, horizon), [entry, ctx, level, horizon]);
   const prod = useMemo(() => producerChangeByArea(entry.impact, ctx, level), [entry, ctx, level]);
@@ -84,6 +84,7 @@ export function Distribution({ entry, ctx, focus }: { entry: RankedEntry; ctx: E
     <div className="section" key={who}>
       <h4>Where the {who === 'consumers' ? 'consumer loss' : 'producer gain or loss'} lands<Info term={who === 'consumers' ? 'perCapita' : 'producer'} /></h4>
       <div className="usmap-wrap">
+        {!geo && <img className="map-loader small" src="/brand/greenfield-loading.svg" alt="Loading map…" />}
         <div className="svg-zoom mini"><button onClick={() => zoomBy(1.5)} title="Zoom in">+</button><button onClick={() => zoomBy(1 / 1.5)} title="Zoom out">−</button></div>
         <svg viewBox={vb} className="usmap" style={{ width: '100%', height: 'auto', display: 'block', cursor: 'grab' }}
           onWheel={(e) => { e.preventDefault(); zoomBy(e.deltaY < 0 ? 1.2 : 1 / 1.2); }}
