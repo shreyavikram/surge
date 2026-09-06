@@ -1,6 +1,8 @@
-# SURGE
+# Greenfield
 
-SURGE is an agro-defense readiness tool for the American food supply: a live map of threats, a
+Live at **https://greenfield-w77m.onrender.com**. (Repository name and package scopes still say SURGE, the project's working title.)
+
+Greenfield is an agro-defense readiness tool for the American food supply: a live map of threats, a
 deterministic model of what each threat costs consumers, and a view of where relief could come from.
 Eggs (2022 replay, 2024 calibration) and infant formula (2022) are the calibrated cases; every
 commodity in the configuration flows through the same engine.
