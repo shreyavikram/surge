@@ -30,8 +30,16 @@ export function planMitigation(gap: number[], allLevers: LeverConfig[], opts: { 
   const n = gap.length;
   const forCommodity = allLevers.filter((l) => l.commodity === opts.commodity);
   const isActive = (l: LeverConfig) => (l.enabledByDefault || (opts.activate ?? []).includes(l.id)) && !(opts.deactivate ?? []).includes(l.id);
-  const active = forCommodity.filter(isActive);
-  const inactive = forCommodity.filter((l) => !isActive(l));
+  // a lever whose requirement is switched off is unavailable too (repeat until stable for chains)
+  const known = new Set(allLevers.map((l) => l.id));
+  let active = forCommodity.filter(isActive);
+  for (let changed = true; changed;) {
+    const ids = new Set(active.map((l) => l.id));
+    const next = active.filter((l) => !l.requires || !known.has(l.requires) || ids.has(l.requires));
+    changed = next.length !== active.length;
+    active = next;
+  }
+  const inactive = forCommodity.filter((l) => !active.includes(l));
   const byId = new Map(active.map((l) => [l.id, l] as const));
   const lead = new Map(active.map((l) => [l.id, effectiveLead(l, byId)] as const));
   const end = new Map(active.map((l) => [l.id, effectiveEnd(l, byId, lead)] as const));

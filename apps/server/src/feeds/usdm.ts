@@ -4,8 +4,8 @@ import { httpText } from './http.js';
 import { regionForState, STATE_FIPS } from './regions.js';
 
 /**
- * US Drought Monitor, weekly, by state. Alert score = (0.5·D2 + 0.8·D3 + 1.0·D4) area share; ingestion
- * applies the drought damage cap. A state inside a multi-state region carries 1/n of the region's severity.
+ * US Drought Monitor, weekly, by state. Alert score = (0.4·D2-only + 0.7·D3-only + 1.0·D4) area share; ingestion
+ * applies the drought damage cap. Each state is its own production region.
  */
 const STATES = ['IA', 'IL', 'IN', 'OH', 'MN', 'NE', 'MO', 'WI', 'SD', 'KS', 'ND', 'MT', 'OK', 'CO', 'TX', 'WA', 'CA', 'FL', 'OR', 'ID', 'GA', 'AL', 'AR', 'NC', 'MS', 'MI', 'PA', 'NY', 'KY', 'TN', 'SC', 'VA', 'LA', 'NM', 'AZ', 'UT', 'NV', 'WY'];
 const MIN_D2_SHARE = 20; // percent of state area in D2 or worse before a threat is emitted

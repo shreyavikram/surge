@@ -30,6 +30,7 @@ export function validateConfig(ctx: EngineContext): string[] {
     req(problems, `${p}.transmission.source`, c.transmission.source);
     if (!(c.baseline.annualQuantity > 0)) problems.push(`${p}.baseline.annualQuantity must be > 0`);
     if (!(c.baseline.retailPrice > 0)) problems.push(`${p}.baseline.retailPrice must be > 0`);
+    if (c.baseline.farmShare !== undefined && !(c.baseline.farmShare > 0 && c.baseline.farmShare <= 1)) problems.push(`${p}.baseline.farmShare must be in (0, 1]`);
     if (!(c.demand.ownPrice < 0)) problems.push(`${p}.demand.ownPrice must be negative`);
     if (!(c.trade.exportElasticity <= 0)) problems.push(`${p}.trade.exportElasticity must be <= 0`);
     if (c.transmission.passThrough <= 0 || c.transmission.passThrough > 1.5) problems.push(`${p}.transmission.passThrough out of range`);

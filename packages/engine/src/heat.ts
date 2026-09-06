@@ -1,8 +1,9 @@
 // packages/engine/src/heat.ts
 // Map heat: every supplier country and US state gets a status and an intensity.
-//   stable      green   intensity = share of US food imports (countries) or of US food production (states)
-//   anticipated yellow  intensity = potential share of US imports/production disrupted × report confidence (breaking items)
-//   unstable    red     intensity = share of US imports/production disrupted by active threats
+//   stable      green   a supplier with no threat; shade = its share of US food imports (countries) or production (states)
+//   anticipated yellow  a reported, not yet confirmed, disruption (breaking items); shade = the same supply share
+//   unstable    red     a disruption under way (active items); shade = the same supply share
+// The hue carries the status; the shade carries only how much of the US supply the place provides.
 // Saturation points are stated in HEAT_SATURATION and shown in the legend.
 import type { EngineContext, Threat } from './types.js';
 

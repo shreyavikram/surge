@@ -3,6 +3,7 @@
 // consumer loss; production shares attribute producer revenue; region→state coverage decides
 // whether a domestic threat touches an area at all. Methodology §7.
 import type { EngineContext, FocusConfig, AreaInfo, ImpactResult, Threat } from './types.js';
+import { farmShareOf } from './impact.js';
 
 export interface FocusSelection { kind: 'us' | 'state' | 'district'; id?: string }
 
@@ -81,7 +82,7 @@ export function areaLoss(impact: ImpactResult, areaId: string, ctx: EngineContex
     if (pa === 0) { producerRevenueChange[id] = 0; producerRevenueChangeAnnual[id] = 0; continue; }
     const domShare = Math.max(1e-9, 1 - c.trade.importShare);
     const monthlyQ = c.baseline.annualQuantity / 12;
-    const Xdom = (monthlyQ * c.baseline.retailPrice) * domShare;
+    const Xdom = (monthlyQ * c.baseline.retailPrice) * domShare * farmShareOf(c);
     const pw = impact.price.wholesalePct[id] ?? [];
     let total = 0, annual = 0;
     for (let t = 0; t < pw.length; t++) {

@@ -22,7 +22,7 @@ describe('computeImpact', () => {
     const r = computeImpact(threatToShocks(c.threats[0]!, ctx), ctx);
     expect(Math.abs(r.welfare.cv - r.welfare.csReplica) / r.welfare.csReplica).toBeLessThan(0.005);
     expect(r.commodities).toEqual(['eggs']);
-    expect(r.months.length).toBe(24);
+    expect(r.months.length).toBe(24 + ctx.commodities['eggs']!.transmission.lagMonths); // the retail lag extends the axis
     expect(r.durationMonths).toBeGreaterThan(9);
   });
   it('2022 modeled loss lands between the Mitchell and Ferrier published ranges', () => {

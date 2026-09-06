@@ -48,7 +48,9 @@ export const eia: FeedAdapter = {
       const rise = mean > 0 ? latest / mean - 1 : 0;
       if (rise < MIN_RISE) continue;
       const inp = ctx.inputs[s.input];
-      const eps = Math.abs(inp?.demand.totalElasticity ?? 0.3);
+      // invert the engine's clearing rule at the farm gate: rise = s / ((1−x)|ε| + x|εₓ|) ⇒ s = rise × ((1−x)|ε| + x|εₓ|)
+      const x = inp?.trade.exportShare ?? 0;
+      const eps = (1 - x) * Math.abs(inp?.demand.totalElasticity ?? 0.3) + x * Math.abs(inp?.trade.exportElasticity ?? 0);
       items.push({
         id: `eia-${s.input}`, name: `${s.label} up ${(rise * 100).toFixed(0)}% on its 12-month average`, category: 'input_cost', kind: 'geopolitical',
         regionId: 'us-national', admin: 'United States', iso3: 'USA', lat: 39.8, lng: -98.6,

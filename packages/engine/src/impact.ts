@@ -29,7 +29,7 @@ function mergeShocks(shocks: Shock[], start: string): Map<string, Merged> {
   const byC = new Map<string, Merged>();
   for (const s of shocks) {
     const off = monthIndex(start, s.start);
-    const n = off + s.supplyPath.length;
+    const n = off + s.supplyPath.length + Math.max(0, s.lagMonths ?? 0); // the retail lag carries the last months past the supply path
     const cur = byC.get(s.commodity) ?? { supply: [], cost: [], domestic: [], imports: [], byRegion: {}, n: 0 };
     while (cur.supply.length < n) { cur.supply.push(0); cur.cost.push(0); cur.domestic.push(0); cur.imports.push(0); }
     cur.n = Math.max(cur.n, n);
@@ -44,6 +44,12 @@ function mergeShocks(shocks: Shock[], start: string): Map<string, Merged> {
     byC.set(s.commodity, cur);
   }
   return byC;
+}
+
+/** Share of the retail price that reaches the farm/wholesale seller (ERS price spreads); 1 when a commodity omits it. */
+export function farmShareOf(c: CommodityConfig): number {
+  const f = c.baseline.farmShare;
+  return f !== undefined && f > 0 ? Math.min(1, f) : 1;
 }
 
 function pad(a: number[], n: number): number[] { return [...a, ...new Array<number>(Math.max(0, n - a.length)).fill(0)]; }
@@ -109,9 +115,10 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
     const domestic = pad(m.domestic, N), imports = pad(m.imports, N);
     shortfall[id] = { units: supply.map((s) => s * monthlyQ), unit: c.unit, domesticUnits: domestic.map((s) => s * monthlyQ), importUnits: imports.map((s) => s * monthlyQ) };
     domesticLossByRegion[id] = Object.fromEntries(Object.entries(m.byRegion).map(([r, path]) => [r, pad(path, N).map((s) => s * monthlyQ)]));
-    // US producers of this commodity: revenue on domestic supply at the wholesale price; only domestic losses reduce their quantity
+    // US producers of this commodity: revenue on domestic supply valued at the farm/wholesale share of the retail price
+    // (ERS price spreads); only domestic losses reduce their quantity
     const domShare = Math.max(1e-9, 1 - c.trade.importShare);
-    const Xdom = Xc(c) * domShare;
+    const Xdom = Xc(c) * domShare * farmShareOf(c);
     producerRevenueChange[id] = p.wholesalePct.reduce((acc, pw, t) => acc + Xdom * ((1 + pw) * (1 - (domestic[t] ?? 0) / domShare) - 1), 0);
     assumptions.push(
       { key: `elasticity.${id}`, label: `Own-price elasticity, ${c.name}`, value: epsOwn, source: c.demand.source, kind: 'modeled' },
@@ -119,6 +126,7 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
       { key: `baseline.${id}`, label: `Baseline consumption, ${c.name}`, value: c.baseline.annualQuantity, unit: `${c.unit}/yr`, source: c.baseline.source, kind: 'measured' },
       { key: `price.${id}`, label: `Baseline retail price, ${c.name}`, value: priceOf(c), unit: `USD/${c.unit}`, source: priceOf(c) === c.baseline.retailPrice ? c.baseline.source : `${opts?.observed?.source ?? ''} (counterfactual mean)`, kind: 'measured' },
       { key: `trade.${id}`, label: `Export share / export elasticity, ${c.name}`, value: `${c.trade.exportShare} / ${c.trade.exportElasticity}`, source: c.trade.source, kind: 'modeled' },
+      { key: `farmShare.${id}`, label: `Farm/wholesale share of the retail price, ${c.name}`, value: farmShareOf(c), source: c.baseline.farmShareSource ?? c.baseline.source, kind: 'modeled' },
     );
     if (c.supply.model === 'livestock') {
       const shift = ctx.overrides?.recoveryLagShiftMonths ?? 0;
@@ -132,7 +140,7 @@ export function computeImpact(shocks: Shock[], ctx: EngineContext, opts?: { obse
     { key: 'pricePath', label: 'Price path', value: usePath, source: usePath === 'observed' ? 'FRED retail series vs counterfactual' : 'Structural clearing (methodology §2)', kind: 'modeled' },
     { key: 'demandSystem', label: 'Demand system', value: 'ERR-139 unconditional, precision-weighted Slutsky symmetrization, nonfood numeraire', source: ctx.demand.source, kind: 'modeled' },
     { key: 'cropSeason', label: 'Crop losses begin at shock start and run one marketing year', value: 'simplification', source: 'DECISIONS.md', kind: 'modeled' },
-    { key: 'shockConstants', label: 'Rerouting / world-price transmission / freight wedge', value: `${SHOCK_CONSTANTS.REROUTING_SHARE} / ${SHOCK_CONSTANTS.WORLD_PRICE_TRANSMISSION} / ${SHOCK_CONSTANTS.FREIGHT_WEDGE_AT_FULL_CLOSURE}`, source: 'DECISIONS.md', kind: 'modeled' },
+    { key: 'shockConstants', label: 'Rerouting share / world excess-demand elasticity / freight wedge', value: `${SHOCK_CONSTANTS.REROUTING_SHARE} / ${SHOCK_CONSTANTS.WORLD_EXCESS_DEMAND_ELASTICITY} / ${SHOCK_CONSTANTS.FREIGHT_WEDGE_AT_FULL_CLOSURE}`, source: 'DECISIONS.md', kind: 'modeled' },
   );
 
   // item-level π per month: expenditure-weighted across commodities sharing an item; item diagonal from weighted own elasticities

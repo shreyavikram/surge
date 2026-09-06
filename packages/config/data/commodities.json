@@ -1,7 +1,7 @@
 {
   "eggs": {
     "id": "eggs", "name": "Eggs", "group": "eggs", "unit": "dozen",
-    "baseline": { "annualQuantity": 5725000000, "retailPrice": 2.73, "year": 2024, "source": "Fryar FC-2025-001 Table 1 (202 shell eggs per capita, $2.73 counterfactual); population 340.1M Census Vintage 2024" },
+    "baseline": { "annualQuantity": 5725000000, "retailPrice": 2.73, "year": 2024, "source": "Fryar FC-2025-001 Table 1 (202 shell eggs per capita, $2.73 counterfactual); population 340.1M Census Vintage 2024", "farmShare": 0.55, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.24, "range": [-0.11, -0.27], "expenditure": 0.03, "source": "ERR-139 Table 6 (unconditional); range Huang 1993 / Ferrier 2024; Fryar uses -0.228" },
     "trade": { "exportShare": 0.04, "exportElasticity": -2, "importShare": 0.01, "source": "Ferrier 2024 Table 2 (4.1% 2018); export elasticity ERR-57 -5 adjusted to observed 2022 export response (Ferrier Table 6); imports USDA Jun 2025 release" },
     "supply": { "model": "livestock", "nationalInventory": 325000000, "recoveryLagMinMonths": 5, "recoveryLagMaxMonths": 12, "producerOffset": 0.35, "source": "NASS Chickens and Eggs table-egg layers Jan 2022 approx 325M (approximate; Plan 2 pulls QuickStats); lag: APHIS restock criteria 9-13 wk downtime + 17-20 wk pullets, industry 'a year or more'; offset from Ferrier 2024 Table 4 vs naive inventory loss" },
@@ -12,10 +12,10 @@
   },
   "chicken": {
     "id": "chicken", "name": "Chicken", "group": "poultry", "unit": "lb",
-    "baseline": { "annualQuantity": 34000000000, "retailPrice": 1.98, "year": 2024, "source": "ERS per capita broiler consumption ~100 lb (approximate) × 340.1M; FRED APU0000706111 whole chicken 2024 avg" },
+    "baseline": { "annualQuantity": 34000000000, "retailPrice": 1.98, "year": 2024, "source": "ERS per capita broiler consumption ~100 lb (approximate) × 340.1M; FRED APU0000706111 whole chicken 2024 avg", "farmShare": 0.55, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.81, "range": [-0.45, -0.81], "expenditure": 0.03, "source": "ERR-139 Table 6; Huang 1993 -0.45" },
     "trade": { "exportShare": 0.16, "exportElasticity": -0.448, "importShare": 0.0, "source": "Ferrier 2024 Table 2 (16.6% 2018); ERR-57 App. table 12" },
-    "supply": { "model": "livestock", "nationalInventory": 9200000000, "recoveryLagMinMonths": 2, "recoveryLagMaxMonths": 3, "producerOffset": 0.2, "source": "Ferrier 2024 Table 1 (9.2B broilers slaughtered 2021); 6-7 week grow-out + downtime" },
+    "supply": { "model": "livestock", "nationalInventory": 1240000000, "recoveryLagMinMonths": 2, "recoveryLagMaxMonths": 3, "producerOffset": 0.2, "source": "Standing broiler flock ≈ 9.2B slaughtered per year (Ferrier 2024 Table 1) × 7-week grow-out / 52 ≈ 1.24B head; 6-7 week grow-out + downtime" },
     "transmission": { "passThrough": 0.7, "lagMonths": 1, "source": "assumed same as eggs (modeled)" },
     "fredSeries": "APU0000706111",
     "inputs": [ { "input": "corn", "costShare": 0.25, "source": "ERR-57 App. table 3 broiler feed shares (approximate)" }, { "input": "soybeans", "costShare": 0.15, "source": "ERR-57 App. table 3 (approximate)" } ],
@@ -23,17 +23,17 @@
   },
   "turkey": {
     "id": "turkey", "name": "Turkey", "group": "poultry", "unit": "lb",
-    "baseline": { "annualQuantity": 5100000000, "retailPrice": 1.52, "year": 2022, "source": "Ferrier 2024 (observed 2022 retail $1.52/lb; ~15 lb per capita approximate)" },
+    "baseline": { "annualQuantity": 5100000000, "retailPrice": 1.52, "year": 2022, "source": "Ferrier 2024 (observed 2022 retail $1.52/lb; ~15 lb per capita approximate)", "farmShare": 0.45, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -1.989, "range": [-0.81, -1.989], "expenditure": 0.03, "source": "Ferrier 2024 / Paarlberg 2008 turkey demand -1.989; low end ERR-139 poultry" },
     "trade": { "exportShare": 0.10, "exportElasticity": -0.448, "importShare": 0.0, "source": "Ferrier 2024 Table 2; ERR-57 App. table 12" },
-    "supply": { "model": "livestock", "nationalInventory": 214000000, "recoveryLagMinMonths": 4, "recoveryLagMaxMonths": 6, "producerOffset": 0.2, "source": "Ferrier 2024 Table 1 (213.9M slaughtered 2021); 14-20 week grow-out + downtime" },
+    "supply": { "model": "livestock", "nationalInventory": 65000000, "recoveryLagMinMonths": 4, "recoveryLagMaxMonths": 6, "producerOffset": 0.2, "source": "Standing flock ≈ 214M raised per year (Ferrier 2024 Table 1) × 16-week grow-out / 52 ≈ 65M head; 14-20 week grow-out + downtime" },
     "transmission": { "passThrough": 0.7, "lagMonths": 1, "source": "assumed same as eggs (modeled)" },
     "inputs": [ { "input": "corn", "costShare": 0.25, "source": "ERR-57 App. table 3 (approximate)" }, { "input": "soybeans", "costShare": 0.15, "source": "ERR-57 App. table 3 (approximate)" } ],
     "plate": ["turkey"]
   },
   "beef": {
     "id": "beef", "name": "Beef", "group": "beef", "unit": "lb",
-    "baseline": { "annualQuantity": 19700000000, "retailPrice": 5.5, "year": 2024, "source": "ERS ~58 lb per capita retail weight (approximate) × 340.1M; FRED APU0000703112 ground beef 2024 avg" },
+    "baseline": { "annualQuantity": 19700000000, "retailPrice": 5.5, "year": 2024, "source": "ERS ~58 lb per capita retail weight (approximate) × 340.1M; FRED APU0000703112 ground beef 2024 avg", "farmShare": 0.5, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.70, "range": [-0.62, -1.52], "expenditure": 0.05, "source": "ERR-139 Table 6; Huang 1993 -0.62; ERR-57 -1.521 (wholesale)" },
     "trade": { "exportShare": 0.11, "exportElasticity": -1.01, "importShare": 0.15, "source": "ERS Livestock and Meat International Trade Data (approximate); ERR-57 App. table 12" },
     "supply": { "model": "livestock", "nationalInventory": 87000000, "recoveryLagMinMonths": 24, "recoveryLagMaxMonths": 36, "producerOffset": 0.2, "source": "NASS Cattle Jan 2024 87.2M head; cattle cycle Rosen-Murphy-Scheinkman 1994" },
@@ -44,7 +44,7 @@
   },
   "pork": {
     "id": "pork", "name": "Pork", "group": "pork", "unit": "lb",
-    "baseline": { "annualQuantity": 17000000000, "retailPrice": 4.2, "year": 2024, "source": "ERS ~50 lb per capita retail weight (approximate) × 340.1M; FRED pork chops APU0000FD3101 2024 avg" },
+    "baseline": { "annualQuantity": 17000000000, "retailPrice": 4.2, "year": 2024, "source": "ERS ~50 lb per capita retail weight (approximate) × 340.1M; FRED pork chops APU0000FD3101 2024 avg", "farmShare": 0.3, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -1.26, "range": [-0.73, -1.45], "expenditure": 0.04, "source": "ERR-139 Table 6; Huang 1993 -0.73; ERR-57 -1.45" },
     "trade": { "exportShare": 0.25, "exportElasticity": -0.89, "importShare": 0.05, "source": "ERS trade data (approximate); ERR-57 App. table 12" },
     "supply": { "model": "livestock", "nationalInventory": 75000000, "recoveryLagMinMonths": 10, "recoveryLagMaxMonths": 14, "producerOffset": 0.2, "source": "NASS Quarterly Hogs and Pigs ~75M head; gestation + finishing ~10 months" },
@@ -54,9 +54,9 @@
   },
   "milk": {
     "id": "milk", "name": "Fluid milk", "group": "milk", "unit": "gal",
-    "baseline": { "annualQuantity": 5100000000, "retailPrice": 4.0, "year": 2024, "source": "ERS fluid milk ~15 gal per capita (approximate) × 340.1M; FRED APU0000709112 2024 avg" },
+    "baseline": { "annualQuantity": 5100000000, "retailPrice": 4.0, "year": 2024, "source": "ERS fluid milk ~15 gal per capita (approximate) × 340.1M; FRED APU0000709112 2024 avg", "farmShare": 0.45, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.10, "range": [-0.04, -0.59], "expenditure": 0.09, "source": "ERR-139 Table 6; Huang 1993 -0.04; Andreyeva 2010 mean 0.59" },
-    "trade": { "exportShare": 0.18, "exportElasticity": 0, "importShare": 0.02, "source": "USDEC dairy solids export share (approximate); ERR-57 App. table 12 (milk/dairy 0)" },
+    "trade": { "exportShare": 0.18, "exportElasticity": -2, "importShare": 0.02, "source": "USDEC dairy solids export share (approximate); export demand elasticity -2 (elastic world demand for US dairy products, FAPRI/ERS range -1.5 to -3, modeled)" },
     "supply": { "model": "livestock", "nationalInventory": 9300000, "recoveryLagMinMonths": 24, "recoveryLagMaxMonths": 30, "producerOffset": 0.1, "source": "NASS milk cows ~9.3M; heifer raising 24+ months" },
     "transmission": { "passThrough": 0.6, "lagMonths": 2, "source": "ERS Amber Waves 2014 milk 5-6 month lag (modeled shorter for crises)" },
     "fredSeries": "APU0000709112",
@@ -65,7 +65,7 @@
   },
   "cheese": {
     "id": "cheese", "name": "Cheese", "group": "cheese", "unit": "lb",
-    "baseline": { "annualQuantity": 14300000000, "retailPrice": 5.8, "year": 2024, "source": "ERS ~42 lb per capita (approximate) × 340.1M; FRED APU0000710212 cheddar 2024 avg" },
+    "baseline": { "annualQuantity": 14300000000, "retailPrice": 5.8, "year": 2024, "source": "ERS ~42 lb per capita (approximate) × 340.1M; FRED APU0000710212 cheddar 2024 avg", "farmShare": 0.35, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.70, "range": [-0.25, -1.18], "expenditure": 0.13, "source": "ERR-139 Table 6; Huang 1993 -0.25; Bergtold 2004 -1.18" },
     "trade": { "exportShare": 0.07, "exportElasticity": -1, "importShare": 0.03, "source": "USDEC (approximate)" },
     "supply": { "model": "manufacturing", "source": "derived from milk; plants" },
@@ -75,7 +75,7 @@
   },
   "bread": {
     "id": "bread", "name": "Bread and bakery", "group": "nonwhite_bread", "unit": "lb",
-    "baseline": { "annualQuantity": 18000000000, "retailPrice": 2.0, "year": 2024, "source": "ERS ~53 lb flour-based bakery per capita (approximate) × 340.1M; FRED APU0000702111 white bread 2024 avg" },
+    "baseline": { "annualQuantity": 18000000000, "retailPrice": 2.0, "year": 2024, "source": "ERS ~53 lb flour-based bakery per capita (approximate) × 340.1M; FRED APU0000702111 white bread 2024 avg", "farmShare": 0.06, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.59, "range": [-0.21, -1.54], "expenditure": 0.00, "source": "ERR-139 Table 6 nonwhite bread; range biscuits -0.21 to white bread -1.54" },
     "trade": { "exportShare": 0.0, "exportElasticity": 0, "importShare": 0.0, "source": "retail bakery not traded" },
     "supply": { "model": "manufacturing", "source": "bakeries; wheat enters through inputs" },
@@ -86,7 +86,7 @@
   },
   "rice": {
     "id": "rice", "name": "Rice", "group": "rice_pasta", "unit": "lb",
-    "baseline": { "annualQuantity": 9000000000, "retailPrice": 1.0, "year": 2024, "source": "ERS ~27 lb per capita (approximate) × 340.1M; FRED APU0000701312 2024 avg" },
+    "baseline": { "annualQuantity": 9000000000, "retailPrice": 1.0, "year": 2024, "source": "ERS ~27 lb per capita (approximate) × 340.1M; FRED APU0000701312 2024 avg", "farmShare": 0.3, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.07, "range": [-0.07, -0.33], "expenditure": 0.01, "source": "ERR-139 Table 6 rice and pasta; ERR-57 rice -0.328" },
     "trade": { "exportShare": 0.45, "exportElasticity": -5, "importShare": 0.25, "source": "ERS Rice Outlook (approximate); ERR-57 App. table 12" },
     "supply": { "model": "crop", "harvestMonth": 9, "stocksToUse": 0.2, "source": "ERS Rice Outlook (approximate)" },
@@ -97,7 +97,7 @@
   },
   "potatoes": {
     "id": "potatoes", "name": "Potatoes", "group": "potatoes", "unit": "lb",
-    "baseline": { "annualQuantity": 16000000000, "retailPrice": 1.0, "year": 2024, "source": "ERS ~47 lb fresh-equivalent per capita (approximate) × 340.1M; FRED APU0000712112 2024 avg" },
+    "baseline": { "annualQuantity": 16000000000, "retailPrice": 1.0, "year": 2024, "source": "ERS ~47 lb fresh-equivalent per capita (approximate) × 340.1M; FRED APU0000712112 2024 avg", "farmShare": 0.22, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.42, "range": [-0.10, -0.58], "expenditure": 0.03, "source": "ERR-139 Table 6; Huang 1993 -0.10; Andreyeva vegetables 0.58" },
     "trade": { "exportShare": 0.1, "exportElasticity": -1, "importShare": 0.1, "source": "ERS Vegetables and Pulses Outlook (approximate)" },
     "supply": { "model": "crop", "harvestMonth": 9, "stocksToUse": 0.3, "source": "NASS Potatoes; storage crop" },
@@ -108,7 +108,7 @@
   },
   "lettuce": {
     "id": "lettuce", "name": "Lettuce", "group": "lettuce", "unit": "lb",
-    "baseline": { "annualQuantity": 8000000000, "retailPrice": 1.7, "year": 2024, "source": "ERS ~24 lb per capita (approximate) × 340.1M; FRED APU0000712211 2024 avg" },
+    "baseline": { "annualQuantity": 8000000000, "retailPrice": 1.7, "year": 2024, "source": "ERS ~24 lb per capita (approximate) × 340.1M; FRED APU0000712211 2024 avg", "farmShare": 0.2, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.84, "range": [-0.09, -0.94], "expenditure": 0.04, "source": "ERR-139 Table 6; Huang 1993 -0.09" },
     "trade": { "exportShare": 0.05, "exportElasticity": -1, "importShare": 0.15, "source": "ERS (approximate)" },
     "supply": { "model": "crop", "harvestMonth": 0, "stocksToUse": 0.0, "source": "continuous harvest, no storage (Salinas/Yuma rotation)" },
@@ -118,7 +118,7 @@
   },
   "tomatoes": {
     "id": "tomatoes", "name": "Tomatoes", "group": "tomatoes", "unit": "lb",
-    "baseline": { "annualQuantity": 7000000000, "retailPrice": 2.0, "year": 2024, "source": "ERS ~20 lb fresh per capita (approximate) × 340.1M; FRED APU0000712311 2024 avg" },
+    "baseline": { "annualQuantity": 7000000000, "retailPrice": 2.0, "year": 2024, "source": "ERS ~20 lb fresh per capita (approximate) × 340.1M; FRED APU0000712311 2024 avg", "farmShare": 0.25, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.58, "range": [-0.58, -0.94], "expenditure": 0.06, "source": "ERR-139 Table 6" },
     "trade": { "exportShare": 0.05, "exportElasticity": -1, "importShare": 0.6, "source": "ERS: majority of fresh tomatoes imported, mostly Mexico (approximate)" },
     "supply": { "model": "crop", "harvestMonth": 0, "stocksToUse": 0.0, "source": "continuous" },
@@ -128,7 +128,7 @@
   },
   "fresh-vegetables": {
     "id": "fresh-vegetables", "name": "Other fresh vegetables", "group": "other_fresh_vegetables", "unit": "lb",
-    "baseline": { "annualQuantity": 40000000000, "retailPrice": 1.8, "year": 2024, "source": "ERS fresh vegetables ex potatoes/lettuce/tomatoes ~120 lb per capita (approximate) × 340.1M" },
+    "baseline": { "annualQuantity": 40000000000, "retailPrice": 1.8, "year": 2024, "source": "ERS fresh vegetables ex potatoes/lettuce/tomatoes ~120 lb per capita (approximate) × 340.1M", "farmShare": 0.22, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.94, "range": [-0.26, -0.94], "expenditure": 0.04, "source": "ERR-139 Table 6; Huang 1993 -0.26" },
     "trade": { "exportShare": 0.05, "exportElasticity": -1, "importShare": 0.35, "source": "ERS (approximate)" },
     "supply": { "model": "crop", "harvestMonth": 0, "stocksToUse": 0.05, "source": "continuous" },
@@ -137,7 +137,7 @@
   },
   "apples": {
     "id": "apples", "name": "Apples", "group": "apples", "unit": "lb",
-    "baseline": { "annualQuantity": 5500000000, "retailPrice": 1.7, "year": 2024, "source": "ERS ~16 lb fresh per capita (approximate) × 340.1M; FRED APU0000711111 2024 avg" },
+    "baseline": { "annualQuantity": 5500000000, "retailPrice": 1.7, "year": 2024, "source": "ERS ~16 lb fresh per capita (approximate) × 340.1M; FRED APU0000711111 2024 avg", "farmShare": 0.28, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.58, "range": [-0.19, -0.90], "expenditure": 0.03, "source": "ERR-139 Table 6; Huang 1993 -0.19" },
     "trade": { "exportShare": 0.25, "exportElasticity": -1, "importShare": 0.05, "source": "ERS Fruit and Tree Nuts Outlook (approximate)" },
     "supply": { "model": "crop", "harvestMonth": 9, "stocksToUse": 0.3, "source": "storage crop; Washington ~65% of US" },
@@ -147,7 +147,7 @@
   },
   "bananas": {
     "id": "bananas", "name": "Bananas", "group": "bananas", "unit": "lb",
-    "baseline": { "annualQuantity": 9500000000, "retailPrice": 0.63, "year": 2024, "source": "ERS ~28 lb per capita (approximate) × 340.1M; FRED APU0000711211 2024 avg" },
+    "baseline": { "annualQuantity": 9500000000, "retailPrice": 0.63, "year": 2024, "source": "ERS ~28 lb per capita (approximate) × 340.1M; FRED APU0000711211 2024 avg", "farmShare": 0.25, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -1.01, "range": [-0.50, -1.01], "expenditure": 0.05, "source": "ERR-139 Table 6; Huang 1993 -0.50" },
     "trade": { "exportShare": 0.0, "exportElasticity": 0, "importShare": 1.0, "source": "essentially all imported (Guatemala, Ecuador, Costa Rica, Colombia, Honduras)" },
     "supply": { "model": "import", "source": "import-dependent" },
@@ -157,7 +157,7 @@
   },
   "citrus": {
     "id": "citrus", "name": "Citrus", "group": "citrus", "unit": "lb",
-    "baseline": { "annualQuantity": 7000000000, "retailPrice": 1.6, "year": 2024, "source": "ERS ~21 lb fresh per capita (approximate) × 340.1M; FRED APU0000711311 oranges 2024 avg" },
+    "baseline": { "annualQuantity": 7000000000, "retailPrice": 1.6, "year": 2024, "source": "ERS ~21 lb fresh per capita (approximate) × 340.1M; FRED APU0000711311 oranges 2024 avg", "farmShare": 0.28, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -1.10, "range": [-0.65, -1.10], "expenditure": 0.06, "source": "ERR-139 Table 6; Huang 1993 -0.65" },
     "trade": { "exportShare": 0.15, "exportElasticity": -1, "importShare": 0.3, "source": "ERS (approximate)" },
     "supply": { "model": "crop", "harvestMonth": 11, "stocksToUse": 0.05, "source": "Florida/California; citrus greening" },
@@ -167,17 +167,17 @@
   },
   "coffee": {
     "id": "coffee", "name": "Coffee", "group": "coffee_tea", "unit": "lb",
-    "baseline": { "annualQuantity": 3400000000, "retailPrice": 6.5, "year": 2024, "source": "USDA FAS ~10 lb green-equivalent per capita (approximate) × 340.1M; FRED APU0000717311 2024 avg" },
+    "baseline": { "annualQuantity": 3400000000, "retailPrice": 6.5, "year": 2024, "source": "USDA FAS ~10 lb green-equivalent per capita (approximate) × 340.1M; FRED APU0000717311 2024 avg", "farmShare": 0.2, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.12, "range": [-0.12, -0.45], "expenditure": 0.02, "source": "ERR-139 Table 6 coffee and tea; Bergtold 2004 -0.45" },
     "trade": { "exportShare": 0.0, "exportElasticity": 0, "importShare": 0.99, "source": "FAS Coffee: World Markets and Trade (Hawaii/Puerto Rico negligible)" },
-    "supply": { "model": "import", "source": "import-dependent" },
+    "supply": { "model": "import", "stocksToUse": 0.23, "source": "import-dependent; US green coffee warehouse stocks ≈ 6M bags vs ≈ 26M bags used per year (Green Coffee Association / USDA FAS), stocks-to-use 0.23" },
     "transmission": { "passThrough": 0.6, "lagMonths": 3, "source": "roaster inventories and contracts (modeled)" },
     "fredSeries": "APU0000717311",
     "plate": ["coffee"]
   },
   "sugar": {
     "id": "sugar", "name": "Sugar and sweeteners", "group": "sugar_sweets", "unit": "lb",
-    "baseline": { "annualQuantity": 22000000000, "retailPrice": 1.0, "year": 2024, "source": "ERS ~65 lb sugar per capita (approximate) × 340.1M; FRED APU0000715211 2024 avg" },
+    "baseline": { "annualQuantity": 22000000000, "retailPrice": 1.0, "year": 2024, "source": "ERS ~65 lb sugar per capita (approximate) × 340.1M; FRED APU0000715211 2024 avg", "farmShare": 0.35, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.56, "range": [-0.04, -0.66], "expenditure": 0.13, "source": "ERR-139 Table 6" },
     "trade": { "exportShare": 0.0, "exportElasticity": 0, "importShare": 0.3, "source": "ERS Sugar and Sweeteners Outlook (TRQ; Mexico) approximate" },
     "supply": { "model": "crop", "harvestMonth": 10, "stocksToUse": 0.15, "source": "ERS Sugar Outlook" },
@@ -187,7 +187,7 @@
   },
   "fats-oils": {
     "id": "fats-oils", "name": "Fats and oils", "group": "fats_oils", "unit": "lb",
-    "baseline": { "annualQuantity": 25000000000, "retailPrice": 2.5, "year": 2024, "source": "ERS ~75 lb added fats/oils per capita (approximate) × 340.1M" },
+    "baseline": { "annualQuantity": 25000000000, "retailPrice": 2.5, "year": 2024, "source": "ERS ~75 lb added fats/oils per capita (approximate) × 340.1M", "farmShare": 0.3, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.21, "range": [-0.13, -0.62], "expenditure": 0.08, "source": "ERR-139 Table 6; Huang 1993 -0.13; Bergtold 2004 -0.62" },
     "trade": { "exportShare": 0.1, "exportElasticity": -2, "importShare": 0.2, "source": "ERS Oil Crops Outlook (approximate); ERR-57 soy oil -2" },
     "supply": { "model": "manufacturing", "source": "crushers; soybeans enter through inputs" },
@@ -197,7 +197,7 @@
   },
   "infant-formula": {
     "id": "infant-formula", "name": "Infant formula", "group": "infant_formula", "unit": "8-oz bottle-equivalent",
-    "baseline": { "annualQuantity": 3400000000, "retailPrice": 1.5, "year": 2022, "source": "derived: 3.6M births/yr, ~70% any formula use in first 6 months, ~30 fl oz/day (approximate); price ~$0.19/fl oz prepared (approximate)" },
+    "baseline": { "annualQuantity": 3400000000, "retailPrice": 1.5, "year": 2022, "source": "derived: 3.6M births/yr, ~70% any formula use in first 6 months, ~30 fl oz/day (approximate); price ~$0.19/fl oz prepared (approximate)", "farmShare": 0.1, "farmShareSource": "ERS Price Spreads from Farm to Consumer / Food Dollar farm share, rounded (modeled approximation)" },
     "demand": { "ownPrice": -0.3, "range": [-0.2, -0.6], "expenditure": 0.05, "source": "assumed; no ERS estimate (see literature review §3)" },
     "trade": { "exportShare": 0.05, "exportElasticity": -1, "importShare": 0.02, "source": "FDA: ~98% domestic before 2022 enforcement discretion" },
     "supply": { "model": "manufacturing", "source": "Abbott Sturgis, Reckitt, Nestle, Perrigo plants" },

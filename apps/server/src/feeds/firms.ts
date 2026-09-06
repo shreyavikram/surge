@@ -31,7 +31,8 @@ export const firms: FeedAdapter = {
       const lat = Number(v[iLat]), lng = Number(v[iLng]);
       if (!Number.isFinite(lat) || !Number.isFinite(lng)) continue;
       date = v[iDate] ?? date;
-      for (const r of usRegions(ctx)) if (inBbox(r.bbox, lng, lat)) counts.set(r.id, (counts.get(r.id) ?? 0) + 1);
+      // count once per state; the multi-state production regions overlap the states and would triple-count a fire
+      for (const r of usRegions(ctx)) if (r.id.startsWith('us-state-') && inBbox(r.bbox, lng, lat)) counts.set(r.id, (counts.get(r.id) ?? 0) + 1);
     }
     const items: FeedItem[] = [];
     for (const [rid, n] of counts) {

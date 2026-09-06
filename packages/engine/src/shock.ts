@@ -6,7 +6,8 @@ import { retailPriceChange } from './price.js';
 /** Modeled constants (documented in DECISIONS.md and surfaced as assumptions by impact.ts). */
 export const SHOCK_CONSTANTS = {
   REROUTING_SHARE: 0.3,              // share of blocked imports replaced from other origins within the period
-  WORLD_PRICE_TRANSMISSION: 0.5,     // world price rise per unit of lost world-export share × severity
+  WORLD_EXCESS_DEMAND_ELASTICITY: 0.35, // |elasticity| of world excess demand for traded staples: a lost share of world exports raises the world price by share/0.35 (2022 wheat: ~14% of trade at risk, +40%)
+  FULL_TRANSMISSION_TRADED_SHARE: 0.25, // once imports or exports reach this share of US use, the US price follows the world price one-for-one (law of one price)
   FREIGHT_WEDGE_AT_FULL_CLOSURE: 0.05, // wholesale cost wedge when a chokepoint fully closes
   DELAY_MONTHS: 1,                   // months of rerouting delay shortfall at full closure
   FACILITY_OUT_SHARE: 0.75,          // share of the threat duration a facility stays fully offline
@@ -54,7 +55,8 @@ function inputPricePath(inp: InputConfig, supplyPath: number[]): number[] {
 function cropPathFor(id: string, ctx: EngineContext, lossFraction: number, regionShare: number, n: number): number[] {
   const supply = ctx.commodities[id]?.supply ?? ctx.inputs[id]?.supply;
   const stocks = supply?.stocksToUse ?? 0;
-  return cropShortfall({ yieldLossFraction: lossFraction, affectedShare: regionShare, lossMonth: 0, marketingMonths: n, stocksToUse: stocks, months: n });
+  // one marketing year of losses (12 months) whatever the threat's duration dial says; a longer duration adds nothing
+  return cropShortfall({ yieldLossFraction: lossFraction, affectedShare: regionShare, lossMonth: 0, marketingMonths: 12, stocksToUse: stocks, months: n });
 }
 
 export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverride?: number): Shock[] {
@@ -77,8 +79,10 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
         if (!c || c.supply.model !== 'livestock') break;
         const inv = c.supply.nationalInventory!;
         const lagShift = ctx.overrides?.recoveryLagShiftMonths ?? 0;
-        // severity = fraction of the region's flock/herd lost; the timeline (if any) only shapes it over months
-        const share = region ? (region.usSupplyShare?.[id] ?? 0) : 1;
+        // severity = fraction of the region's flock/herd lost; the timeline (if any) only shapes it over months.
+        // In a foreign supplier region the flock feeds US imports: share = origin share of US imports × import share.
+        const share = region ? (region.usSupplyShare?.[id] ?? (region.usImportOriginShare?.[id] !== undefined ? c.trade.importShare * region.usImportOriginShare[id]! : 0)) : 1;
+        const foreignFlock = !!region && region.usSupplyShare?.[id] === undefined;
         const total = sev * share * inv * rel;
         const tl = threat.physical?.timeline;
         const tlSum = tl ? tl.reduce((a, e) => a + e.value, 0) : 0;
@@ -86,7 +90,7 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
           ? tl.map((e) => ({ month: e.month, headLost: total * (tlSum > 0 ? e.value / tlSum : 1 / tl.length) }))
           : [{ month: 0, headLost: total }];
         const path = livestockShortfall(events, { inventory: inv, lagMin: c.supply.recoveryLagMinMonths! + lagShift, lagMax: c.supply.recoveryLagMaxMonths! + lagShift, producerOffset: c.supply.producerOffset ?? 0, months: n });
-        out.push(supplyShock(threat, c, path, threat.name));
+        out.push(supplyShock(threat, c, path, threat.name, foreignFlock ? 'import' : 'domestic'));
         break;
       }
       case 'crop_hazard':
@@ -95,6 +99,9 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
         // A foreign supplier region's share of US supply is its origin share of US imports × the commodity's import share.
         const damage = sev * rel;
         const importShare = c?.trade.importShare ?? inp?.trade.importShare ?? 0;
+        const domesticRegion = !region || region.usSupplyShare?.[id] !== undefined;
+        // weather cannot destroy a manufactured or wholly imported good at home (bread, cheese, formula, bananas, coffee)
+        if (c && domesticRegion && (c.supply.model === 'manufacturing' || c.supply.model === 'import')) break;
         const share = region ? (region.usSupplyShare?.[id] ?? (region.usImportOriginShare?.[id] !== undefined ? importShare * region.usImportOriginShare[id]! : 0)) : 1;
         if (share === 0 || damage === 0) break;
         if (inp) {
@@ -130,14 +137,17 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
         break;
       }
       case 'world_price': {
+        // The lost share of world exports clears on the world market (excess-demand elasticity K.WORLD_EXCESS_DEMAND_ELASTICITY);
+        // the US price follows the world price fully once the US trades a meaningful share either way.
         const worldShare = region?.worldExportShare?.[id] ?? 0;
-        const worldPrice = worldShare * sev * K.WORLD_PRICE_TRANSMISSION * rel;
+        const worldPrice = (worldShare * sev * rel) / K.WORLD_EXCESS_DEMAND_ELASTICITY;
         if (worldPrice === 0) break;
+        const exposureOf = (t: { importShare: number; exportShare: number }): number => Math.min(1, Math.max(t.importShare, t.exportShare) / K.FULL_TRANSMISSION_TRADED_SHARE);
         if (c) {
-          const exposure = Math.max(c.trade.importShare, c.trade.exportShare);
+          const exposure = exposureOf(c.trade);
           out.push(costShock(threat, c, new Array<number>(n).fill(worldPrice * exposure), threat.name));
         } else if (inp) {
-          const exposure = Math.max(inp.trade.importShare, inp.trade.exportShare);
+          const exposure = exposureOf(inp.trade);
           out.push(...propagateInput(threat, id, new Array<number>(n).fill(worldPrice * exposure), ctx, threat.name));
         }
         break;
@@ -147,7 +157,9 @@ export function threatToShocks(threat: Threat, ctx: EngineContext, severityOverr
         const share = region?.chokepointImportShare?.[id] ?? 0;
         if (share === 0 || decline === 0) break;
         const wedge = K.FREIGHT_WEDGE_AT_FULL_CLOSURE * decline * rel;
-        const delayPath = (importShare: number): number[] => new Array<number>(n).fill(0).map((_, t) => (t < K.DELAY_MONTHS ? importShare * share * decline * rel : 0));
+        // pipeline stocks absorb part of a short transit delay (same half-of-stocks-to-use buffer as crop losses)
+        const buffer = Math.min(0.5, Math.max(0, c?.supply.stocksToUse ?? inp?.supply.stocksToUse ?? 0));
+        const delayPath = (importShare: number): number[] => new Array<number>(n).fill(0).map((_, t) => (t < K.DELAY_MONTHS ? importShare * share * decline * rel * (1 - buffer) : 0));
         if (c) {
           out.push({ ...supplyShock(threat, c, delayPath(c.trade.importShare), threat.name, 'import'), costPath: new Array<number>(n).fill(wedge) });
         } else if (inp) {

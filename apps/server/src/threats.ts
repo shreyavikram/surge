@@ -33,11 +33,14 @@ function contains(b: RegionConfig['bbox'], lng: number, lat: number): boolean {
 
 /** Region whose share map is relevant and whose bbox contains the point; smallest (most specific) wins.
  * Hazards may also land in a foreign supplier region (import-origin shares), where they cut US imports. */
-function findRegion(item: FeedItem, ctx: EngineContext, field: ShareField): RegionConfig | undefined {
+function findRegion(item: FeedItem, ctx: EngineContext, field: ShareField | null): RegionConfig | undefined {
   if (item.regionId) return ctx.regions[item.regionId];
-  if (item.lat == null || item.lng == null) return undefined;
+  if (!field || item.lat == null || item.lng == null) return undefined;
   const fields: ShareField[] = field === 'usSupplyShare' ? ['usSupplyShare', 'usImportOriginShare'] : [field];
-  const candidates = Object.values(ctx.regions).filter((r) => r.id !== 'us-national' && fields.some((f) => { const shares = r[f]; return shares && Object.keys(shares).length > 0; }) && contains(r.bbox, item.lng!, item.lat!));
+  const hasShares = (r: RegionConfig): boolean => fields.some((f) => { const shares = r[f]; return !!shares && Object.keys(shares).length > 0; });
+  // A foreign point belongs to the region covering its country, never to a neighbour's bounding box (Bolivia is not Brazil).
+  if (item.iso3 && item.iso3 !== 'USA') return Object.values(ctx.regions).find((r) => (r.countries ?? []).includes(item.iso3!) && hasShares(r));
+  const candidates = Object.values(ctx.regions).filter((r) => r.id !== 'us-national' && !(item.iso3 === 'USA' && (r.countries?.length ?? 0) > 0) && hasShares(r) && contains(r.bbox, item.lng!, item.lat!));
   return candidates.sort((a, b) => bboxArea(a.bbox) - bboxArea(b.bbox))[0];
 }
 
@@ -59,13 +62,14 @@ export function feedItemsToThreats(items: FeedItem[], source: SourceStamp, ctx: 
   for (const item of items) {
     if (!item.category) continue;
     const field = shareFieldFor(item.category, ctx);
-    if (!field) continue;
+    // input_cost / facility items name their region and commodities themselves; everything else is placed by the gazetteer
     const region = findRegion(item, ctx, field);
     if (!region) continue;
 
     // Commodities the region is relevant for, restricted to configured commodities/inputs.
     let commodities = item.commodities;
     if (!commodities) {
+      if (!field) continue;
       const shares = region[field] ?? (field === 'usSupplyShare' ? region.usImportOriginShare : undefined) ?? {};
       commodities = Object.keys(shares)
         .filter((id) => ctx.commodities[id] || ctx.inputs[id])

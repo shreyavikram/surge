@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { threatToShocks } from '../src/shock.js';
+import { threatToShocks, SHOCK_CONSTANTS } from '../src/shock.js';
 import { loadContext } from '@surge/config';
 import type { Threat } from '../src/types.js';
 
@@ -77,7 +77,8 @@ describe('threatToShocks', () => {
     const t = base({ category: 'war', kind: 'geopolitical', commodities: [{ id: 'wheat', relevance: 1 }], location: { lat: 49, lng: 31.5, regionId: 'ukraine' }, severity: 1, months: 6 });
     const shocks = threatToShocks(t, ctx);
     const bread = shocks.find((s) => s.commodity === 'bread')!;
-    expect(bread.costPath![0]).toBeCloseTo(0.09 * 0.5 * 0.45 * 0.06, 6);
+    // Ukraine holds 9% of world wheat exports; all of it lost clears at the world excess-demand elasticity; wheat trades enough for full transmission; bread's wheat cost share is 0.06
+    expect(bread.costPath![0]).toBeCloseTo((0.09 * 1) / SHOCK_CONSTANTS.WORLD_EXCESS_DEMAND_ELASTICITY * 1 * 0.06, 6);
   });
   it('a hazard in a foreign supplier region cuts US imports from it (import share × origin share)', () => {
     const t = base({ category: 'drought', commodities: [{ id: 'tomatoes', relevance: 1 }], location: { lat: 23, lng: -102, regionId: 'mexico' }, severity: 0.2, months: 12 });

@@ -70,6 +70,8 @@ export const gta: FeedAdapter = {
       // Tariff by the US on an origin → region = origin (affected); export ban by a supplier → region = implementer
       const implementer = r.implementing_jurisdictions?.[0]?.iso;
       const isUsAction = implementer === 'USA';
+      // a foreign tariff or import ban on US goods does not cut US supply (it lowers US prices); only US actions and supplier export curbs count
+      if (!isUsAction && category !== 'export_ban') continue;
       const partner = isUsAction ? r.affected_jurisdictions?.find((j) => j.iso !== 'USA')?.iso : implementer;
       if (!partner) continue;
       const region = regionForCountry(ctx, partner);

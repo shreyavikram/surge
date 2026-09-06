@@ -88,6 +88,9 @@ export interface CommodityConfig {
     retailPrice: number;          // USD per unit
     year: number;
     source: string;
+    /** share of the retail price received at the farm/wholesale level (ERS price spreads); producer revenue is valued at it */
+    farmShare?: number;
+    farmShareSource?: string;
   };
   demand: {
     ownPrice: number;             // Marshallian, retail
@@ -108,7 +111,7 @@ export interface CommodityConfig {
     recoveryLagMaxMonths?: number;
     producerOffset?: number;      // fraction of naive loss offset by producer adjustments
     harvestMonth?: number;        // 1..12, crop (0 = continuous)
-    stocksToUse?: number;         // crop
+    stocksToUse?: number;         // crop, or pipeline stocks for import-dependent goods (buffers short delays)
     source: string;
   };
   transmission: { passThrough: number; lagMonths: number; source: string };

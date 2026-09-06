@@ -78,7 +78,10 @@ export class FeedRegistry {
     if (forcedOutages(env).has(id)) return this.serveSnapshot(a, 'snapshot', 'forced outage');
     if (a.requiresKey && !env[a.requiresKey]) return this.serveSnapshot(a, 'missing-key', `needs ${String(a.requiresKey)}`);
     const failed = this.failedAt.get(id);
-    if (failed !== undefined && now - failed < FeedRegistry.FAIL_TTL_MS) return this.serveSnapshot(a, 'stale', 'recent fetch failed; retrying later');
+    if (failed !== undefined && now - failed < FeedRegistry.FAIL_TTL_MS) {
+      if (cached) return cached.result; // an expired cache is still newer than the committed snapshot
+      return this.serveSnapshot(a, 'stale', 'recent fetch failed; retrying later');
+    }
 
     // stale-while-revalidate: start (or join) the fetch, but answer now from the last cache or the snapshot
     let p = this.inflight.get(id);
@@ -92,6 +95,8 @@ export class FeedRegistry {
         return result;
       }).catch((e: unknown) => {
         this.failedAt.set(id, this.now());
+        const last = this.cache.get(id);
+        if (last) { this.setHealth(a, 'stale', last.result, `refresh failed: ${(e as Error).message}; serving the last successful fetch`); return last.result; }
         return this.serveSnapshot(a, 'stale', `fetch failed: ${(e as Error).message}`);
       }).finally(() => { this.inflight.delete(id); });
       this.inflight.set(id, p);
