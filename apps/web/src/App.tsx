@@ -128,7 +128,7 @@ export function App() {
             <MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} lens={commodities} onFail={(why) => { setFallbackReason(why); setMapMode('svg'); }} onPickRegion={editable ? pickRegion : undefined} />
           </ErrorBoundary>
         ) : (
-          <MapFallback entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} reason={settings.basemap === 'tiles' ? `simplified map (${fallbackReason})` : 'simple map · street-map tiles can be switched on in Settings'} lens={commodities} resetKey={activeTab} onPickRegion={editable ? pickRegion : undefined} />
+          <MapFallback entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} reason={settings.basemap === 'tiles' ? `simplified map (${fallbackReason})` : ''} lens={commodities} resetKey={activeTab} onPickRegion={editable ? pickRegion : undefined} />
         )}
         {drawerOpen && selectedEntry ? (
           <ErrorBoundary label="Analysis"><Drawer entry={selectedEntry} ctx={ctx} focus={focus} tab={tab} editable={editable} onDial={onDial} onRemove={onRemove} onCollapse={() => setDrawerOpen(false)} /></ErrorBoundary>
