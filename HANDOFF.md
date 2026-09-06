@@ -3,6 +3,14 @@
 Read this first if you are continuing the build in a new session, on a new account, or with a
 different model. Everything below is also in the repo; this is the map.
 
+## Latest state (end of 2026-09-06 session)
+
+- Live: https://surge-bafg.onrender.com. **Render does not auto-deploy** (its GitHub app is not connected to the repo); after every push trigger a deploy with `POST https://api.render.com/v1/services/srv-daebn5ht0dsc739jbsmg/deploys` using `RENDER_API_KEY` from `.env` (see the curl in this session's commits), then poll `/deploys?limit=1` until `live`.
+- Map: CARTO raster tiles under our shading; shading is added as soon as the style parses (no tile dependency). If WebGL is missing or the engine never starts within 20 s, `MapFallback.tsx` (SVG, d3-geo) takes over with the same colors, zoom buttons, +/− keys, arrows, drag. The team's browser/network appears to block map tiles: they see the fallback ("the map engine did not start in time"). Investigate which host is blocked (basemaps.cartocdn.com) before changing tile providers again.
+- Yellow layer: `apps/server/src/feeds/news.ts` reads Google News RSS (no key; personal, non-commercial terms) → `interpretScenario` → breaking items with `explicitCategory && explicitRegion && confidence ≥ 0.75`. GDELT is unwired (rate limits). Expect some false positives; the interpreter's lexicon is in `packages/engine/src/interpret.ts`.
+- APHIS per-detection archive is in (`data/snapshots/aphis-detections.csv`, converter `packages/config/tools/convert-aphis.py`); it produces national HPAI threats for eggs, chicken, turkey with monthly timelines and county rows behind the vetted gate. The 2022 replay uses the exact monthly losses (43.1M).
+- Keys: EIA key was exposed in a public fixture for a short window (history rewritten); rotate it. All other keys are in `.env` only.
+
 ## What changed on 2026-09-06 (read before anything else)
 
 - Branch `plan3-web-prototype` holds everything; `main` is behind. The web app was restructured after the team's 28-point critique (docs/superpowers/plans/2026-09-06-plan4-critique-restructure.md).
