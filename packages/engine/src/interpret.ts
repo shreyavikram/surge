@@ -14,6 +14,9 @@ export interface ThreatCandidate {
   confidence: number;               // 0..1, how much of the text was matched
   matched: string[];                // terms that fired
   source: 'rule-based' | 'llm';
+  /** the text named a threat type / a place explicitly (false when a default was assumed) */
+  explicitCategory?: boolean;
+  explicitRegion?: boolean;
 }
 
 const CATEGORY_TERMS: Record<ThreatCategory, string[]> = {
@@ -175,7 +178,7 @@ function interpretClause(text: string, ctx: EngineContext): ThreatCandidate[] {
     const terms = [...matched, ...(regions.find((x) => x.r === regionId)?.h ?? []), ...comms.filter((x) => ids.includes(x.id)).flatMap((x) => x.h)];
     const confidence = Math.min(1, 0.3 + 0.2 * (cats.length > 0 ? 1 : 0) + 0.25 * (regions.length > 0 ? 1 : 0) + 0.25 * (comms.length > 0 ? 1 : 0));
     const label = ids.length === 1 ? (ctx.commodities[ids[0]!]?.name ?? ctx.inputs[ids[0]!]?.name ?? ids[0]) : `${ids.length} commodities`;
-    out.push({ name: `${capitalize(category.replace('_', ' '))} — ${region.name} (${label})`, category, regionId, commodities, severity: sev, months, confidence, matched: [...new Set(terms)], source: 'rule-based' });
+    out.push({ name: `${capitalize(category.replace('_', ' '))} — ${region.name} (${label})`, category, regionId, commodities, severity: sev, months, confidence, matched: [...new Set(terms)], source: 'rule-based', explicitCategory: cats.length > 0, explicitRegion: regions.length > 0 });
   }
   return out;
 }
