@@ -87,8 +87,9 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason,
         })}
         {view.k >= 1.6 && countries?.features.filter((f) => f.id !== 'USA').map((f) => {
           const c = path.centroid(f as never); const a = path.area(f as never);
-          if (!Number.isFinite(c[0]) || a < 150 / view.k) return null;
-          return <text key={`lbl-${String(f.id)}`} x={c[0]} y={c[1]} className="map-label" fontSize={11 / Math.sqrt(view.k)} textAnchor="middle">{(f.properties as { name?: string } | null)?.name ?? ''}</text>;
+          // small type, and only countries big enough on screen to carry a label (more appear as you zoom in)
+          if (!Number.isFinite(c[0]) || a < 260 / view.k) return null;
+          return <text key={`lbl-${String(f.id)}`} x={c[0]} y={c[1]} className="map-label" fontSize={8 / Math.sqrt(view.k)} textAnchor="middle">{(f.properties as { name?: string } | null)?.name ?? ''}</text>;
         })}
         {states?.features.map((f) => {
           const id = String(f.id); const h = sh[id]; const own = ownStates.has(id);
