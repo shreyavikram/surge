@@ -63,6 +63,8 @@ const REGION_TERMS: Record<string, string[]> = {
   'turkey': ['turkey', 'türkiye', 'turkiye', 'turkish'],
   'vietnam-brazil-coffee': ['vietnam', 'vietnamese', 'robusta'],
   'india-rice': ['india', 'indian', 'basmati', 'thailand', 'thai'],
+  'china': ['china', 'chinese', 'beijing'],
+  'iran': ['iran', 'iranian', 'tehran'],
 };
 
 const COMMODITY_TERMS: Record<string, string[]> = {

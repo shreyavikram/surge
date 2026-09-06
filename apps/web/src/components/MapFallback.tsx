@@ -109,7 +109,7 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
                 : `Supply from here is already being cut. Darker red means a bigger share of US ${isState ? 'production' : 'imports'} is affected.`;
             const names = hh.threats.map(nameOf);
             const list = names.length > 5 ? [...names.slice(0, 5), `and ${names.length - 5} more`] : names;
-            return <><br /><span className="why">{why}</span>{list.length ? <><br /><span className="faint">{list.join(' · ')}</span></> : null}</>;
+            return <>{why ? <><br /><span className="why">{why}</span></> : null}{list.length ? <><br /><span className="faint">{hh.status === 'anticipated' ? 'Reported: ' : ''}{list.join(' · ')}</span></> : null}</>;
           })()}
         </div>
       )}

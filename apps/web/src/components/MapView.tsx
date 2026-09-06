@@ -188,9 +188,9 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
           : p.status === 'stable'
             ? (isState ? `Produces about ${pct(share, 1)} of the food the US grows and raises. No current threat. Darker green means a bigger producer.` : `Supplies about ${pct(share, 1)} of the food the US imports. No current threat. Darker green means a bigger supplier.`)
             : p.status === 'anticipated'
-              ? 'News reports point to a coming supply problem here that has not yet shown up in shipping, supply, or price data. Darker yellow means more US food at risk and a more certain report.'
+              ? ''
               : `Supply from here is already being cut. Darker red means a bigger share of US ${isState ? 'production' : 'imports'} is affected.`;
-        pop.setLngLat(ev.lngLat).setHTML(`<b>${p.name ?? ''}</b> <span class="st ${p.status}">${STATUS_LABEL[p.status]}</span><br><span class="why">${why}</span>${p.threats ? `<br><span class="th">${p.threats}</span>` : ''}`).addTo(map);
+        pop.setLngLat(ev.lngLat).setHTML(`<b>${p.name ?? ''}</b> <span class="st ${p.status}">${STATUS_LABEL[p.status]}</span>${why ? `<br><span class="why">${why}</span>` : ''}${p.threats ? `<br><span class="th">${p.status === 'anticipated' ? 'Reported: ' : ''}${p.threats}</span>` : ''}`).addTo(map);
       });
       map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; pop.remove(); });
       map.on('click', layer, (ev) => {

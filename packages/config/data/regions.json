@@ -418,5 +418,52 @@
    "milk-farm": 1.0
   },
   "source": "Definitional: the whole of US production; used for nationwide events (e.g., multi-state HPAI waves)"
+ },
+ "china": {
+  "id": "china",
+  "name": "China",
+  "lat": 35.0,
+  "lng": 105.0,
+  "bbox": [
+   73.5,
+   18.0,
+   135.0,
+   53.5
+  ],
+  "countries": [
+   "CHN"
+  ],
+  "usImportOriginShare": {
+   "fresh-vegetables": 0.03,
+   "apples": 0.02,
+   "fertilizer": 0.05,
+   "fats-oils": 0.02
+  },
+  "worldExportShare": {
+   "fertilizer": 0.25,
+   "rice": 0.05
+  },
+  "source": "USDA FAS GATS (US ag imports from China ~3.5% of total; garlic, apple juice concentrate, processed vegetables); IFA/USDA: China ~25% of world urea and phosphate export capacity, export curbs 2021-24 (approx.)"
+ },
+ "iran": {
+  "id": "iran",
+  "name": "Iran",
+  "lat": 32.5,
+  "lng": 53.5,
+  "bbox": [
+   44.0,
+   25.0,
+   63.5,
+   40.0
+  ],
+  "countries": [
+   "IRN"
+  ],
+  "usImportOriginShare": {},
+  "worldExportShare": {
+   "fertilizer": 0.06,
+   "energy": 0.04
+  },
+  "source": "IFA: Iran ~6% of world urea exports; OPEC: ~4% of world crude exports (approx.); no US food imports from Iran (sanctions)"
  }
 }
