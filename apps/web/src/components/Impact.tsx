@@ -144,6 +144,7 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
         {entry.threat.source.links && entry.threat.source.links.length > 0 && (
           <div className="reports">
             <div className="a-l">Reports behind this possible disruption ({entry.threat.source.feed})</div>
+            {entry.threat.source.note && <div className="faint" style={{ margin: '2px 0 6px' }}>How it was read: {entry.threat.source.note.replace(/\s·\s*https?:\S+$/, '')}. The model proposed the type, place, commodities and severity; deterministic rules validated the proposal, applied the corroboration and placement checks, and capped the severity.</div>}
             <ul>
               {entry.threat.source.links.map((l) => (
                 <li key={l.url}><a href={l.url} target="_blank" rel="noreferrer noopener">{l.title}</a>{l.outlet ? <span className="faint"> · {l.outlet}</span> : null}{l.date ? <span className="faint"> · {new Date(l.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span> : null}</li>
