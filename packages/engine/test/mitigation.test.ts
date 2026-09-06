@@ -1,4 +1,3 @@
-import { loadContext } from '@surge/config';
 import { describe, it, expect } from 'vitest';
 import { planMitigation } from '../src/mitigation.js';
 import { computeImpact } from '../src/impact.js';
