@@ -11,6 +11,13 @@ describe('heat', () => {
     const w = commodityImportWeights(ctx);
     expect(Object.values(w).reduce((a, b) => a + b, 0)).toBeCloseTo(1, 9);
   });
+  it('a country with no US food supply and no threats is grey (none)', () => {
+    const h = countryHeat([], ctx);
+    expect(h['MEX']!.status).toBe('stable');
+    expect(h['PAK']!.status).toBe('stable'); // tiny but listed
+    expect(h['ATA'] ?? { status: 'none' }).toMatchObject({ status: 'none' });
+    expect(Object.values(h).every((x) => x.status !== 'stable' || x.baseline > 0)).toBe(true);
+  });
   it('a supplier with no threats is stable, darker when it supplies more', () => {
     const h = countryHeat([], ctx);
     expect(h['MEX']!.status).toBe('stable');

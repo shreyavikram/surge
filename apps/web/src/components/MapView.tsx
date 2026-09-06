@@ -56,7 +56,7 @@ function circle(lng: number, lat: number, km: number): GeoJSON.Polygon {
   return { type: 'Polygon', coordinates: [pts] };
 }
 
-const STATUS_LABEL: Record<AreaHeat['status'], string> = { stable: 'stable', anticipated: 'anticipated instability', unstable: 'unstable' };
+const STATUS_LABEL: Record<AreaHeat['status'], string> = { none: 'no US food supply', stable: 'stable', anticipated: 'anticipated instability', unstable: 'unstable' };
 
 export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFail }: Props) {
   const onFailRef = useRef(onFail);
@@ -93,17 +93,18 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
     const sh = stateHeat(threats, ctx);
     const nameOf = (id: string) => entriesRef.current.find((e) => e.threat.id === id)?.threat.name ?? id;
     const isFocusState = (id: string) => ownStates.has(id);
-    const colorFor = (h: AreaHeat | undefined, own: boolean) => (area && !own && (h?.status ?? 'stable') === 'stable' ? NEUTRAL : heatColor(h));
+    const colorFor = (h: AreaHeat | undefined, own: boolean) => (area && !own && ((h?.status ?? 'stable') === 'stable' || h?.status === 'none') ? NEUTRAL : heatColor(h));
+    const listOf = (h: AreaHeat | undefined) => { const t = (h?.threats ?? []).map(nameOf); return t.length > 5 ? [...t.slice(0, 5), `and ${t.length - 5} more`].join(' · ') : t.join(' · '); };
     const countries: FC = { type: 'FeatureCollection', features: g.countries.features.filter((f) => f.id !== 'USA').map((f) => {
       const iso = String(f.id);
       const h = ch[iso];
-      return { ...f, properties: { ...f.properties, iso3: iso, color: colorFor(h, false), neutral: !!area && (h?.status ?? 'stable') === 'stable', status: h?.status ?? 'stable', intensity: h?.intensity ?? 0, share: h?.baseline ?? 0, top: h?.threats[0] ?? '', threats: (h?.threats ?? []).map(nameOf).join(' · ') } };
+      return { ...f, properties: { ...f.properties, iso3: iso, color: colorFor(h, false), neutral: (!!area && (h?.status ?? 'stable') === 'stable') || (h?.status ?? 'none') === 'none', status: h?.status ?? 'none', intensity: h?.intensity ?? 0, share: h?.baseline ?? 0, top: h?.threats[0] ?? '', threats: listOf(h) } };
     }) };
     const states: FC = { type: 'FeatureCollection', features: g.states.features.map((f) => {
       const id = String(f.id);
       const h = sh[id];
       const own = isFocusState(id);
-      return { ...f, properties: { ...f.properties, color: colorFor(h, own), neutral: !!area && !own && (h?.status ?? 'stable') === 'stable', status: h?.status ?? 'stable', intensity: h?.intensity ?? 0, share: h?.baseline ?? 0, top: h?.threats[0] ?? '', threats: (h?.threats ?? []).map(nameOf).join(' · ') } };
+      return { ...f, properties: { ...f.properties, color: colorFor(h, own), neutral: (!!area && !own && (h?.status ?? 'stable') === 'stable') || h?.status === 'none', status: h?.status ?? 'stable', intensity: h?.intensity ?? 0, share: h?.baseline ?? 0, top: h?.threats[0] ?? '', threats: listOf(h) } };
     }) };
     // chokepoints: shaded straits, red when a transit threat is active, yellow when only reported
     const cps: GeoJSON.Feature[] = [];
@@ -180,7 +181,9 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
         map.getCanvas().style.cursor = p.threats ? 'pointer' : '';
         const share = Number(p.share);
         const isState = layer === 'states-fill';
-        const why = p.chokepoint
+        const why = p.status === 'none'
+          ? 'No measurable food supply to the United States comes from here, and nothing is reported.'
+          : p.chokepoint
           ? (p.status === 'stable' ? 'A shipping chokepoint for food imports. No transit disruption right now.' : p.status === 'anticipated' ? 'News reports point to a disruption of shipping here that is not yet in transit data.' : 'Ship transits here are down; imports that pass through are delayed or cut.')
           : p.status === 'stable'
             ? (isState ? `Produces about ${pct(share, 1)} of the food the US grows and raises. No current threat. Darker green means a bigger producer.` : `Supplies about ${pct(share, 1)} of the food the US imports. No current threat. Darker green means a bigger supplier.`)

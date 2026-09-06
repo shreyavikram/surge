@@ -6,7 +6,7 @@
 // Saturation points are stated in HEAT_SATURATION and shown in the legend.
 import type { EngineContext, Threat } from './types.js';
 
-export type HeatStatus = 'stable' | 'anticipated' | 'unstable';
+export type HeatStatus = 'none' | 'stable' | 'anticipated' | 'unstable';
 export interface AreaHeat {
   id: string;
   status: HeatStatus;
@@ -52,6 +52,8 @@ export function threatCountries(threat: Threat, ctx: EngineContext): string[] {
 function classify(baseline: number, disruption: number, anticipated: number, satBase: number, ids: { active: string[]; breaking: string[] }): Omit<AreaHeat, 'id'> {
   if (ids.active.length > 0) return { status: 'unstable', intensity: clamp01(0.25 + 0.75 * (disruption / HEAT_SATURATION.disruption)), baseline, disruption, anticipated, threats: [...ids.active, ...ids.breaking] };
   if (ids.breaking.length > 0) return { status: 'anticipated', intensity: clamp01(0.25 + 0.75 * (anticipated / HEAT_SATURATION.disruption)), baseline, disruption, anticipated, threats: ids.breaking };
+  // no measurable supply to the US and nothing reported: grey, not green
+  if (baseline <= 0) return { status: 'none', intensity: 0, baseline, disruption, anticipated, threats: [] };
   // square-root scale so small suppliers still register on the map; the legend states the saturation point
   return { status: 'stable', intensity: clamp01(Math.sqrt(baseline / satBase)), baseline, disruption, anticipated, threats: [] };
 }

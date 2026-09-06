@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { geoNaturalEarth1, geoPath, geoArea } from 'd3-geo';
+import { geoMercator, geoPath, geoArea } from 'd3-geo';
 import type { EngineContext, AreaHeat } from '@surge/engine';
 import { countryHeat, stateHeat, threatAffectsArea } from '@surge/engine';
 import { type RankedEntry, focusView, focusAreas } from '../engine.js';
@@ -25,7 +25,8 @@ function rewind(fc: FC): FC {
   }) };
 }
 
-const W = 960, H = 480;
+/** The panel's own size drives the projection so the world fills it edge to edge. */
+const WORLD: GeoJSON.Polygon = { type: 'Polygon', coordinates: [[[-180, -60], [180, -60], [180, 84], [-180, 84], [-180, -60]]] };
 
 interface Props { entries: RankedEntry[]; selectedId: string | null; onSelect: (id: string) => void; ctx: EngineContext; focus: Focus; reason: string }
 
@@ -34,10 +35,19 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
   const [states, setStates] = useState<FC | null>(null);
   const [hover, setHover] = useState<string | null>(null);
   useEffect(() => { let on = true; void Promise.all([loadGeo('countries'), loadGeo('states')]).then(([c, s]) => { if (on) { setCountries(rewind(c)); setStates(rewind(s)); } }); return () => { on = false; }; }, []);
-  const proj = useMemo(() => geoNaturalEarth1().fitSize([W, H], { type: 'Sphere' } as never), []);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState<{ w: number; h: number }>({ w: 960, h: 600 });
+  useEffect(() => {
+    const el = wrapRef.current; if (!el) return;
+    const ro = new ResizeObserver(() => { const r = el.getBoundingClientRect(); if (r.width > 0 && r.height > 0) setSize({ w: Math.round(r.width), h: Math.round(r.height) }); });
+    ro.observe(el); return () => ro.disconnect();
+  }, []);
+  const W = size.w, H = size.h;
+  const proj = useMemo(() => geoMercator().fitSize([W, H], WORLD as never), [W, H]);
   const path = useMemo(() => geoPath(proj), [proj]);
-  // view: scale and center in SVG units; start on the Americas and the Atlantic like the tile map
-  const [view, setView] = useState(() => { const c = proj([-40, 30]) ?? [W / 2, H / 2]; return { k: 1.9, cx: c[0], cy: c[1] }; });
+  // view: scale and center in SVG units; the whole world fills the panel at k = 1
+  const [view, setView] = useState({ k: 1, cx: W / 2, cy: H / 2 });
+  useEffect(() => { setView((v) => (v.k === 1 ? { k: 1, cx: W / 2, cy: H / 2 } : v)); }, [W, H]);
   const drag = useRef<{ x: number; y: number; cx: number; cy: number } | null>(null);
   const vb = `${view.cx - W / (2 * view.k)} ${view.cy - H / (2 * view.k)} ${W / view.k} ${H / view.k}`;
   const zoomBy = (f: number) => setView((v) => ({ ...v, k: Math.max(1, Math.min(8, v.k * f)) }));
@@ -59,19 +69,19 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
   const ch = useMemo(() => countryHeat(threats, ctx), [threats, ctx]);
   const sh = useMemo(() => stateHeat(threats, ctx), [threats, ctx]);
   const ownStates = new Set(areas.map((a) => a.state));
-  const colorFor = (h: AreaHeat | undefined, own: boolean) => (areas.length > 0 && !own && (h?.status ?? 'stable') === 'stable' ? NEUTRAL : heatColor(h));
+  const colorFor = (h: AreaHeat | undefined, own: boolean) => (areas.length > 0 && !own && ((h?.status ?? 'stable') === 'stable' || h?.status === 'none') ? NEUTRAL : heatColor(h));
   const nameOf = (id: string) => entries.find((e) => e.threat.id === id)?.threat.name ?? id;
   const sel = entries.find((e) => e.threat.id === selectedId);
   const v = sel ? focusView(sel, focus, ctx) : null;
   const hoverHeat = hover ? (ch[hover] ?? sh[hover]) : undefined;
   return (
-    <div className="map-wrap fallback">
+    <div className="map-wrap fallback" ref={wrapRef}>
       <svg viewBox={vb} className="worldmap" tabIndex={0} aria-label="World map; use plus and minus to zoom, arrow keys to pan" style={{ width: '100%', height: '100%', display: 'block', outline: 'none', cursor: drag.current ? 'grabbing' : 'grab' }}
         onMouseDown={(e) => { onDown(e); (e.currentTarget as SVGSVGElement).focus(); }} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp} onWheel={(e) => zoomBy(e.deltaY < 0 ? 1.15 : 1 / 1.15)} onKeyDown={onKey}>
         <path d={path({ type: 'Sphere' } as never) ?? undefined} fill="var(--bg)" />
         {countries?.features.filter((f) => f.id !== 'USA').map((f) => {
           const iso = String(f.id); const h = ch[iso];
-          return <path key={iso} d={path(f as never) ?? undefined} fill={colorFor(h, false)} fillOpacity={areas.length > 0 && (h?.status ?? 'stable') === 'stable' ? 0.25 : 0.85} stroke="var(--bg)" strokeWidth={0.4}
+          return <path key={iso} d={path(f as never) ?? undefined} fill={colorFor(h, false)} fillOpacity={(areas.length > 0 && (h?.status ?? 'stable') === 'stable') || (h?.status ?? 'none') === 'none' ? 0.3 : 0.85} stroke="var(--bg)" strokeWidth={0.4}
             onMouseEnter={() => setHover(iso)} onMouseLeave={() => setHover(null)} onClick={() => { const t = h?.threats[0]; if (t) onSelect(t); }} style={{ cursor: h?.threats.length ? 'pointer' : 'default' }} />;
         })}
         {states?.features.map((f) => {
@@ -86,15 +96,20 @@ export function MapFallback({ entries, selectedId, onSelect, ctx, focus, reason 
       {hover && (
         <div className="map-hover">
           <b>{(countries?.features.find((f) => String(f.id) === hover)?.properties as { name?: string } | null)?.name ?? ctx.focus?.areas.find((a) => a.id === hover)?.name ?? hover}</b>
-          {hoverHeat && (() => {
+          {(hoverHeat ?? { status: 'none' as const, baseline: 0, threats: [] }) && (() => {
+            const hh = hoverHeat ?? { status: 'none' as const, baseline: 0, threats: [] as string[] };
             const isState = !!sh[hover];
-            const share = `${(hoverHeat.baseline * 100).toFixed(1)}%`;
-            const why = hoverHeat.status === 'stable'
+            const share = `${(hh.baseline * 100).toFixed(1)}%`;
+            const why = hh.status === 'none'
+              ? 'No measurable food supply to the United States comes from here, and nothing is reported.'
+              : hh.status === 'stable'
               ? (isState ? `Produces about ${share} of the food the US grows and raises. No current threat. Darker green means a bigger producer.` : `Supplies about ${share} of the food the US imports. No current threat. Darker green means a bigger supplier.`)
-              : hoverHeat.status === 'anticipated'
+              : hh.status === 'anticipated'
                 ? 'News reports point to a coming supply problem here that has not yet shown up in shipping, supply, or price data.'
                 : `Supply from here is already being cut. Darker red means a bigger share of US ${isState ? 'production' : 'imports'} is affected.`;
-            return <><br /><span className="why">{why}</span>{hoverHeat.threats.length ? <><br /><span className="faint">{hoverHeat.threats.map(nameOf).join(' · ')}</span></> : null}</>;
+            const names = hh.threats.map(nameOf);
+            const list = names.length > 5 ? [...names.slice(0, 5), `and ${names.length - 5} more`] : names;
+            return <><br /><span className="why">{why}</span>{list.length ? <><br /><span className="faint">{list.join(' · ')}</span></> : null}</>;
           })()}
         </div>
       )}

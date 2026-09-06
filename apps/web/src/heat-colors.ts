@@ -3,6 +3,7 @@ import type { AreaHeat } from '@surge/engine';
 export const NEUTRAL = '#8a94a6';
 
 export const HEAT_RAMP: Record<AreaHeat['status'], [string, string]> = {
+  none: [NEUTRAL, NEUTRAL],
   stable: ['#bfe0cc', '#0b4f30'],
   anticipated: ['#ffe9a3', '#9a6f00'],
   unstable: ['#ffb3b3', '#6f0000'],
@@ -16,7 +17,7 @@ export function mix(a: string, b: string, t: number): string {
   return `#${f(r1, r2)}${f(g1, g2)}${f(b1, b2)}`;
 }
 export function heatColor(h: AreaHeat | undefined): string {
-  if (!h) return HEAT_RAMP.stable[0];
+  if (!h || h.status === 'none') return NEUTRAL;
   const [lo, hi] = HEAT_RAMP[h.status];
   return mix(lo, hi, h.intensity);
 }
