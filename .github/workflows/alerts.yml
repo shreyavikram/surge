@@ -14,4 +14,4 @@ jobs:
     steps:
       - name: Trigger the alert run
         run: |
-          curl -sS -m 120 -X POST "${{ vars.PUBLIC_URL || 'https://surge-bafg.onrender.com' }}/api/alerts/run" -H 'content-type: application/json' | head -c 400; echo
+          curl -sS -m 120 -X POST "${{ vars.PUBLIC_URL || 'https://greenfield-w77m.onrender.com' }}/api/alerts/run" -H 'content-type: application/json' | head -c 400; echo
