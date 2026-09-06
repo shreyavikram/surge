@@ -21,10 +21,12 @@ interface Props {
   onRemove: (threatId: string) => void;
   /** copy a live threat, with its dials, into the scenario's own list and drop the live original from this scenario */
   onSaveAsHypothetical?: (t: Threat) => void;
+  /** bake the current dials into a hypothetical that was saved earlier */
+  onUpdateHypothetical?: (t: Threat) => void;
   onCollapse: () => void;
 }
 
-export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onSaveAsHypothetical, onCollapse }: Props) {
+export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onSaveAsHypothetical, onUpdateHypothetical, onCollapse }: Props) {
   const [view, setView] = useState<Tab>('impact');
   if (!entry) return null;
   const t = entry.threat;
@@ -61,6 +63,7 @@ export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onS
             <div className="dial-actions">
               {tab.overrides[t.id] && <button className="linkbtn" onClick={() => onDial(t.id, { severity: undefined, months: undefined })}>reset</button>}
               {entry.origin !== 'user' && onSaveAsHypothetical && <button className="btn" title="Keep this dialed version as one of the scenario's own threats; the live original leaves this scenario" onClick={() => onSaveAsHypothetical(t)}>Save as hypothetical</button>}
+              {entry.origin === 'user' && tab.overrides[t.id] && onUpdateHypothetical && <button className="btn" title="Keep these dials as the hypothetical's new settings" onClick={() => onUpdateHypothetical(t)}>Update hypothetical</button>}
               <button className="btn danger" onClick={() => onRemove(t.id)}>Remove from scenario</button>
             </div>
           </div>
