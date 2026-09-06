@@ -350,3 +350,8 @@ details.assumptions .assump { margin-top: 6px; }
 .map-wrap.fallback { background: var(--bg); }
 .worldmap path { transition: fill-opacity 0.1s; }
 .map-hover { position: absolute; left: 12px; top: 12px; z-index: 5; background: var(--panel); border: 1px solid var(--border-solid); border-radius: 7px; padding: 6px 10px; font-size: 12px; box-shadow: var(--shadow); max-width: 60%; }
+.svg-zoom { position: absolute; left: 12px; top: 12px; z-index: 6; display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--border-solid); border-radius: 6px; overflow: hidden; box-shadow: var(--shadow); }
+.svg-zoom button { width: 30px; height: 30px; background: transparent; border: 0; border-bottom: 1px solid var(--border-solid); color: var(--text); font-size: 18px; cursor: pointer; }
+.svg-zoom button:last-child { border-bottom: 0; }
+.svg-zoom button:hover { background: var(--panel-3); }
+.map-wrap.fallback .map-hover { left: 52px; }

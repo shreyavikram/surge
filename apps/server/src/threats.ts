@@ -99,6 +99,8 @@ export function feedItemsToThreats(items: FeedItem[], source: SourceStamp, ctx: 
     if (source.fetchedAt) threat.source.fetchedAt = source.fetchedAt;
     if (source.stale) threat.source.stale = source.stale;
     if (item.text) threat.source.note = item.text;
+    const gated = (item.raw as { gated?: Record<string, unknown> } | undefined)?.gated;
+    if (gated) threat.gated = gated;
     out.push(threat);
   }
   return out;

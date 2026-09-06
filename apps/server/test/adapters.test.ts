@@ -60,13 +60,17 @@ describe('aphis adapter', () => {
     expect(m.length).toBeGreaterThan(0);
     expect(m[0]!.month).toMatch(/^\d{4}-\d{2}$/);
   });
-  it('produces a national disease threat only when birds affected are known', () => {
-    const none = aphis.parse({ monthly: parseTableauMonthly(fx('aphis-monthly.csv')) });
+  it('produces no threat without the per-detection archive, and a national one with it', () => {
+    const none = aphis.parse({ monthly: parseTableauMonthly(fx('aphis-monthly.csv')), detections: [] });
     expect(none.items).toEqual([]);
-    const some = aphis.parse({ monthly: [{ month: '2026-03', birds: 8e6 }, { month: '2026-04', birds: 4e6 }] });
+    expect(none.source.kind).toBe('live');
+    const now = new Date();
+    const ym = (k: number) => new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - k, 1)).toISOString().slice(0, 10);
+    const some = aphis.parse({ monthly: [], detections: [{ date: ym(2), state: 'Iowa', county: 'Sioux', production: 'Commercial Table Egg Layer', birds: 8e6 }, { date: ym(1), state: 'Ohio', county: 'Darke', production: 'Commercial Table Egg Layer', birds: 4e6 }] });
     expect(some.items).toHaveLength(1);
     expect(some.items[0]!.severity).toBeCloseTo(12e6 / 325e6, 6);
     expect(some.items[0]!.physical?.timeline).toHaveLength(2);
+    expect(some.source.kind).toBe('archive');
     const t = feedItemsToThreats(some.items, some.source, ctx)[0]!;
     expect(t.location.regionId).toBe('us-national');
   });

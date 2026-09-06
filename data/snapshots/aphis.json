@@ -1,7 +1,960 @@
 {
-  "fetchedAt": "2026-09-06T00:56:16.118Z",
+  "fetchedAt": "2026-09-06T01:25:35.514Z",
   "result": {
-    "items": [],
+    "items": [
+      {
+        "id": "aphis-hpai-eggs",
+        "name": "HPAI losses in egg-laying flocks, trailing 12 months (22.1M birds)",
+        "category": "disease",
+        "kind": "natural",
+        "regionId": "us-national",
+        "admin": "United States",
+        "iso3": "USA",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "eggs",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.068,
+        "start": "2025-10",
+        "months": 18,
+        "physical": {
+          "kind": "animals_affected",
+          "value": 22100000,
+          "timeline": [
+            {
+              "month": 0,
+              "value": 2700000
+            },
+            {
+              "month": 2,
+              "value": 100000
+            },
+            {
+              "month": 3,
+              "value": 3200000
+            },
+            {
+              "month": 4,
+              "value": 9900000
+            },
+            {
+              "month": 5,
+              "value": 4600000
+            },
+            {
+              "month": 6,
+              "value": 100000
+            },
+            {
+              "month": 9,
+              "value": 1500000
+            }
+          ]
+        },
+        "text": "APHIS confirmed detections by month of confirmation (export rounds birds to 0.1M). Largest states: Pennsylvania 8.0M, Wisconsin 4.8M, North Carolina 3.3M, Washington 2.0M, Utah 1.5M",
+        "raw": {
+          "byState": {
+            "Wisconsin": 4800000,
+            "Washington": 2000000,
+            "California": 200000,
+            "Nebraska": 100000,
+            "Kansas": 400000,
+            "Pennsylvania": 8000000,
+            "Colorado": 1300000,
+            "North Carolina": 3300000,
+            "Maryland": 400000,
+            "Indiana": 100000,
+            "Utah": 1500000
+          },
+          "gated": {
+            "detections": [
+              {
+                "date": "2025-10-02",
+                "state": "Wisconsin",
+                "county": "Jefferson",
+                "birds": 500000
+              },
+              {
+                "date": "2025-10-09",
+                "state": "Washington",
+                "county": "Grant",
+                "birds": 2000000
+              },
+              {
+                "date": "2025-10-28",
+                "state": "California",
+                "county": "Sonoma",
+                "birds": 200000
+              },
+              {
+                "date": "2025-12-31",
+                "state": "Nebraska",
+                "county": "Butler",
+                "birds": 100000
+              },
+              {
+                "date": "2026-01-06",
+                "state": "Kansas",
+                "county": "Pottawatomie",
+                "birds": 400000
+              },
+              {
+                "date": "2026-01-28",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 1500000
+              },
+              {
+                "date": "2026-01-30",
+                "state": "Colorado",
+                "county": "Weld",
+                "birds": 1300000
+              },
+              {
+                "date": "2026-02-03",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 700000
+              },
+              {
+                "date": "2026-02-11",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 100000
+              },
+              {
+                "date": "2026-02-17",
+                "state": "Pennsylvania",
+                "county": "Dauphin",
+                "birds": 100000
+              },
+              {
+                "date": "2026-02-17",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 2600000
+              },
+              {
+                "date": "2026-02-17",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 400000
+              },
+              {
+                "date": "2026-02-18",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 1500000
+              },
+              {
+                "date": "2026-02-24",
+                "state": "Kansas",
+                "county": "Pottawatomie",
+                "birds": 0
+              },
+              {
+                "date": "2026-02-27",
+                "state": "North Carolina",
+                "county": "Hyde",
+                "birds": 3300000
+              },
+              {
+                "date": "2026-02-27",
+                "state": "Wisconsin",
+                "county": "Jefferson",
+                "birds": 1200000
+              },
+              {
+                "date": "2026-03-06",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 200000
+              },
+              {
+                "date": "2026-03-10",
+                "state": "Wisconsin",
+                "county": "Jefferson",
+                "birds": 1600000
+              },
+              {
+                "date": "2026-03-10",
+                "state": "Wisconsin",
+                "county": "Walworth",
+                "birds": 1500000
+              },
+              {
+                "date": "2026-03-13",
+                "state": "Maryland",
+                "county": "Cecil",
+                "birds": 400000
+              },
+              {
+                "date": "2026-03-17",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 900000
+              },
+              {
+                "date": "2026-04-03",
+                "state": "Indiana",
+                "county": "Elkhart",
+                "birds": 100000
+              },
+              {
+                "date": "2026-07-06",
+                "state": "Utah",
+                "county": "Cache",
+                "birds": 1200000
+              },
+              {
+                "date": "2026-07-13",
+                "state": "Utah",
+                "county": "Cache",
+                "birds": 300000
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "aphis-hpai-chicken",
+        "name": "HPAI losses in broiler flocks, trailing 12 months (2.0M birds)",
+        "category": "disease",
+        "kind": "natural",
+        "regionId": "us-national",
+        "admin": "United States",
+        "iso3": "USA",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "chicken",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.0002173913043478261,
+        "start": "2025-10",
+        "months": 18,
+        "physical": {
+          "kind": "animals_affected",
+          "value": 2000000,
+          "timeline": [
+            {
+              "month": 0,
+              "value": 100000
+            },
+            {
+              "month": 1,
+              "value": 0
+            },
+            {
+              "month": 2,
+              "value": 400000
+            },
+            {
+              "month": 3,
+              "value": 200000
+            },
+            {
+              "month": 4,
+              "value": 1000000
+            },
+            {
+              "month": 5,
+              "value": 100000
+            },
+            {
+              "month": 6,
+              "value": 200000
+            }
+          ]
+        },
+        "text": "APHIS confirmed detections by month of confirmation (export rounds birds to 0.1M). Largest states: Pennsylvania 0.6M, Maryland 0.4M, Texas 0.3M, Georgia 0.2M, Arkansas 0.2M",
+        "raw": {
+          "byState": {
+            "Georgia": 200000,
+            "Indiana": 0,
+            "Texas": 300000,
+            "Arkansas": 200000,
+            "Maryland": 400000,
+            "Delaware": 100000,
+            "Mississippi": 100000,
+            "California": 100000,
+            "Pennsylvania": 600000
+          },
+          "gated": {
+            "detections": [
+              {
+                "date": "2025-10-24",
+                "state": "Georgia",
+                "county": "Gordon",
+                "birds": 100000
+              },
+              {
+                "date": "2025-11-21",
+                "state": "Indiana",
+                "county": "Lagrange",
+                "birds": 0
+              },
+              {
+                "date": "2025-11-21",
+                "state": "Indiana",
+                "county": "Lagrange",
+                "birds": 0
+              },
+              {
+                "date": "2025-12-15",
+                "state": "Texas",
+                "county": "Shelby",
+                "birds": 300000
+              },
+              {
+                "date": "2025-12-23",
+                "state": "Arkansas",
+                "county": "Cleveland",
+                "birds": 0
+              },
+              {
+                "date": "2025-12-29",
+                "state": "Arkansas",
+                "county": "Drew",
+                "birds": 0
+              },
+              {
+                "date": "2025-12-29",
+                "state": "Maryland",
+                "county": "Queen Anne's",
+                "birds": 100000
+              },
+              {
+                "date": "2026-01-13",
+                "state": "Delaware",
+                "county": "Kent",
+                "birds": 100000
+              },
+              {
+                "date": "2026-01-13",
+                "state": "Georgia",
+                "county": "Walker",
+                "birds": 100000
+              },
+              {
+                "date": "2026-01-23",
+                "state": "Georgia",
+                "county": "Walker",
+                "birds": 0
+              },
+              {
+                "date": "2026-01-30",
+                "state": "Maryland",
+                "county": "Caroline",
+                "birds": 0
+              },
+              {
+                "date": "2026-02-02",
+                "state": "Georgia",
+                "county": "Hart",
+                "birds": 0
+              },
+              {
+                "date": "2026-02-04",
+                "state": "Mississippi",
+                "county": "Amite",
+                "birds": 100000
+              },
+              {
+                "date": "2026-02-09",
+                "state": "California",
+                "county": "Sonoma",
+                "birds": 100000
+              },
+              {
+                "date": "2026-02-17",
+                "state": "Maryland",
+                "county": "Wicomico",
+                "birds": 100000
+              },
+              {
+                "date": "2026-02-18",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 200000
+              },
+              {
+                "date": "2026-02-20",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 200000
+              },
+              {
+                "date": "2026-02-24",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 200000
+              },
+              {
+                "date": "2026-02-26",
+                "state": "Maryland",
+                "county": "Caroline",
+                "birds": 100000
+              },
+              {
+                "date": "2026-02-27",
+                "state": "Delaware",
+                "county": "Kent",
+                "birds": 0
+              },
+              {
+                "date": "2026-03-02",
+                "state": "Maryland",
+                "county": "Caroline",
+                "birds": 100000
+              },
+              {
+                "date": "2026-03-12",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 0
+              },
+              {
+                "date": "2026-04-10",
+                "state": "Arkansas",
+                "county": "Clay",
+                "birds": 200000
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "aphis-hpai-turkey",
+        "name": "HPAI losses in turkey flocks, trailing 12 months (2.2M birds)",
+        "category": "disease",
+        "kind": "natural",
+        "regionId": "us-national",
+        "admin": "United States",
+        "iso3": "USA",
+        "lat": 39.8,
+        "lng": -98.6,
+        "commodities": [
+          {
+            "id": "turkey",
+            "relevance": 1
+          }
+        ],
+        "severity": 0.010280373831775701,
+        "start": "2025-10",
+        "months": 18,
+        "physical": {
+          "kind": "animals_affected",
+          "value": 2200000,
+          "timeline": [
+            {
+              "month": 0,
+              "value": 600000
+            },
+            {
+              "month": 1,
+              "value": 400000
+            },
+            {
+              "month": 2,
+              "value": 0
+            },
+            {
+              "month": 3,
+              "value": 400000
+            },
+            {
+              "month": 4,
+              "value": 300000
+            },
+            {
+              "month": 5,
+              "value": 200000
+            },
+            {
+              "month": 6,
+              "value": 200000
+            },
+            {
+              "month": 7,
+              "value": 0
+            },
+            {
+              "month": 10,
+              "value": 100000
+            },
+            {
+              "month": 11,
+              "value": 0
+            }
+          ]
+        },
+        "text": "APHIS confirmed detections by month of confirmation (export rounds birds to 0.1M). Largest states: Minnesota 0.9M, South Dakota 0.7M, Michigan 0.5M, Illinois 0.1M, Utah 0.0M",
+        "raw": {
+          "byState": {
+            "Utah": 0,
+            "Iowa": 0,
+            "Michigan": 500000,
+            "Minnesota": 900000,
+            "South Dakota": 700000,
+            "North Dakota": 0,
+            "North Carolina": 0,
+            "Pennsylvania": 0,
+            "Indiana": 0,
+            "South Carolina": 0,
+            "Illinois": 100000
+          },
+          "gated": {
+            "detections": [
+              {
+                "date": "2025-10-01",
+                "state": "Utah",
+                "county": "Sanpete",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-02",
+                "state": "Iowa",
+                "county": "Calhoun",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-07",
+                "state": "Michigan",
+                "county": "Ottawa",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-07",
+                "state": "Minnesota",
+                "county": "Kandiyohi",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-08",
+                "state": "Minnesota",
+                "county": "Becker",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-08",
+                "state": "Minnesota",
+                "county": "Becker",
+                "birds": 100000
+              },
+              {
+                "date": "2025-10-08",
+                "state": "Utah",
+                "county": "Sanpete",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-08",
+                "state": "Utah",
+                "county": "Sanpete",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-09",
+                "state": "Minnesota",
+                "county": "Kandiyohi",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-09",
+                "state": "Minnesota",
+                "county": "Kandiyohi",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-14",
+                "state": "Minnesota",
+                "county": "Kandiyohi",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-14",
+                "state": "Minnesota",
+                "county": "Meeker",
+                "birds": 100000
+              },
+              {
+                "date": "2025-10-14",
+                "state": "Minnesota",
+                "county": "Stearns",
+                "birds": 100000
+              },
+              {
+                "date": "2025-10-16",
+                "state": "Minnesota",
+                "county": "Otter Tail",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-21",
+                "state": "South Dakota",
+                "county": "Spink",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-22",
+                "state": "Minnesota",
+                "county": "Meeker",
+                "birds": 100000
+              },
+              {
+                "date": "2025-10-22",
+                "state": "Minnesota",
+                "county": "Otter Tail",
+                "birds": 0
+              },
+              {
+                "date": "2025-10-28",
+                "state": "South Dakota",
+                "county": "Spink",
+                "birds": 100000
+              },
+              {
+                "date": "2025-10-31",
+                "state": "Michigan",
+                "county": "Ottawa",
+                "birds": 100000
+              },
+              {
+                "date": "2025-11-03",
+                "state": "North Dakota",
+                "county": "Lamoure",
+                "birds": 0
+              },
+              {
+                "date": "2025-11-03",
+                "state": "South Dakota",
+                "county": "Mcpherson",
+                "birds": 100000
+              },
+              {
+                "date": "2025-11-04",
+                "state": "Michigan",
+                "county": "Ottawa",
+                "birds": 100000
+              },
+              {
+                "date": "2025-11-06",
+                "state": "Michigan",
+                "county": "Ottawa",
+                "birds": 100000
+              },
+              {
+                "date": "2025-11-10",
+                "state": "Michigan",
+                "county": "Allegan",
+                "birds": 0
+              },
+              {
+                "date": "2025-11-12",
+                "state": "Michigan",
+                "county": "Ottawa",
+                "birds": 0
+              },
+              {
+                "date": "2025-11-12",
+                "state": "Michigan",
+                "county": "Ottawa",
+                "birds": 100000
+              },
+              {
+                "date": "2025-11-12",
+                "state": "Michigan",
+                "county": "Ottawa",
+                "birds": 0
+              },
+              {
+                "date": "2025-11-18",
+                "state": "North Carolina",
+                "county": "Wayne",
+                "birds": 0
+              },
+              {
+                "date": "2025-11-19",
+                "state": "South Dakota",
+                "county": "Edmunds",
+                "birds": 0
+              },
+              {
+                "date": "2025-11-21",
+                "state": "North Carolina",
+                "county": "Wayne",
+                "birds": 0
+              },
+              {
+                "date": "2025-11-24",
+                "state": "South Dakota",
+                "county": "Edmunds",
+                "birds": 0
+              },
+              {
+                "date": "2025-11-26",
+                "state": "North Carolina",
+                "county": "Wayne",
+                "birds": 0
+              },
+              {
+                "date": "2025-11-26",
+                "state": "North Carolina",
+                "county": "Wayne",
+                "birds": 0
+              },
+              {
+                "date": "2025-12-03",
+                "state": "Iowa",
+                "county": "Hamilton",
+                "birds": 0
+              },
+              {
+                "date": "2025-12-04",
+                "state": "North Carolina",
+                "county": "Wayne",
+                "birds": 0
+              },
+              {
+                "date": "2025-12-05",
+                "state": "South Dakota",
+                "county": "Kingsbury",
+                "birds": 0
+              },
+              {
+                "date": "2025-12-09",
+                "state": "Minnesota",
+                "county": "Waseca",
+                "birds": 0
+              },
+              {
+                "date": "2025-12-09",
+                "state": "North Dakota",
+                "county": "Richland",
+                "birds": 0
+              },
+              {
+                "date": "2025-12-18",
+                "state": "South Dakota",
+                "county": "Edmunds",
+                "birds": 0
+              },
+              {
+                "date": "2026-01-02",
+                "state": "North Carolina",
+                "county": "Sampson",
+                "birds": 0
+              },
+              {
+                "date": "2026-01-07",
+                "state": "North Carolina",
+                "county": "Sampson",
+                "birds": 0
+              },
+              {
+                "date": "2026-01-12",
+                "state": "Minnesota",
+                "county": "Meeker",
+                "birds": 0
+              },
+              {
+                "date": "2026-01-15",
+                "state": "Minnesota",
+                "county": "Meeker",
+                "birds": 100000
+              },
+              {
+                "date": "2026-01-15",
+                "state": "Minnesota",
+                "county": "Stearns",
+                "birds": 0
+              },
+              {
+                "date": "2026-01-16",
+                "state": "Minnesota",
+                "county": "Meeker",
+                "birds": 300000
+              },
+              {
+                "date": "2026-02-03",
+                "state": "South Dakota",
+                "county": "Charles Mix",
+                "birds": 100000
+              },
+              {
+                "date": "2026-02-10",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 0
+              },
+              {
+                "date": "2026-02-17",
+                "state": "Indiana",
+                "county": "Sullivan",
+                "birds": 0
+              },
+              {
+                "date": "2026-02-18",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 0
+              },
+              {
+                "date": "2026-02-18",
+                "state": "Pennsylvania",
+                "county": "Lancaster",
+                "birds": 0
+              },
+              {
+                "date": "2026-02-18",
+                "state": "South Dakota",
+                "county": "Charles Mix",
+                "birds": 100000
+              },
+              {
+                "date": "2026-02-19",
+                "state": "Indiana",
+                "county": "Boone",
+                "birds": 0
+              },
+              {
+                "date": "2026-02-23",
+                "state": "South Carolina",
+                "county": "Lee",
+                "birds": 0
+              },
+              {
+                "date": "2026-02-24",
+                "state": "South Dakota",
+                "county": "Beadle",
+                "birds": 100000
+              },
+              {
+                "date": "2026-02-25",
+                "state": "Indiana",
+                "county": "Daviess",
+                "birds": 0
+              },
+              {
+                "date": "2026-03-03",
+                "state": "Illinois",
+                "county": "Crawford",
+                "birds": 0
+              },
+              {
+                "date": "2026-03-05",
+                "state": "Illinois",
+                "county": "Lawrence",
+                "birds": 100000
+              },
+              {
+                "date": "2026-03-06",
+                "state": "Illinois",
+                "county": "Lawrence",
+                "birds": 0
+              },
+              {
+                "date": "2026-03-10",
+                "state": "Indiana",
+                "county": "Jay",
+                "birds": 0
+              },
+              {
+                "date": "2026-03-12",
+                "state": "Michigan",
+                "county": "Kent",
+                "birds": 0
+              },
+              {
+                "date": "2026-03-13",
+                "state": "Michigan",
+                "county": "Kent",
+                "birds": 100000
+              },
+              {
+                "date": "2026-03-31",
+                "state": "South Dakota",
+                "county": "Edmunds",
+                "birds": 0
+              },
+              {
+                "date": "2026-04-01",
+                "state": "South Dakota",
+                "county": "Mcpherson",
+                "birds": 0
+              },
+              {
+                "date": "2026-04-08",
+                "state": "South Dakota",
+                "county": "Hutchinson",
+                "birds": 100000
+              },
+              {
+                "date": "2026-04-13",
+                "state": "South Dakota",
+                "county": "Edmunds",
+                "birds": 0
+              },
+              {
+                "date": "2026-04-14",
+                "state": "South Dakota",
+                "county": "Charles Mix",
+                "birds": 0
+              },
+              {
+                "date": "2026-04-17",
+                "state": "Minnesota",
+                "county": "Big Stone",
+                "birds": 100000
+              },
+              {
+                "date": "2026-04-21",
+                "state": "North Dakota",
+                "county": "Lamoure",
+                "birds": 0
+              },
+              {
+                "date": "2026-04-21",
+                "state": "South Dakota",
+                "county": "Edmunds",
+                "birds": 0
+              },
+              {
+                "date": "2026-05-15",
+                "state": "Minnesota",
+                "county": "Becker",
+                "birds": 0
+              },
+              {
+                "date": "2026-08-12",
+                "state": "South Dakota",
+                "county": "Beadle",
+                "birds": 100000
+              },
+              {
+                "date": "2026-08-27",
+                "state": "South Dakota",
+                "county": "Hamlin",
+                "birds": 0
+              },
+              {
+                "date": "2026-09-01",
+                "state": "Minnesota",
+                "county": "Wright",
+                "birds": 0
+              }
+            ]
+          }
+        }
+      }
+    ],
     "series": {
       "aphis-flocks": {
         "months": [
@@ -19,10 +972,9 @@
       }
     },
     "source": {
-      "feed": "USDA APHIS (dashboard monthly sheet)",
+      "feed": "USDA APHIS confirmed detections (dashboard export through 2026-09-03)",
       "url": "https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks",
-      "kind": "live",
-      "note": "birds-affected column not exposed by the public sheet; per-detection archive needed for a threat"
+      "kind": "archive"
     }
   }
 }

@@ -151,7 +151,9 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFa
     }
     // if the style never loads while the tab is visible, hand over to the SVG map
     const loadWatch = setTimeout(() => { if (!ready.current && document.visibilityState === 'visible') onFailRef.current?.('the map engine did not start in time'); }, 20000);
-    map.once('load', () => clearTimeout(loadWatch));
+    const tryAdd = () => { if (!ready.current && map.isStyleLoaded()) { addLayers(map); map.resize(); clearTimeout(loadWatch); } };
+    map.on('styledata', tryAdd);
+    setTimeout(tryAdd, 300);
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
     mapRef.current = map;
     if (import.meta.env.DEV) (window as unknown as { __surgeMap?: maplibregl.Map }).__surgeMap = map;

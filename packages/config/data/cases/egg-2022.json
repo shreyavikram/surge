@@ -21,14 +21,14 @@
      "relevance": 1
     }
    ],
-   "severity": 0.13354,
+   "severity": 0.13262,
    "physical": {
     "kind": "animals_affected",
-    "value": 43400000,
+    "value": 43100000,
     "timeline": [
      {
       "month": 1,
-      "value": 2500000
+      "value": 1000000
      },
      {
       "month": 2,
@@ -36,40 +36,40 @@
      },
      {
       "month": 3,
-      "value": 10700000
+      "value": 10600000
      },
      {
       "month": 4,
-      "value": 300000
+      "value": 200000
      },
      {
       "month": 5,
-      "value": 300000
+      "value": 1900000
      },
      {
       "month": 8,
-      "value": 1000000
+      "value": 4900000
      },
      {
       "month": 9,
-      "value": 3200000
+      "value": 1100000
      },
      {
       "month": 10,
-      "value": 3400000
+      "value": 2700000
      },
      {
       "month": 11,
-      "value": 5000000
+      "value": 3800000
      }
     ]
    },
    "start": "2022-01",
    "months": 24,
    "source": {
-    "feed": "APHIS confirmations via WATTPoultry monthly summary and ERS April 2022 outlook (Plan 2 replaces with archive sums)",
+    "feed": "USDA APHIS confirmed detections, dashboard export (Commercial Table Egg Layer, by month of confirmation; birds rounded to 0.1M by the export)",
     "kind": "archive",
-    "note": "severity = 43.4M layers depopulated \u00f7 325M table-egg layers"
+    "note": "severity = 43.1M layers depopulated \u00f7 325M table-egg layers"
    }
   }
  ],
