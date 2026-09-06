@@ -7,7 +7,6 @@ import { Watchlist } from './components/Watchlist.js';
 import { MapView } from './components/MapView.js';
 import { Drawer } from './components/Drawer.js';
 import { Compare } from './components/Compare.js';
-import { Describe } from './components/Describe.js';
 import { Settings } from './components/Settings.js';
 import { ErrorBoundary } from './components/ErrorBoundary.js';
 import { MapFallback } from './components/MapFallback.js';
@@ -112,14 +111,9 @@ export function App() {
     <div className="app">
       <TopBar tabs={tabs} activeTab={activeTab} onSelectTab={(id) => { setActiveTab(id); setSelectedId(null); setDrawerOpen(false); }} onNewTab={newTab} onRenameTab={rename} onCloseTab={closeTab}
         feedStatus={feedStatus} onCompare={() => setShowCompare(true)} theme={theme} toggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))} />
-      {editable && (
-        <div className="scenario-bar">
-          <Describe ctx={ctx} onAdd={onAdd} />
-        </div>
-      )}
       <div className="body">
         {wlOpen ? (
-          <Watchlist entries={visible} others={others} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} readIds={readIds} onCollapse={() => setWlOpen(false)} scenario={editable} />
+          <Watchlist entries={visible} others={others} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} readIds={readIds} onCollapse={() => setWlOpen(false)} scenario={editable} onAdd={editable ? onAdd : undefined} />
         ) : (
           <button className="edge-toggle left" onClick={() => setWlOpen(true)} title="Show watchlist and filters"><span className="chev">›</span><span className="edge-lbl">Watchlist</span></button>
         )}

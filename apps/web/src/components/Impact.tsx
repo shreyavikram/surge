@@ -68,7 +68,13 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
               const nextMonth = (ym: string, k: number) => { const [y, m] = ym.split('-').map(Number); const t = (y! * 12 + (m! - 1)) + k; return `${Math.floor(t / 12)}-${String((t % 12) + 1).padStart(2, '0')}`; };
               const lastMonth = impact.months[impact.months.length - 1] ?? '2026-01';
               const chartMonths = [...impact.months, ...Array.from({ length: tail }, (_, k) => nextMonth(lastMonth, k + 1))];
-              const pctSeries = [...pi, ...new Array<number>(tail).fill(0)];
+              const pctSeriesAll = [...pi, ...new Array<number>(tail).fill(0)];
+              // a live threat's chart stops at the current month: what has happened, not a projection
+              const nowYm = new Date().toISOString().slice(0, 7);
+              const toDate = entry.origin !== 'user';
+              const cut = toDate ? Math.max(1, chartMonths.filter((m) => m <= nowYm).length) : chartMonths.length;
+              const shownMonths = chartMonths.slice(0, cut);
+              const pctSeries = pctSeriesAll.slice(0, cut);
               const isOpen = open === r.id;
               return (
                 <Fragment key={r.id}>
@@ -81,11 +87,11 @@ export function Impact({ entry, ctx, focus }: { entry: RankedEntry; ctx: EngineC
                   {isOpen && (
                     <tr className="chart-row">
                       <td colSpan={4}>
-                        <div className="chart-title">{observed && obs ? `Store price, ${r.name}` : `Store price change from normal, ${r.name}`} <span className="faint">{observed && obs ? `USD per ${c?.unit ?? 'unit'} · actual (FRED) vs. what it would have been` : `normal price $${base.toFixed(2)} per ${c?.unit ?? 'unit'} · modeled from the shock start; prices return to normal only after the shock ends and supply recovers`}</span></div>
+                        <div className="chart-title">{observed && obs ? `Store price, ${r.name}` : `Store price change from normal, ${r.name}${toDate ? ' · to date' : ''}`} <span className="faint">{observed && obs ? `USD per ${c?.unit ?? 'unit'} · actual (FRED) vs. what it would have been` : `normal price $${base.toFixed(2)} per ${c?.unit ?? 'unit'} · modeled from the shock start; prices return to normal only after the shock ends and supply recovers`}</span></div>
                         {observed && obs ? (
                           <LineChart months={obs.months} series={[{ label: 'observed', values: obs.retailPrice, color: 'var(--bad)' }, { label: 'counterfactual', values: obs.counterfactualPrice, color: 'var(--text-faint)', dashed: true }]} yFormat={(y) => `$${y.toFixed(2)}`} />
                         ) : (
-                          <LineChart months={chartMonths} series={[{ label: 'modeled', values: pctSeries, color: 'var(--bad)' }]} baseline={{ value: 0, label: 'normal price' }} yFormat={(y) => `${y > 0 ? '+' : ''}${(y * 100).toFixed(Math.abs(y) < 0.02 ? 1 : 0)}%`} yMin={0} now={new Date().toISOString().slice(0, 7)} endIndex={pi.length} />
+                          <LineChart months={shownMonths} series={[{ label: 'modeled', values: pctSeries, color: 'var(--bad)' }]} baseline={{ value: 0, label: 'normal price' }} yFormat={(y) => `${y > 0 ? '+' : ''}${(y * 100).toFixed(Math.abs(y) < 0.02 ? 1 : 0)}%`} yMin={0} now={nowYm} endIndex={pi.length < shownMonths.length ? pi.length : undefined} />
                         )}
                       </td>
                     </tr>

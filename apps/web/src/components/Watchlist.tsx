@@ -5,6 +5,8 @@ import type { Focus } from '../state.js';
 import { compactUsd } from '../format.js';
 import { Filters } from './Filters.js';
 import { PriceStress } from './PriceStress.js';
+import { AddThreat } from './AddThreat.js';
+import type { Threat } from '../engine.js';
 import { Info } from './Info.js';
 
 interface Props {
@@ -19,6 +21,7 @@ interface Props {
   readIds: Set<string>;
   onCollapse: () => void;
   scenario: boolean;                // scenario tab: this scenario's threats first, live threats collapsed
+  onAdd?: (t: Threat) => void;      // scenario tab: add a hypothetical threat
 }
 
 function Row({ e, v, selected, unread, ctx, onSelect }: { e: RankedEntry; v: ReturnType<typeof focusView>; selected: boolean; unread: boolean; ctx: EngineContext; onSelect: (id: string) => void }) {
@@ -35,7 +38,7 @@ function Row({ e, v, selected, unread, ctx, onSelect }: { e: RankedEntry; v: Ret
   );
 }
 
-export function Watchlist({ entries, others, selectedId, onSelect, ctx, focus, setFocus, commodities, setCommodities, families, setFamilies, readIds, onCollapse, scenario }: Props) {
+export function Watchlist({ entries, others, selectedId, onSelect, ctx, focus, setFocus, commodities, setCommodities, families, setFamilies, readIds, onCollapse, scenario, onAdd }: Props) {
   const [q, setQ] = useState('');
   const [showOthers, setShowOthers] = useState(false);
   const [showLive, setShowLive] = useState(false);
@@ -55,6 +58,7 @@ export function Watchlist({ entries, others, selectedId, onSelect, ctx, focus, s
         </div>
         <button className="collapse" onClick={onCollapse} title="Collapse watchlist">◀</button>
       </div>
+      {scenario && onAdd && <AddThreat ctx={ctx} onAdd={onAdd} />}
       <Filters ctx={ctx} focus={focus} setFocus={setFocus} commodities={commodities} setCommodities={setCommodities} families={families} setFamilies={setFamilies} />
       {!scenario && <PriceStress ctx={ctx} commodities={commodities} setCommodities={setCommodities} />}
       <div className="wl-cols">
