@@ -8,7 +8,8 @@ import { httpText } from './http.js';
  * deterministic interpreter. Confidence = interpreter confidence × 0.8 (a headline is not a series).
  * GDELT allows one request every 5 seconds; this adapter makes one and caches for an hour.
  */
-const QUERY = '("export ban" OR "bird flu" OR "avian influenza" OR drought OR tariff OR embargo OR "port closure" OR strait OR "swine fever" OR wildfire OR flood OR recall) (wheat OR rice OR eggs OR corn OR fertilizer OR beef OR pork OR poultry OR dairy OR tomatoes OR coffee OR bananas OR sugar OR "infant formula")';
+// GDELT rejects long queries; keep this compact and let the interpreter do the classification.
+const QUERY = '("export ban" OR "bird flu" OR drought OR tariff OR embargo OR blockade OR wildfire OR flood) (wheat OR rice OR eggs OR corn OR fertilizer OR beef OR dairy OR coffee OR tomatoes)';
 export interface GdeltArticle { url: string; title: string; seendate: string; sourcecountry?: string; domain?: string }
 
 export const gdelt: FeedAdapter = {

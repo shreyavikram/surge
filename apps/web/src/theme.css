@@ -335,3 +335,4 @@ details.assumptions .assump { margin-top: 6px; }
 .dd-group { margin-bottom: 6px; }
 .dd-gh { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); margin: 6px 0 2px; }
 .dd-all { font-weight: 600; border-bottom: 1px solid var(--border-solid); margin-bottom: 4px; padding-bottom: 5px !important; }
+.basemap-loading { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--text-faint); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; pointer-events: none; }

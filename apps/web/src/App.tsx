@@ -9,8 +9,9 @@ import { Drawer } from './components/Drawer.js';
 import { Compare } from './components/Compare.js';
 import { Describe } from './components/Describe.js';
 import { Settings } from './components/Settings.js';
+import { ErrorBoundary } from './components/ErrorBoundary.js';
 
-interface Health { rows?: { id: string; kind: string; stale?: boolean; ok?: boolean }[] }
+interface Health { feeds?: { id: string; kind: string; status: string; stale?: boolean }[] }
 
 export function App() {
   const ctx = useMemo(() => getContext(), []);
@@ -42,14 +43,16 @@ export function App() {
       try {
         const r = await fetch('/api/threats');
         if (!r.ok) return;
-        const d = (await r.json()) as { threats: Threat[] };
-        if (on && d.threats?.length) setLive(d.threats);
+        const d = (await r.json()) as { threats: ({ threat: Threat } | Threat)[] };
+        // the server returns ranked wrappers; accept bare threats too, and drop anything malformed
+        const list = (d.threats ?? []).map((x) => ('threat' in x ? x.threat : x)).filter((t) => t && typeof t.id === 'string' && t.location && Array.isArray(t.commodities));
+        if (on && list.length) setLive(list);
         const h = await fetch('/api/health');
         if (h.ok && on) {
           const hj = (await h.json()) as Health;
-          const rows = hj.rows ?? [];
-          const liveN = rows.filter((x) => x.kind === 'live' && !x.stale).length;
-          const stale = rows.filter((x) => x.stale).length;
+          const rows = hj.feeds ?? [];
+          const liveN = rows.filter((x) => x.status === 'live').length;
+          const stale = rows.filter((x) => x.status !== 'live').length;
           setFeedStatus(`${liveN} live feeds${stale ? ` · ${stale} on snapshot` : ''} · 2 replays`);
         }
       } catch { /* offline */ }
@@ -99,9 +102,9 @@ export function App() {
         ) : (
           <button className="edge-toggle left" onClick={() => setWlOpen(true)} title="Show watchlist and filters"><span className="chev">›</span><span className="edge-lbl">Watchlist</span></button>
         )}
-        <MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} />
+        <ErrorBoundary label="Map"><MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} /></ErrorBoundary>
         {drawerOpen && selectedEntry ? (
-          <Drawer entry={selectedEntry} ctx={ctx} focus={focus} tab={tab} editable={editable} onDial={onDial} onRemove={onRemove} onCollapse={() => setDrawerOpen(false)} />
+          <ErrorBoundary label="Analysis"><Drawer entry={selectedEntry} ctx={ctx} focus={focus} tab={tab} editable={editable} onDial={onDial} onRemove={onRemove} onCollapse={() => setDrawerOpen(false)} /></ErrorBoundary>
         ) : selectedEntry ? (
           <button className="edge-toggle right" onClick={() => setDrawerOpen(true)} title="Show analysis"><span className="chev">‹</span><span className="edge-lbl">Analysis</span></button>
         ) : null}

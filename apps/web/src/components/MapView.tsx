@@ -66,7 +66,8 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
     const areas = focusAreas(fo, ctx);
     const area = areas.length > 0 ? areas[0] : undefined; // "focused" flag
     const ownStates = new Set(areas.map((a) => a.state));
-    const all = entriesRef.current.map((e) => e.threat);
+    // historical replays are cases to study, not current instability: they never color the map
+    const all = entriesRef.current.filter((e) => e.origin !== 'replay').map((e) => e.threat);
     const threats = areas.length > 0 && ctx.focus ? all.filter((t) => areas.some((a) => threatAffectsArea(t, a, ctx.focus!))) : all;
     const ch = countryHeat(threats, ctx);
     const sh = stateHeat(threats, ctx);
@@ -88,7 +89,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
     const cps: GeoJSON.Feature[] = [];
     for (const [rid, r] of Object.entries(ctx.regions)) {
       if (!r.chokepointImportShare || Object.keys(r.chokepointImportShare).length === 0) continue;
-      const here = entriesRef.current.filter((e) => e.threat.location.regionId === rid && threats.includes(e.threat));
+      const here = entriesRef.current.filter((e) => e.origin !== 'replay' && e.threat.location.regionId === rid && threats.includes(e.threat));
       const active = here.filter((e) => e.threat.status !== 'breaking');
       const status: AreaHeat['status'] = active.length > 0 ? 'unstable' : here.length > 0 ? 'anticipated' : 'stable';
       const sev = Math.max(0, ...here.map((e) => e.threat.severity * (e.threat.status === 'breaking' ? (e.threat.confidence ?? 0.5) : 1)));
@@ -123,10 +124,12 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
     const map = new maplibregl.Map({ container: container.current, style: STYLE[theme], center: [-30, 28], zoom: 1.6, attributionControl: { compact: true } });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
     mapRef.current = map;
+    if (import.meta.env.DEV) (window as unknown as { __surgeMap?: maplibregl.Map }).__surgeMap = map;
     const ro = new ResizeObserver(() => map.resize());
     ro.observe(container.current);
     void Promise.all([loadGeo('countries'), loadGeo('states')]).then(([countries, states]) => { geos.current = { countries, states }; if (ready.current) paint(map); });
     map.on('load', () => { map.resize(); addLayers(map); });
+    map.once('idle', () => { container.current?.parentElement?.querySelector('.basemap-loading')?.remove(); });
     map.on('style.load', () => { ready.current = false; addLayers(map); });
     const pop = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 8, className: 'heat-pop' });
     popup.current = pop;
@@ -216,6 +219,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
   return (
     <div className="map-wrap">
       <div ref={container} style={{ position: 'absolute', inset: 0 }} />
+      <div className="basemap-loading">loading basemap…</div>
       {sel && v && <div className="map-badge">{sel.threat.name} · {compactUsd(v.cv)}</div>}
       <HeatLegend focused={focus.kind !== 'us' && focus.ids.length > 0} />
     </div>

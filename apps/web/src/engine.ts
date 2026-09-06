@@ -94,13 +94,17 @@ export interface RankedEntry extends ThreatEntry {
 
 /** Every entry run alone, ranked by national consumer welfare loss. */
 export function rankEntries(entries: ThreatEntry[], ctx: EngineContext): RankedEntry[] {
-  return entries
-    .map((entry) => {
+  const out: RankedEntry[] = [];
+  for (const entry of entries) {
+    try {
       const { impact, mitigation } = runEntry(entry, ctx);
       const worst = Object.entries(impact.welfare.byCommodity).sort((a, b) => b[1] - a[1])[0]?.[0] ?? '';
-      return { ...entry, cv: impact.welfare.cv, cvAnnual: impact.welfare.cvAnnual, worstCommodity: worst, durationMonths: impact.durationMonths, impact, mitigation };
-    })
-    .sort((a, b) => b.cv - a.cv);
+      out.push({ ...entry, cv: impact.welfare.cv, cvAnnual: impact.welfare.cvAnnual, worstCommodity: worst, durationMonths: impact.durationMonths, impact, mitigation });
+    } catch (e) {
+      console.warn('[SURGE] skipping threat that failed to run', entry.threat.id, e);
+    }
+  }
+  return out.sort((a, b) => b.cv - a.cv);
 }
 
 /** Areas in focus (empty for the whole country). */

@@ -3,9 +3,9 @@ import type { AreaHeat } from '@surge/engine';
 export const NEUTRAL = '#8a94a6';
 
 export const HEAT_RAMP: Record<AreaHeat['status'], [string, string]> = {
-  stable: ['#d7ecdf', '#0d5a37'],
-  anticipated: ['#fff1b8', '#a37a00'],
-  unstable: ['#ffd4d4', '#7a0000'],
+  stable: ['#bfe0cc', '#0b4f30'],
+  anticipated: ['#ffe9a3', '#9a6f00'],
+  unstable: ['#ffb3b3', '#6f0000'],
 };
 
 function hex(c: string): [number, number, number] { return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)]; }
