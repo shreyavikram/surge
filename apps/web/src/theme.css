@@ -347,3 +347,6 @@ details.assumptions .assump { margin-top: 6px; }
 .qbar-track { background: var(--panel-3); border-radius: 4px; height: 20px; overflow: hidden; }
 .qbar-fill { display: flex; align-items: center; justify-content: flex-end; height: 100%; background: var(--bad); border-radius: 4px; padding-right: 6px; min-width: 56px; }
 .qbar-val { color: #fff; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+.map-wrap.fallback { background: var(--bg); }
+.worldmap path { transition: fill-opacity 0.1s; }
+.map-hover { position: absolute; left: 12px; top: 12px; z-index: 5; background: var(--panel); border: 1px solid var(--border-solid); border-radius: 7px; padding: 6px 10px; font-size: 12px; box-shadow: var(--shadow); max-width: 60%; }

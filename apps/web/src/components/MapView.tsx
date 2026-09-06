@@ -37,6 +37,7 @@ interface Props {
   theme: 'dark' | 'light';
   ctx: EngineContext;
   focus: Focus;
+  onFail?: (why: string) => void;
 }
 
 type FC = GeoJSON.FeatureCollection;
@@ -57,7 +58,9 @@ function circle(lng: number, lat: number, km: number): GeoJSON.Polygon {
 
 const STATUS_LABEL: Record<AreaHeat['status'], string> = { stable: 'stable', anticipated: 'anticipated instability', unstable: 'unstable' };
 
-export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Props) {
+export function MapView({ entries, selectedId, onSelect, theme, ctx, focus, onFail }: Props) {
+  const onFailRef = useRef(onFail);
+  onFailRef.current = onFail;
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const onSelectRef = useRef(onSelect);
@@ -139,7 +142,16 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
 
   useEffect(() => {
     if (!container.current) return;
-    const map = new maplibregl.Map({ container: container.current, style: rasterStyle(theme), center: [-30, 28], zoom: 1.6, attributionControl: { compact: true } });
+    let map: maplibregl.Map;
+    try {
+      map = new maplibregl.Map({ container: container.current, style: rasterStyle(theme), center: [-30, 28], zoom: 1.6, attributionControl: { compact: true } });
+    } catch (e) {
+      onFailRef.current?.(`the map engine could not start (${(e as Error).message.slice(0, 60)})`);
+      return;
+    }
+    // if the style never loads while the tab is visible, hand over to the SVG map
+    const loadWatch = setTimeout(() => { if (!ready.current && document.visibilityState === 'visible') onFailRef.current?.('the map engine did not start in time'); }, 20000);
+    map.once('load', () => clearTimeout(loadWatch));
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
     mapRef.current = map;
     if (import.meta.env.DEV) (window as unknown as { __surgeMap?: maplibregl.Map }).__surgeMap = map;
@@ -171,7 +183,7 @@ export function MapView({ entries, selectedId, onSelect, theme, ctx, focus }: Pr
         if (top) onSelectRef.current(top);
       });
     }
-    return () => { ro.disconnect(); pop.remove(); map.remove(); mapRef.current = null; };
+    return () => { clearTimeout(loadWatch); ro.disconnect(); pop.remove(); map.remove(); mapRef.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

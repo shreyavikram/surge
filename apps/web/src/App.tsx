@@ -10,6 +10,8 @@ import { Compare } from './components/Compare.js';
 import { Describe } from './components/Describe.js';
 import { Settings } from './components/Settings.js';
 import { ErrorBoundary } from './components/ErrorBoundary.js';
+import { MapFallback } from './components/MapFallback.js';
+import { webglAvailable } from './webgl.js';
 
 interface Health { feeds?: { id: string; kind: string; status: string; stale?: boolean }[] }
 
@@ -29,6 +31,8 @@ export function App() {
   const [showCompare, setShowCompare] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [live, setLive] = useState<Threat[] | undefined>(undefined);
+  const [mapMode, setMapMode] = useState<'webgl' | 'svg'>(() => (webglAvailable() ? 'webgl' : 'svg'));
+  const [fallbackReason, setFallbackReason] = useState('WebGL is not available in this browser');
   const [feedStatus, setFeedStatus] = useState('seeds · 2 replays');
 
   useEffect(() => {
@@ -107,7 +111,13 @@ export function App() {
         ) : (
           <button className="edge-toggle left" onClick={() => setWlOpen(true)} title="Show watchlist and filters"><span className="chev">›</span><span className="edge-lbl">Watchlist</span></button>
         )}
-        <ErrorBoundary label="Map"><MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} /></ErrorBoundary>
+        {mapMode === 'webgl' ? (
+          <ErrorBoundary label="Map" onError={(e) => { setFallbackReason(e.message.slice(0, 80)); setMapMode('svg'); }}>
+            <MapView entries={visible} selectedId={selectedId} onSelect={select} theme={theme} ctx={ctx} focus={focus} onFail={(why) => { setFallbackReason(why); setMapMode('svg'); }} />
+          </ErrorBoundary>
+        ) : (
+          <MapFallback entries={visible} selectedId={selectedId} onSelect={select} ctx={ctx} focus={focus} reason={fallbackReason} />
+        )}
         {drawerOpen && selectedEntry ? (
           <ErrorBoundary label="Analysis"><Drawer entry={selectedEntry} ctx={ctx} focus={focus} tab={tab} editable={editable} onDial={onDial} onRemove={onRemove} onCollapse={() => setDrawerOpen(false)} /></ErrorBoundary>
         ) : selectedEntry ? (

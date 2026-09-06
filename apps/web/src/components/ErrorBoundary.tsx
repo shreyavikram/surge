@@ -3,10 +3,10 @@ import { Component, type ReactNode } from 'react';
 interface State { error: Error | null }
 
 /** Keeps a failure in one panel from blanking the whole app. */
-export class ErrorBoundary extends Component<{ children: ReactNode; label: string }, State> {
+export class ErrorBoundary extends Component<{ children: ReactNode; label: string; onError?: (e: Error) => void }, State> {
   override state: State = { error: null };
   static getDerivedStateFromError(error: Error): State { return { error }; }
-  override componentDidCatch(error: Error) { console.error(`[SURGE] ${this.props.label} failed`, error); }
+  override componentDidCatch(error: Error) { console.error(`[SURGE] ${this.props.label} failed`, error); this.props.onError?.(error); }
   override render() {
     if (this.state.error) {
       return (
