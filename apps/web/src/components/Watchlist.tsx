@@ -28,7 +28,7 @@ function Row({ e, v, selected, unread, ctx, onSelect }: { e: RankedEntry; v: Ret
       <span className={`wl-cat ${t.status === 'breaking' ? 'breaking' : ''}`} style={{ background: categoryColor(t.category), marginTop: 4 }} />
       <div className="wl-main">
         <div className="wl-name">{t.name}{unread && <span className="unread" title="Not yet opened" />}</div>
-        <div className="wl-meta">{CATEGORY_LABEL[t.category]} · {t.location.admin ?? t.location.regionId} · {e.durationMonths} mo</div>
+        <div className="wl-meta">{CATEGORY_LABEL[t.category]} · {t.location.admin ?? t.location.regionId} · {t.status === 'breaking' ? 'duration not known' : `${e.durationMonths} mo`}</div>
       </div>
       <div className="wl-loss">{compactUsd(v.cv)}<small>{e.worstCommodity ? `mostly ${commodityName(ctx, e.worstCommodity).toLowerCase()}` : '—'}</small></div>
     </div>

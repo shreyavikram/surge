@@ -1,5 +1,5 @@
 import { loadContext } from '@surge/config';
-import type { EngineContext, ThreatCategory } from '@surge/engine';
+import type { EngineContext } from '@surge/engine';
 import { interpretScenario, parseSeverity, validateCandidate, type ThreatCandidate, type ThreatCategory } from '@surge/engine';
 import type { FeedAdapter, FeedResult, FeedItem } from './types.js';
 import { httpText } from './http.js';

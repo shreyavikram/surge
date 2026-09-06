@@ -42,7 +42,7 @@ export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onC
           <span className="inl"><span className="dot" style={{ background: categoryColor(t.category) }} /> {CATEGORY_LABEL[t.category]}</span>
           <span>· {t.location.admin ?? t.location.regionId}</span>
           <span>· {isTariff ? 'rate' : 'severity'} {pct(t.severity, 0)}<Info term="severity" /></span>
-          <span>· {entry.durationMonths} mo<Info term="duration" /></span>
+          <span>· {t.status === 'breaking' ? 'duration not known' : `${entry.durationMonths} mo`}<Info term="duration" /></span>
           {t.status === 'breaking' && <Chip kind="seed" title="Possible disruption, not yet in any series">possible<Info term="breaking" /></Chip>}
           {originChip}
         </div>
@@ -53,7 +53,7 @@ export function Drawer({ entry, ctx, focus, tab, editable, onDial, onRemove, onC
               <input type="range" min={0} max={1} step={0.01} value={t.severity} onChange={(e) => onDial(t.id, { severity: Number(e.target.value) })} />
             </label>
             <label>
-              <span>Duration, months</span>
+              <span>{t.status === 'breaking' ? 'Assumed duration, months (not known; the default for this kind of threat)' : 'Duration, months'}</span>
               <input className="num" type="number" min={1} step={1} value={t.months ?? entry.durationMonths} onChange={(e) => { const n = Math.max(1, Math.round(Number(e.target.value) || 1)); onDial(t.id, { months: n }); }} />
             </label>
             <div className="dial-actions">
